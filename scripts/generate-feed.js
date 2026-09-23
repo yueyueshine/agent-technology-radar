@@ -56,7 +56,7 @@ const FETCH_TARGET_BY_CHANNEL = { podcast: "podcasts", blog: "blogs", x: "x_acco
 // Channels whose fetcher lives in scripts/fetch-channels.js (Phase 2A) instead.
 // An active entry on one of these is handled there, so it must not be funnelled
 // into the three groups above — and must not trip the "no fetcher" guard.
-const CHANNELS_FETCHED_ELSEWHERE = new Set(["rss", "github"]);
+const CHANNELS_FETCHED_ELSEWHERE = new Set(["rss", "github", "api"]);
 
 // -- State Management --------------------------------------------------------
 

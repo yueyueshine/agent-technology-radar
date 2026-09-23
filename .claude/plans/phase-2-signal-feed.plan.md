@@ -285,6 +285,59 @@ CI 步骤 `Fetch keyless channels` ✅；`Generate feeds` 如预期因缺 Key �
 
 ---
 
+## 2.8 批次收尾：两个决策已执行 + API 通道完成（2026-09-23）
+
+> 本节由 loop runbook（`.claude/plans/phase-2a-runbook.md`）驱动执行。两个决策按「批量决策」规则**直接定并记录为可回滚**，owner 在阶段边界复核。
+
+### 决策① 已执行：退休 `web:semantic-scholar` ✅
+
+条目已从 registry 移除（69 → 68 条）。理由见 §2.7.2。**`web` 通道归零。**
+
+### 决策② 已执行：`RSS_LOOKBACK_HOURS` 168h → 336h ✅
+
+**效果实测**：rss 产出 **87 → 128 item**（+47%）。原先产出 0 条的 7 个源中，低频高价值源（`cursor-changelog`、`lilian-weng`、`eugene-yan`、`chip-huyen`、`jay-alammar`、`karpathy` 等）现在能进入窗口。
+
+代价：`feed-rss.json` 变大（**不提交**，故无仓库影响）；2B 去重，无重复风险。
+
+### API 通道已实现 ✅
+
+`fetchApiChannel`（AIHOT v1 API）。实测：
+
+| 检查 | 结果 |
+|---|---|
+| items | **50**，0 error |
+| **带 `original_url`** | **50 / 50** —— 结构化 `links.original` 字段 |
+| 字段 | `source_id` / `native_id` / `title` / `url` / `original_url` / `published_at` / `text` |
+
+- `url` = AIHOT 站内阅读页；`original_url` = 一手来源（实测抽到的是 X 原帖）
+- **这正是当初选 `api` 而非 `rss` 的理由**：RSS 把原文 URL 埋在 description 的 HTML 里，API 直接给结构化字段
+- `published_at` 取原文发布时间（另有 `discoveredAt`，2B 可能需要）
+
+**⚠️ AIHOT 仍保持 `active: false`。** fetcher 存在 ≠ 可启用 —— 三重前置的第三条（安全的下游消费/持久化通路）本阶段不满足（§6）。
+
+### Gate 结果（本批次）
+
+| 门 | 结果 |
+|---|---|
+| G1 语法 | ✅ |
+| G2 loader | ✅ `podcasts=6 blogs=2 x_accounts=26`，0 泄漏 |
+| G3 blogs-only 回归 | ✅ |
+| G4 fetch-channels 端到端 | ✅ rss 128 item / github 20 item；**2 个 error 均为本地网络**（`google-ai`、`huggingface-blog`），CI 为准 |
+
+### 2A 终态
+
+| 通道 | active | 状态 |
+|---|---|---|
+| `rss` | 18 | ✅ 实现 + CI 验证 |
+| `github` | 9 | ✅ 实现 + CI 验证 |
+| `api` | 0（1 登记但不可启用） | ✅ fetcher 实现；**受三重前置约束** |
+| `web` | 0 | **已证明不需要** |
+| `blog` / `x` / `podcast` | 2 / 26 / 6 | 既有链路 |
+
+**active 合计 61 / 68。** 批次 1 的 4 个通道全部处置完毕（3 个实现、1 个证否）。
+
+---
+
 ## 3. Phase 2B — Signal Pipeline
 
 ### 3.1 Signal Schema（终稿）

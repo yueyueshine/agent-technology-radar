@@ -68,7 +68,6 @@
     {"id": "hackernews:agent-stories", "name": "Hacker News", "role": "aggregator", "channel": "hackernews", "tier": "discovery", "active": false, "endpoint": "https://hn.algolia.com/api/v1/search?tags=story&numericFilters=points%3E200"},
     {"id": "arxiv:cs-ai-cl-lg", "name": "arXiv (cs.AI / cs.CL / cs.LG)", "role": "aggregator", "channel": "arxiv", "tier": "discovery", "active": false, "endpoint": "http://export.arxiv.org/api/query?search_query=cat:cs.AI+OR+cat:cs.CL+OR+cat:cs.LG&sortBy=submittedDate"},
     {"id": "huggingface:daily-papers", "name": "Hugging Face Daily Papers", "role": "aggregator", "channel": "huggingface", "tier": "discovery", "active": false, "endpoint": "https://huggingface.co/api/daily_papers"},
-    {"id": "web:semantic-scholar", "name": "Semantic Scholar", "role": "aggregator", "channel": "web", "tier": "discovery", "active": false, "url": "https://api.semanticscholar.org/graph/v1/paper/search"},
     {"id": "reddit:localllama", "name": "r/LocalLLaMA", "role": "aggregator", "channel": "reddit", "tier": "discovery", "active": false, "endpoint": "https://www.reddit.com/r/LocalLLaMA/new.json"}
   ]
 }

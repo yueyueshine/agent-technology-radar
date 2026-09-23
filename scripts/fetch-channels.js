@@ -6,8 +6,8 @@
 // Fetches the channels that have no fetcher yet, producing a UNIFORM item
 // shape so the signal pipeline (2B) has only one input shape to understand.
 //
-// Batch 1 channels: rss, github, api, web.
-// Currently implemented: rss.
+// Batch 1 channels: rss, github, api. Implemented: rss, github, api.
+// (web turned out to be unnecessary — see the phase-2 plan §2.7.)
 //
 // Deliberately does NOT deduplicate — dedup is 2B's job, keyed on the signal
 // id. This script only applies a lookback window.
@@ -27,7 +27,11 @@ const REGISTRY_PATH = join(SCRIPT_DIR, "..", "config", "default-sources.json");
 // RSS sources publish at very different rates (some post a few times a year).
 // A short window would leave low-frequency sources permanently silent, so this
 // is deliberately wider than the blog channel's 72h.
-const RSS_LOOKBACK_HOURS = 168; // 7 days
+// Widened from 168h: with a 7-day window, 7 of 18 active rss sources produced
+// nothing, including quarterly-cadence writers (Lilian Weng, Chip Huyen, Eugene
+// Yan, Jay Alammar). 2B deduplicates, so a wider window costs only intermediate
+// file size.
+const RSS_LOOKBACK_HOURS = 336; // 14 days
 
 const GITHUB_LOOKBACK_HOURS = 168; // 7 days
 // Caps how many releases one repo can emit per run. Needed because some repos
@@ -36,6 +40,10 @@ const MAX_RELEASES_PER_REPO = 5;
 // Second line of defence for projects that ship nightlies WITHOUT setting the
 // GitHub `prerelease` flag.
 const PRERELEASE_TAG_RE = /(nightly|preview|snapshot)/i;
+
+// The AIHOT v1 API caps its window at 7d, so this cannot go wider the way the
+// rss window did.
+const API_LOOKBACK_HOURS = 168; // 7 days
 
 // Several feed hosts reject non-browser user agents.
 const USER_AGENT =
@@ -326,12 +334,94 @@ async function fetchGithubChannel(sources, errors) {
   return items;
 }
 
+// -- API channel -------------------------------------------------------------
+
+// Currently wired for the AIHOT v1 API, which returns JSON rather than a feed.
+// The registry holds the bare endpoint; query parameters live here so the
+// polling contract is in one place.
+//
+// `links.original` is exactly why AIHOT is on the api channel and not rss: it
+// exposes the first-party URL as a structured field instead of burying it in
+// description HTML. When it is absent the item keeps `original_url: null`, and
+// 2B marks it secondary rather than pretending it is first-hand.
+const AIHOT_QUERY = "mode=selected&window=7d&limit=50";
+
+async function fetchApiChannel(sources, errors) {
+  const cutoff = new Date(Date.now() - API_LOOKBACK_HOURS * 60 * 60 * 1000);
+  const items = [];
+
+  for (const source of sources) {
+    const { id, name, endpoint } = source;
+    if (!endpoint) {
+      errors.push(`${id}: missing endpoint`);
+      continue;
+    }
+
+    let body;
+    try {
+      const res = await fetch(`${endpoint}?${AIHOT_QUERY}`, {
+        headers: { Accept: "application/json", "User-Agent": USER_AGENT },
+        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      });
+      if (!res.ok) {
+        errors.push(`${id}: HTTP ${res.status} (${name})`);
+        continue;
+      }
+      body = await res.json();
+    } catch (err) {
+      const cause = err?.cause?.code || err?.cause?.message || "";
+      errors.push(
+        `${id}: fetch failed — ${err.message}${cause ? ` (${cause})` : ""} (${name})`,
+      );
+      continue;
+    }
+
+    const list = Array.isArray(body?.items) ? body.items : [];
+    if (list.length === 0) {
+      errors.push(`${id}: API returned 0 items (${name})`);
+      continue;
+    }
+
+    let kept = 0;
+    let withoutOriginal = 0;
+    for (const it of list) {
+      const onSite = it?.links?.aihot || null;
+      const original = it?.links?.original || null;
+      const link = onSite || original;
+      // No id, or no link at all = untraceable. Drop it.
+      if (!it?.id || !link) continue;
+      if (it.publishedAt) {
+        const t = new Date(it.publishedAt);
+        if (!Number.isNaN(t.getTime()) && t < cutoff) continue;
+      }
+      if (!original) withoutOriginal += 1;
+      items.push({
+        source_id: id,
+        native_id: it.id,
+        title: it.title || it.originalTitle || null,
+        url: link,
+        original_url: original,
+        published_at: it.publishedAt || null,
+        text: it.summary || null,
+      });
+      kept += 1;
+    }
+
+    console.error(
+      `  ${id}: ${list.length} items, ${kept} kept` +
+        (withoutOriginal ? `, ${withoutOriginal} without an original link` : ""),
+    );
+  }
+
+  return items;
+}
+
 // -- Channel dispatch --------------------------------------------------------
 
 const CHANNELS = {
   rss: { fetch: fetchRssChannel, lookbackHours: RSS_LOOKBACK_HOURS },
   github: { fetch: fetchGithubChannel, lookbackHours: GITHUB_LOOKBACK_HOURS },
-  // api / web — batch 1, not implemented yet.
+  api: { fetch: fetchApiChannel, lookbackHours: API_LOOKBACK_HOURS },
 };
 
 // -- Main --------------------------------------------------------------------
