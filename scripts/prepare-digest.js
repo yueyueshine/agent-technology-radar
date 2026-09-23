@@ -26,11 +26,16 @@ import { homedir } from 'os';
 const USER_DIR = join(homedir(), '.follow-builders');
 const CONFIG_PATH = join(USER_DIR, 'config.json');
 
+// FEED_X_URL and FEED_PODCASTS_URL still point at the upstream repo on purpose.
+// This fork has no X_BEARER_TOKEN / POD2TXT_API_KEY, so repointing them would
+// serve stale data instead of upstream's daily-updated feed. Remove this
+// temporary upstream dependency in Phase 1/2, once the Source Registry and the
+// own Signal Feed exist.
 const FEED_X_URL = 'https://raw.githubusercontent.com/zarazhangrui/follow-builders/main/feed-x.json';
 const FEED_PODCASTS_URL = 'https://raw.githubusercontent.com/zarazhangrui/follow-builders/main/feed-podcasts.json';
-const FEED_BLOGS_URL = 'https://raw.githubusercontent.com/zarazhangrui/follow-builders/main/feed-blogs.json';
+const FEED_BLOGS_URL = 'https://raw.githubusercontent.com/yueyueshine/agent-technology-radar/main/feed-blogs.json';
 
-const PROMPTS_BASE = 'https://raw.githubusercontent.com/zarazhangrui/follow-builders/main/prompts';
+const PROMPTS_BASE = 'https://raw.githubusercontent.com/yueyueshine/agent-technology-radar/main/prompts';
 const PROMPT_FILES = [
   'summarize-podcast.md',
   'summarize-tweets.md',
