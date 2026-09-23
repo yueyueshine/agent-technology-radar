@@ -118,8 +118,8 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 - **Deliverables**：`.claude/plans/phase-1b-radar-source-set.plan.md`（方案已起草）；v2 扁平 registry 与 schema；带 `role`/`channel`/`tier` 的第一版 Source Set；`loadSources()` 内部吸收扁平化（三个 fetcher 调用点不改）。
 - **Dependencies**：Phase 1A Done（需要 `id` / schema / loader 机制）。
 - **Exit Criteria**：详见 plan §8。核心：role/channel 模型定稿；第一版 Source Set 带完整 `role`/`channel`/`tier` 登记（新渠道源 `active: false`）；`--blogs-only` 无回退；role/channel/tier 取值合法；Eval 相关源未因 owner 背景提权。
-- **Risks & Open Questions**：① **`github` 作为 role 的建模冲突待裁决**（plan §1.3）；② 新渠道**全部无 fetcher**，第一版只有 2 个源今天能抓 —— 交付的是策展结果不是可用摄取；③ 可达性验证受本地网络限制，须在 CI 复核；④ 扁平化触及 `SKILL.md` 展示逻辑。详见 plan §9。
-- **Status**：In Progress（方案已起草，待 owner 确认）
+- **Risks & Open Questions**：① 新渠道**全部无 fetcher**，第一版只有 2 个源今天能抓 —— 交付的是策展结果不是可用摄取；② 可达性验证受本地网络限制，须在 CI 复核；③ 扁平化触及 `SKILL.md` 展示逻辑；④ **AIHOT 的启用被 gate 在 Phase 2**（需 private / internal-only 输出路径），属跨阶段依赖。详见 plan §9。
+- **Status**：In Progress（方案已确认，待实施）
 
 ### Phase 2 — Signal Feed
 

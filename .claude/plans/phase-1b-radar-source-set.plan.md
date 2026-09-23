@@ -19,13 +19,26 @@
 | 步骤 | 状态 | 备注 |
 |---|---|---|
 | Step 0 生成本方案 | ✅ Done | 本文件 |
-| Step 1 定稿 role / channel 模型 | ⬜ Not Started | 见 §1；**含一处待 owner 裁决的建模冲突（§1.3）** |
-| Step 2 定稿选源标准与 tier | ⬜ Not Started | 见 §2 / §3 |
-| Step 3 registry 表达升级（schema v2，扁平化） | ⬜ Not Started | 见 §4 |
+| Step 1 定稿 role / channel 模型 | ✅ Done | 见 §1.3 / §1.4 / §1.5（owner 已确认） |
+| Step 2 定稿选源标准与 tier | ✅ Done | 见 §2 / §3；tier 定义已修订 |
+| Step 3 registry 表达升级（schema v2，扁平化） | ⬜ Not Started | 见 §4；owner 已接受 v2，**loader 须保持三 fetcher 兼容接口** |
 | Step 4 迁移现有 34 条 → v2 并分配 role | ⬜ Not Started | 见 §6 |
 | Step 5 登记第一版 Source Set（新源 `active: false`） | ⬜ Not Started | 见 §5 / §6 |
 | Gate G1-P1B 迁移后现有 3 渠道行为无回退 | ⬜ Not Started | 见 §7 |
 | Gate G2-P1B role / channel 取值合法性 | ⬜ Not Started | 见 §7 |
+
+### 0.1 决策记录（owner 已确认，2026-09-23）
+
+| # | 决定 | 落点 |
+|---|---|---|
+| 1 | **`github` 是 channel，不是 role** | §1.3 |
+| 2 | **role 接受 `community`；第一版枚举冻结为 5 值**，暂不扩建 | §1.4 |
+| 3 | **AIHOT**：`aggregator` / `api` / `Extended` / `active: false`；使用策略 (a) 仅个人自用 | §5.4.2 |
+| 4 | **tier 进 registry**，性质 = 人工 attention classification，**非评分非权重** | §1.5 |
+| 5 | **接受 schema v2 扁平化**，但 **loader 保持三 fetcher 兼容接口**，1B 不重写抓取逻辑 | §4.4 |
+| 6 | **新增 Core 源**：OpenAI Codex / Qwen Code / Cursor Changelog / Google coding-agent / GitHub Copilot Changelog | §5.1 / §5.3 |
+| 7 | **`openai/openai-python` 与 `anthropics/anthropic-sdk-python` 移出** —— 本项目不是通用 LLM SDK Radar | §5.3-C |
+| 8 | **AIHOT 启用 gate 在 Phase 2**（需 private / internal-only 输出路径）；不转私有仓库、不申请商业授权 | §5.4.2 |
 
 ---
 
@@ -74,19 +87,34 @@
 
 > **现有 3 个 channel（x / blog / podcast）是唯一有 fetcher 的**，其余全部需要新代码。这是本阶段最重要的现实约束（§5 每一条都标注了）。
 
-### 1.3 ⚠️ 待裁决：`github` 不能当 role
+### 1.3 已裁决：`github` 是 channel，不是 role
 
-你的 role 示例里同时列了 `github`。但按「role = 为什么值得进入 Radar」这个定义，**`github` 回答不了「为什么」—— 它回答的是「从哪拿」，那是 channel。**
+**裁决（owner 确认）：`github` 归 channel，role 中不出现 `github`。**
 
-同一个 GitHub repo，role 可能是：
-- `anthropics/claude-code` → **official**（厂商官方产物）
-- `langchain-ai/langchain` → **community**（第三方开源项目）
+理由（保留记录，避免未来重提）：role 回答「为什么值得追踪」，`github` 回答「从哪拿」。同一个 GitHub repo，role 可能是 `official`（如 `anthropics/claude-code`）或 `community`（如 `langchain-ai/langchain`）—— 若把 `github` 当 role，这两者无法区分，而这恰是 Radar 最需要区分的。
 
-若把 `github` 当 role，「官方 SDK 仓库」和「社区框架仓库」就没法区分了 —— 而这恰恰是 Radar 最需要区分的。
+### 1.4 role 枚举冻结（第一版）
 
-**我的建议**：role 取值收敛为 `official` / `builder` / `researcher` / `community` / `aggregator`（比你的列表多一个 `community`，用来承接第三方开源项目），`github` 只作 channel。
+**第一版 role 固定为 5 个值，不再扩充：**
 
-**若你不同意**，请告诉我你希望 `github` 作为 role 表达什么语义，我按你的定义重写。
+| `official` | `builder` | `researcher` | `community` | `aggregator` |
+|---|---|---|---|---|
+
+新增枚举须有明确理由并记录在 phase plan 中 —— 防止枚举随源数量增长而无限膨胀、丧失分类意义。
+
+### 1.5 tier 的性质（owner 确认）
+
+`tier` **进入 registry**，但它的语义被严格限定为：
+
+> **人工指派（human-assigned）的 attention classification** —— 回答「给多少注意力」。
+
+**它不是评分，不是权重，不参与任何计算。** 具体地：
+
+- 不得把 `tier` 换算成分数或系数
+- 不得用 `tier` 做排序打分
+- Radar 的权重与动态判断**留到 Phase 3 / Phase 4**
+
+这条限制写进 §8 的 Exit Criteria，可核验。
 
 ---
 
@@ -211,7 +239,9 @@ v1 用三个数组键表达源：`podcasts[]` / `blogs[]` / `x_accounts[]`。**�
 | `scripts/generate-feed.js` 三个调用点 | 读 `sources.podcasts` 等 | **不改**（loader 保持返回形状不变） |
 | `SKILL.md:53, 151` | 读取该文件向用户展示源清单 | 需适配扁平结构（纯展示逻辑） |
 
-> **关键设计**：`loadSources()` 对外仍返回 `{podcasts, blogs, x_accounts}` 这一形状，**把扁平化完全吸收在 loader 内部**。这样三个 fetcher 与它们的调用点一行都不用改 —— 与 1A「改动止于 loader」的原则一致。
+> **关键设计（owner 确认）**：`loadSources()` 对外仍返回 `{podcasts, blogs, x_accounts}` 这一形状，**把扁平化完全吸收在 loader 内部**。三个 fetcher 与它们的调用点**一行都不改**。
+>
+> **1B 明确不重写抓取逻辑** —— 扁平化只改「源怎么存」与「loader 怎么读」，不改「怎么抓」。与 1A「改动止于 loader」的原则一致。
 
 ---
 
@@ -237,6 +267,15 @@ v1 用三个数组键表达源：`podcasts[]` / `blogs[]` / `x_accounts[]`。**�
 | Mistral News | official | rss/web | 否 | ❌ | ⚠️ 000 未实测 | Extended |
 | Hugging Face Blog | official | rss | 否 | ❌ | ⚠️ 000 未实测 | Extended |
 
+**补充：Agent / 编程工具产品线的官方 changelog（owner 指定，Core）**
+
+| 源 | role | channel | 端点 | 需 Key? | 当前能抓? | 实测 | tier |
+|---|---|---|---|---|---|---|---|
+| **Cursor Changelog** | official | **web** | `https://cursor.com/changelog` | 否 | ❌ 需 web fetcher | ✅ 200（HTML，**无 RSS** —— `/changelog/feed.xml` 实测 404） | **Core** |
+| **GitHub Copilot Changelog** | official | **rss** | `https://github.blog/changelog/label/copilot/feed/` | 否 | ❌ 需 rss fetcher | ✅ 200 | **Core** |
+
+> `blog/changelog` 还有一个全量 feed `https://github.blog/changelog/feed/`（实测 200）。此处只登记 **Copilot 标签**的 feed，以贴合「Agent 产品线」定位；若后续需要 GitHub 平台级动态，再另立条目。
+
 ### 5.2 Builder / Researcher
 
 | 源 | role | channel | 需 Key? | 当前能抓? | 实测 | tier |
@@ -257,18 +296,42 @@ v1 用三个数组键表达源：`podcasts[]` / `blogs[]` / `x_accounts[]`。**�
 
 ### 5.3 GitHub（信号 = release / 版本发布）
 
+> **选取原则（owner 明确）：本项目是 Agent Technology Radar，不是通用 LLM SDK Radar。**
+> GitHub 条目一律以 **agent / coding-agent** 为准入判据。通用 LLM SDK 仓库**无论厂商多权威都不入选** —— 它们不承载 agent 技术的演进。
+
+**A. Coding agent（一手、官方）**
+
+| 源 | role | channel | 需 Key? | 当前能抓? | 实测 | 最新 release | tier |
+|---|---|---|---|---|---|---|---|
+| `anthropics/claude-code` | official | github | 否（未认证 60 req/h） | ❌ | ✅ 200 | — | **Core** |
+| `openai/codex` | official | github | 否 | ❌ | ✅ 200 | `rust-v0.156.1` @ 2026-09-23 | **Core** |
+| `QwenLM/qwen-code` | official | github | 否 | ❌ | ✅ 200 | `v0.24.5-preview.0` @ 2026-09-22 | **Core** |
+| `google-gemini/gemini-cli` | official | github | 否 | ❌ | ✅ 200 | `v0.62.0-nightly.*` @ 2026-09-23 | **Core** |
+
+**B. Agent 协议 / 框架**
+
 | 源 | role | channel | 需 Key? | 当前能抓? | 实测 | tier |
 |---|---|---|---|---|---|---|
-| `anthropics/claude-code` | official | github | 否（未认证 60 req/h） | ❌ | ✅ 200 | **Core** |
 | `modelcontextprotocol/servers` | official | github | 否 | ❌ | ✅ 200 | **Core** |
-| `anthropics/anthropic-sdk-python` | official | github | 否 | ❌ | 未测 | Extended |
-| `openai/openai-python` | official | github | 否 | ❌ | ✅ 200 | Extended |
+| `google/adk-python` | official | github | 否 | ❌ | ✅ 200 | Extended ⚠️ |
 | `microsoft/autogen` | official | github | 否 | ❌ | 未测 | Extended |
-| `langchain-ai/langchain` | community | github | 否 | ❌ | 未测 | Extended |
-| `run-llama/llama_index` | community | github | 否 | ❌ | 未测 | Extended |
+| `langchain-ai/langchain` | **community** | github | 否 | ❌ | 未测 | Extended |
+| `run-llama/llama_index` | **community** | github | 否 | ❌ | 未测 | Extended |
 
-> GitHub 未认证限流 **60 请求/小时**。若仓库数继续增长，需评估是否引入 token（**免费**，非付费 Key）—— 列为 Open Question。
-> 信号选择：**release 发布**优先；commit / star 变化信噪比过低，不建议。
+> ⚠️ `google/adk-python`（Google Agent Development Kit）是 Google 一手 agent 框架。此处按「框架 = Extended」处理；若你认为它与 coding agent 同属 Core，告知即可上调。
+
+**C. 已移除（及原因）**
+
+| 移除项 | 原因 |
+|---|---|
+| `openai/openai-python` | **通用 LLM SDK**，非 agent 技术。owner 明确：它不应替代 `openai/codex` |
+| `anthropics/anthropic-sdk-python` | 同上 —— 通用 SDK，不承载 agent 演进 |
+
+**D. github channel 的实现注意（供后续 fetcher 设计，本阶段不做）**
+
+- **release 噪音**：`gemini-cli` 每日发 nightly、`qwen-code` 发 `preview`、`openai/codex` 用 `rust-v*` 前缀 —— 不做过滤会让 feed 被 nightly 淹没。fetcher 需支持按 tag 模式 / `prerelease` 标志过滤。
+- **限流**：未认证 **60 请求/小时**。当前 6 个仓库每次约 6 次请求，安全；仓库数继续增长时需评估引入 **免费** token（非付费 Key）—— 列为 Open Question。
+- **信号选择**：**release 发布**优先；commit / star 变化信噪比过低，不建议。
 
 ### 5.4 Aggregator / Discovery
 
@@ -316,6 +379,34 @@ v1 用三个数组键表达源：`podcasts[]` / `blogs[]` / `x_accounts[]`。**�
 **tier 建议 = Extended**（你 brief 默认给的是 Discovery）。理由：AIHOT 不止是原始聚合 —— 它有 LLM 打分精选、日报，以及**热点榜要求「多个独立信源共同印证」**的多源佐证机制，比纯聚合高一档。而按 §3 的修订，它的 `role=aggregator` 已保证内容**永不作为事实来源**，所以放进 Extended 不会污染事实层。
 
 **抓取注意**：响应 `Cache-Control` 的 `s-maxage=60` 为最小轮询间隔；必须带 `If-None-Match`，未变化返回 304；遇 429 / 503 按 `Retry-After` 等待。旧 `/api/public/*` 接口 2026-12-31 停服，**只用 `/api/v1/*`**。
+
+#### 5.4.2 AIHOT 已定结论（owner 确认）
+
+| 项 | 决定 |
+|---|---|
+| `role` | `aggregator` |
+| `channel` | **`api`** —— API 优先于 RSS：结构化提供 `original_url` 与发布时间，更契合「Signal 来源可追溯」原则 |
+| `tier` | **`Extended`** |
+| `active` | **`false`** |
+
+**为什么保持 `active: false` —— 一个跨阶段依赖**
+
+owner 选择的使用策略是 **(a) 仅个人自用，不允许 AIHOT 派生数据进入公开 feed**。这与当前生产端架构存在冲突：
+
+- 现有 CI 会把 `feed-*.json` **提交并推送到 public 仓库**（`generate-feed.yml` 的 commit/push 步骤）。
+- AIHOT 使用规则禁止「公开镜像 / 批量公开再分发」。若 AIHOT 内容进入被提交的 feed，即可能触线。
+
+**因此 AIHOT 的启用被显式 gate 在 Phase 2 之后：**
+
+| 阶段 | 动作 |
+|---|---|
+| **Phase 1B（本阶段）** | 只登记，`active: false`。**不修改生产端架构** |
+| **Phase 2** | 设计 Signal Feed 时，增加 **private / internal-only 输出路径** —— 使这类源的内容不进入公开 feed |
+| Phase 2 之后 | 该路径就绪后，才把 AIHOT 置为 `active: true` |
+
+**明确不做**：现在**不**把仓库转私有，**不**申请商业授权。owner 已裁决。
+
+> ⚠️ 这是一个**跨阶段依赖**，不是本阶段可关闭的开放问题。**Phase 2 的方案必须承接它**，否则 AIHOT 永远无法启用。
 
 ---
 
@@ -376,8 +467,11 @@ v1 用三个数组键表达源：`podcasts[]` / `blogs[]` / `x_accounts[]`。**�
 - [ ] **Gate G1-P1B**：`--blogs-only` 实跑无回退
 - [ ] **Gate G2-P1B**：role / channel / tier 取值全部合法；`id` 唯一性保持
 - [ ] Eval 相关源**未**因 owner 背景获得提权（需在 Source Set 中可核验）
-- [ ] **AIHOT 的再分发授权已裁决**；未裁决前保持 `active: false`（见 §9 法务风险）
-- [ ] AIHOT 的 channel（`api` / `rss`）与 tier（Extended / Discovery）已定
+- [x] **role / channel / tier 全部定稿**（owner 已确认）：role 枚举冻结为 5 值、`github` 归 channel、`tier` 进 registry 且非权重 —— 见 §1.3 / §1.4 / §1.5
+- [x] **AIHOT 已定**：`aggregator` / `api` / `Extended` / `active: false` —— 见 §5.4.2
+- [ ] AIHOT 的启用条件已登记为 **Phase 2 依赖**（private / internal-only 输出路径），并在 Phase 2 方案中承接
+- [ ] `loadSources()` 保持三个 fetcher 的兼容接口 —— **1B 未重写任何抓取逻辑**
+- [ ] role / channel 取值校验实现为 fail-fast（含：`github` 出现在 role 应被拒绝）
 
 **不计入本阶段退出条件**：新渠道 fetcher 的实现与真实抓取验证。
 
@@ -387,20 +481,19 @@ v1 用三个数组键表达源：`podcasts[]` / `blogs[]` / `x_accounts[]`。**�
 
 | 级别 | 风险 / 问题 | 说明与处置 |
 |---|---|---|
-| ⚠️ 高 | **`github` 作为 role 的建模冲突** | 见 §1.3。**需 owner 裁决**，否则 role 枚举无法定稿 |
+| ✅ **已关闭** | ~~`github` 的 role / channel 归属~~ | 已裁决：**归 channel**，role 中不出现 `github`（§1.3） |
 | ⚠️ 高 | **新渠道全部无 fetcher** | 第一版 Source Set 中**只有 2 个源今天能抓**（Anthropic / Claude Blog）。其余登记为 `active: false`。**本阶段交付的是策展结果，不是可用摄取** —— 不得表述为「源集合已就绪」 |
 | ⚠️ 中 | **可达性验证受我的网络限制** | Meta / Mistral / HF / Reddit 本地 000。**必须在 CI 上复核**；不得据本地结果把它们判定为不可用 |
 | ⚠️ 中 | 扁平化触及 `SKILL.md` 展示逻辑 | `SKILL.md:53,151` 读三键结构；v2 需适配。无测试兜底 |
 | ⚠️ 中 | 迁移破坏 `id` 唯一性 / 现有值 | 处置：迁移脚本化（同 1A），并对现有 34 条做逐字段静态等价核对 |
 | 开放问题 | X 账号的 role 逐个指派 | 26 条需人工分类为 official / builder / researcher。**是登记工作，不是评分** |
 | 开放问题 | GitHub 是否引入免费 token | 未认证 60 req/h；仓库数增长后可能需 token（免费）。届时再定 |
-| 开放问题 | `tier` 是否进 registry | 本方案建议进（它是「哪些源值得长期追踪」的答案）。**但须明确：tier 不是权重**，加权是 Phase 3 的决策 |
+| ✅ **已关闭** | ~~`tier` 是否进 registry~~ | **进 registry**；性质限定为人工 attention classification，**非评分、非权重**（§1.5） |
 | 开放问题 | 一个人多渠道的身份归并 | 现方案 = 一条 registry 条目对应一个 (role, channel) 抓取目标；Karpathy 的 X 与其博客是两条条目。是否需要「人物」聚合层留待 Phase 3 |
 | 已知 | Eval 提权风险 | §2 已明令禁止；Exit Criteria 含可核验项 |
 | 已知 | 聚合内容污染事实层 | §3 已修订：该约束来自 `role=aggregator`，与 tier 无关；Phase 2 需在 signal schema 中体现（**本阶段不做**） |
-| ⚠️ **高（法务）** | **AIHOT 的对外再分发授权边界** | AIHOT 公开使用规则（`https://aihot.news/terms`）明确：**个人非商业、公益非商业、组织内部使用免费**；而「面向外部的商业产品、收费服务、客户交付、代理接口、数据转售、**公开镜像**、**批量公开再分发**、对外模型产品」**均须事先取得书面授权**，且「仅署名不代表已取得授权」。<br>**风险点：本仓库是 public，且 CI 会把 feed 写回仓库并推送到 GitHub。** 若 AIHOT 内容进入被提交的 `feed-*.json`，可能触及「公开镜像 / 批量公开再分发」。<br>**处置：上线 AIHOT 前必须先裁决** ——（a）仅个人自用且 feed 不入公开仓库；（b）仓库转私有；（c）取得书面授权。**在裁决前不得把 AIHOT 置为 `active: true`。** |
-| 开放问题 | AIHOT 的 channel 取舍（`api` vs `rss`） | 见 §5.4.1。推荐 `api`（结构化 `links.original`，契合可追溯原则）；备选 `rss`（复用 fetcher，但原文链接需解析 HTML）。**待 owner 定** |
-| 开放问题 | 其他源的再分发条款 | AIHOT 暴露的是一类**通用风险**：其他源（Hacker News 聚合、arXiv 等）也可能有再分发限制，且本项目生产端会把内容提交到 **public** 仓库。建议在接入每个聚合类源前核对条款 —— 本阶段不逐个审计 |
+| ⚠️ **高（法务）→ 跨阶段依赖** | **AIHOT 的启用被 gate 在 Phase 2** | owner 选 (a) 仅个人自用：AIHOT 派生数据**不得进入公开 feed**。而现有 CI 会把 `feed-*.json` 提交到 **public** 仓库，而 AIHOT 条款禁止「公开镜像 / 批量公开再分发」。<br>**处置：AIHOT 保持 `active: false`；启用条件 = Phase 2 提供 private / internal-only 输出路径**（§5.4.2）。**Phase 2 必须承接，否则该源永远无法启用。** 不转私有仓库、不申请商业授权（owner 已裁决） |
+| 开放问题 | 其他源的再分发条款 | AIHOT 暴露的是一类**通用风险**：其他聚合类源（HN、arXiv 等）也可能有再分发限制，而生产端会把内容提交到 **public** 仓库。接入每个聚合类源前应核对条款 —— **本阶段不逐个审计** |
 
 ---
 
