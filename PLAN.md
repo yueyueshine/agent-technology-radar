@@ -13,7 +13,7 @@
 |---|---|
 | 项目目标 | 把一个 `zarazhangrui/follow-builders` 的公开 fork 改造为自有的 **Agent Technology Radar**，追踪 AI Agent 技术生态，最终经**飞书**投递 |
 | 当前位置 | Phase 0 / 1A / **1B 全部 Done**；Phase 2–6 Not Started |
-| 下一步 | **Phase 2 — Signal Feed** 方案已起草（`.claude/plans/phase-2-signal-feed.plan.md`），**待 3 项裁决后实施**：D1 新渠道 fetcher 归属、D2 signal `id` 形态、D3 去重状态策略。**D1 不定则 Phase 2 无输入可处理** |
+| 下一步 | **Phase 2 实施**（方案已定稿，D1/D2/D3 均已裁决）：按 **2A → 2B → 2C** 顺序推进。2A 批次 1 只做 `rss` / `github` / `api` / `web`（31 源）；`x` / `podcast` 缺 Key 保持 blocked。**Phase 2 完成后预期 runnable 33 / 69** |
 | 交付渠道（终态） | 飞书；第一版用 **Group Bot Webhook** |
 | 仓库 | `yueyueshine/agent-technology-radar`（public fork of `zarazhangrui/follow-builders`） |
 | 状态词表 | `Not Started` / `In Progress` / `Blocked` / `Done` |
@@ -69,7 +69,7 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 | Phase 0 | 接管现有 follow-builders | **Done**（含 Known Limitations，见该阶段） |
 | Phase 1A | Registry Foundation | **Done** |
 | Phase 1B | Radar Source Set | **Done** |
-| Phase 2 | Signal Feed | In Progress（方案已起草，待 3 项裁决） |
+| Phase 2 | Signal Feed | In Progress（2A / 2B / 2C 待实施） |
 | Phase 3 | Topic Clustering | Not Started |
 | Phase 4 | Technology Radar | Not Started |
 | Phase 5 | Daily / Weekly Digest | Not Started |
@@ -123,13 +123,13 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 
 ### Phase 2 — Signal Feed
 
-- **Goal**：把三个形状各异的 feed 归一为**结构化、来源可追溯的 Signal 流**，并给出确定的去重规则。
-- **Scope**：signal schema（含时间归一）；Normalize 规则；去重键与去重状态；**可追溯性强制**；**输出分区 public / internal-only**。不做主题判断。
-- **Deliverables**：`.claude/plans/phase-2-signal-feed.plan.md`（方案已起草）；signal feed 与 schema；Normalize / Deduplicate 规则；public / internal 分区能力。
-- **Dependencies**：Phase 1A / 1B Done。**但另有一个未裁决的前置**：新渠道 fetcher 归属（见 plan §2 的 D1）—— 不裁决则 35 个源永远无数据，Phase 2 只能在 blog 一条线上验证。
-- **Exit Criteria**：详见 plan §10。核心：signal schema 定稿；**blog 路时间归一到 ISO 实测通过**；`source_id` 100% 命中 registry；`role=aggregator` 的 signal 均有可解析的 `original_url`；**输出分区落地**（internal 源不进 public 产物）；**播客去重 bug 已修**。
-- **Risks & Open Questions**：① **D1 fetcher 归属未定（阻塞）**；② **已确认 bug：播客因 7 天 TTL < 14 天 lookback 会重复发出**；③ AIHOT 启用有**双重前置**（internal 分区 + `api` fetcher）；④ 验证面极窄（今天只有 blog 能端到端跑）；⑤ registry 需再增一个 `redistribution` 字段（第三次 schema 变更）。详见 plan §11。
-- **Status**：In Progress（方案已起草，**待 3 项裁决**：D1 fetcher 归属 / D2 `id` 形态 / D3 去重状态策略）
+- **Goal**：把源产出的原始内容归一为**结构化、来源可追溯的 Signal 流**，并给出确定的去重与输出规则。**Fetch 并入本阶段**（不新增 Phase 1C）。
+- **Scope**：分三个子阶段 —— **2A Channel Fetchers**（批次 1：`rss` / `github` / `api` / `web`，共 **31 源**；`x` / `podcast` 缺 Key 保持 blocked，**不作为完成条件**）、**2B Signal Pipeline**（Signal Schema / Normalize / 时间统一 / traceability / dedup）、**2C Output**（public + internal-only 分区）。不做主题判断、不做飞书投递。
+- **Deliverables**：`.claude/plans/phase-2-signal-feed.plan.md`；4 个新 fetcher；Signal Schema 与归一 / 去重规则；public + internal 双输出；registry 新增 `redistribution` 字段。
+- **Dependencies**：Phase 1A / 1B Done。
+- **Exit Criteria**：详见 plan §8。核心：4 个 fetcher 产出统一 `items[]`；**`published_at` 只能是 ISO 8601 或 `null`**（blog 路实测）；`id` 用确定性哈希、`source_id` 100% 命中；aggregator 必有可解析 `original_url`；**`DEDUP_TTL_DAYS = 30` 且运行时校验 `TTL ≥ max lookback` fail-fast**；播客重复发出的 bug 已修；internal 源绝不进 public 产物。
+- **Risks & Open Questions**：① **已确认 bug：播客因 7 天 TTL < 14 天 lookback 会重复发出**；② AIHOT 有**双重前置**（`api` fetcher + internal 分区），缺一不可；③ 36 条源（x / podcast / 批次 2）本阶段无法端到端验证，验证面集中在 blog + 批次 1；④ registry 第三次结构变更（新增 `redistribution`）。详见 plan §9。
+- **Status**：In Progress（2A / 2B / 2C 待实施）。**Phase 2 完成后预期 runnable：33 / 69。**
 
 ### Phase 3 — Topic Clustering
 
