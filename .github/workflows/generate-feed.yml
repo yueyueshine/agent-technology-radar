@@ -33,6 +33,12 @@ jobs:
       - name: Install dependencies
         run: cd scripts && npm install
 
+      # Phase 2A: the rss channel needs no secrets. It runs BEFORE the
+      # key-dependent step below, which is expected to fail until the repo has
+      # secrets — a later failure must not stop the rss feed being produced.
+      - name: Fetch rss channel
+        run: cd scripts && node fetch-channels.js --channel rss
+
       - name: Generate feeds
         env:
           X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
@@ -45,9 +51,12 @@ jobs:
           fi
 
       - name: Commit and push feeds
+        # always(): the key-dependent step above fails while the repo has no
+        # secrets, but the keyless rss feed must still be committed.
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add feed-x.json feed-podcasts.json feed-blogs.json state-feed.json
+          git add feed-rss.json feed-x.json feed-podcasts.json feed-blogs.json state-feed.json
           git diff --cached --quiet || git commit -m "chore: update feeds [skip ci]"
           git push

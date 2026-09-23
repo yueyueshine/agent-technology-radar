@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "generate-feed": "node generate-feed.js",
+    "fetch-channels": "node fetch-channels.js",
     "prepare-digest": "node prepare-digest.js"
   },
   "dependencies": {

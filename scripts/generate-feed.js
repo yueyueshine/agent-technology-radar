@@ -49,7 +49,14 @@ const SOURCE_TIERS = new Set(["core", "extended", "discovery"]);
 
 // Which registry channel feeds which existing fetch path. A channel missing from
 // this map has no fetcher yet, so its entries must stay `active: false`.
+// Which registry channel feeds which group returned from loadSources(). These
+// are the three fetchers that live in THIS file.
 const FETCH_TARGET_BY_CHANNEL = { podcast: "podcasts", blog: "blogs", x: "x_accounts" };
+
+// Channels whose fetcher lives in scripts/fetch-channels.js (Phase 2A) instead.
+// An active entry on one of these is handled there, so it must not be funnelled
+// into the three groups above — and must not trip the "no fetcher" guard.
+const CHANNELS_FETCHED_ELSEWHERE = new Set(["rss"]);
 
 // -- State Management --------------------------------------------------------
 
@@ -152,6 +159,7 @@ async function loadSources() {
 
     const target = FETCH_TARGET_BY_CHANNEL[entry.channel];
     if (!target) {
+      if (CHANNELS_FETCHED_ELSEWHERE.has(entry.channel)) continue;
       throw new Error(
         `Source registry: "${label}" is active but channel "${entry.channel}" has no fetcher — ` +
           `set active:false until one exists`,
