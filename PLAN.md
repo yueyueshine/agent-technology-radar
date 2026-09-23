@@ -2,7 +2,7 @@
 
 > 本文件是全局路线图。每个阶段的详细实施方案放在 `.claude/plans/<phase>.plan.md`，
 > 目前存在 `phase-0-takeover.plan.md`（Done）、`phase-1a-registry-foundation.plan.md`（Done）、
-> 与 `phase-1b-radar-source-set.plan.md`（方案待确认）。
+> 与 `phase-1b-radar-source-set.plan.md`（Done）。**Phase 2 的方案尚未撰写。**
 > 任何新 session 从这里开始。
 
 ---
@@ -12,8 +12,8 @@
 | 项 | 内容 |
 |---|---|
 | 项目目标 | 把一个 `zarazhangrui/follow-builders` 的公开 fork 改造为自有的 **Agent Technology Radar**，追踪 AI Agent 技术生态，最终经**飞书**投递 |
-| 当前位置 | Phase 0 Done、**Phase 1A Done**；**Phase 1B 方案已起草、待确认**；Phase 2–6 Not Started |
-| 下一步 | **Phase 1B — Radar Source Set**：`.claude/plans/phase-1b-radar-source-set.plan.md` 待确认后实施 —— role × channel 两维度建模、选源标准与 tier、registry 升 schema v2、第一版 Source Set 登记 |
+| 当前位置 | Phase 0 / 1A / **1B 全部 Done**；Phase 2–6 Not Started |
+| 下一步 | **Phase 2 — Signal Feed**。**1B 已停在完成点，未自动进入 Phase 2。** Phase 2 需承接一项跨阶段依赖：为 AIHOT 这类受再分发限制的源提供 private / internal-only 输出路径（否则 AIHOT 永远无法从 `active: false` 启用） |
 | 交付渠道（终态） | 飞书；第一版用 **Group Bot Webhook** |
 | 仓库 | `yueyueshine/agent-technology-radar`（public fork of `zarazhangrui/follow-builders`） |
 | 状态词表 | `Not Started` / `In Progress` / `Blocked` / `Done` |
@@ -68,7 +68,7 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 |---|---|---|
 | Phase 0 | 接管现有 follow-builders | **Done**（含 Known Limitations，见该阶段） |
 | Phase 1A | Registry Foundation | **Done** |
-| Phase 1B | Radar Source Set | In Progress（方案待确认） |
+| Phase 1B | Radar Source Set | **Done** |
 | Phase 2 | Signal Feed | Not Started |
 | Phase 3 | Topic Clustering | Not Started |
 | Phase 4 | Technology Radar | Not Started |
@@ -115,11 +115,11 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 
 - **Goal**：把源集合真正做成「**Radar 的**源集合」—— 服务于技术雷达判断，而不是沿用 follow-builders 的 builder 名单。
 - **Scope**：**① role × channel 两维度建模**（`source_role` = 为什么值得追踪；`source_channel` = 怎么拿到。**二者正交，不得合并成单一 type**）；**② 选源标准与 tier**（Core / Extended / Discovery）；**③ registry 表达升级**（schema v2 扁平化为 `sources[]`）；**④ 第一版 Source Set 登记**。**不含** Signal Feed 设计、新渠道 fetcher 实现。
-- **Deliverables**：`.claude/plans/phase-1b-radar-source-set.plan.md`（方案已起草）；v2 扁平 registry 与 schema；带 `role`/`channel`/`tier` 的第一版 Source Set；`loadSources()` 内部吸收扁平化（三个 fetcher 调用点不改）。
-- **Dependencies**：Phase 1A Done（需要 `id` / schema / loader 机制）。
-- **Exit Criteria**：详见 plan §8。核心：role/channel 模型定稿；第一版 Source Set 带完整 `role`/`channel`/`tier` 登记（新渠道源 `active: false`）；`--blogs-only` 无回退；role/channel/tier 取值合法；Eval 相关源未因 owner 背景提权。
-- **Risks & Open Questions**：① 新渠道**全部无 fetcher**，第一版只有 2 个源今天能抓 —— 交付的是策展结果不是可用摄取；② 可达性验证受本地网络限制，须在 CI 复核；③ 扁平化触及 `SKILL.md` 展示逻辑；④ **AIHOT 的启用被 gate 在 Phase 2**（需 private / internal-only 输出路径），属跨阶段依赖。详见 plan §9。
-- **Status**：In Progress（方案已确认，待实施）
+- **Deliverables**：`.claude/plans/phase-1b-radar-source-set.plan.md`；**registry 已升 schema v2 扁平 `sources[]`（69 条）**；schema 文件重写为 v2；`loadSources()` 读 v2 并按 channel 分组（三个 fetcher 调用点未改）；`SKILL.md` 展示逻辑已适配。
+- **Dependencies**：Phase 1A Done。
+- **Exit Criteria**：详见 plan §8（**16/16 已达成**）。核心：role/channel 模型定稿；69 条源带完整 `role`/`channel`/`tier`（新 35 条 `active: false`）；`--blogs-only` 无回退；取值全部合法；Eval 相关源未因 owner 背景提权。
+- **Risks & Open Questions**：① **新渠道全部无 fetcher**，69 条中今天只有 2 条能抓 —— 交付的是策展结果，不是可用摄取；② 26 个 X 账号中有 **6 条的 role 待 owner 复核**（枚举无「投资人/评论者」档，部分身份我只有弱了解）；③ 可达性验证受本地网络限制，须在 CI 复核；④ **AIHOT 启用 gate 在 Phase 2**。详见 plan §9。
+- **Status**：**Done**（2026-09-23）。**未自动进入 Phase 2。**
 
 ### Phase 2 — Signal Feed
 
@@ -182,7 +182,7 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 | 层 | 文件 | 职责 |
 |---|---|---|
 | 全局路线图 | `PLAN.md`（项目根） | 7 个 phase 的目标、边界、依赖、退出标准、状态；不含实现细节 |
-| 单阶段方案 | `.claude/plans/<phase>.plan.md` | 该阶段的逐步可执行方案；目前存在 `phase-0-takeover.plan.md`（Done）、`phase-1a-registry-foundation.plan.md`（Done）、`phase-1b-radar-source-set.plan.md`（方案待确认） |
+| 单阶段方案 | `.claude/plans/<phase>.plan.md` | 该阶段的逐步可执行方案；目前存在 `phase-0-takeover.plan.md`（Done）、`phase-1a-registry-foundation.plan.md`（Done）、`phase-1b-radar-source-set.plan.md`（Done） |
 
 规则：
 
