@@ -11,7 +11,7 @@
 |---|---|
 | 项目目标 | 把一个 `zarazhangrui/follow-builders` 的公开 fork 改造为自有的 **Agent Technology Radar**，追踪 AI Agent 技术生态，最终经**飞书**投递 |
 | 当前位置 | **Phase 0 — In Progress**；Phase 1–6 全部 Not Started |
-| 下一步 | 收尾 Phase 0：确认 CI 定时运行、按清单修正文档引用。X / podcast 接管推迟到 Phase 1/2（见下方「临时上游依赖」） |
+| 下一步 | **Phase 1 — Source Registry**：执行 `.claude/plans/phase-1-source-registry.plan.md`（给 34 条源补稳定 `id`、registry 驱动 loader）。Phase 0 仅剩 cron 定时触发的被动确认 |
 | 交付渠道（终态） | 飞书；第一版用 **Group Bot Webhook** |
 | 仓库 | `yueyueshine/agent-technology-radar`（public fork of `zarazhangrui/follow-builders`） |
 | 状态词表 | `Not Started` / `In Progress` / `Blocked` / `Done` |
@@ -64,8 +64,8 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 
 | Phase | 名称 | 状态 |
 |---|---|---|
-| Phase 0 | 接管现有 follow-builders | **In Progress** |
-| Phase 1 | Source Registry | Not Started |
+| Phase 0 | 接管现有 follow-builders | In Progress（仅剩 cron 定时触发的被动确认） |
+| Phase 1 | Source Registry | **In Progress** |
 | Phase 2 | Signal Feed | Not Started |
 | Phase 3 | Topic Clustering | Not Started |
 | Phase 4 | Technology Radar | Not Started |
@@ -95,9 +95,9 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 - **Scope**：定义 registry schema（源类型 / 抓取方式 / 身份标识 / 活跃度标签）；迁移现有 6 个 podcast、26 个 X 账号、2 个 blog；增加按 registry 驱动的读取逻辑。不引入任何主题或评分逻辑。
 - **Deliverables**：registry 文件与 schema；loader；迁移后的完整源清单；说明文档。
 - **Dependencies**：Phase 0 Done。**这是执行顺序上的依赖，不是设计约束**——Source Registry 在设计上并不要求自有数据源。先完成仓库与数据链路接管，是为了避免后续迁移时出现重复改造。
-- **Exit Criteria**：新增/删除一个源无需改代码；现有源全部迁移且抓取行为无回退。
-- **Risks & Open Questions**：registry 与 `generate-feed.js` 抓取逻辑的耦合面；源类型泛化的程度（是否支持除 X / podcast / blog 外的第三类）。
-- **Status**：Not Started
+- **Exit Criteria**：详见 `.claude/plans/phase-1-source-registry.plan.md` §8。核心：34 条源全部注册化并带唯一稳定 `id`；新增 / 删除**同类型（含同 blog 域）**源无需改代码；抓取行为无回退 —— **blog 路实跑验证，X / podcast 路仅静态等价（无 key，运行时验证 defer）**。
+- **Risks & Open Questions**：① key 缺位压缩了可验证面（X / podcast 只能静态验证）；② registry 与 `generate-feed.js` 的 URL 子串分发耦合，「新增源无需改代码」仅在同一 blog 域内成立；③ 仓库无测试无 lint，回归靠人肉 Gate。详见 plan §9。
+- **Status**：In Progress
 
 ### Phase 2 — Signal Feed
 
