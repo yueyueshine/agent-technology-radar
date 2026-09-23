@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Agent Technology Radar — Source Registry",
+  "description": "Schema for config/default-sources.json (the source registry). IMPORTANT: this file is unrelated to config/config-schema.json, which describes the end-user config at ~/.follow-builders/config.json. Source entries are NOT validated at runtime — the loader in scripts/generate-feed.js enforces a subset (literal `id` present, `id` globally unique). This schema is the written specification.",
+  "$comment": "Deliberately not wired to a validator in Phase 1A. Adding a schema-validation dependency would be unrelated scope; the loader's fail-fast covers the two failure modes that matter.",
+  "type": "object",
+  "required": ["podcasts", "blogs", "x_accounts"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1,
+      "description": "Structure version of the registry itself."
+    },
+    "podcasts": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/podcast" }
+    },
+    "blogs": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/blog" }
+    },
+    "x_accounts": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/xAccount" }
+    }
+  },
+  "$defs": {
+    "sourceId": {
+      "type": "string",
+      "pattern": "^[a-z0-9_-]+:[a-z0-9_-]+$",
+      "description": "Stable source identity, format `<type-prefix>:<slug>` (prefixes: x, podcast, blog). Hand-assigned and stored literally — NEVER derived at runtime from `name` or a URL, so that renaming a display name or changing a URL cannot silently change identity. Immutable once published: Phase 2's signal `source_id` refers back to this value.",
+      "examples": ["x:karpathy", "podcast:latent-space", "blog:claude-blog"]
+    },
+    "podcast": {
+      "type": "object",
+      "required": ["id", "name", "active", "rssUrl", "url"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "allOf": [{ "$ref": "#/$defs/sourceId" }],
+          "pattern": "^podcast:[a-z0-9_-]+$"
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name. Not an identity — changing it must not change `id`."
+        },
+        "active": {
+          "type": "boolean",
+          "description": "true = included in fetching; false = kept in the registry but skipped by the loader."
+        },
+        "rssUrl": {
+          "type": "string",
+          "description": "RSS feed used to discover episodes. Read by fetchPodcastContent."
+        },
+        "url": {
+          "type": "string",
+          "description": "YouTube channel or playlist URL, used to resolve the exact video URL for an episode by title matching. Read by fetchPodcastContent."
+        }
+      }
+    },
+    "blog": {
+      "type": "object",
+      "required": ["id", "name", "active", "indexUrl"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "allOf": [{ "$ref": "#/$defs/sourceId" }],
+          "pattern": "^blog:[a-z0-9_-]+$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "indexUrl": {
+          "type": "string",
+          "description": "Read by fetchBlogContent. NOTE: the parser is dispatched by substring match on this value (generate-feed.js:912-916: `anthropic.com` / `claude.com`), and the article extractor likewise by the article URL (generate-feed.js:961-965). Adding a blog on a new domain therefore still requires a code change."
+        },
+        "type": {
+          "type": "string",
+          "deprecated": true,
+          "description": "CONFIRMED UNUSED — zero code references (verified by grep). Retrieval strategy is decided implicitly by the URL substring dispatch described on `indexUrl`. Cleanup deferred to Phase 1B."
+        },
+        "articleBaseUrl": {
+          "type": "string",
+          "deprecated": true,
+          "description": "CONFIRMED UNUSED — zero code references (verified by grep). Article URLs are hardcoded instead: `https://www.anthropic.com/engineering/${slug}` and `https://claude.com/blog/${slug}` (generate-feed.js:686, 709, 734). Cleanup deferred to Phase 1B."
+        },
+        "fetchMethod": {
+          "type": "string",
+          "deprecated": true,
+          "description": "CONFIRMED UNUSED — zero code references (verified by grep). Cleanup deferred to Phase 1B."
+        }
+      }
+    },
+    "xAccount": {
+      "type": "object",
+      "required": ["id", "name", "active", "handle"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "allOf": [{ "$ref": "#/$defs/sourceId" }],
+          "pattern": "^x:[a-z0-9_-]+$",
+          "description": "Derived once, by hand, from the lowercased handle. The X numeric user id is deliberately NOT stored — fetchXContent resolves it at runtime via batched username lookup."
+        },
+        "name": {
+          "type": "string"
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "handle": {
+          "type": "string",
+          "description": "X handle WITHOUT a leading @. Read by fetchXContent."
+        }
+      }
+    }
+  }
+}

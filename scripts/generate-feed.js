@@ -74,9 +74,47 @@ async function saveState(state) {
 
 // -- Load Sources ------------------------------------------------------------
 
+// Loads the source registry (config/default-sources.json) and normalizes it.
+//
+// Two invariants are enforced here so a malformed registry fails loudly rather
+// than silently dropping sources:
+//   1. every entry carries a literal `id`. It is hand-assigned and never derived
+//      from `name` or a URL, so renaming a display name cannot silently change a
+//      source's identity.
+//   2. `id` is globally unique across all three groups. Phase 2's signal
+//      `source_id` points back at this value, so duplicates would make signals
+//      untraceable.
+// Entries with `active: false` stay in the registry but are skipped here.
+//
+// The returned shape mirrors the registry arrays, so the three fetch paths below
+// stay unaware of the registry.
 async function loadSources() {
   const sourcesPath = join(SCRIPT_DIR, "..", "config", "default-sources.json");
-  return JSON.parse(await readFile(sourcesPath, "utf-8"));
+  const registry = JSON.parse(await readFile(sourcesPath, "utf-8"));
+
+  const seenIds = new Map();
+  const select = (entries, group) =>
+    (entries || []).filter((entry) => {
+      if (!entry || typeof entry.id !== "string" || entry.id.length === 0) {
+        throw new Error(
+          `Source registry: entry in "${group}" has no literal "id" (name: ${entry?.name ?? "?"})`,
+        );
+      }
+      if (seenIds.has(entry.id)) {
+        throw new Error(
+          `Source registry: duplicate id "${entry.id}" in "${group}" ` +
+            `(already used in "${seenIds.get(entry.id)}")`,
+        );
+      }
+      seenIds.set(entry.id, group);
+      return entry.active !== false;
+    });
+
+  return {
+    podcasts: select(registry.podcasts, "podcasts"),
+    blogs: select(registry.blogs, "blogs"),
+    x_accounts: select(registry.x_accounts, "x_accounts"),
+  };
 }
 
 // -- Podcast Fetching (RSS + pod2txt) ----------------------------------------

@@ -1,46 +1,63 @@
 {
+  "schemaVersion": 1,
   "podcasts": [
     {
+      "id": "podcast:latent-space",
       "name": "Latent Space",
+      "active": true,
       "rssUrl": "https://pod2txt.vercel.app/api/feed?url=https://api.substack.com/feed/podcast/1084089.rss",
       "url": "https://www.youtube.com/@LatentSpacePod"
     },
     {
+      "id": "podcast:training-data",
       "name": "Training Data",
+      "active": true,
       "rssUrl": "https://feeds.megaphone.fm/trainingdata",
       "url": "https://www.youtube.com/playlist?list=PLOhHNjZItNnMm5tdW61JpnyxeYH5NDDx8"
     },
     {
+      "id": "podcast:no-priors",
       "name": "No Priors",
+      "active": true,
       "rssUrl": "https://feeds.megaphone.fm/nopriors",
       "url": "https://www.youtube.com/@NoPriorsPodcast"
     },
     {
+      "id": "podcast:unsupervised-learning",
       "name": "Unsupervised Learning",
+      "active": true,
       "rssUrl": "https://feeds.simplecast.com/dOSE_bdP",
       "url": "https://www.youtube.com/@RedpointAI"
     },
     {
+      "id": "podcast:mad-podcast",
       "name": "The MAD Podcast with Matt Turck",
+      "active": true,
       "rssUrl": "https://anchor.fm/s/f2ee4948/podcast/rss",
       "url": "https://www.youtube.com/@DataDrivenNYC/videos"
     },
     {
+      "id": "podcast:ai-and-i",
       "name": "AI & I by Every",
+      "active": true,
       "rssUrl": "https://anchor.fm/s/ed1f5584/podcast/rss",
       "url": "https://www.youtube.com/playlist?list=PLuMcoKK9mKgHtW_o9h5sGO2vXrffKHwJL"
     }
   ],
   "blogs": [
     {
+      "id": "blog:anthropic-engineering",
       "name": "Anthropic Engineering",
+      "active": true,
       "type": "scrape",
       "indexUrl": "https://www.anthropic.com/engineering",
       "articleBaseUrl": "https://www.anthropic.com/engineering/",
       "fetchMethod": "http"
     },
     {
+      "id": "blog:claude-blog",
       "name": "Claude Blog",
+      "active": true,
       "type": "scrape",
       "indexUrl": "https://claude.com/blog",
       "articleBaseUrl": "https://claude.com/blog/",
@@ -48,31 +65,31 @@
     }
   ],
   "x_accounts": [
-    { "name": "Andrej Karpathy", "handle": "karpathy" },
-    { "name": "Swyx", "handle": "swyx" },
-    { "name": "Josh Woodward", "handle": "joshwoodward" },
-    { "name": "Boris Cherny", "handle": "bcherny" },
-    { "name": "Thibault Sottiaux", "handle": "thsottiaux" },
-    { "name": "Peter Yang", "handle": "petergyang" },
-    { "name": "Nan Yu", "handle": "thenanyu" },
-    { "name": "Madhu Guru", "handle": "realmadhuguru" },
-    { "name": "Amanda Askell", "handle": "AmandaAskell" },
-    { "name": "Cat Wu", "handle": "_catwu" },
-    { "name": "Thariq", "handle": "trq212" },
-    { "name": "Google Labs", "handle": "GoogleLabs" },
-    { "name": "Amjad Masad", "handle": "amasad" },
-    { "name": "Guillermo Rauch", "handle": "rauchg" },
-    { "name": "Alex Albert", "handle": "alexalbert__" },
-    { "name": "Aaron Levie", "handle": "levie" },
-    { "name": "Ryo Lu", "handle": "ryolu_" },
-    { "name": "Garry Tan", "handle": "garrytan" },
-    { "name": "Matt Turck", "handle": "mattturck" },
-    { "name": "Zara Zhang", "handle": "zarazhangrui" },
-    { "name": "Nikunj Kothari", "handle": "nikunj" },
-    { "name": "Peter Steinberger", "handle": "steipete" },
-    { "name": "Dan Shipper", "handle": "danshipper" },
-    { "name": "Aditya Agarwal", "handle": "adityaag" },
-    { "name": "Sam Altman", "handle": "sama" },
-    { "name": "Claude", "handle": "claudeai" }
+    { "id": "x:karpathy", "name": "Andrej Karpathy", "handle": "karpathy", "active": true },
+    { "id": "x:swyx", "name": "Swyx", "handle": "swyx", "active": true },
+    { "id": "x:joshwoodward", "name": "Josh Woodward", "handle": "joshwoodward", "active": true },
+    { "id": "x:bcherny", "name": "Boris Cherny", "handle": "bcherny", "active": true },
+    { "id": "x:thsottiaux", "name": "Thibault Sottiaux", "handle": "thsottiaux", "active": true },
+    { "id": "x:petergyang", "name": "Peter Yang", "handle": "petergyang", "active": true },
+    { "id": "x:thenanyu", "name": "Nan Yu", "handle": "thenanyu", "active": true },
+    { "id": "x:realmadhuguru", "name": "Madhu Guru", "handle": "realmadhuguru", "active": true },
+    { "id": "x:amandaaskell", "name": "Amanda Askell", "handle": "AmandaAskell", "active": true },
+    { "id": "x:_catwu", "name": "Cat Wu", "handle": "_catwu", "active": true },
+    { "id": "x:trq212", "name": "Thariq", "handle": "trq212", "active": true },
+    { "id": "x:googlelabs", "name": "Google Labs", "handle": "GoogleLabs", "active": true },
+    { "id": "x:amasad", "name": "Amjad Masad", "handle": "amasad", "active": true },
+    { "id": "x:rauchg", "name": "Guillermo Rauch", "handle": "rauchg", "active": true },
+    { "id": "x:alexalbert__", "name": "Alex Albert", "handle": "alexalbert__", "active": true },
+    { "id": "x:levie", "name": "Aaron Levie", "handle": "levie", "active": true },
+    { "id": "x:ryolu_", "name": "Ryo Lu", "handle": "ryolu_", "active": true },
+    { "id": "x:garrytan", "name": "Garry Tan", "handle": "garrytan", "active": true },
+    { "id": "x:mattturck", "name": "Matt Turck", "handle": "mattturck", "active": true },
+    { "id": "x:zarazhangrui", "name": "Zara Zhang", "handle": "zarazhangrui", "active": true },
+    { "id": "x:nikunj", "name": "Nikunj Kothari", "handle": "nikunj", "active": true },
+    { "id": "x:steipete", "name": "Peter Steinberger", "handle": "steipete", "active": true },
+    { "id": "x:danshipper", "name": "Dan Shipper", "handle": "danshipper", "active": true },
+    { "id": "x:adityaag", "name": "Aditya Agarwal", "handle": "adityaag", "active": true },
+    { "id": "x:sama", "name": "Sam Altman", "handle": "sama", "active": true },
+    { "id": "x:claudeai", "name": "Claude", "handle": "claudeai", "active": true }
   ]
 }

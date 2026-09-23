@@ -17,13 +17,16 @@
 | 步骤 | 状态 | 证据 / 备注 |
 |---|---|---|
 | Step 0 生成本方案 | ✅ Done | 本文件 |
-| Step 1 定稿 registry schema 与 `id` 约定 | ⬜ Not Started | 见 §2 |
-| Step 2 迁移 `config/default-sources.json`（34 条） | ⬜ Not Started | 6 podcast + 26 X + 2 blog，全部补 `id` / `active`。**这是迁移起点，不是最终 source set**（选型与扩充 → Phase 1B） |
-| Step 3 新增 registry schema 文件 | ⬜ Not Started | 命名须避开 `config/config-schema.json`（见 §1.1） |
-| Step 4 改造 `loadSources()` loader | ⬜ Not Started | 见 §4 |
-| **Gate G1-P1** blog 端到端可跑（无 key） | ⬜ Not Started | 见 §6 |
-| **Gate G2-P1** X / podcast 字段静态等价 | ⬜ Not Started | 见 §6 |
-| Step 5 说明文档 | ⬜ Not Started | registry 字段与 `id` 规则 |
+| Step 1 定稿 registry schema 与 `id` 约定 | ✅ Done | 见 §2;实施期修正：`id` 字符集放开 `_`（3 个真实 handle 含下划线） |
+| Step 2 迁移 `config/default-sources.json`（34 条） | ✅ Done | 34 条全部带唯一 `id` + `active: true`；`schemaVersion: 1`。**迁移起点，不是最终 source set**（选型与扩充 → Phase 1B） |
+| Step 3 新增 registry schema 文件 | ✅ Done | `config/source-registry.schema.json`，顶部声明与 `config/config-schema.json` 无关；三个未使用字段标 `deprecated` |
+| Step 4 改造 `loadSources()` loader | ✅ Done | 校验字面 `id` + 全局唯一 fail-fast + `active` 过滤；三个抓取调用点未改 |
+| **Gate G1-P1** blog 端到端可跑（无 key） | ✅ **PASS** | `--blogs-only` exit 0；Anthropic 3 篇 / Claude 走 dedup 判定无新 → 两个解析器分发均验证；`feed-blogs.json` 顶层键与条目字段**均未变** |
+| **Gate G2-P1** X / podcast 字段静态等价 | ✅ **PASS** | 34 条原字段值字节等价、无字段丢失、无条数增减、id 唯一 |
+| Step 5 说明文档 | ✅ Done | 由 `config/source-registry.schema.json` 承载（字段表 + `id` 规则 + deprecated 标注） |
+| 附加：fail-fast 实证 | ✅ Done | 临时注入重复 `id` → `exit 1` + `Source registry: duplicate id "x:karpathy" ...`，随后还原 |
+
+**Phase 1A 实质完成。** 未决：待提交推送；`X_BEARER_TOKEN` / `POD2TXT_API_KEY` 仍缺（X / podcast 只有静态验证，见 §7.2）。
 
 ---
 
@@ -133,7 +136,8 @@ Phase 2 的 Signal Feed 要给每条 signal 一个 `source_id` 以回溯来源�
 
 **规则（写进 schema 文档）**
 
-1. 字符集 `[a-z0-9-]`，`-` 分词，全小写 ASCII。
+1. 字符集 `[a-z0-9_-]`（小写 ASCII 字母、数字、`-`、`_`）。
+   > **实施期修正**：原定为 `[a-z0-9-]`，实际迁移时发现 **3 个真实 X handle 含下划线** —— `_catwu`、`alexalbert__`、`ryolu_`（分别对应 Cat Wu、Alex Albert、Ryo Lu）。若不允许 `_`，就得做有损归一化（如 `_catwu` → `catwu`），使 `id` 与 handle 的对应关系变得不可预期。故放开 `_`，直接用小写 handle 作 slug。
 2. `id` **人工指派、字面存储**；**严禁在运行时从 `name` / URL 派生**（那会让展示名或 URL 的变更静默改身份）。
 3. 全局唯一：loader **fail-fast** 检测重复 `id`，发现即报错退出（不静默）。
 4. `id` **一旦发布即不可改** —— 它是 Phase 2 `source_id` 的取值，改动等于切断历史 signal 的可追溯性。改展示名不影响 `id`；`rssUrl` / `handle` 变化也不影响 `id`，这正是把 `id` 与 URL 解耦的意义。
@@ -292,16 +296,17 @@ cron（`17 6 * * *`）= `all` 模式 = 同时需要两个 key。而 key 检查�
 **完成定义：「机制落地 + 现有 34 条源无损迁移」，不是「源集合定型」。**
 **Source set 的选型与扩充不在 1A** —— 那是 Phase 1B。
 
-- [ ] `config/default-sources.json` 中 34 条源全部迁移，每条带唯一稳定 `id`
-- [ ] `id` 约定落文档（`<type-prefix>:<slug>`），并经 loader fail-fast 校验唯一性
-- [ ] `config/source-registry.schema.json` 落地，且与 `config/config-schema.json` 命名 / 职责清晰区分
-- [ ] `loadSources()` 完成规范化 + 校验 + `active` 过滤；三条抓取调用点（`:1037` / `:1080` / `:1105,1107`）**未改**
-- [ ] 新增 / 删除一个**同类型（含同 blog 域）源**无需改代码（编辑 JSON 即可）
-- [ ] **抓取行为无回退（分档表述）**：
-  - [ ] blog 路：`--blogs-only` 实跑，机制正常、无异常、`feed-blogs.json` 结构不变
-  - [ ] X / podcast 路：registry 字段与迁移前**静态逐字等价**，代码路径未变；**运行时验证按 §7.2 defer 到 key 到位**
-- [ ] 去重状态 `state-feed.json` **未重键**，兼容性不受影响
-- [ ] 说明文档给出字段表与 `id` 规则
+- [x] `config/default-sources.json` 中 34 条源全部迁移，每条带唯一稳定 `id`
+- [x] `id` 约定落文档（`<type-prefix>:<slug>`），并经 loader fail-fast 校验唯一性（**已实证**：注入重复 `id` → `exit 1`）
+- [x] `config/source-registry.schema.json` 落地，且与 `config/config-schema.json` 命名 / 职责清晰区分
+- [x] `loadSources()` 完成规范化 + 校验 + `active` 过滤；三条抓取调用点（`:1037` / `:1080` / `:1105,1107`）**未改**
+- [x] 新增 / 删除一个**同类型（含同 blog 域）源**无需改代码（编辑 JSON 即可）—— 由 registry 驱动的 loader 结构性保证
+- [x] **抓取行为无回退（分档表述）**：
+  - [x] blog 路：`--blogs-only` 实跑 `exit 0`，两个解析器分发均正确，`feed-blogs.json` 顶层键与条目字段均未变
+  - [x] X / podcast 路：registry 字段与迁移前**静态逐字等价**，代码路径未变；**运行时验证按 §7.2 defer 到 key 到位**
+- [x] `active` 过滤**已实证**：把 `blog:claude-blog` 置 `active: false` 后，该 blog 被完全跳过
+- [x] 去重状态 `state-feed.json` **未重键**，兼容性不受影响
+- [x] 说明文档给出字段表与 `id` 规则（由 schema 文件承载）
 
 **不计入本阶段退出条件**（诚实降级）：
 X / podcast 两条 feed 的**运行时**无回退验证、`X_BEARER_TOKEN` / `POD2TXT_API_KEY` 的配置。
