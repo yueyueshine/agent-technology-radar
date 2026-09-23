@@ -1,8 +1,14 @@
-# Phase 1 — Source Registry
+# Phase 1A — Registry Foundation
+
+> **Phase 1 已拆分为两个子阶段：**
+> - **Phase 1A（本文件）— Registry Foundation**：稳定源身份 `id`、registry schema、loader、唯一性 fail-fast 校验、`active` 状态管理。**只搭机制 + 无损迁移现有 34 条源**，不改变抓取行为。
+> - **Phase 1B — Radar Source Set**：把源集合真正做成「Radar 的源集合」—— 官方一手源 / Builder / Researcher / GitHub / Aggregator / Discovery。方案见 `.claude/plans/phase-1b-radar-source-set.plan.md`（待撰写）。
+>
+> **现有 34 条 follow-builders 源只是 1A 的迁移起点，不是 Phase 1 的最终 source set。**
+> **1A 完成定义：「机制落地 + 现有源无损迁移」，不是「源集合定型」。**
 
 > 目标：把数据源从写死的 config 升级为可维护的注册表，携带源身份（`id`）与元数据，作为后续 Signal 可追溯性的锚点。
-> **完成定义：「源清单注册化 + registry 驱动的读取打通」，不是「自有数据源全部接管」。**
-> 前置：Phase 0（执行顺序依赖，非设计约束）。
+> 前置：Phase 0 Done（执行顺序依赖，非设计约束）。
 
 ---
 
@@ -12,7 +18,7 @@
 |---|---|---|
 | Step 0 生成本方案 | ✅ Done | 本文件 |
 | Step 1 定稿 registry schema 与 `id` 约定 | ⬜ Not Started | 见 §2 |
-| Step 2 迁移 `config/default-sources.json`（34 条） | ⬜ Not Started | 6 podcast + 26 X + 2 blog，全部补 `id` |
+| Step 2 迁移 `config/default-sources.json`（34 条） | ⬜ Not Started | 6 podcast + 26 X + 2 blog，全部补 `id` / `active`。**这是迁移起点，不是最终 source set**（选型与扩充 → Phase 1B） |
 | Step 3 新增 registry schema 文件 | ⬜ Not Started | 命名须避开 `config/config-schema.json`（见 §1.1） |
 | Step 4 改造 `loadSources()` loader | ⬜ Not Started | 见 §4 |
 | **Gate G1-P1** blog 端到端可跑（无 key） | ⬜ Not Started | 见 §6 |
@@ -71,9 +77,9 @@
 - 建议命名：`config/source-registry.schema.json`（见 §3）。
 - `config/config-schema.json` 本阶段**原样不动**。
 
-### 1.2 死字段（经代码复核，共 3 个）
+### 1.2 已确认未使用字段（经代码复核，共 3 个）
 
-`blogs[]` 条目中有 **三个字段在任何代码里都零引用**（已逐个 grep 复核）：
+`blogs[]` 条目中有 **三个字段在任何代码里都零引用**（已逐个 grep 复核）。**本阶段保留、不删除**（决策与理由见 §2.3）：
 
 | 字段 | 代码引用数 | 说明 |
 |---|---|---|
@@ -115,7 +121,7 @@ owner 已决定**暂不注册两个 key、不查 X 定价**，且不因此阻塞
 
 ### 2.2 稳定身份 `id` 的约定
 
-Phase 2 的 Signal Feed 要给每条 signal 一个 `source_ref` 以回溯来源，因此 `id` 是本阶段最重要的产物。
+Phase 2 的 Signal Feed 要给每条 signal 一个 `source_id` 以回溯来源，因此 `id` 是本阶段最重要的产物。
 
 **格式：`<type-prefix>:<slug>`**
 
@@ -130,24 +136,30 @@ Phase 2 的 Signal Feed 要给每条 signal 一个 `source_ref` 以回溯来源�
 1. 字符集 `[a-z0-9-]`，`-` 分词，全小写 ASCII。
 2. `id` **人工指派、字面存储**；**严禁在运行时从 `name` / URL 派生**（那会让展示名或 URL 的变更静默改身份）。
 3. 全局唯一：loader **fail-fast** 检测重复 `id`，发现即报错退出（不静默）。
-4. `id` **一旦发布即不可改** —— 它是 Phase 2 `source_ref` 的取值，改动等于切断历史 signal 的可追溯性。改展示名不影响 `id`；`rssUrl` / `handle` 变化也不影响 `id`，这正是把 `id` 与 URL 解耦的意义。
+4. `id` **一旦发布即不可改** —— 它是 Phase 2 `source_id` 的取值，改动等于切断历史 signal 的可追溯性。改展示名不影响 `id`；`rssUrl` / `handle` 变化也不影响 `id`，这正是把 `id` 与 URL 解耦的意义。
 5. 前缀不参与「类型推断以外」的逻辑，仅供人读与防范跨类型撞名。
 
 > X 的 `handle` 是天然键且足够稳定，直接复用为 slug；**不额外存 X 数值 id**（运行时解析，见 §1）。
 
-### 2.3 死字段：保留、删除还是改用途
+### 2.3 `type` / `fetchMethod` / `articleBaseUrl`：保留，记录为 cleanup deferred
 
-**建议：从 registry 中删除全部 3 个零引用字段 —— `type`、`fetchMethod`、`articleBaseUrl`。**
+**决策（owner 已确认）：本阶段保留，不删除。**
 
-理由：
+| 字段 | 代码引用 | 状态标记 | 本阶段处置 |
+|---|---|---|---|
+| `type`（值 `"scrape"`） | **0** | `confirmed unused` | 原样保留 |
+| `fetchMethod`（值 `"http"`） | **0** | `confirmed unused` | 原样保留 |
+| `articleBaseUrl` | **0** | `confirmed unused` | 原样保留 |
 
-- 三者**零代码引用**（§1.2 已逐个复核），保留即为「携带误导性元数据」，与本阶段「携带源身份与元数据」的目标相悖 —— registry 的元数据应真实可用。
-- 抓取策略目前**由代码里的 URL 子串匹配隐式决定**，JSON 里再声明一份并不驱动任何行为，属于「看起来是配置、其实是注释」。
-- 删除**不触碰 blog 抓取 / 解析逻辑**（后者只读 `name` / `indexUrl`，并按 `article.url` 子串分发），符合硬约束「不处理 Blog 链路的功能」。
-- `type = "scrape"` 还会与「条目类型由数组键表达」的设计产生概念冲突，删掉更干净。
-- `articleBaseUrl` 虽看起来像「文章 URL 的基准」，但实际 URL 由 `generate-feed.js:686,709,734` 硬编码拼接 —— 保留它会让读者误以为改这个字段能改变抓取目标。
+**为什么不删**：删除它们虽能消除「误导性元数据」，但属于**与本阶段目标无关的 churn** —— 1A 的目标是建立源身份与 loader 机制，删字段既非必需，又会扩大 diff 面与回归面（仓库无测试兜底）。
 
-> **保守替代方案**：若 owner 倾向「本阶段只增不改」，可保留三个字段但在 schema 文档中标注 `deprecated`。**推荐直接删除** —— 成本低、且消除歧义是本阶段的核心目的。
+**怎么避免它们继续误导人**：
+
+- 在 `config/source-registry.schema.json` 中对三者显式标注 `deprecated`，并注明理由
+  「已确认未被任何代码读取 —— 抓取策略实际由 `generate-feed.js:912-916` / `:961-965` 的 URL 子串匹配决定；文章 URL 由 `:686,709,734` 硬编码拼接。清理推迟。」
+- 这样「未使用」这一事实**可见且被记录**，而无需在本阶段承担删改风险。
+
+**清理时机**：留到 **Phase 1B** 重做源集合时一并处理 —— 那时源集合本身要重构，删除属于该阶段的内生工作，而非无谓 churn。
 
 ### 2.4 与去重状态 `state-feed.json` 的向后兼容
 
@@ -155,7 +167,7 @@ Phase 2 的 Signal Feed 要给每条 signal 一个 `source_ref` 以回溯来源�
 
 - `seenTweets` 键是 tweet ID、`seenVideos` 键是 episode GUID、`seenArticles` 键是 article URL —— **三者都不含源身份**，因此新增 `id` 是纯增量字段。
 - **本阶段明令禁止**把 state 重键为 `source_id + ...`。若真这么做，后果是：整个 `state-feed.json` 的去重记忆作废（等价于清空 7 天窗口内的已见集合），旧内容会被当新内容重新抓取并再次发出。这与 Phase 2「去重不产生重复 id」直接冲突，属于**必须避免的动作**。
-- 因此本阶段的兼容性声明应当是：**registry `id` 只服务于 Phase 2 的 `source_ref`，不进入 Phase 1 的去重键。**
+- 因此本阶段的兼容性声明应当是：**registry `id` 只服务于 Phase 2 的 `source_id`，不进入 Phase 1 的去重键。**
 
 ---
 
@@ -187,7 +199,7 @@ Phase 2 的 Signal Feed 要给每条 signal 一个 `source_ref` 以回溯来源�
 | `fetchBlogContent(sources.blogs, …)`（`:1105,1107`） | — | **不改** |
 
 - 关键设计点：**改动止于 loader**。只要 loader 输出的条目形状与现状逐字一致（`handle`/`name`、`name`/`rssUrl`/`url`、`name`/`indexUrl`），三条抓取链路与各自的分发逻辑都不必感知 registry。这正是「最小耦合面」的落点。
-- 可选（服务 Phase 2）：loader 额外导出一个「扁平视图」（把三条数组合并、每条带 `id`），供未来 `source_ref` 使用。**本阶段可只留接口、不接线** —— 属 Phase 2 scope。
+- 可选（服务 Phase 2）：loader 额外导出一个「扁平视图」（把三条数组合并、每条带 `id`），供未来 `source_id` 使用。**本阶段可只留接口、不接线** —— 属 Phase 2 scope。
 - `id` 的**派生**不放进 loader：loader 只读取字面 `id`，不做 slug 生成（§2.2 规则 2）。
 - 注意 `generate-feed.js` 是**无 exports 的 CLI 单文件脚本**，loader 仍是脚本内部函数；不改其模块形态（不引入 exports / 不拆分文件，避免无关重构）。
 
@@ -209,6 +221,8 @@ Phase 2 的 Signal Feed 要给每条 signal 一个 `source_ref` 以回溯来源�
 2. 项目硬约束含「不做无关重构」；把 blog 分发改造成注册表会**触碰 blog 链路**，直接越界。
 3. 只有 3 类源、且第 4 类尚不存在（属 Open Question，非已确认需求）。**为一个假设中的第 4 类源预先抽象，是把不确定性固化成长期维护负担。**
 4. 「新增 / 删除源无需改代码」的退出标准，**在同一类型 / 同一 blog 域内即可满足**；跨类型或跨 blog 域的新源本就伴随新解析逻辑，天然需要代码 —— 不应把退出标准误读为「任意新源都零代码」。
+
+> **与 Phase 1B 的关系**：1B 要引入的新类型（官方一手源 / GitHub / Aggregator 等）**正是这些「缝」的用武之地** —— 届时每加一类源 = 加一段数据 + 一条读取分支。1A 只负责把缝留好，**不预建任何抽象**。若 1B 证明某类源需要更重的机制，那属于 1B 的设计决策，不在 1A 提前承担。
 
 ---
 
@@ -273,9 +287,10 @@ cron（`17 6 * * *`）= `all` 模式 = 同时需要两个 key。而 key 检查�
 
 ---
 
-## 8. Phase 1 Exit Criteria（Checklist）
+## 8. Phase 1A Exit Criteria（Checklist）
 
-**完成定义：「源清单注册化 + registry 驱动读取打通」，不是「自有数据源全部接管」。**
+**完成定义：「机制落地 + 现有 34 条源无损迁移」，不是「源集合定型」。**
+**Source set 的选型与扩充不在 1A** —— 那是 Phase 1B。
 
 - [ ] `config/default-sources.json` 中 34 条源全部迁移，每条带唯一稳定 `id`
 - [ ] `id` 约定落文档（`<type-prefix>:<slug>`），并经 loader fail-fast 校验唯一性
@@ -303,7 +318,7 @@ X / podcast 两条 feed 的**运行时**无回退验证、`X_BEARER_TOKEN` / `PO
 | ⚠️ 中 | `SKILL.md:53,151` 形状耦合 | schema 设计**保留三键数组结构**正是为规避此项；扁平化需先解耦 `SKILL.md`，本阶段不做 |
 | 开放问题 | 原地演进 vs 扁平化 registry | **推荐原地演进**（§3）；扁平化推迟到第 4 类源真正落地且 `SKILL.md` 解耦后再议 |
 | 开放问题 | `active` 标定义 | 本阶段**纯布尔、默认 `true`、全量不变**；是否需要更多标签（如「低频」）留待第 4 类源场景；**严禁**引入权重 |
-| 开放问题 | 死字段处置 | 经复核共 **3 个**零引用字段（`type` / `fetchMethod` / `articleBaseUrl`，见 §1.2）。**推荐全部删除**；若 owner 倾向保守可标 `deprecated`，但需记录 |
+| 已决（不再开放） | 未使用字段处置 | 经复核共 **3 个**零引用字段（`type` / `fetchMethod` / `articleBaseUrl`，见 §1.2）。**决策：本阶段保留，记录为 `confirmed unused / cleanup deferred`**，在 schema 中标注 `deprecated`；真正清理留到 Phase 1B（§2.3） |
 | 已知（继承 Phase 0） | 7 天 TTL 使旧内容可能复现 | 与 Phase 1 无关但相邻；state 键在本阶段**不动**，问题留 Phase 2 处理 |
 | 已知 | 定时 cron 今天不覆盖本阶段代码 | §6.1：cron 在 `loadSources()` 之前 `exit(1)`；勿将「CI 在跑」误判为 Phase 1 已验证 |
 
@@ -315,15 +330,16 @@ X / podcast 两条 feed 的**运行时**无回退验证、`X_BEARER_TOKEN` / `PO
 
 **Phase 1 是否移除该依赖？否。** 依据：只有 fork 自己能产出 `feed-x.json` / `feed-podcasts.json` 时才可重指向，而这需要 `X_BEARER_TOKEN` / `POD2TXT_API_KEY` —— owner 已决定暂不注册。Source Registry 只改变「源的表达方式」，不产生 key，也不联网抓 X / podcast。
 
-**结论：该临时上游依赖原样携带到 Phase 2。** 本阶段的产出为它的**移除铺路**（提供 `source_ref` 所依赖的源身份），但**不得声称 Phase 1 已移除它**。这与 `PLAN.md` §0「Phase 1 / Phase 2 建立自有 Source Registry 与 Signal Feed 后移除」的表述一致。
+**结论：该临时上游依赖原样携带到 Phase 2。** 本阶段的产出为它的**移除铺路**（提供 `source_id` 所依赖的源身份），但**不得声称 Phase 1 已移除它**。这与 `PLAN.md` §0「Phase 1 / Phase 2 建立自有 Source Registry 与 Signal Feed 后移除」的表述一致。
 
 ---
 
-## 11. 明确不在 Phase 1 范围内（防止未来 session 漂移）
+## 11. 明确不在 Phase 1A 范围内（防止未来 session 漂移）
 
 - ❌ 任何 UI
 - ❌ 主题判断 / 聚类 / 权重 / 评分 / Eval 相关内容（→ Phase 3、Phase 4）
-- ❌ Blog 链路的功能改动（抓取 / 解析 / 分发逻辑一律不碰；仅允许在 registry 中表达它、并删除其零引用字段）
+- ❌ Blog 链路的功能改动（抓取 / 解析 / 分发逻辑一律不碰；仅允许在 registry 中表达它，并对其未使用字段**标注 deferred —— 不删除**）
+- ❌ **Radar Source Set 的选型与扩充**（官方一手源 / Builder / Researcher / GitHub / Aggregator / Discovery）→ **Phase 1B**。1A 只把现有 34 条无损迁入 registry，**不新增、不移除、不重排源**
 - ❌ 把 blog 的 URL 子串分发重构为 parser registry / 引入任何插件抽象（§5）
 - ❌ 无关重构（清理 `proper-lockfile` 死依赖、拆分 `generate-feed.js`、引入 exports / 模块化）
 - ❌ 重命名 `~/.follow-builders` 目录（破坏性、零收益）

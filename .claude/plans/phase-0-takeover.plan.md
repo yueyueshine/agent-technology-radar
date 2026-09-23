@@ -1,5 +1,6 @@
 # Phase 0 — 接管现有 follow-builders
 
+> **状态：Done（2026-09-23）** —— 含 4 项 Known Limitations（见 §0「已知的、预期内的失败」与 `PLAN.md` 的 Phase 0 段落）。
 > 目标：让 fork 具备独立运转能力——CI 在 fork 上真实运行并回写数据；消费端读取 fork 自身的 prompts 与 blog feed。
 > **完成定义：「仓库与安全链路接管完成」，不是「全部数据源完全独立」。**
 > 前置：无。
@@ -302,7 +303,7 @@ workflow 已启用，因此每日 **06:17 UTC** 的 cron 会以 `all` 模式运�
 - [x] X / podcast 两条 feed 按临时上游依赖约定保持读上游，**未为形式上的独立而破坏数据链路**
 - [x] 文档引用已按 §5「建议修改（文档级）」项逐行修正（Step 7）
 - [ ] 消费端验证通过：prompts 与 blog feed 确实来自自有仓库（§7.2）
-- [ ] CI 定时运行已确认（观察次日 06:17 UTC，Step 8）
+- [ ] CI 定时运行已确认（观察次日 06:17 UTC，Step 8）→ **未验证；已接受为 Known Limitation L4，不阻塞 Phase 0 判定为 Done**
 
 **不再作为 Phase 0 退出条件**（已降级为后续阶段事项）：
 `X_BEARER_TOKEN` / `POD2TXT_API_KEY` 的配置、X / podcast 两条 feed 的接管。

@@ -1,7 +1,9 @@
 # Agent Technology Radar — 项目总路线图
 
 > 本文件是全局路线图。每个阶段的详细实施方案放在 `.claude/plans/<phase>.plan.md`，
-> 目前只存在 `.claude/plans/phase-0-takeover.plan.md`。任何新 session 从这里开始。
+> 目前存在 `.claude/plans/phase-0-takeover.plan.md`（Done）与
+> `.claude/plans/phase-1a-registry-foundation.plan.md`（In Progress）。
+> 任何新 session 从这里开始。
 
 ---
 
@@ -10,8 +12,8 @@
 | 项 | 内容 |
 |---|---|
 | 项目目标 | 把一个 `zarazhangrui/follow-builders` 的公开 fork 改造为自有的 **Agent Technology Radar**，追踪 AI Agent 技术生态，最终经**飞书**投递 |
-| 当前位置 | **Phase 0 — In Progress**；Phase 1–6 全部 Not Started |
-| 下一步 | **Phase 1 — Source Registry**：执行 `.claude/plans/phase-1-source-registry.plan.md`（给 34 条源补稳定 `id`、registry 驱动 loader）。Phase 0 仅剩 cron 定时触发的被动确认 |
+| 当前位置 | **Phase 1A — In Progress**；Phase 0 已 Done（含 Known Limitations）；Phase 1B、Phase 2–6 Not Started |
+| 下一步 | **Phase 1A — Registry Foundation**：执行 `.claude/plans/phase-1a-registry-foundation.plan.md` —— 给现有 34 条源补稳定 `id` 与 `active`、落 registry schema、改造 loader 加唯一性 fail-fast 校验。**1A 不扩充源集合**（选型与扩充 → Phase 1B） |
 | 交付渠道（终态） | 飞书；第一版用 **Group Bot Webhook** |
 | 仓库 | `yueyueshine/agent-technology-radar`（public fork of `zarazhangrui/follow-builders`） |
 | 状态词表 | `Not Started` / `In Progress` / `Blocked` / `Done` |
@@ -51,7 +53,7 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 
 | 链路阶段 | 承载 Phase |
 |---|---|
-| Sources / Fetch | Phase 0（打通现有链路）、Phase 1（Source Registry） |
+| Sources / Fetch | Phase 0（打通现有链路）、Phase 1A（Registry Foundation）、Phase 1B（Radar Source Set） |
 | Normalize / Deduplicate / Signal Feed | Phase 2 |
 | Topic Clustering | Phase 3 |
 | Technology Radar | Phase 4 |
@@ -64,8 +66,9 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 
 | Phase | 名称 | 状态 |
 |---|---|---|
-| Phase 0 | 接管现有 follow-builders | In Progress（仅剩 cron 定时触发的被动确认） |
-| Phase 1 | Source Registry | **In Progress** |
+| Phase 0 | 接管现有 follow-builders | **Done**（含 Known Limitations，见该阶段） |
+| Phase 1A | Registry Foundation | **In Progress** |
+| Phase 1B | Radar Source Set | Not Started |
 | Phase 2 | Signal Feed | Not Started |
 | Phase 3 | Topic Clustering | Not Started |
 | Phase 4 | Technology Radar | Not Started |
@@ -83,28 +86,47 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 
 - **Goal**：让 fork 具备独立运转能力——CI 在 fork 上真实运行并回写数据；消费端读取 fork 自身的 prompts 与 blog feed。**本阶段不追求「全部数据源完全独立」**，X / podcast 两条 feed 按临时上游依赖约定保留（见 §0）。
 - **Scope**：启用 fork 的 `generate-feed.yml`；实证 CI 可独立运行并回写；把消费端中**不依赖 API key** 的引用（`PROMPTS_BASE`、`FEED_BLOGS_URL`）改为自有仓库；修正文档引用。**不含** Source Registry 改造、blog 链路逻辑、UI、评分算法、无关重构、品牌/文档改名，**也不含** X / podcast 两条 feed 的接管（缺 key，推迟到 Phase 1/2）。
-- **Deliverables**：fork Actions 上 `generate-feed.yml` state=active；至少一次成功 run 并在 fork main 产生 `chore: update feeds [skip ci]` 提交；`scripts/prepare-digest.js` 的 `FEED_BLOGS_URL`(31) 与 `PROMPTS_BASE`(33) 指向自有仓库；文档中的上游引用按清单修正。
+- **Deliverables**：fork Actions 上 `generate-feed.yml` state=active；至少一次成功 run 并在 fork main 产生 `chore: update feeds [skip ci]` 提交；`scripts/prepare-digest.js` 的 `FEED_BLOGS_URL`(36) 与 `PROMPTS_BASE`(38) 指向自有仓库；文档中的上游引用按清单修正。
 - **Dependencies**：无。
 - **Exit Criteria**：**「仓库与安全链路接管完成」**——① CI 在 fork 上运行成功且产生回写提交；② 消费端的 prompts 与 blog feed 来自自有仓库；③ X / podcast 两条 feed 按临时上游依赖约定继续读上游，且**这是预期状态、不是缺口**；④ 未为形式上的独立而破坏任何现有数据链路。
-- **Risks & Open Questions**：（已降级，不阻塞 Phase 0 完成）`X_BEARER_TOKEN` / `POD2TXT_API_KEY` 缺位 → X / podcast 暂不接管，移除时机见 §0 临时上游依赖；`~/.follow-builders` 目录重命名与品牌改名全部 defer。
-- **Status**：In Progress
+- **Risks & Open Questions**：见下方 **Known Limitations**。
+- **Status**：**Done**（2026-09-23）
 
-### Phase 1 — Source Registry
+**Known Limitations（Phase 0 结束时明确未解决、且被 owner 接受的事项）**
 
-- **Goal**：把数据源从写死的 config 升级为可维护的注册表，携带源身份与元数据，作为后续 Signal 可追溯性的锚点。
-- **Scope**：定义 registry schema（源类型 / 抓取方式 / 身份标识 / 活跃度标签）；迁移现有 6 个 podcast、26 个 X 账号、2 个 blog；增加按 registry 驱动的读取逻辑。不引入任何主题或评分逻辑。
-- **Deliverables**：registry 文件与 schema；loader；迁移后的完整源清单；说明文档。
-- **Dependencies**：Phase 0 Done。**这是执行顺序上的依赖，不是设计约束**——Source Registry 在设计上并不要求自有数据源。先完成仓库与数据链路接管，是为了避免后续迁移时出现重复改造。
-- **Exit Criteria**：详见 `.claude/plans/phase-1-source-registry.plan.md` §8。核心：34 条源全部注册化并带唯一稳定 `id`；新增 / 删除**同类型（含同 blog 域）**源无需改代码；抓取行为无回退 —— **blog 路实跑验证，X / podcast 路仅静态等价（无 key，运行时验证 defer）**。
+| # | 限制 | 影响 | 处置 |
+|---|---|---|---|
+| L1 | **X / podcast 的 runtime validation deferred** | 无 key，无法端到端验证这两条链路在自有仓库下工作 | 相关 Exit Criteria 按「静态等价」口径成立；runtime 验证 defer 到 key 到位 |
+| L2 | **临时上游依赖仍然存在** | `prepare-digest.js` 的 `FEED_X_URL`(34) / `FEED_PODCASTS_URL`(35) 仍读 `zarazhangrui/follow-builders` | 按 §0「临时上游依赖」；约定 Phase 2 后移除 |
+| L3 | **当前没有 `X_BEARER_TOKEN` / `POD2TXT_API_KEY`** | 仓库 secrets 为 0；每日 cron 的 `all` 模式 run 会在 key 检查处失败（预期内、无害） | owner 已决定暂不注册；不阻塞主线 |
+| L4 | **cron 定时触发未经验证**（Step 8） | 无法确认 schedule 在 fork 上真的会触发 | 被动观察；若未触发，用 `workflow_dispatch` 兜底 |
+
+### Phase 1A — Registry Foundation
+
+- **Goal**：建立源注册表的**机制** —— 稳定源身份 `id`、registry schema、registry 驱动 loader、唯一性 fail-fast 校验、`active` 状态管理。**只搭机制 + 无损迁移现有 34 条源，不改变抓取行为。**
+- **Scope**：定义 registry schema（`id` / `name` / `active` + 各类型字段）与 `id` 约定；把现有 6 podcast + 26 X + 2 blog 补上 `id` / `active`；改造 `loadSources()` 做规范化 + 唯一性校验 + `active` 过滤。**不含** Source set 的选型与扩充、UI、评分算法、主题判断、blog 链路逻辑、无关重构、品牌改名。
+- **Deliverables**：注册化后的 `config/default-sources.json`（34 条带唯一 `id`）；`config/source-registry.schema.json`；改造后的 `loadSources()`；字段与 `id` 规则说明文档。
+- **Dependencies**：Phase 0 Done。**执行顺序依赖，非设计约束** —— 先完成仓库与数据链路接管，是为了避免后续迁移出现重复改造。
+- **Exit Criteria**：详见 `.claude/plans/phase-1a-registry-foundation.plan.md` §8。核心：34 条源全部带唯一稳定 `id`；新增 / 删除**同类型（含同 blog 域）**源无需改代码；抓取行为无回退 —— **blog 路实跑验证，X / podcast 路仅静态等价（无 key，runtime 验证 defer）**。
 - **Risks & Open Questions**：① key 缺位压缩了可验证面（X / podcast 只能静态验证）；② registry 与 `generate-feed.js` 的 URL 子串分发耦合，「新增源无需改代码」仅在同一 blog 域内成立；③ 仓库无测试无 lint，回归靠人肉 Gate。详见 plan §9。
 - **Status**：In Progress
+
+### Phase 1B — Radar Source Set
+
+- **Goal**：把源集合真正做成「**Radar 的**源集合」—— 服务于技术雷达判断，而不是沿用 follow-builders 的 builder 名单。
+- **Scope**：源集合的**选型与分类** —— 官方一手源、Builder / Researcher、GitHub、Aggregator / Discovery。**现有 34 条 follow-builders 源只是迁移起点，不是本阶段的最终 source set** —— 1B 会新增、重新归类、可能移除。沿用 1A 的 registry 机制，1B **不重建机制**。
+- **Deliverables**：定型的 source set（按上述分类组织）；各分类的选型理由；必要时扩展 1A 留出的类型缝。
+- **Dependencies**：Phase 1A Done（需要 `id` / schema / loader 机制）。
+- **Exit Criteria**：待 1B 方案（`.claude/plans/phase-1b-radar-source-set.plan.md`，待撰写）确定。核心方向：源集合按「官方一手源 / Builder / Researcher / GitHub / Aggregator / Discovery」分类组织且有明确选型理由；新增源在同类型内无需改代码。
+- **Risks & Open Questions**：① 新源类型（GitHub / Aggregator）可能需要新的抓取路径 —— 属 1B 的设计决策；② 与 Phase 2 Signal 规范化的边界（源元数据从哪来）；③ 1B 必须回答「源集合的取舍标准」这一实质问题，不能只堆数量。
+- **Status**：Not Started
 
 ### Phase 2 — Signal Feed
 
 - **Goal**：产出结构化、**来源可追溯**的 Signal 流——这是「先稳数据，再智能」原则的落点。
-- **Scope**：Normalize 与 Deduplicate 的输出规范；定义 signal schema（`id` / `source_ref` / `type` / `published_at` / `url` / `title` / `raw_text`）；去重键的确定。不做主题判断。
+- **Scope**：Normalize 与 Deduplicate 的输出规范；定义 signal schema（`id` / `source_id` / `type` / `published_at` / `url` / `title` / `raw_text`）；去重键的确定。不做主题判断。
 - **Deliverables**：signal feed 文件与 schema；去重键定义；强制来源字段的校验。
-- **Dependencies**：Phase 1（需要 registry 提供 source 身份与元数据）。
+- **Dependencies**：Phase 1A（需要 registry 提供 source 身份与元数据）。
 - **Exit Criteria**：每条 signal 能回溯到 registry 条目与原始 URL；去重不产生重复 id；时间字段跨源解析一致。
 - **Risks & Open Questions**：同一事件多源重复（跨源去重策略未定）；不同源时间格式差异。
 - **Status**：Not Started
@@ -160,7 +182,7 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 | 层 | 文件 | 职责 |
 |---|---|---|
 | 全局路线图 | `PLAN.md`（项目根） | 7 个 phase 的目标、边界、依赖、退出标准、状态；不含实现细节 |
-| 单阶段方案 | `.claude/plans/<phase>.plan.md` | 该阶段的逐步可执行方案；目前仅 `phase-0-takeover.plan.md` 存在 |
+| 单阶段方案 | `.claude/plans/<phase>.plan.md` | 该阶段的逐步可执行方案；目前存在 `phase-0-takeover.plan.md`（Done）与 `phase-1a-registry-foundation.plan.md`（In Progress）。**Phase 1B 的方案待撰写** |
 
 规则：
 
