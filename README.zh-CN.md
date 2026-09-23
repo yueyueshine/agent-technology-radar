@@ -83,13 +83,13 @@ Skill 使用纯文本 prompt 文件来控制内容的摘要方式。你可以通
 clawhub install follow-builders
 
 # 或手动安装
-git clone https://github.com/zarazhangrui/follow-builders.git ~/skills/follow-builders
+git clone https://github.com/yueyueshine/agent-technology-radar.git ~/skills/follow-builders
 cd ~/skills/follow-builders/scripts && npm install
 ```
 
 ### Claude Code
 ```bash
-git clone https://github.com/zarazhangrui/follow-builders.git ~/.claude/skills/follow-builders
+git clone https://github.com/yueyueshine/agent-technology-radar.git ~/.claude/skills/follow-builders
 cd ~/.claude/skills/follow-builders/scripts && npm install
 ```
 

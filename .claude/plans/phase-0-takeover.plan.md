@@ -17,7 +17,7 @@
 | **Gate G1** | ✅ **PASS** | 四条信号全部成立；`contents: write` 实测有效（仓库默认 `read` 不构成阻碍） |
 | Step 5 确认 key 可得性 | ✅ Done | 两个 key 均无；决定**暂不注册**，改走 §6 无 key 路径 |
 | Step 6 重指向安全 URL | ✅ Done | `FEED_BLOGS_URL`(31)、`PROMPTS_BASE`(33) → 自有仓库；29 / 30 保持上游 |
-| Step 7 文档引用修正 | ⏳ Pending | 见 §5「建议修改（文档级）」 |
+| Step 7 文档引用修正 | ✅ Done | `digest-intro.md:58`、`README.md:93,99`、`README.zh-CN.md:86,92`、`SKILL.md:420` 的上游仓库 URL → 自有仓库（**只改 URL，名字全部保持**） |
 | Step 8 确认 CI 定时运行 | ⏳ Pending | 观察次日 06:17 UTC 的 cron |
 
 ### 已知的、预期内的失败
@@ -190,14 +190,18 @@ workflow 已启用，因此每日 **06:17 UTC** 的 cron 会以 `all` 模式运�
 | `scripts/prepare-digest.js:29` | `FEED_X_URL` | ⏸ **推迟**（临时上游依赖，Phase 1/2 移除） |
 | `scripts/prepare-digest.js:30` | `FEED_PODCASTS_URL` | ⏸ **推迟**（同上） |
 
-### 建议修改 — 文档级（不阻塞 CI，但属于「接管」的一部分）
+### 建议修改 — 文档级（✅ 已于 Step 7 完成）
 
-| 文件:行 | 内容 | 影响 |
-|---|---|---|
-| `prompts/digest-intro.md:58` | digest 页脚里的上游 GitHub URL | 会出现在每份 digest 的输出中 |
-| `README.md:93, 99` | `git clone https://github.com/zarazhangrui/follow-builders.git ...` | 照 README 操作会装成上游仓库 |
-| `README.zh-CN.md:86, 92` | 同上 | 同上 |
-| `SKILL.md:420` | `open an issue at https://github.com/zarazhangrui/follow-builders.` | 纯 issue 链接（**该行不含任何 `~/.follow-builders` 或品牌内容**，见本节日末说明） |
+| 文件:行 | 内容 | 影响 | 状态 |
+|---|---|---|---|
+| `prompts/digest-intro.md:58` | digest 页脚里的上游 GitHub URL | 会出现在每份 digest 的输出中 | ✅ 已改 URL |
+| `README.md:93, 99` | `git clone https://github.com/zarazhangrui/follow-builders.git ...` | 照 README 操作会装成上游仓库 | ✅ 已改 URL |
+| `README.zh-CN.md:86, 92` | 同上 | 同上 | ✅ 已改 URL |
+| `SKILL.md:420` | `open an issue at https://github.com/zarazhangrui/follow-builders.` | 纯 issue 链接（**该行不含任何 `~/.follow-builders` 或品牌内容**，见本节日末说明） | ✅ 已改 URL |
+
+> **执行口径**：以上 4 处**只改仓库 URL**，所有**名字**一律保持原样 ——
+> `~/skills/follow-builders` 安装目录名、`clawhub install follow-builders`、`Follow Builders skill` 字样、
+> `SKILL.md:2` 的 `name:` 均未改动（品牌改名整体 defer）。
 
 ### **MUST NOT change（改了就损坏源列表）**
 
@@ -296,7 +300,7 @@ workflow 已启用，因此每日 **06:17 UTC** 的 cron 会以 `all` 模式运�
 - [x] `FEED_BLOGS_URL`(31) 与 `PROMPTS_BASE`(33) 指向自有仓库
 - [x] `config/default-sources.json:70`、`README.md:79`、`README.zh-CN.md:72` 三处 X 账号**未被改动**（陷阱校验）
 - [x] X / podcast 两条 feed 按临时上游依赖约定保持读上游，**未为形式上的独立而破坏数据链路**
-- [ ] 文档引用已按 §5「建议修改（文档级）」项逐行修正（Step 7）
+- [x] 文档引用已按 §5「建议修改（文档级）」项逐行修正（Step 7）
 - [ ] 消费端验证通过：prompts 与 blog feed 确实来自自有仓库（§7.2）
 - [ ] CI 定时运行已确认（观察次日 06:17 UTC，Step 8）
 

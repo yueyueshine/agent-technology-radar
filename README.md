@@ -90,13 +90,13 @@ These are plain English instructions, not code. Changes take effect on the next 
 clawhub install follow-builders
 
 # Or manually
-git clone https://github.com/zarazhangrui/follow-builders.git ~/skills/follow-builders
+git clone https://github.com/yueyueshine/agent-technology-radar.git ~/skills/follow-builders
 cd ~/skills/follow-builders/scripts && npm install
 ```
 
 ### Claude Code
 ```bash
-git clone https://github.com/zarazhangrui/follow-builders.git ~/.claude/skills/follow-builders
+git clone https://github.com/yueyueshine/agent-technology-radar.git ~/.claude/skills/follow-builders
 cd ~/.claude/skills/follow-builders/scripts && npm install
 ```
 
