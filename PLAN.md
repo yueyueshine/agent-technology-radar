@@ -2,7 +2,7 @@
 
 > 本文件是全局路线图。每个阶段的详细实施方案放在 `.claude/plans/<phase>.plan.md`，
 > 目前存在 `phase-0-takeover.plan.md`（Done）、`phase-1a-registry-foundation.plan.md`（Done）、
-> 与 `phase-1b-radar-source-set.plan.md`（Done）。**Phase 2 的方案尚未撰写。**
+> `phase-1b-radar-source-set.plan.md`（Done）、与 `phase-2-signal-feed.plan.md`（方案待裁决）。
 > 任何新 session 从这里开始。
 
 ---
@@ -13,7 +13,7 @@
 |---|---|
 | 项目目标 | 把一个 `zarazhangrui/follow-builders` 的公开 fork 改造为自有的 **Agent Technology Radar**，追踪 AI Agent 技术生态，最终经**飞书**投递 |
 | 当前位置 | Phase 0 / 1A / **1B 全部 Done**；Phase 2–6 Not Started |
-| 下一步 | **Phase 2 — Signal Feed**。**1B 已停在完成点，未自动进入 Phase 2。** Phase 2 需承接一项跨阶段依赖：为 AIHOT 这类受再分发限制的源提供 private / internal-only 输出路径（否则 AIHOT 永远无法从 `active: false` 启用） |
+| 下一步 | **Phase 2 — Signal Feed** 方案已起草（`.claude/plans/phase-2-signal-feed.plan.md`），**待 3 项裁决后实施**：D1 新渠道 fetcher 归属、D2 signal `id` 形态、D3 去重状态策略。**D1 不定则 Phase 2 无输入可处理** |
 | 交付渠道（终态） | 飞书；第一版用 **Group Bot Webhook** |
 | 仓库 | `yueyueshine/agent-technology-radar`（public fork of `zarazhangrui/follow-builders`） |
 | 状态词表 | `Not Started` / `In Progress` / `Blocked` / `Done` |
@@ -69,7 +69,7 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 | Phase 0 | 接管现有 follow-builders | **Done**（含 Known Limitations，见该阶段） |
 | Phase 1A | Registry Foundation | **Done** |
 | Phase 1B | Radar Source Set | **Done** |
-| Phase 2 | Signal Feed | Not Started |
+| Phase 2 | Signal Feed | In Progress（方案已起草，待 3 项裁决） |
 | Phase 3 | Topic Clustering | Not Started |
 | Phase 4 | Technology Radar | Not Started |
 | Phase 5 | Daily / Weekly Digest | Not Started |
@@ -123,13 +123,13 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 
 ### Phase 2 — Signal Feed
 
-- **Goal**：产出结构化、**来源可追溯**的 Signal 流——这是「先稳数据，再智能」原则的落点。
-- **Scope**：Normalize 与 Deduplicate 的输出规范；定义 signal schema（`id` / `source_id` / `type` / `published_at` / `url` / `title` / `raw_text`）；去重键的确定。不做主题判断。
-- **Deliverables**：signal feed 文件与 schema；去重键定义；强制来源字段的校验。
-- **Dependencies**：Phase 1A（需要 registry 提供 source 身份与元数据）。
-- **Exit Criteria**：每条 signal 能回溯到 registry 条目与原始 URL；去重不产生重复 id；时间字段跨源解析一致。
-- **Risks & Open Questions**：同一事件多源重复（跨源去重策略未定）；不同源时间格式差异。
-- **Status**：Not Started
+- **Goal**：把三个形状各异的 feed 归一为**结构化、来源可追溯的 Signal 流**，并给出确定的去重规则。
+- **Scope**：signal schema（含时间归一）；Normalize 规则；去重键与去重状态；**可追溯性强制**；**输出分区 public / internal-only**。不做主题判断。
+- **Deliverables**：`.claude/plans/phase-2-signal-feed.plan.md`（方案已起草）；signal feed 与 schema；Normalize / Deduplicate 规则；public / internal 分区能力。
+- **Dependencies**：Phase 1A / 1B Done。**但另有一个未裁决的前置**：新渠道 fetcher 归属（见 plan §2 的 D1）—— 不裁决则 35 个源永远无数据，Phase 2 只能在 blog 一条线上验证。
+- **Exit Criteria**：详见 plan §10。核心：signal schema 定稿；**blog 路时间归一到 ISO 实测通过**；`source_id` 100% 命中 registry；`role=aggregator` 的 signal 均有可解析的 `original_url`；**输出分区落地**（internal 源不进 public 产物）；**播客去重 bug 已修**。
+- **Risks & Open Questions**：① **D1 fetcher 归属未定（阻塞）**；② **已确认 bug：播客因 7 天 TTL < 14 天 lookback 会重复发出**；③ AIHOT 启用有**双重前置**（internal 分区 + `api` fetcher）；④ 验证面极窄（今天只有 blog 能端到端跑）；⑤ registry 需再增一个 `redistribution` 字段（第三次 schema 变更）。详见 plan §11。
+- **Status**：In Progress（方案已起草，**待 3 项裁决**：D1 fetcher 归属 / D2 `id` 形态 / D3 去重状态策略）
 
 ### Phase 3 — Topic Clustering
 
@@ -182,7 +182,7 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 | 层 | 文件 | 职责 |
 |---|---|---|
 | 全局路线图 | `PLAN.md`（项目根） | 7 个 phase 的目标、边界、依赖、退出标准、状态；不含实现细节 |
-| 单阶段方案 | `.claude/plans/<phase>.plan.md` | 该阶段的逐步可执行方案；目前存在 `phase-0-takeover.plan.md`（Done）、`phase-1a-registry-foundation.plan.md`（Done）、`phase-1b-radar-source-set.plan.md`（Done） |
+| 单阶段方案 | `.claude/plans/<phase>.plan.md` | 该阶段的逐步可执行方案；目前存在 `phase-0-takeover`（Done）、`phase-1a-registry-foundation`（Done）、`phase-1b-radar-source-set`（Done）、`phase-2-signal-feed`（方案待裁决） |
 
 规则：
 
