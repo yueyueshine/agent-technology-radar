@@ -69,6 +69,7 @@
 | `hackernews` | HN Algolia API | **新 fetcher（待建）**，零 Key |
 | `arxiv` | arXiv Atom API | **新 fetcher（待建）**，零 Key |
 | `huggingface` | HF API | **新 fetcher（待建）** |
+| `api` | 通用 JSON API（结构化字段，如原文链接 / 发布时间） | **新 fetcher（待建）**，零 Key |
 | `web` | 通用网页抓取 | **新 fetcher（待建）** |
 
 > **现有 3 个 channel（x / blog / podcast）是唯一有 fetcher 的**，其余全部需要新代码。这是本阶段最重要的现实约束（§5 每一条都标注了）。
@@ -97,7 +98,7 @@
 
 | # | 标准 | 判定方式 |
 |---|---|---|
-| 1 | **可追溯到原始来源** | 每条内容有稳定 URL，且指向**一手发布处**（不是转载页） |
+| 1 | **可追溯到原始来源** | 每条内容有稳定 URL，且指向**一手发布处**（不是转载页、不是聚合站站内页）。聚合类源必须能**提供或可解析出 `original_url`**，否则不满足本条 |
 | 2 | **可稳定获取** | 有公开、无需登录的获取端点（RSS / API / 公开页面）；不依赖爬虫对抗 |
 | 3 | **与 Agent / LLM 相关** | 主要内容面属于 agent、LLM、工具使用、评测、推理等范畴 |
 
@@ -129,9 +130,17 @@
 |---|---|---|
 | **Core** | 必须长期跟踪。缺了 Radar 就不完整 | 每次抓取都覆盖；停更即触发复核 |
 | **Extended** | 有价值，但非每日必需 | 可降频抓取；纳入 digest 时优先级低于 Core |
-| **Discovery** | **只用于发现线索** | **不得作为最终事实来源**：其产出的线索必须回溯到一手源才能进入 Radar |
+| **Discovery** | **只用于发现线索** | 只作为线索呈现；不单独支撑 Radar 判断 |
 
-> **Discovery 的硬约束**：Discovery 源产出的条目，若无法回溯到一手源，则**不进入 Radar**，只在 digest 中作为「值得看一眼」出现，且必须显式标注其为二手线索。这是 §2 P1-1 在 tier 层的延伸。
+> **重要澄清（1B 修订）：可追溯性约束来自 `role`，不是来自 `tier`。**
+>
+> 早期草案把「不得作为最终事实来源」挂在 Discovery tier 上 —— 这是**不准确的建模**。真正的判据是
+> **内容的 role 是否为 `aggregator`**：凡「非一手发布」的源（**任何 tier**），其条目**必须回溯到
+> 一手来源**（`original_url` / 原始发布链接）才可进入 Radar；回溯不到的，只能作为线索出现并显式标注为二手。
+>
+> 这样两个维度各司其职：`tier` 只回答「**给多少注意力**」，`role` 回答「**内容能不能直接当事实**」。
+> 因此 `role=aggregator` + `tier=extended` 的源（如 AIHOT）是**合法组合**：它值得常规关注，
+> 但它的内容永远不是事实来源。
 
 > **tier 是人工指派的分类标签，不是评分、不是权重。** 任何加权都是 Phase 3 的决策，本阶段不得引入。
 
@@ -265,13 +274,48 @@ v1 用三个数组键表达源：`podcasts[]` / `blogs[]` / `x_accounts[]`。**�
 
 | 源 | role | channel | 需 Key? | 当前能抓? | 实测 | tier |
 |---|---|---|---|---|---|---|
+| **AIHOT** | aggregator | **api**（备选 rss） | 否 | ❌ 需新 fetcher | ✅ 200 | **Extended** |
 | Hacker News（`points > N` 过滤） | aggregator | hackernews | 否 | ❌ | ✅ 200 | **Discovery** |
 | arXiv（cs.AI / cs.CL / cs.LG，按提交日） | aggregator | arxiv | 否 | ❌ | ✅ 200 | **Discovery** |
 | Hugging Face Daily Papers | aggregator | huggingface | 否 | ❌ | ⚠️ 000 未实测 | **Discovery** |
 | Semantic Scholar | aggregator | web | 否（有速率限制） | ❌ | ⚠️ 429 限流 | Discovery |
 | Reddit r/LocalLLaMA | aggregator | reddit | 否 | ❌ | ⚠️ 000 未实测 | Discovery |
 
-> **Discovery 一律受 §3 硬约束**：不得作为最终事实来源。
+> 以上全部 `role=aggregator` → 一律受 §3 的可追溯性约束：**其内容永远不是事实来源**，
+> 进入 Radar 前必须回溯到一手源。
+
+#### 5.4.1 AIHOT 端点清单（逐个实测 200，零 Key、匿名只读）
+
+权威来源：`https://aihot.news/llms.txt`，OpenAPI：`https://aihot.news/openapi-v1.json`。
+
+| 端点 | 用途 | 实测 |
+|---|---|---|
+| `https://aihot.news/api/v1/items` | 最近资讯 JSON。支持 `mode=selected/all`、`window=24h/7d`、`by=timeline/published`、`category`、`q`、`limit`、`cursor` | ✅ 200 |
+| `https://aihot.news/api/v1/hot-topics` | 热点榜 Top 10；每条含从 1 起的 `rank` 与 `links.story` | ✅ 200 |
+| `https://aihot.news/api/v1/stories/{publicId}` | 事件时间线 + AI 综述 | 未单测 |
+| `https://aihot.news/api/v1/dailies/latest`、`/dailies` | 日报（每日 08:00 北京时间发布） | ✅ 200 |
+| `https://aihot.news/api/v1/selected/snapshot`、`/selected/changes` | 精选全量快照 / cursor 驱动增量 | 未单测 |
+| `https://aihot.news/feed.xml` | 精选摘要 RSS（最新 50 条） | ✅ 200 |
+| `https://aihot.news/feed/daily.xml` | 日报 RSS（保留 30 期） | ✅ 200 |
+| `https://aihot.news/feed/category/{slug}.xml` | 分类 RSS：`ai-models` / `ai-products` / `industry` / `paper` / `tip` | ✅ 200 |
+| `https://aihot.news/api/mcp` | MCP server（5 个只读工具） | — |
+
+**为什么推荐 `channel=api` 而不是 `rss`**（brief 里写的是「rss 或 api」，以下是我的判断）：
+
+| | RSS | API |
+|---|---|---|
+| **原文 URL** | ❌ `<link>` 指向 **AIHOT 站内页**；原文 URL 埋在 `<description>` 的 HTML 里（`<a>阅读原文</a>`），需二次解析 | ✅ `links.original` 为**结构化字段** |
+| 时间字段 | 只有 `pubDate` | ✅ `publishedAt`（原文发布）与 `discoveredAt`（AIHOT 收录）**分开** |
+| 增量抓取 | 每次重读 50 条自行比对 | ✅ `cursor` + `selected/changes` + `ETag`/304 |
+| 成本 | 可复用计划中的 `rss` fetcher | 需新增 `api` fetcher |
+
+**决定性理由**：「**Signal 必须来源可追溯**」是本项目的硬原则。RSS 路线下原文链接要从中文锚文本里从 HTML 抠出来；API 直接给结构化字段。**在唯一一个以「可追溯」为核心诉求的源上省一个 fetcher，不划算。**
+
+**RSS 仍为备选**：若你倾向控制 channel 数量，可降级为 `channel=rss`，代价是原文 URL 需从 description 解析。**这个取舍请你定。**
+
+**tier 建议 = Extended**（你 brief 默认给的是 Discovery）。理由：AIHOT 不止是原始聚合 —— 它有 LLM 打分精选、日报，以及**热点榜要求「多个独立信源共同印证」**的多源佐证机制，比纯聚合高一档。而按 §3 的修订，它的 `role=aggregator` 已保证内容**永不作为事实来源**，所以放进 Extended 不会污染事实层。
+
+**抓取注意**：响应 `Cache-Control` 的 `s-maxage=60` 为最小轮询间隔；必须带 `If-None-Match`，未变化返回 304；遇 429 / 503 按 `Retry-After` 等待。旧 `/api/public/*` 接口 2026-12-31 停服，**只用 `/api/v1/*`**。
 
 ---
 
@@ -332,6 +376,8 @@ v1 用三个数组键表达源：`podcasts[]` / `blogs[]` / `x_accounts[]`。**�
 - [ ] **Gate G1-P1B**：`--blogs-only` 实跑无回退
 - [ ] **Gate G2-P1B**：role / channel / tier 取值全部合法；`id` 唯一性保持
 - [ ] Eval 相关源**未**因 owner 背景获得提权（需在 Source Set 中可核验）
+- [ ] **AIHOT 的再分发授权已裁决**；未裁决前保持 `active: false`（见 §9 法务风险）
+- [ ] AIHOT 的 channel（`api` / `rss`）与 tier（Extended / Discovery）已定
 
 **不计入本阶段退出条件**：新渠道 fetcher 的实现与真实抓取验证。
 
@@ -351,7 +397,10 @@ v1 用三个数组键表达源：`podcasts[]` / `blogs[]` / `x_accounts[]`。**�
 | 开放问题 | `tier` 是否进 registry | 本方案建议进（它是「哪些源值得长期追踪」的答案）。**但须明确：tier 不是权重**，加权是 Phase 3 的决策 |
 | 开放问题 | 一个人多渠道的身份归并 | 现方案 = 一条 registry 条目对应一个 (role, channel) 抓取目标；Karpathy 的 X 与其博客是两条条目。是否需要「人物」聚合层留待 Phase 3 |
 | 已知 | Eval 提权风险 | §2 已明令禁止；Exit Criteria 含可核验项 |
-| 已知 | Discovery 污染事实来源 | §3 硬约束；Phase 2 需在 signal schema 中体现该约束（**本阶段不做**） |
+| 已知 | 聚合内容污染事实层 | §3 已修订：该约束来自 `role=aggregator`，与 tier 无关；Phase 2 需在 signal schema 中体现（**本阶段不做**） |
+| ⚠️ **高（法务）** | **AIHOT 的对外再分发授权边界** | AIHOT 公开使用规则（`https://aihot.news/terms`）明确：**个人非商业、公益非商业、组织内部使用免费**；而「面向外部的商业产品、收费服务、客户交付、代理接口、数据转售、**公开镜像**、**批量公开再分发**、对外模型产品」**均须事先取得书面授权**，且「仅署名不代表已取得授权」。<br>**风险点：本仓库是 public，且 CI 会把 feed 写回仓库并推送到 GitHub。** 若 AIHOT 内容进入被提交的 `feed-*.json`，可能触及「公开镜像 / 批量公开再分发」。<br>**处置：上线 AIHOT 前必须先裁决** ——（a）仅个人自用且 feed 不入公开仓库；（b）仓库转私有；（c）取得书面授权。**在裁决前不得把 AIHOT 置为 `active: true`。** |
+| 开放问题 | AIHOT 的 channel 取舍（`api` vs `rss`） | 见 §5.4.1。推荐 `api`（结构化 `links.original`，契合可追溯原则）；备选 `rss`（复用 fetcher，但原文链接需解析 HTML）。**待 owner 定** |
+| 开放问题 | 其他源的再分发条款 | AIHOT 暴露的是一类**通用风险**：其他源（Hacker News 聚合、arXiv 等）也可能有再分发限制，且本项目生产端会把内容提交到 **public** 仓库。建议在接入每个聚合类源前核对条款 —— 本阶段不逐个审计 |
 
 ---
 
