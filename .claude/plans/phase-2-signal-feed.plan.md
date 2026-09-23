@@ -239,6 +239,54 @@ CI 步骤 `Fetch keyless channels` ✅；`Generate feeds` 如预期因缺 Key �
 
 未认证 **60 req/h**。9 个 repo × 1 次 = 9 次/run，实测剩余 48。**当前安全**；仓库数增长后再评估引入免费 token。
 
+## 2.7 Web 通道调查结论：**批次 1 不需要它**（2026-09-23）
+
+调查 `web` 的两个成员后发现**它们都不需要 web fetcher**。
+
+| 源 | 真相 | 处置 |
+|---|---|---|
+| `web:cursor-changelog` | **`cursor.com/changelog/rss.xml` 存在且干净**（200；50 条；全部带 `guid`；日期规范） | **改判为 `rss`**，id → `rss:cursor-changelog`，`active: true`。**零新增代码** |
+| `web:semantic-scholar` | 注册的 `url` 是 **paper-search API 端点**（`/graph/v1/paper/search`）而非网页 → **本质是 `api` 源**。且匿名请求**首击即 429** | **待裁决**（见 §2.7.2） |
+
+**净效果：`web` 通道在批次 1 没有任何有效成员，无需实现。批次 1 由 4 个通道收缩为 3 个：`rss` / `github` / `api`。**
+
+### 2.7.1 关于 id 的「一旦发布不可改」
+
+`web:cursor-changelog` → `rss:cursor-changelog` **改了 id**。
+
+理由：该规则的目的是**保护已发出 signal 的可追溯性**。该条目自登记起一直是 `active: false`，**从未产出任何 signal**，重新铸 id **不丢失任何历史**；它当初是在错误的通道假设下铸造的。
+
+**约束**：此例外**仅适用于从未产出 signal 的条目**。一旦某 id 出现在 signal feed 中，即不可改。
+
+### 2.7.2 `web:semantic-scholar` 需要裁决
+
+两个问题叠加：
+
+1. **通道错配** —— 它是 API，不是网页（1B 登记时的判断有误）
+2. **不可稳定获取** —— 匿名请求首击即 **HTTP 429**。按 §2 的 P1-2「可稳定获取」，**它当前不满足硬性门槛**
+
+| 选项 | 说明 |
+|---|---|
+| **A. 退休**（我倾向） | 删除该条目。`tier=discovery`、价值边际，且 arXiv 与 HF Papers 已覆盖发现层 |
+| B. 改判为 `api` 并保持 `active: false` | 但 id 前缀是 `web:`，会与 channel 长期错配（或需按 §2.7.1 重铸 id） |
+| C. 申请免费 key | 需人工申请；且 arXiv / HF 已覆盖同类需求 |
+
+**建议 A。** 若将来确实需要，应以 `api:semantic-scholar` 重新登记。
+
+### 2.7.3 顺带发现：168h 窗口会让低频源几乎永远沉默
+
+**18 个 active RSS 源里，7 个在 168h 窗口内产出 0 条**：
+
+`google-deepmind`、`cursor-changelog`、`karpathy`、`lilian-weng`、`chip-huyen`、`eugene-yan`、`jay-alammar`
+
+其中相当一部分是**低频高价值源**（Lilian Weng、Chip Huyen、Eugene Yan、Jay Alammar 都是季更级别）。**7 天窗口意味着它们几乎永远不会进入 feed** —— 对 Radar 而言这是在漏掉高价值内容。
+
+**因为 2B 会去重，加宽窗口的代价很低**（只增大不提交的中间产物）。建议把 `RSS_LOOKBACK_HOURS` 从 168h 提到 **336h（14 天）**或更宽。**待裁决。**
+
+---
+
+## 3. Phase 2B — Signal Pipeline
+
 ### 3.1 Signal Schema（终稿）
 
 ```jsonc
