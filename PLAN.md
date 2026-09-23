@@ -128,8 +128,8 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 - **Deliverables**：`.claude/plans/phase-2-signal-feed.plan.md`；4 个新 fetcher；Signal Schema 与归一 / 去重规则；public + internal 双输出；registry 新增 `redistribution` 字段。
 - **Dependencies**：Phase 1A / 1B Done。
 - **Exit Criteria**：详见 plan §8。核心：4 个 fetcher 产出统一 `items[]`；**`published_at` 只能是 ISO 8601 或 `null`**（blog 路实测）；`id` 用确定性哈希、`source_id` 100% 命中；aggregator 必有可解析 `original_url`；**`DEDUP_TTL_DAYS = 30` 且运行时校验 `TTL ≥ max lookback` fail-fast**；播客重复发出的 bug 已修；internal 源绝不进 public 产物。
-- **Risks & Open Questions**：① **已确认 bug：播客因 7 天 TTL < 14 天 lookback 会重复发出**；② AIHOT 有**双重前置**（`api` fetcher + internal 分区），缺一不可；③ 36 条源（x / podcast / 批次 2）本阶段无法端到端验证，验证面集中在 blog + 批次 1；④ registry 第三次结构变更（新增 `redistribution`）。详见 plan §9。
-- **Status**：In Progress（2A / 2B / 2C 待实施）。**Phase 2 完成后预期 runnable：33 / 69。**
+- **Risks & Open Questions**：① **已确认 bug：播客因 7 天 TTL < 14 天 lookback 会重复发出**；② AIHOT 有**三重前置**（`api` fetcher + internal 隔离 + **安全的下游消费 / 持久化通路**），**第三条本阶段无法满足 → 本阶段不会启用**；③ **internal 数据生命周期未闭环**（`$RUNNER_TEMP` 在 workflow 结束后消失，Phase 3/4 无法消费），本阶段只交付隔离能力；④ 36 条源（x / podcast / 批次 2）无法端到端验证；⑤ registry 第三次结构变更（新增 `redistribution`）。详见 plan §9。
+- **Status**：In Progress（2A / 2B / 2C 待实施）。**Phase 2 完成后预期 runnable：33 / 69。**注意 **`runnable` ≠ `productive`** —— 33 是「fetcher 能访问解析」的数，**不等于 33 个源当前都有内容产出**（如 `anthropics/claude-code` 当前无 release）。
 
 ### Phase 3 — Topic Clustering
 

@@ -34,9 +34,13 @@
 |---|---|---|
 | 1 | **Fetch 本来就是 Phase 2 的职责**，并入 Phase 2，不新增 Phase 1C | 原始总路线 `Sources → **Fetch** → Normalize → Deduplicate → Signal Feed` 已把 Fetch 放在 Signal Feed 之内 |
 | 2 | **分批**：2A 第一批只做 **零 Key、高价值** 的 rss / github / api / web；**不要求一次做完 8 个 channel** | 控制单批风险；X / podcast 因缺 Key 保持 blocked，**不作为 2A 的完成条件** |
-| 3 | **`id` 不承载语义** | 主键应稳定且与展示解耦；可读性由 `source_id` / `native_id` 承担 |
-| 4 | **dedup TTL = 30 天** | 覆盖当前最长 lookback（播客 14 天）并留余量 |
+| 3 | **`id` 不承载语义**：拆 `id` / `source_id` / `native_id`，`id` 取 `sha256[:32]` | 主键应稳定且与展示解耦；可读性由 `source_id` / `native_id` 承担。既然不靠 id 可读，**就没必要压到 64 bit** |
+| 4 | **dedup TTL = 30 天** + 运行时断言 `TTL ≥ max lookback` | 覆盖当前最长 lookback（播客 14 天）并留余量；只调大会把 bug 留给下一个改 lookback 的人 |
 | 5 | **时间归一不得让 pipeline 崩，也不得静默** | 不可解析 → `published_at = null` + 记 warning |
+| 6 | **`url` 必填且永不为 `null`；`original_url` 是 `string \| null`** | 早期草案同时要求"`original_url` 必填"和"aggregator 可解析失败"—— **两条互相矛盾**（§3.1） |
+| 7 | **AIHOT 需三个条件**：api fetcher + internal 隔离 + **安全的下游消费 / 持久化通路** | 只有前两者时，internal 数据没有可用去向；**不得因 2A+2C 完成就启用**（§6） |
+| 8 | **`runnable` ≠ `productive`** | fetcher 能成功访问解析 ≠ 该源当前有内容产出（§5.0） |
+| 9 | **internal 持久化不塞进 Phase 2** | 属独立议题；2C 只交付隔离能力（§4.3） |
 
 ---
 
@@ -149,15 +153,16 @@ RSS（19 源，收益最大、最标准）
 
 ```jsonc
 {
-  "id": "6b1f0a9c4e2d7a38",                    // sha256(source_id + "\n" + native_id) 的确定性哈希
+  "id": "6b1f0a9c4e2d7a38f5b3c8e1a07d4269",    // = sha256(source_id + "\n" + native_id) 的前 32 位 hex
   "source_id": "blog:claude-blog",             // 必填，必须命中 registry
   "native_id": "https://claude.com/blog/claude-in-chrome-generally-available",
   "channel": "blog",
   "type": "blog_post",
   "title": "Claude in Chrome is generally available",
-  "url": "https://claude.com/blog/claude-in-chrome-generally-available",
-  "original_url": "https://claude.com/blog/claude-in-chrome-generally-available",
-  "published_at": "2026-08-26T00:00:00.000Z",  // ISO 8601 UTC 或 null，二选一，不允许其他格式
+  "url": "https://claude.com/blog/claude-in-chrome-generally-available",            // 必填，永不为 null
+  "original_url": "https://claude.com/blog/claude-in-chrome-generally-available",   // string | null
+  "is_secondary": false,                       // 仅当 original_url === null 时为 true
+  "published_at": "2026-08-26T00:00:00.000Z",  // ISO 8601 UTC 或 null，不允许第三种
   "collected_at": "2026-09-23T03:53:16.995Z",  // 必填，始终存在
   "text": "…"
 }
@@ -167,16 +172,19 @@ RSS（19 源，收益最大、最标准）
 
 | 字段 | 规则 |
 |---|---|
-| `id` | **确定性哈希**：`sha256(source_id + "\n" + native_id)` 取前 16 位十六进制。**不承载语义**；同一 (source_id, native_id) 永远产出同一 id |
+| `id` | **确定性哈希**：`sha256(source_id + "\n" + native_id)` 取前 **32 位**十六进制。**不承载语义**；同一 `(source_id, native_id)` 永远产出同一 id。既然可读性已由 `source_id` / `native_id` 承担，**主键没有必要压缩到 64 bit** |
 | `source_id` | 必填，必须能在 registry 中命中；命中失败 → 该条**不得进入 signal feed** |
 | `native_id` | 必填，该通道的天然标识；与 `source_id` 一起构成"这条内容是谁的哪一条" |
 | `channel` / `type` | 必填；`type` ∈ `tweet` / `podcast_episode` / `blog_post` / `release` / `paper` / `story` / `page` |
 | `title` | 可空（部分源的条目无标题） |
-| `url` | **必填**；缺失 → 剔除并计入错误 |
-| `original_url` | **必填**。一手源与 `url` 相同；**`role=aggregator` 的源必须解析出一手链接**，否则该条降级（§3.5） |
+| `url` | **必填，永不为 `null`**；缺失 → 剔除并计入错误 |
+| `original_url` | **`string \| null`**。一手源 = `url`；`role=aggregator` 能解析出一手来源则填**原文 URL**，**解析不出则为 `null`** |
+| `is_secondary` | boolean。**当且仅当 `original_url === null` 时为 `true`** —— 表示该条已降级为"线索"，不参与 Radar 事实层 |
 | `published_at` | **只能是合法 ISO 8601 UTC 或 `null`**。不可解析 → `null` + normalization warning（§3.3） |
 | `collected_at` | **始终必填**。与 `published_at` 分离，用于排查"为什么这条现在才出现" |
 | `text` | 下游使用的正文；通道决定来源（推文正文 / 转写 / 文章正文 / release notes） |
+
+> **修正说明（owner 指出）**：早期草案同时规定了「`original_url` 必填」和「aggregator 允许解析不出原文」—— **这两条互相矛盾**。现改为：`url` 必填且永不为 null；`original_url` 可空，**解析失败以 `null` + `is_secondary: true` 显式表达**，而不是靠一条做不到的"必填"规则。
 
 > 命名说明：PLAN.md 原写的 `raw_text` 改为 `text` —— `raw_` 前缀暗示"未经处理"，而此处内容可能已剥 HTML。以本表为准。
 
@@ -187,7 +195,7 @@ RSS（19 源，收益最大、最标准）
 | N1 **拍平** | `feed-x.json` 的 `x[].tweets[]` 嵌套拍平为逐条 signal。父级字段（`name` / `handle` / `bio`）**不再随条目走** —— 改由 `source_id` 回查 registry |
 | N2 **来源注入** | 每条补 `source_id`（来自 registry 条目）、`channel`、`type` |
 | N3 **`id` 生成** | 按 §3.1 的哈希规则生成；同一输入必得同一输出 |
-| N4 **链接** | `url` = 内容本身；`original_url` = 一手来源。一手源两者相同 |
+| N4 **链接** | `url` = 内容本身（**必填，永不为 `null`**）；`original_url` = 一手来源（**可空**）。一手源两者相同；aggregator 解析不出原文时 `original_url = null` 且 `is_secondary = true` |
 | N5 **失败可见** | 缺 `url` / `source_id` 命中失败 / 时间不可解析 —— **一律计入 `normalization_warnings` 或 `errors`，不得静默**。这是 1B「fail-fast」原则在数据层的延续 |
 | N6 **`type` 映射** | x → `tweet`；podcast → `podcast_episode`；blog → `blog_post`；github → `release`；api → `story`；web → `page` |
 
@@ -248,7 +256,7 @@ DEDUP_TTL_DAYS = 30
 |---|---|
 | 回溯到 registry 条目 | `source_id` 必填且必须命中；命中失败 → **不得进入 signal feed** |
 | 有可点击原始链接 | `url` 必填；缺失 → 剔除 + 计入错误 |
-| **非一手内容必须回溯到一手源** | `role=aggregator` 的源，其 `original_url` **必须存在且指向非本站**；解析不出 → 该条**降级为线索**（标 `is_secondary: true`），不参与 Radar 事实层 |
+| **非一手内容尽量回溯到一手源** | `role=aggregator` 的源：能解析出一手来源 → `original_url` = 原文 URL；**解析不出 → `original_url = null` 且 `is_secondary = true`**，该条降级为"线索"，不参与 Radar 事实层。<br>**不把"可回溯"写成"必填"** —— 那会与"允许解析失败"自相矛盾（§3.1 修正说明） |
 
 > 第三条是 1B 修订过的模型（**可追溯性来自 `role`，不来自 `tier`**）在数据层的落地。
 
@@ -273,19 +281,49 @@ DEDUP_TTL_DAYS = 30
 
 > ⚠️ 这是 registry 的**第三次结构变更**（v1 → v2 → 加字段）。1B 的 schema 文件需同步。
 
-### 4.3 internal 产物的落地形态
+### 4.3 internal 产物的落地形态（⚠️ **生命周期未闭环**）
 
 | 要求 | 做法 |
 |---|---|
-| **绝不进入 public 仓库** | 文件写入 `.gitignore`；且**写入 `$RUNNER_TEMP` 而非工作树**（双保险：即使有人 `git add -A` 也不会带上） |
-| 可被后续阶段取用 | 作为 **GitHub Actions artifact** 上传 |
-| 实际投递到飞书 | **不在本阶段**（→ Phase 6）。2C 只负责"分区正确" |
+| **绝不进入 public 仓库** | 写入 `$RUNNER_TEMP` 而非工作树；同时把该路径写进 `.gitignore`（双保险：即使有人 `git add -A` 也不会带上） |
+| 暂存 | 作为 GitHub Actions artifact 上传 —— 但这只是"不公开"，**不是一条可用通路** |
+| 实际投递 | **不在本阶段**（→ Phase 6） |
+
+> ### ⚠️ 已知缺口：internal 数据目前**没有可用通路**
+>
+> `$RUNNER_TEMP` 只保证**不公开**，但 **workflow 一结束文件即消失** —— Phase 3 / Phase 4 **无法消费**这份 Signal Feed。
+>
+> **本阶段不为它引入新的 private persistence 基础设施**（owner 决定）。因此：
+>
+> - 2C 的交付物是**数据隔离能力**（确保 internal 内容绝不落入 public 产物），**不是**一条可用的 internal 消费通路
+> - **AIHOT 因此继续 `active: false`** —— 不因 2A 的 api fetcher + 2C 的隔离完成而启用（见 §6）
+> - 建立安全持久化 / 直连消费通路是**独立议题**，不塞进 Phase 2
+
+### 4.4 2C 能验证什么、不能验证什么
+
+| | 内容 |
+|---|---|
+| ✅ 能验证 | 构造一条 `internal` 源的内容 → 确认它**不出现在** `signals.json`，且落在 `$RUNNER_TEMP` 的 internal 产物里 |
+| ❌ 不能验证 | internal 数据能被 Phase 3 / 4 消费 —— **该通路尚不存在，且不在本阶段范围内** |
 
 ---
 
-## 5. Runnable 账目（算出来的，不是估的）
+## 5. Runnable / Productive 账目
 
-**当前 69 条源的状态：**
+### 5.0 两个必须分开的状态（owner 指出）
+
+| 状态 | 定义 | 判据 |
+|---|---|---|
+| **runnable** | fetcher 能成功**访问并解析**该源 | 抓取无错误、产出结构合法的 `items[]` |
+| **productive** | 当前**确实产出了目标 Signal** | 该源在当前窗口内**有内容**（新 release / 新文章 / 新条目） |
+
+> **两者不等价。** GitHub fetcher 能跑 **≠** 每个 repo 当前都有 release —— 例如 `anthropics/claude-code` 在我们的候选表里 latest release 就是 `—`（无）。
+>
+> **因此：**
+> - **33 / 69 是预期 `runnable` 数**
+> - **不得表述为「33 个源都会实际产生 Signal」** —— productive 数随各源发布节奏浮动，可能显著低于 33
+
+### 5.1 当前 69 条源的状态
 
 | 状态 | 数量 | 构成 |
 |---|---|---|
@@ -295,7 +333,7 @@ DEDUP_TTL_DAYS = 30
 | ⏸ 批次 2 通道（本阶段不做） | 4 | hackernews / arxiv / huggingface / reddit 各 1 |
 | | **69** | |
 
-### 5.1 第一批从 blocked/inactive 变 runnable 的源清单（31 条）
+### 5.2 第一批从 blocked/inactive 变 runnable 的源清单（31 条）
 
 **RSS（19）**
 `rss:openai-news` · `rss:google-deepmind` · `rss:github-copilot-changelog` · `rss:karpathy` · `rss:simon-willison` · `rss:latent-space` · `rss:lilian-weng` · `rss:interconnects` · `rss:import-ai` · `rss:google-ai` · `rss:apple-ml` · `rss:nvidia-blog` · `rss:meta-ai` · `rss:mistral-news` · `rss:huggingface-blog` · `rss:chip-huyen` · `rss:sebastian-raschka` · `rss:eugene-yan` · `rss:jay-alammar`
@@ -307,9 +345,9 @@ DEDUP_TTL_DAYS = 30
 `web:cursor-changelog` · `web:semantic-scholar`
 
 **API（1）**
-`api:aihot` —— **但受 §6 双重前置约束，启用晚于其余 30 条**
+`api:aihot` —— **但受 §6 的「三重前置」约束（第三条本阶段无法满足），本阶段不会启用**；即便启用也晚于其余 30 条
 
-### 5.2 Phase 2 完成后的预期 runnable 数量
+### 5.3 Phase 2 完成后的预期 **runnable** 数量
 
 > ## **33 / 69**
 
@@ -325,16 +363,19 @@ DEDUP_TTL_DAYS = 30
 
 ---
 
-## 6. 跨阶段：AIHOT 的启用条件
+## 6. 跨阶段：AIHOT 的启用条件（**三个**，缺一不可）
 
-**AIHOT 有双重前置，缺一不可：**
+| # | 前置 | 由谁提供 | 本阶段能否满足 |
+|---|---|---|---|
+| 1 | **`api` channel 的 fetcher** | Phase 2A | ✅ 能 |
+| 2 | **internal-only 数据隔离生效** | Phase 2C | ✅ 能 |
+| 3 | **安全的 downstream 消费 / 持久化通路** | **独立议题，Phase 2 明确不做** | ⛔ **不能** |
 
-| # | 前置 | 由谁提供 |
-|---|---|---|
-| 1 | **`api` channel 的 fetcher** | Phase 2A |
-| 2 | **internal-only 输出分区生效** | Phase 2C |
-
-> 仅满足其一都不够。**2A 做完但 2C 未做时，`api:aihot` 必须仍保持 `active: false`。**
+> **即使 1 和 2 都完成，AIHOT 也必须继续 `active: false`** —— 第 3 条没有着落时，产出的 internal 数据没有任何可用去向（§4.3）。
+>
+> **明确禁止**：不要把「2A + 2C 完成」当作启用 AIHOT 的充分条件。
+>
+> 与 1B 的登记一致：`api:aihot` 的 `active` 保持 `false`，直到**三条全部满足**。
 
 ---
 
@@ -348,7 +389,8 @@ DEDUP_TTL_DAYS = 30
 | **时间归一** | 真实 `--blogs-only` 后，blog signal 的 `published_at` **全部为合法 ISO 8601 或 null**（含那条原本是 `"Aug 26, 2026"` 的） |
 | X 拍平 | 对现有 `feed-x.json` 离线归一 → 逐条平铺，条数 = `sum(tweets)` |
 | `source_id` 命中 | 命中率 **100%** |
-| aggregator 可追溯 | `role=aggregator` 的 signal 均有非本站 `original_url`，否则 `is_secondary: true` |
+| aggregator 可追溯 | `role=aggregator` 的 signal **二者必居其一**：① `original_url` 为非本站一手链接；② `original_url === null` 且 `is_secondary === true`。**不允许既为 null 又不标 secondary** |
+| `url` 恒不为 null | 全部 signal 的 `url` 均为非空字符串 |
 | **dedup TTL 约束** | 构造 `TTL < max lookback` → **fail-fast 退出** |
 | **去重生效** | 同一 signal 跑两次，第二次不重复产出 |
 | **播客 bug 已修** | 构造"8 天前见过"的条目 → **不再重发** |
@@ -382,7 +424,9 @@ DEDUP_TTL_DAYS = 30
 - [ ] 时间不可解析 → `null` + warning，**pipeline 不中断、不静默**
 - [ ] `collected_at` 始终必填
 - [ ] `source_id` 100% 命中 registry；命不中不进入 feed
-- [ ] `role=aggregator` 的条目均有可解析的 `original_url`，否则标 `is_secondary`
+- [ ] `role=aggregator` 的条目：`original_url` 为原文 URL，**或** `original_url === null && is_secondary === true`（**二者必居其一**）
+- [ ] `url` 全部为**非空字符串**（永不为 `null`）
+- [ ] `id` 取 `sha256(source_id + "\n" + native_id)` 的**前 32 位** hex
 - [ ] 去重键 = signal `id`
 - [ ] **`DEDUP_TTL_DAYS = 30`**，且**运行时校验 `TTL >= max lookback`，违反即 fail-fast**
 - [ ] 播客重复发出的 bug 已修（构造用例验证）
@@ -392,7 +436,8 @@ DEDUP_TTL_DAYS = 30
 - [ ] registry 新增 `redistribution` 字段；`api:aihot` 为 `internal`
 - [ ] `internal` 源的内容**绝不进入** `signals.json`
 - [ ] `signals-internal.json` 写入 `$RUNNER_TEMP` 且被 `.gitignore` 覆盖
-- [ ] **AIHOT 仅在 2A + 2C 双双满足后才可置 `active: true`**
+- [ ] **AIHOT 保持 `active: false`** —— 启用需**三**条件全满足（api fetcher + internal 隔离 + 安全下游消费通路）；**第三条本阶段无法满足，故本阶段不启用**
+- [ ] **不引入** internal 的持久化基础设施（属独立议题）
 
 **不以本阶段为条件：** X / podcast 的 Key 与真实抓取、批次 2 通道、internal 分区的飞书投递。
 
@@ -403,7 +448,9 @@ DEDUP_TTL_DAYS = 30
 | 级别 | 风险 / 问题 | 说明与处置 |
 |---|---|---|
 | ⚠️ **高（已确认 bug）** | **播客会重复发出** | §1.4。修正 = TTL 30 天 **+ 运行时约束**（只调大会把 bug 留给下一个人） |
-| ⚠️ 高 | **AIHOT 的双重前置** | 需 2A 的 `api` fetcher **且** 2C 的 internal 分区。缺一则永远启不了 |
+| ⚠️ **高** | **AIHOT 有「三」重前置，第三条本阶段无法满足** | 需 ① `api` fetcher ② internal 隔离 ③ **安全的下游消费 / 持久化通路**。第三条属独立议题、Phase 2 明确不做 → **本阶段 AIHOT 不会启用**（§6） |
+| ⚠️ **高** | **internal 数据生命周期未闭环** | `$RUNNER_TEMP` 只保证"不公开"，workflow 结束即消失 → **Phase 3 / 4 无法消费**。本阶段只交付隔离能力，**不建持久化**（§4.3） |
+| ⚠️ **中** | **`runnable` ≠ `productive`** | 33 是 **runnable** 数；实际产出 Signal 的源数随发布节奏浮动，**可能显著低于 33**（§5.0） |
 | ⚠️ 中 | **36 条源（x + podcast + 批次 2）本阶段无法端到端验证** | x/podcast 缺 Key，批次 2 无 fetcher。方案已按 §7.3 分档表述，不夸大 |
 | ⚠️ 中 | **3 条 RSS 本地不可达** + 1 条 406 + 1 条限流 | 须在 CI 复核；不得据本地结果判定不可用 |
 | ⚠️ 中 | **registry 第三次结构变更** | §4.2 的 `redistribution` 字段。1B schema 文件需同步 |
