@@ -1,8 +1,8 @@
 # Agent Technology Radar — 项目总路线图
 
 > 本文件是全局路线图。每个阶段的详细实施方案放在 `.claude/plans/<phase>.plan.md`，
-> 目前存在 `.claude/plans/phase-0-takeover.plan.md`（Done）与
-> `.claude/plans/phase-1a-registry-foundation.plan.md`（In Progress）。
+> 目前存在 `phase-0-takeover.plan.md`（Done）、`phase-1a-registry-foundation.plan.md`（Done）、
+> 与 `phase-1b-radar-source-set.plan.md`（方案待确认）。
 > 任何新 session 从这里开始。
 
 ---
@@ -12,8 +12,8 @@
 | 项 | 内容 |
 |---|---|
 | 项目目标 | 把一个 `zarazhangrui/follow-builders` 的公开 fork 改造为自有的 **Agent Technology Radar**，追踪 AI Agent 技术生态，最终经**飞书**投递 |
-| 当前位置 | **Phase 1A — In Progress**；Phase 0 已 Done（含 Known Limitations）；Phase 1B、Phase 2–6 Not Started |
-| 下一步 | **Phase 1A — Registry Foundation**：执行 `.claude/plans/phase-1a-registry-foundation.plan.md` —— 给现有 34 条源补稳定 `id` 与 `active`、落 registry schema、改造 loader 加唯一性 fail-fast 校验。**1A 不扩充源集合**（选型与扩充 → Phase 1B） |
+| 当前位置 | Phase 0 Done、**Phase 1A Done**；**Phase 1B 方案已起草、待确认**；Phase 2–6 Not Started |
+| 下一步 | **Phase 1B — Radar Source Set**：`.claude/plans/phase-1b-radar-source-set.plan.md` 待确认后实施 —— role × channel 两维度建模、选源标准与 tier、registry 升 schema v2、第一版 Source Set 登记 |
 | 交付渠道（终态） | 飞书；第一版用 **Group Bot Webhook** |
 | 仓库 | `yueyueshine/agent-technology-radar`（public fork of `zarazhangrui/follow-builders`） |
 | 状态词表 | `Not Started` / `In Progress` / `Blocked` / `Done` |
@@ -67,8 +67,8 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 | Phase | 名称 | 状态 |
 |---|---|---|
 | Phase 0 | 接管现有 follow-builders | **Done**（含 Known Limitations，见该阶段） |
-| Phase 1A | Registry Foundation | **In Progress** |
-| Phase 1B | Radar Source Set | Not Started |
+| Phase 1A | Registry Foundation | **Done** |
+| Phase 1B | Radar Source Set | In Progress（方案待确认） |
 | Phase 2 | Signal Feed | Not Started |
 | Phase 3 | Topic Clustering | Not Started |
 | Phase 4 | Technology Radar | Not Started |
@@ -114,12 +114,12 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 ### Phase 1B — Radar Source Set
 
 - **Goal**：把源集合真正做成「**Radar 的**源集合」—— 服务于技术雷达判断，而不是沿用 follow-builders 的 builder 名单。
-- **Scope**：源集合的**选型与分类** —— 官方一手源、Builder / Researcher、GitHub、Aggregator / Discovery。**现有 34 条 follow-builders 源只是迁移起点，不是本阶段的最终 source set** —— 1B 会新增、重新归类、可能移除。沿用 1A 的 registry 机制，1B **不重建机制**。
-- **Deliverables**：定型的 source set（按上述分类组织）；各分类的选型理由；必要时扩展 1A 留出的类型缝。
+- **Scope**：**① role × channel 两维度建模**（`source_role` = 为什么值得追踪；`source_channel` = 怎么拿到。**二者正交，不得合并成单一 type**）；**② 选源标准与 tier**（Core / Extended / Discovery）；**③ registry 表达升级**（schema v2 扁平化为 `sources[]`）；**④ 第一版 Source Set 登记**。**不含** Signal Feed 设计、新渠道 fetcher 实现。
+- **Deliverables**：`.claude/plans/phase-1b-radar-source-set.plan.md`（方案已起草）；v2 扁平 registry 与 schema；带 `role`/`channel`/`tier` 的第一版 Source Set；`loadSources()` 内部吸收扁平化（三个 fetcher 调用点不改）。
 - **Dependencies**：Phase 1A Done（需要 `id` / schema / loader 机制）。
-- **Exit Criteria**：待 1B 方案（`.claude/plans/phase-1b-radar-source-set.plan.md`，待撰写）确定。核心方向：源集合按「官方一手源 / Builder / Researcher / GitHub / Aggregator / Discovery」分类组织且有明确选型理由；新增源在同类型内无需改代码。
-- **Risks & Open Questions**：① 新源类型（GitHub / Aggregator）可能需要新的抓取路径 —— 属 1B 的设计决策；② 与 Phase 2 Signal 规范化的边界（源元数据从哪来）；③ 1B 必须回答「源集合的取舍标准」这一实质问题，不能只堆数量。
-- **Status**：Not Started
+- **Exit Criteria**：详见 plan §8。核心：role/channel 模型定稿；第一版 Source Set 带完整 `role`/`channel`/`tier` 登记（新渠道源 `active: false`）；`--blogs-only` 无回退；role/channel/tier 取值合法；Eval 相关源未因 owner 背景提权。
+- **Risks & Open Questions**：① **`github` 作为 role 的建模冲突待裁决**（plan §1.3）；② 新渠道**全部无 fetcher**，第一版只有 2 个源今天能抓 —— 交付的是策展结果不是可用摄取；③ 可达性验证受本地网络限制，须在 CI 复核；④ 扁平化触及 `SKILL.md` 展示逻辑。详见 plan §9。
+- **Status**：In Progress（方案已起草，待 owner 确认）
 
 ### Phase 2 — Signal Feed
 
@@ -182,7 +182,7 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 | 层 | 文件 | 职责 |
 |---|---|---|
 | 全局路线图 | `PLAN.md`（项目根） | 7 个 phase 的目标、边界、依赖、退出标准、状态；不含实现细节 |
-| 单阶段方案 | `.claude/plans/<phase>.plan.md` | 该阶段的逐步可执行方案；目前存在 `phase-0-takeover.plan.md`（Done）与 `phase-1a-registry-foundation.plan.md`（In Progress）。**Phase 1B 的方案待撰写** |
+| 单阶段方案 | `.claude/plans/<phase>.plan.md` | 该阶段的逐步可执行方案；目前存在 `phase-0-takeover.plan.md`（Done）、`phase-1a-registry-foundation.plan.md`（Done）、`phase-1b-radar-source-set.plan.md`（方案待确认） |
 
 规则：
 
