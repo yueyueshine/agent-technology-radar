@@ -160,6 +160,46 @@ RSS（19 源，收益最大、最标准）
   → API / AIHOT（1 源）—— 但 AIHOT 的 active 还受 2C 约束（§6）
 ```
 
+### 2.5 RSS 的 CI 验证结果（2026-09-23，实跑）
+
+**结论：17 / 19 成功，产出 87 条 item。**
+
+| 源 | CI 结果 |
+|---|---|
+| 17 个源 | ✅ 成功（含 `huggingface-blog` 866 parsed / 5 within window；`google-deepmind` 100 parsed） |
+| `rss:meta-ai` | ❌ **HTTP 400** |
+| `rss:mistral-news` | ❌ **HTTP 404** |
+
+#### ⚠️ 方法论教训：本地验证会被网络屏蔽**掩盖真实错误**
+
+这两个源的失败**在本地完全看不出来** —— 本地它们报 `UND_ERR_CONNECT_TIMEOUT`（被墙），看起来"只是网络问题"。**CI 上暴露的才是真相：400 / 404，即 URL 本身不存在。**
+
+**那两个 URL 是我编的**（`ai.meta.com/blog/rss/`、`mistral.ai/news/feed.xml`）。搜索证实 **Meta AI 与 Mistral 的博客根本没有官方 RSS** —— 第三方项目如 `Olshansk/rss-feeds` 存在的理由正是"给没有 RSS 的博客生成 RSS"。
+
+**教训写死在这里**：只要一个源在本地不可达，**它的 URL 就处于未验证状态，CI 复核是强制的、不是可选的**。本方案原先把这类标为"未实测"是对的，但**"未实测"不等于"URL 大概率正确"**。
+
+#### 处置
+
+`rss:meta-ai` 与 `rss:mistral-news` **已置 `active: false`**，直到确认可行的获取方式。两条候选路径：
+
+| 路径 | 说明 |
+|---|---|
+| 改走 `web` 渠道 | 其博客是公开页面，符合 P1-2；但需 2A 的 web fetcher（尚未实现） |
+| 采用第三方生成的 feed | 可行但引入对手工项目的依赖（同 pod2txt 的问题），且需确认其稳定性 |
+
+> **不采用**在未验证的情况下再猜一个 URL —— 这正是这两个源出问题的原因。
+
+#### 新发现的开放问题
+
+**registry 没有"为什么 inactive"的表达。** 现在 `active: false` 既可能是"渠道无 fetcher"，也可能是"URL 不可用"，未来还可能是别的原因 —— 读者无法区分。是否需要一个原因字段，留待 2A 完成后统一考虑（避免又一次零散的 schema 变更）。
+
+#### ✅ 同时确认的两件事
+
+| 项 | 结果 |
+|---|---|
+| `feed-rss.json` 不被 CI 提交 | ✅ 实跑后远端 main **无任何新增 bot commit** |
+| RSS workflow 步骤本身正常 | ✅ 步骤成功；`Generate feeds` 如预期因缺 Key 失败；`Commit and push feeds` 因 `if: always()` 正常执行且无内容可提交 |
+
 ---
 
 ## 3. Phase 2B — Signal Pipeline
