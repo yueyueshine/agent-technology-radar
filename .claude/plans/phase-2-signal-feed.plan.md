@@ -202,7 +202,42 @@ RSS（19 源，收益最大、最标准）
 
 ---
 
-## 3. Phase 2B — Signal Pipeline
+## 2.6 2A 实施结果（RSS + GitHub，CI 实测）
+
+| 通道 | active 源 | CI 产出 | 错误 |
+|---|---|---|---|
+| `rss` | **17**（19 登记 − 2 停用） | **87 item** | **0** |
+| `github` | **9** | **20 item** | **0** |
+
+CI 步骤 `Fetch keyless channels` ✅；`Generate feeds` 如预期因缺 Key 失败；`Commit and push feeds` 执行且**无内容可提交**（两个中间产物均已 gitignore）。
+
+### 2.6.1 GitHub 的过滤策略是**实测出来的**，不是猜的
+
+| repo | 30 个 release 中 | 保留 |
+|---|---|---|
+| `gemini-cli` | **27 个是 pre/draft** | 0 |
+| `openai/codex` | 27 个是 pre/draft | 3 |
+| `qwen-code` | 4 个是 pre/draft | 5 |
+| `claude-code` / `langchain` | 0 | 5（触顶限量） |
+
+**`gemini-cli` 的例子说明过滤是必需的、不是可选的**：它最近 50 个 release 里 **45 个是 nightly prerelease**，只有约每周一个稳定版。**不过滤 = feed 被 nightly 淹没；过滤后仍能捕获周更稳定版。**
+
+`langchain-ai/langchain` 暴露了**另一种噪音**：tag 按子包发布（`langchain` / `langchain-core` / `langchain-openai` / `langchain-typesafe` …），30 个里 29 个非 prerelease。因此加入**每 repo 保留上限 5 条**。
+
+### 2.6.2 ✅ `runnable` vs `productive` 在真实数据上成立了
+
+**9 个 github 源全部抓取成功（runnable = 9/9），但只有 6 个产出了 item（productive = 6/9）。**
+
+| 产出 0 条的原因 | 源 |
+|---|---|
+| 近期全是 prerelease（nightly） | `gemini-cli`（稳定版 v0.60.0 在 09-15，已出 168h 窗口） |
+| 近期无 release | `mcp-servers`（最新 `2026.8.31`）、`microsoft-autogen` |
+
+**这三个源不是"坏了"** —— 它们的 fetcher 工作正常，只是当前**没有内容可说**。这正是 §5.0 定义的差别，也印证了**不能用 runnable 数去宣称"这些源都会产出 Signal"**。
+
+### 2.6.3 GitHub 速率
+
+未认证 **60 req/h**。9 个 repo × 1 次 = 9 次/run，实测剩余 48。**当前安全**；仓库数增长后再评估引入免费 token。
 
 ### 3.1 Signal Schema（终稿）
 
