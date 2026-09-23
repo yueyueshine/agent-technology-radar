@@ -1,121 +1,182 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Agent Technology Radar — Source Registry",
-  "description": "Schema for config/default-sources.json (the source registry). IMPORTANT: this file is unrelated to config/config-schema.json, which describes the end-user config at ~/.follow-builders/config.json. Source entries are NOT validated at runtime — the loader in scripts/generate-feed.js enforces a subset (literal `id` present, `id` globally unique). This schema is the written specification.",
-  "$comment": "Deliberately not wired to a validator in Phase 1A. Adding a schema-validation dependency would be unrelated scope; the loader's fail-fast covers the two failure modes that matter.",
+  "description": "Schema for config/default-sources.json (the source registry), version 2. IMPORTANT: unrelated to config/config-schema.json, which describes the end-user config at ~/.follow-builders/config.json. Entries are validated at runtime only for a subset (see loadSources in scripts/generate-feed.js), but this file is the written specification.",
+  "$comment": "v2 flattens the registry: v1's three container arrays (podcasts/blogs/x_accounts) encoded channel in the container itself, which does not extend to rss/github/api/etc. Now channel is explicit data.",
   "type": "object",
-  "required": ["podcasts", "blogs", "x_accounts"],
+  "required": ["schemaVersion", "sources"],
   "additionalProperties": false,
   "properties": {
     "schemaVersion": {
       "type": "integer",
-      "const": 1,
-      "description": "Structure version of the registry itself."
+      "const": 2,
+      "description": "Structure version of the registry. v1 = three arrays (podcasts/blogs/x_accounts); v2 = flat sources[]."
     },
-    "podcasts": {
+    "sources": {
       "type": "array",
-      "items": { "$ref": "#/$defs/podcast" }
-    },
-    "blogs": {
-      "type": "array",
-      "items": { "$ref": "#/$defs/blog" }
-    },
-    "x_accounts": {
-      "type": "array",
-      "items": { "$ref": "#/$defs/xAccount" }
+      "items": { "$ref": "#/$defs/source" }
     }
   },
   "$defs": {
     "sourceId": {
       "type": "string",
       "pattern": "^[a-z0-9_-]+:[a-z0-9_-]+$",
-      "description": "Stable source identity, format `<type-prefix>:<slug>` (prefixes: x, podcast, blog). Hand-assigned and stored literally — NEVER derived at runtime from `name` or a URL, so that renaming a display name or changing a URL cannot silently change identity. Immutable once published: Phase 2's signal `source_id` refers back to this value.",
-      "examples": ["x:karpathy", "podcast:latent-space", "blog:claude-blog"]
+      "description": "Stable identity, format `<channel>:<slug>`. Hand-assigned and stored literally — NEVER derived at runtime from `name` or a URL, so renaming a display name or changing a URL cannot silently change identity. Immutable once published: Phase 2's signal `source_id` refers back to this value. The prefix encodes the CHANNEL (not the role), so role can change without breaking identity.",
+      "examples": ["x:karpathy", "podcast:latent-space", "blog:claude-blog", "github:openai-codex", "api:aihot"]
     },
-    "podcast": {
+    "role": {
+      "type": "string",
+      "enum": ["official", "builder", "researcher", "community", "aggregator"],
+      "description": "WHY this source is worth tracking — a Radar-semantics question, orthogonal to how it is fetched. Frozen at these five values for v1; adding one requires explicit justification. `official` = vendor/institution first-party; `builder` = practitioners who ship; `researcher` = people doing research; `community` = third-party open-source projects; `aggregator` = a discovery surface whose content is NOT first-hand."
+    },
+    "channel": {
+      "type": "string",
+      "enum": ["x", "blog", "podcast", "rss", "github", "hackernews", "arxiv", "huggingface", "api", "web", "reddit"],
+      "description": "HOW the content is fetched — an engineering question that determines which fetcher runs. Only x / blog / podcast currently have a fetcher; every other value requires new code, so such entries must stay active:false."
+    },
+    "tier": {
+      "type": "string",
+      "enum": ["core", "extended", "discovery"],
+      "description": "Human-assigned attention classification — how much attention the source deserves. NOT a score, NOT a weight, and not an input to any computation. Weighting is a Phase 3 concern."
+    },
+    "common": {
       "type": "object",
-      "required": ["id", "name", "active", "rssUrl", "url"],
-      "additionalProperties": false,
+      "required": ["id", "name", "role", "channel", "tier", "active"],
       "properties": {
-        "id": {
-          "allOf": [{ "$ref": "#/$defs/sourceId" }],
-          "pattern": "^podcast:[a-z0-9_-]+$"
-        },
+        "id": { "$ref": "#/$defs/sourceId" },
         "name": {
           "type": "string",
           "description": "Display name. Not an identity — changing it must not change `id`."
         },
+        "role": { "$ref": "#/$defs/role" },
+        "channel": { "$ref": "#/$defs/channel" },
+        "tier": { "$ref": "#/$defs/tier" },
         "active": {
           "type": "boolean",
-          "description": "true = included in fetching; false = kept in the registry but skipped by the loader."
-        },
-        "rssUrl": {
-          "type": "string",
-          "description": "RSS feed used to discover episodes. Read by fetchPodcastContent."
-        },
-        "url": {
-          "type": "string",
-          "description": "YouTube channel or playlist URL, used to resolve the exact video URL for an episode by title matching. Read by fetchPodcastContent."
+          "description": "true = eligible for fetching; false = registered but skipped by the loader. Entries whose channel has no fetcher yet MUST be false."
         }
       }
     },
-    "blog": {
-      "type": "object",
-      "required": ["id", "name", "active", "indexUrl"],
-      "additionalProperties": false,
-      "properties": {
-        "id": {
-          "allOf": [{ "$ref": "#/$defs/sourceId" }],
-          "pattern": "^blog:[a-z0-9_-]+$"
-        },
-        "name": {
-          "type": "string"
-        },
-        "active": {
-          "type": "boolean"
-        },
-        "indexUrl": {
-          "type": "string",
-          "description": "Read by fetchBlogContent. NOTE: the parser is dispatched by substring match on this value (generate-feed.js:912-916: `anthropic.com` / `claude.com`), and the article extractor likewise by the article URL (generate-feed.js:961-965). Adding a blog on a new domain therefore still requires a code change."
-        },
-        "type": {
-          "type": "string",
-          "deprecated": true,
-          "description": "CONFIRMED UNUSED — zero code references (verified by grep). Retrieval strategy is decided implicitly by the URL substring dispatch described on `indexUrl`. Cleanup deferred to Phase 1B."
-        },
-        "articleBaseUrl": {
-          "type": "string",
-          "deprecated": true,
-          "description": "CONFIRMED UNUSED — zero code references (verified by grep). Article URLs are hardcoded instead: `https://www.anthropic.com/engineering/${slug}` and `https://claude.com/blog/${slug}` (generate-feed.js:686, 709, 734). Cleanup deferred to Phase 1B."
-        },
-        "fetchMethod": {
-          "type": "string",
-          "deprecated": true,
-          "description": "CONFIRMED UNUSED — zero code references (verified by grep). Cleanup deferred to Phase 1B."
-        }
-      }
+    "source": {
+      "oneOf": [
+        { "$ref": "#/$defs/podcastSource" },
+        { "$ref": "#/$defs/blogSource" },
+        { "$ref": "#/$defs/xSource" },
+        { "$ref": "#/$defs/rssSource" },
+        { "$ref": "#/$defs/githubSource" },
+        { "$ref": "#/$defs/endpointSource" },
+        { "$ref": "#/$defs/webSource" }
+      ]
     },
-    "xAccount": {
-      "type": "object",
-      "required": ["id", "name", "active", "handle"],
-      "additionalProperties": false,
-      "properties": {
-        "id": {
-          "allOf": [{ "$ref": "#/$defs/sourceId" }],
-          "pattern": "^x:[a-z0-9_-]+$",
-          "description": "Derived once, by hand, from the lowercased handle. The X numeric user id is deliberately NOT stored — fetchXContent resolves it at runtime via batched username lookup."
-        },
-        "name": {
-          "type": "string"
-        },
-        "active": {
-          "type": "boolean"
-        },
-        "handle": {
-          "type": "string",
-          "description": "X handle WITHOUT a leading @. Read by fetchXContent."
+    "podcastSource": {
+      "allOf": [
+        { "$ref": "#/$defs/common" },
+        {
+          "properties": {
+            "channel": { "const": "podcast" },
+            "rssUrl": { "type": "string", "description": "Read by fetchPodcastContent." },
+            "url": { "type": "string", "description": "YouTube channel/playlist URL used for title-matching an episode's exact video URL. Read by fetchPodcastContent." }
+          },
+          "required": ["rssUrl", "url"],
+          "additionalProperties": false
         }
-      }
+      ]
+    },
+    "blogSource": {
+      "allOf": [
+        { "$ref": "#/$defs/common" },
+        {
+          "properties": {
+            "channel": { "const": "blog" },
+            "indexUrl": {
+              "type": "string",
+              "description": "Read by fetchBlogContent. The parser is dispatched by SUBSTRING MATCH on this value (generate-feed.js:912-916: `anthropic.com` / `claude.com`), and the article extractor likewise by the article URL (:961-965). A blog on a new domain therefore still needs a code change."
+            },
+            "type": {
+              "type": "string",
+              "deprecated": true,
+              "description": "CONFIRMED UNUSED — zero code references. Cleanup deferred to a later phase."
+            },
+            "articleBaseUrl": {
+              "type": "string",
+              "deprecated": true,
+              "description": "CONFIRMED UNUSED — zero code references. Article URLs are hardcoded instead (generate-feed.js:686, 709, 734). Cleanup deferred."
+            },
+            "fetchMethod": {
+              "type": "string",
+              "deprecated": true,
+              "description": "CONFIRMED UNUSED — zero code references. Cleanup deferred."
+            }
+          },
+          "required": ["indexUrl"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "xSource": {
+      "allOf": [
+        { "$ref": "#/$defs/common" },
+        {
+          "properties": {
+            "channel": { "const": "x" },
+            "handle": { "type": "string", "description": "X handle WITHOUT a leading @. Read by fetchXContent, which resolves the numeric user id at runtime — it is deliberately not stored." }
+          },
+          "required": ["handle"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "rssSource": {
+      "allOf": [
+        { "$ref": "#/$defs/common" },
+        {
+          "properties": {
+            "channel": { "const": "rss" },
+            "rssUrl": { "type": "string", "description": "Generic RSS/Atom feed. Needs a fetcher that does not exist yet." }
+          },
+          "required": ["rssUrl"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "githubSource": {
+      "allOf": [
+        { "$ref": "#/$defs/common" },
+        {
+          "properties": {
+            "channel": { "const": "github" },
+            "repo": { "type": "string", "description": "`owner/name`. Signal = releases. Needs a fetcher (keyless, unauthenticated rate limit 60 req/h). Release noise (nightly/preview tags) will need filtering." }
+          },
+          "required": ["repo"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "endpointSource": {
+      "allOf": [
+        { "$ref": "#/$defs/common" },
+        {
+          "properties": {
+            "channel": { "enum": ["api", "hackernews", "arxiv", "huggingface", "reddit"] },
+            "endpoint": { "type": "string", "description": "Full URL to query. Needs a fetcher per channel." }
+          },
+          "required": ["endpoint"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "webSource": {
+      "allOf": [
+        { "$ref": "#/$defs/common" },
+        {
+          "properties": {
+            "channel": { "const": "web" },
+            "url": { "type": "string", "description": "Page to scrape. Needs a generic web fetcher." }
+          },
+          "required": ["url"],
+          "additionalProperties": false
+        }
+      ]
     }
   }
 }

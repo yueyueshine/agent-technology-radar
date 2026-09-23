@@ -38,6 +38,19 @@ const X_RETRY_ATTEMPTS = 3;
 const SCRIPT_DIR = decodeURIComponent(new URL(".", import.meta.url).pathname);
 const STATE_PATH = join(SCRIPT_DIR, "..", "state-feed.json");
 
+// -- Source registry shape ---------------------------------------------------
+
+const REGISTRY_SCHEMA_VERSION = 2;
+const SOURCE_ROLES = new Set(["official", "builder", "researcher", "community", "aggregator"]);
+const SOURCE_CHANNELS = new Set([
+  "x", "blog", "podcast", "rss", "github", "hackernews", "arxiv", "huggingface", "api", "web", "reddit",
+]);
+const SOURCE_TIERS = new Set(["core", "extended", "discovery"]);
+
+// Which registry channel feeds which existing fetch path. A channel missing from
+// this map has no fetcher yet, so its entries must stay `active: false`.
+const FETCH_TARGET_BY_CHANNEL = { podcast: "podcasts", blog: "blogs", x: "x_accounts" };
+
 // -- State Management --------------------------------------------------------
 
 // Tracks which tweet IDs and video IDs we've already included in feeds
@@ -74,47 +87,80 @@ async function saveState(state) {
 
 // -- Load Sources ------------------------------------------------------------
 
-// Loads the source registry (config/default-sources.json) and normalizes it.
+// Loads the source registry (config/default-sources.json, schema v2) and
+// regroups it by channel for the three existing fetch paths.
 //
-// Two invariants are enforced here so a malformed registry fails loudly rather
-// than silently dropping sources:
-//   1. every entry carries a literal `id`. It is hand-assigned and never derived
-//      from `name` or a URL, so renaming a display name cannot silently change a
-//      source's identity.
-//   2. `id` is globally unique across all three groups. Phase 2's signal
-//      `source_id` points back at this value, so duplicates would make signals
-//      untraceable.
-// Entries with `active: false` stay in the registry but are skipped here.
+// The registry is a flat `sources[]` list; v1's container arrays are rebuilt
+// here so the fetchers and their call sites stay untouched.
 //
-// The returned shape mirrors the registry arrays, so the three fetch paths below
-// stay unaware of the registry.
+// Validation is fail-fast: a malformed registry must stop the run rather than
+// silently drop sources.
+//   - schemaVersion must match
+//   - id / name / role / channel / tier / active must all be present
+//   - role / channel / tier must be known values
+//   - id must be globally unique — Phase 2's signal `source_id` points at it
+//   - an `active` entry whose channel has no fetcher is an error, not a skip,
+//     so a new source can never leak into an existing fetch path by accident
 async function loadSources() {
   const sourcesPath = join(SCRIPT_DIR, "..", "config", "default-sources.json");
   const registry = JSON.parse(await readFile(sourcesPath, "utf-8"));
 
-  const seenIds = new Map();
-  const select = (entries, group) =>
-    (entries || []).filter((entry) => {
-      if (!entry || typeof entry.id !== "string" || entry.id.length === 0) {
-        throw new Error(
-          `Source registry: entry in "${group}" has no literal "id" (name: ${entry?.name ?? "?"})`,
-        );
-      }
-      if (seenIds.has(entry.id)) {
-        throw new Error(
-          `Source registry: duplicate id "${entry.id}" in "${group}" ` +
-            `(already used in "${seenIds.get(entry.id)}")`,
-        );
-      }
-      seenIds.set(entry.id, group);
-      return entry.active !== false;
-    });
+  if (registry?.schemaVersion !== REGISTRY_SCHEMA_VERSION) {
+    throw new Error(
+      `Source registry: unsupported schemaVersion ${registry?.schemaVersion} ` +
+        `(expected ${REGISTRY_SCHEMA_VERSION})`,
+    );
+  }
 
-  return {
-    podcasts: select(registry.podcasts, "podcasts"),
-    blogs: select(registry.blogs, "blogs"),
-    x_accounts: select(registry.x_accounts, "x_accounts"),
-  };
+  const seenIds = new Map();
+  const grouped = { podcasts: [], blogs: [], x_accounts: [] };
+
+  for (const entry of registry.sources || []) {
+    if (!entry || typeof entry.id !== "string" || entry.id.length === 0) {
+      throw new Error(
+        `Source registry: entry has no literal "id" (name: ${entry?.name ?? "?"})`,
+      );
+    }
+    const label = entry.id;
+
+    for (const field of ["name", "role", "channel", "tier"]) {
+      if (typeof entry[field] !== "string" || entry[field].length === 0) {
+        throw new Error(`Source registry: "${label}" is missing required field "${field}"`);
+      }
+    }
+    if (typeof entry.active !== "boolean") {
+      throw new Error(`Source registry: "${label}" is missing boolean "active"`);
+    }
+    if (!SOURCE_ROLES.has(entry.role)) {
+      throw new Error(`Source registry: "${label}" has unknown role "${entry.role}"`);
+    }
+    if (!SOURCE_CHANNELS.has(entry.channel)) {
+      throw new Error(`Source registry: "${label}" has unknown channel "${entry.channel}"`);
+    }
+    if (!SOURCE_TIERS.has(entry.tier)) {
+      throw new Error(`Source registry: "${label}" has unknown tier "${entry.tier}"`);
+    }
+    if (seenIds.has(entry.id)) {
+      throw new Error(
+        `Source registry: duplicate id "${entry.id}" ` +
+          `(already used by "${seenIds.get(entry.id)}")`,
+      );
+    }
+    seenIds.set(entry.id, entry.name);
+
+    if (!entry.active) continue;
+
+    const target = FETCH_TARGET_BY_CHANNEL[entry.channel];
+    if (!target) {
+      throw new Error(
+        `Source registry: "${label}" is active but channel "${entry.channel}" has no fetcher — ` +
+          `set active:false until one exists`,
+      );
+    }
+    grouped[target].push(entry);
+  }
+
+  return grouped;
 }
 
 // -- Podcast Fetching (RSS + pod2txt) ----------------------------------------

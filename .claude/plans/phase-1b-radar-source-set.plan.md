@@ -21,11 +21,13 @@
 | Step 0 生成本方案 | ✅ Done | 本文件 |
 | Step 1 定稿 role / channel 模型 | ✅ Done | 见 §1.3 / §1.4 / §1.5（owner 已确认） |
 | Step 2 定稿选源标准与 tier | ✅ Done | 见 §2 / §3；tier 定义已修订 |
-| Step 3 registry 表达升级（schema v2，扁平化） | ⬜ Not Started | 见 §4；owner 已接受 v2，**loader 须保持三 fetcher 兼容接口** |
-| Step 4 迁移现有 34 条 → v2 并分配 role | ⬜ Not Started | 见 §6 |
-| Step 5 登记第一版 Source Set（新源 `active: false`） | ⬜ Not Started | 见 §5 / §6 |
-| Gate G1-P1B 迁移后现有 3 渠道行为无回退 | ⬜ Not Started | 见 §7 |
-| Gate G2-P1B role / channel 取值合法性 | ⬜ Not Started | 见 §7 |
+| Step 3 registry 表达升级（schema v2，扁平化） | ✅ Done | schema 重写为 v2；registry 迁移为扁平 `sources[]`（69 条） |
+| Step 4 迁移现有 34 条 → v2 并分配 role | ✅ Done | 34 条字段值**字节等价**、active 全 true、channel 映射正确；另 35 条新增全部 `active: false` |
+| Step 5 登记第一版 Source Set（新源 `active: false`） | ✅ Done | 见 §5；69 条 id 全唯一 |
+| Step 6 `loadSources()` 读 v2 | ✅ Done | 读 `sources[]`，fail-fast 校验 schemaVersion/role/channel/tier/id/active，按 channel 分组后返回原形状 |
+| Step 7 `SKILL.md` 适配 | ✅ Done | 两处展示指令改为读 v2 扁平结构 |
+| **Gate G1-P1B** 现有 3 渠道行为无回退 | ✅ **PASS** | 见 §7.1 |
+| **Gate G2-P1B** role / channel / tier 取值合法性 | ✅ **PASS** | 见 §7.2 |
 
 ### 0.1 决策记录（owner 已确认，2026-09-23）
 
@@ -292,7 +294,47 @@ v1 用三个数组键表达源：`podcasts[]` / `blogs[]` / `x_accounts[]`。**�
 | Jay Alammar | researcher | rss | 否 | ❌ | ✅ 200 | Extended |
 | **现有 26 个 X 账号** | builder / researcher / official（逐个指派） | x | **是** `X_BEARER_TOKEN` | ⭕ 代码已有，缺 Key | 需 Key | 按人分层 |
 
-> X 账号的 role 需逐个指派：`x:claudeai`、`x:googlelabs` 这类机构号 → `official`；`x:karpathy`、`x:swiyx` 等 → `builder` 或 `researcher`。**这是登记工作，不是评分。**
+> X 账号的 role 逐个指派。**这是登记工作，不是评分。**
+
+**指派规则（已应用）**：机构 / 公司账号 → `official`；个人且主要产出为研究 → `researcher`；个人且主要产出为工程/产品/运营 → `builder`。
+
+| id | 姓名 | role | tier | 备注 |
+|---|---|---|---|---|
+| `x:karpathy` | Andrej Karpathy | researcher | core | |
+| `x:swyx` | Swyx | builder | core | Latent Space / AI Engineer |
+| `x:joshwoodward` | Josh Woodward | builder | extended | |
+| `x:bcherny` | Boris Cherny | builder | core | Claude Code |
+| `x:thsottiaux` | Thibault Sottiaux | builder | core | OpenAI Codex |
+| `x:petergyang` | Peter Yang | builder | extended | |
+| `x:thenanyu` | Nan Yu | builder | extended | ⚠️ 待确认 |
+| `x:realmadhuguru` | Madhu Guru | builder | extended | ⚠️ 待确认 |
+| `x:AmandaAskell` | Amanda Askell | researcher | core | |
+| `x:_catwu` | Cat Wu | builder | core | Claude Code |
+| `x:trq212` | Thariq | builder | extended | ⚠️ 待确认 |
+| `x:GoogleLabs` | Google Labs | **official** | extended | 机构号 |
+| `x:amasad` | Amjad Masad | builder | extended | |
+| `x:rauchg` | Guillermo Rauch | builder | extended | |
+| `x:alexalbert__` | Alex Albert | builder | extended | |
+| `x:levie` | Aaron Levie | builder | extended | |
+| `x:ryolu_` | Ryo Lu | builder | extended | ⚠️ 待确认 |
+| `x:garrytan` | Garry Tan | builder | extended | ⚠️ **待确认** —— 投资人，枚举无对应档 |
+| `x:mattturck` | Matt Turck | builder | extended | ⚠️ **待确认** —— 投资人 / 播客 |
+| `x:zarazhangrui` | Zara Zhang | builder | extended | |
+| `x:nikunj` | Nikunj Kothari | builder | extended | ⚠️ **待确认** —— 投资人 |
+| `x:steipete` | Peter Steinberger | builder | extended | |
+| `x:danshipper` | Dan Shipper | builder | extended | |
+| `x:adityaag` | Aditya Agarwal | builder | extended | ⚠️ **待确认** —— 投资人 |
+| `x:sama` | Sam Altman | builder | core | 个人号；其帖常含官方信息 |
+| `x:claudeai` | Claude | **official** | core | 机构号 |
+
+**⚠️ 待 owner 复核的 6 条**（我按保守值填了 `builder` + `extended`，**没有为了填满 schema 强行分类**）：
+
+| id | 为什么标待确认 |
+|---|---|
+| `x:garrytan`、`x:mattturck`、`x:nikunj`、`x:adityaag` | **role 枚举里没有「投资人 / 评论者」这一档。** 我暂用 `builder`（生态中的运营者），但这是权宜。请确认：接受 `builder`，还是要我另议 |
+| `x:thenanyu`、`x:realmadhuguru`、`x:trq212`、`x:ryolu_` | 我对这几位当前具体职能只有弱了解，按「工程/产品 → builder」规则填了，**属推断而非确知** |
+
+> 这 6 条**不影响 1B 的机制正确性**（role 只是标签），但影响 Radar 的语义准确性。请在方便时确认。
 
 ### 5.3 GitHub（信号 = release / 版本发布）
 
@@ -430,22 +472,41 @@ owner 选择的使用策略是 **(a) 仅个人自用，不允许 AIHOT 派生数
 
 ## 7. 验证（Verification）
 
-### 7.1 本阶段可完整验证
+### 7.1 实施后实测结果（全部通过）
 
-| 对象 | 成功信号 |
+| 检查 | 方法 | 结果 |
+|---|---|---|
+| v1 → v2 无源丢失 | 解析比对 v1 与 v2 | ✅ v1 的 34 条全部在 v2 中，**丢失 0** |
+| id 唯一性 | 计数 | ✅ **69 / 69 唯一** |
+| 原 34 条字段语义不变 | 逐字段比对（podcast 的 `name`/`rssUrl`/`url`；blog 的 `name`/`type`/`indexUrl`/`articleBaseUrl`/`fetchMethod`；x 的 `name`/`handle`） | ✅ 全部**字节等价**、无字段丢失、`active` 全 true、channel 映射正确 |
+| 新 35 条不被抓取 | 静态 | ✅ 新增 35 条**全部 `active: false`**，active 的为 0 |
+| **loader 分组正确** | 离线直调真实 `loadSources()` | ✅ `podcasts=6` / `blogs=2` / `x_accounts=26`；**非可抓渠道泄漏进分组 = 0** |
+| **Gate G1-P1B** 现有渠道无回退 | 真实 `node generate-feed.js --blogs-only` | ✅ `exit 0`；只处理 2 个 blog；`feed-blogs.json` 顶层键与条目字段**与运行前完全一致** |
+| **Gate G2-P1B** 取值合法性 | 8 个故障注入（见 §7.2） | ✅ 8/8 fail-fast |
+| 语法 | `node --check scripts/generate-feed.js` | ✅ 通过 |
+
+### 7.2 fail-fast 故障注入实测（8/8 通过）
+
+| 注入的故障 | 实测结果 |
 |---|---|
-| registry v2 结构 | JSON 合法；每条含 `id` / `name` / `role` / `channel` / `tier` / `active`；`id` 仍全局唯一 |
-| role / channel 取值合法 | 全部命中 §1.2 的枚举；无 `github` 出现在 `role` |
-| **Gate G1-P1B** 现有渠道无回退 | `--blogs-only` 实跑 `exit 0`，`feed-blogs.json` 结构与条目字段不变（loader 内部扁平化对 fetcher 透明） |
-| loader 分组正确 | `loadSources()` 返回的 `{podcasts, blogs, x_accounts}` 与 v1 相比，**条数与字段值一致**（X / podcast 无 Key 走静态核对） |
-| 新源登记 | 新渠道源存在且 `active: false`；**不会**被任何 fetcher 消费（无静默半生效） |
+| `schemaVersion = 1` | ✅ `unsupported schemaVersion 1 (expected 2)` → 真实脚本 **exit 1** |
+| 缺 `role` 字段 | ✅ `"podcast:latent-space" is missing required field "role"` |
+| **`role = "github"`（禁用值）** | ✅ `has unknown role "github"` |
+| `channel = "twitter"`（未知值） | ✅ `has unknown channel "twitter"` |
+| `tier = "critical"`（未知值） | ✅ `has unknown tier "critical"` |
+| **`active` 但 channel 无 fetcher** | ✅ `"rss:openai-news" is active but channel "rss" has no fetcher — set active:false until one exists` |
+| 重复 `id` | ✅ `duplicate id "podcast:latent-space" (already used by "Latent Space")` |
+| 缺 `active` 字段 | ✅ `is missing boolean "active"` |
 
-### 7.2 只有实施后才能验证（本阶段不做）
+> 正常 registry 下 `loadSources()` 正常返回（真实脚本 `exit 0`）；坏 registry 下 `exit 1`。
 
-- 新渠道 fetcher 的真实抓取结果（rss / github / hn / arxiv / hf）
-- 本地 000 的域名在 CI 上是否可达 —— **必须在 GitHub Actions 上复核**，不能以我的本地探测为准
+### 7.3 仍待验证（本阶段不做 / 环境所限）
 
-### 7.3 机制性验证
+- 新渠道 fetcher 的真实抓取结果（rss / github / hn / arxiv / hf）—— **fetcher 尚不存在**
+- 本地返回 000 的域名在 CI 上是否可达 —— **必须在 GitHub Actions 上复核**，不能以本地探测为准
+- **X / podcast 路径的网络端到端**：`api.x.com` 从我的网络会无限挂起（`fetchXWithRetry` 未设超时），故改用**离线直调真实 `loadSources()`** 验证分组，不走网络
+
+### 7.4 机制性验证
 
 - `node --check scripts/generate-feed.js`
 - 非法 `role` / `channel` 值应被 loader 拒绝（fail-fast）—— **属本阶段新增校验**，需与 1A 的 `id` 校验一并实现
@@ -456,22 +517,22 @@ owner 选择的使用策略是 **(a) 仅个人自用，不允许 AIHOT 派生数
 
 **完成定义：「Source Set 定型 + Registry 表达升级落地」，不是「所有源都能抓」。**
 
-- [ ] role / channel 两维度模型定稿，§1.3 的 `github` 归属冲突已裁决
-- [ ] 选源标准（P1 硬门槛 + P2 排序 + 负面清单）落文档
-- [ ] tier 定义落文档，含 Discovery 的「不得作为事实来源」硬约束
-- [ ] `config/default-sources.json` 迁移为 schema v2 扁平结构，现有 34 条全部带 `role` / `channel` / `tier`
-- [ ] 第一版 Source Set 登记完毕；新渠道源一律 `active: false`
-- [ ] `config/source-registry.schema.json` 重写为 v2
-- [ ] `loadSources()` 内部完成扁平化吸收，**三个 fetcher 调用点未改**
-- [ ] `SKILL.md` 的源清单展示逻辑适配 v2
-- [ ] **Gate G1-P1B**：`--blogs-only` 实跑无回退
-- [ ] **Gate G2-P1B**：role / channel / tier 取值全部合法；`id` 唯一性保持
-- [ ] Eval 相关源**未**因 owner 背景获得提权（需在 Source Set 中可核验）
+- [x] role / channel 两维度模型定稿，§1.3 的 `github` 归属冲突已裁决
+- [x] 选源标准（P1 硬门槛 + P2 排序 + 负面清单）落文档
+- [x] tier 定义落文档，含 Discovery 的「不得作为事实来源」硬约束
+- [x] `config/default-sources.json` 迁移为 schema v2 扁平结构，现有 34 条全部带 `role` / `channel` / `tier`
+- [x] 第一版 Source Set 登记完毕；新渠道源一律 `active: false`
+- [x] `config/source-registry.schema.json` 重写为 v2
+- [x] `loadSources()` 内部完成扁平化吸收，**三个 fetcher 调用点未改**
+- [x] `SKILL.md` 的源清单展示逻辑适配 v2
+- [x] **Gate G1-P1B**：`--blogs-only` 实跑无回退
+- [x] **Gate G2-P1B**：role / channel / tier 取值全部合法；`id` 唯一性保持
+- [x] Eval 相关源**未**因 owner 背景获得提权（需在 Source Set 中可核验）
 - [x] **role / channel / tier 全部定稿**（owner 已确认）：role 枚举冻结为 5 值、`github` 归 channel、`tier` 进 registry 且非权重 —— 见 §1.3 / §1.4 / §1.5
 - [x] **AIHOT 已定**：`aggregator` / `api` / `Extended` / `active: false` —— 见 §5.4.2
-- [ ] AIHOT 的启用条件已登记为 **Phase 2 依赖**（private / internal-only 输出路径），并在 Phase 2 方案中承接
-- [ ] `loadSources()` 保持三个 fetcher 的兼容接口 —— **1B 未重写任何抓取逻辑**
-- [ ] role / channel 取值校验实现为 fail-fast（含：`github` 出现在 role 应被拒绝）
+- [x] AIHOT 的启用条件已登记为 **Phase 2 依赖**（private / internal-only 输出路径）—— **1B 侧的登记已完成；承接是 Phase 2 的责任**
+- [x] `loadSources()` 保持三个 fetcher 的兼容接口 —— **1B 未重写任何抓取逻辑**
+- [x] role / channel 取值校验实现为 fail-fast（含：`github` 出现在 role 应被拒绝）
 
 **不计入本阶段退出条件**：新渠道 fetcher 的实现与真实抓取验证。
 

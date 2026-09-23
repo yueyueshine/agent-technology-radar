@@ -47,10 +47,12 @@ PMs, and engineers who are actually building things — across X/Twitter and You
 podcasts. Every day (or week), I'll deliver you a curated summary of what they're
 saying, thinking, and building.
 
-I currently track [N] builders on X and [M] podcasts. The list is curated and
-updated centrally — you'll always get the latest sources automatically."
+I currently track [N] sources across X, blogs, podcasts and more. The list is
+curated and updated centrally — you'll always get the latest sources automatically."
 
-(Replace [N] and [M] with actual counts from default-sources.json)
+(Read `config/default-sources.json` — schema v2, a flat `sources` array — and
+fill in [N] with the number of entries where `active` is true. If you also want
+the per-channel breakdown, group `sources` by `channel`.)
 
 ### Step 2: Delivery Preferences
 
@@ -147,11 +149,13 @@ from a central feed — no API keys needed for that. You only need a key for
 
 ### Step 6: Show Sources
 
-Show the full list of default builders and podcasts being tracked.
-Read from `config/default-sources.json` and display as a clean list.
+Show the full list of sources being tracked.
+Read `config/default-sources.json` (schema v2 — a flat `sources` array, each
+entry with `name`, `role`, `channel`, `tier`, `active`) and display it as a
+clean list, grouped by `channel`. Only list entries where `active` is true.
 
 Tell the user: "The source list is curated and updated centrally. You'll
-automatically get the latest builders and podcasts without doing anything."
+automatically get the latest sources without doing anything."
 
 ### Step 7: Configuration Reminder
 
