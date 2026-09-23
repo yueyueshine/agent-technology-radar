@@ -126,6 +126,21 @@
 
 > **`native_id` 按通道定义**：rss → item guid 或 link；github → release tag（或 release id）；api → 条目 public id；web → 页面 URL。
 
+### 2.2.1 存储决策：`feed-<channel>.json` 是 Fetch 层中间产物（owner 确认）
+
+**不进入 Git commit / 长期仓库历史。**
+
+| | 做法 |
+|---|---|
+| 本地调试 | 可生成（`feed-rss.json` 已在 `.gitignore`） |
+| CI | 生成后由**同一 job 的后续步骤**直接读工作区文件传递 |
+| 提交 | **不从 `git add` 列表** —— 只提交已发布的 `feed-x/podcasts/blogs.json` |
+| `text` | **不在 Fetch 层截断** —— 避免提前丢失信息 |
+
+**理由**：`feed-rss.json` 实测 **768 KB**（`feed-x.json` 仅 15 KB），因为 `text` 装的是全文。按日更提交会以约 280 MB/年 的速度膨胀仓库。
+
+> ⚠️ **这个决定把问题推给了 2B，而不是解决了它。** raw feed 不提交只挡住了仓库膨胀；**最终 `signals.json` 若同样保留全文，仍会持续膨胀。** 因此 **2B 必须统一设计 Signal 的 `text` 保留策略**（截断 / 摘要 / 外置引用 / 仅保留不提交的分区），并把它写进退出标准。见 §3.1 与 §8。
+
 ### 2.3 各通道的已知实现注意
 
 | 通道 | 注意 |
@@ -182,7 +197,7 @@ RSS（19 源，收益最大、最标准）
 | `is_secondary` | boolean。**当且仅当 `original_url === null` 时为 `true`** —— 表示该条已降级为"线索"，不参与 Radar 事实层 |
 | `published_at` | **只能是合法 ISO 8601 UTC 或 `null`**。不可解析 → `null` + normalization warning（§3.3） |
 | `collected_at` | **始终必填**。与 `published_at` 分离，用于排查"为什么这条现在才出现" |
-| `text` | 下游使用的正文；通道决定来源（推文正文 / 转写 / 文章正文 / release notes） |
+| `text` | 下游使用的正文；通道决定来源（推文正文 / 转写 / 文章正文 / release notes）。<br>⚠️ **2B 必须给出 `text` 的保留策略**（见 §2.2.1）—— 否则 `signals.json` 会因全文而持续膨胀，仓库问题只是被推迟而不是被解决 |
 
 > **修正说明（owner 指出）**：早期草案同时规定了「`original_url` 必填」和「aggregator 允许解析不出原文」—— **这两条互相矛盾**。现改为：`url` 必填且永不为 null；`original_url` 可空，**解析失败以 `null` + `is_secondary: true` 显式表达**，而不是靠一条做不到的"必填"规则。
 
@@ -431,6 +446,7 @@ DEDUP_TTL_DAYS = 30
 - [ ] **`DEDUP_TTL_DAYS = 30`**，且**运行时校验 `TTL >= max lookback`，违反即 fail-fast**
 - [ ] 播客重复发出的 bug 已修（构造用例验证）
 - [ ] 跨源去重边界写清（本阶段不做，属 Phase 3）
+- [ ] **`text` 的保留策略已定并落地**（截断 / 摘要 / 外置引用），且证明 `signals.json` 的体量**不随时间无界膨胀** —— 否则 §2.2.1 只是把仓库膨胀推迟了
 
 **2C**
 - [ ] registry 新增 `redistribution` 字段；`api:aihot` 为 `internal`

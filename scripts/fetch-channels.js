@@ -262,6 +262,11 @@ async function main() {
     const errors = [];
     const items = await handler.fetch(sources, errors);
 
+    // Log each failure inline. The errors also land in the feed JSON, but that
+    // file is no longer committed, so the CI log is the only place a failing
+    // source is visible without downloading an artifact.
+    for (const e of errors) console.error(`  ! ${e}`);
+
     const feed = {
       generatedAt: new Date().toISOString(),
       channel,
