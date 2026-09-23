@@ -33,11 +33,13 @@ jobs:
       - name: Install dependencies
         run: cd scripts && npm install
 
-      # Phase 2A: the rss channel needs no secrets. It runs BEFORE the
-      # key-dependent step below, which is expected to fail until the repo has
-      # secrets — a later failure must not stop the rss feed being produced.
-      - name: Fetch rss channel
-        run: cd scripts && node fetch-channels.js --channel rss
+      # Phase 2A: the rss and github channels need no secrets. This runs BEFORE
+      # the key-dependent step below, which is expected to fail until the repo
+      # has secrets — a later failure must not stop these feeds being produced.
+      # Their outputs are Fetch-layer intermediates (gitignored), read by later
+      # steps in this same job.
+      - name: Fetch keyless channels
+        run: cd scripts && node fetch-channels.js
 
       - name: Generate feeds
         env:

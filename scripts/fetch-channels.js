@@ -29,6 +29,14 @@ const REGISTRY_PATH = join(SCRIPT_DIR, "..", "config", "default-sources.json");
 // is deliberately wider than the blog channel's 72h.
 const RSS_LOOKBACK_HOURS = 168; // 7 days
 
+const GITHUB_LOOKBACK_HOURS = 168; // 7 days
+// Caps how many releases one repo can emit per run. Needed because some repos
+// publish per sub-package (langchain) or ship frequent patches (claude-code).
+const MAX_RELEASES_PER_REPO = 5;
+// Second line of defence for projects that ship nightlies WITHOUT setting the
+// GitHub `prerelease` flag.
+const PRERELEASE_TAG_RE = /(nightly|preview|snapshot)/i;
+
 // Several feed hosts reject non-browser user agents.
 const USER_AGENT =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
@@ -223,11 +231,107 @@ async function fetchRssChannel(sources, errors) {
   return items;
 }
 
+// -- GitHub channel ----------------------------------------------------------
+
+// Emits the uniform item shape. Signal = RELEASE 发布 (commits and star counts
+// are far too noisy to be a radar signal).
+//
+// Noise handling, all measured against the real repos:
+//   - `prerelease` / `draft` flags are excluded. This is what keeps
+//     google-gemini/gemini-cli usable at all: 45 of its last 50 releases are
+//     nightly prereleases, and only the ~weekly stable ones survive.
+//   - A tag-pattern guard covers projects that ship nightlies without setting
+//     the prerelease flag.
+//   - A per-repo cap bounds the feed. langchain-ai/langchain publishes per
+//     sub-package (langchain, langchain-core, langchain-openai, …), so one repo
+//     can otherwise emit many releases.
+async function fetchGithubChannel(sources, errors) {
+  const cutoff = new Date(Date.now() - GITHUB_LOOKBACK_HOURS * 60 * 60 * 1000);
+  const items = [];
+
+  for (const source of sources) {
+    const { id, name, repo } = source;
+    if (!repo) {
+      errors.push(`${id}: missing repo`);
+      continue;
+    }
+
+    let releases;
+    try {
+      const res = await fetch(
+        `https://api.github.com/repos/${repo}/releases?per_page=30`,
+        {
+          headers: {
+            Accept: "application/vnd.github+json",
+            "User-Agent": USER_AGENT,
+          },
+          signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+        },
+      );
+      if (!res.ok) {
+        // 404 = repo gone/renamed; 403 or 429 = unauthenticated rate limit
+        // (60 req/h shared across the runner's IP).
+        errors.push(`${id}: HTTP ${res.status} (${name} / ${repo})`);
+        continue;
+      }
+      releases = await res.json();
+    } catch (err) {
+      const cause = err?.cause?.code || err?.cause?.message || "";
+      errors.push(
+        `${id}: fetch failed — ${err.message}${cause ? ` (${cause})` : ""} (${repo})`,
+      );
+      continue;
+    }
+
+    if (!Array.isArray(releases) || releases.length === 0) {
+      errors.push(`${id}: repo has no releases (${repo})`);
+      continue;
+    }
+
+    let kept = 0;
+    let skippedPre = 0;
+    for (const rel of releases) {
+      if (rel.draft || rel.prerelease) {
+        skippedPre += 1;
+        continue;
+      }
+      if (PRERELEASE_TAG_RE.test(rel.tag_name || "")) {
+        skippedPre += 1;
+        continue;
+      }
+      if (rel.published_at) {
+        const t = new Date(rel.published_at);
+        if (!Number.isNaN(t.getTime()) && t < cutoff) continue;
+      }
+      if (!rel.tag_name || !rel.html_url) continue;
+      if (kept >= MAX_RELEASES_PER_REPO) break;
+
+      items.push({
+        source_id: id,
+        native_id: rel.tag_name,
+        title: rel.name || rel.tag_name,
+        url: rel.html_url,
+        original_url: rel.html_url,
+        published_at: rel.published_at || null,
+        text: rel.body || null,
+      });
+      kept += 1;
+    }
+
+    console.error(
+      `  ${id}: ${releases.length} releases, ${skippedPre} pre/draft skipped, ${kept} kept`,
+    );
+  }
+
+  return items;
+}
+
 // -- Channel dispatch --------------------------------------------------------
 
 const CHANNELS = {
   rss: { fetch: fetchRssChannel, lookbackHours: RSS_LOOKBACK_HOURS },
-  // github / api / web — batch 1, not implemented yet.
+  github: { fetch: fetchGithubChannel, lookbackHours: GITHUB_LOOKBACK_HOURS },
+  // api / web — batch 1, not implemented yet.
 };
 
 // -- Main --------------------------------------------------------------------

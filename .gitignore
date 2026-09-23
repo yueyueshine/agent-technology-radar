@@ -3,6 +3,9 @@ scripts/node_modules/
 *.log
 .DS_Store
 .claude/settings.local.json
-# Fetch-layer intermediate (Phase 2A): generated locally and in CI, read by
+# Fetch-layer intermediates (Phase 2A): generated locally and in CI, read by
 # later steps in the same job, deliberately never committed.
 feed-rss.json
+feed-github.json
+feed-api.json
+feed-web.json
