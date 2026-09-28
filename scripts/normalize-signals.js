@@ -25,7 +25,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { join, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { signalId, TYPE_BY_CHANNEL } from "./lib/signal.js";
+import { signalId, normalizePublishedAt, TYPE_BY_CHANNEL } from "./lib/signal.js";
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(SCRIPT_DIR, "..");
@@ -184,6 +184,18 @@ function normalizeEntry(channel, entry, feed, warnings, errors, registry) {
     return null;
   }
 
+  // §3.3 — the item survives an unparseable date, but the reason is recorded so
+  // the failure is visible instead of silently becoming a null.
+  const published = normalizePublishedAt(entry.published_at);
+  if (published.reason) {
+    warnings.push({
+      source_id: sourceId,
+      native_id: nativeId,
+      field: "published_at",
+      reason: published.reason,
+    });
+  }
+
   return {
     // §3.1 — deterministic, carries no semantics.
     id: signalId(sourceId, nativeId),
@@ -195,7 +207,7 @@ function normalizeEntry(channel, entry, feed, warnings, errors, registry) {
     url: entry.url ?? null,
     original_url: entry.original_url ?? null,
     is_secondary: false,
-    published_at: entry.published_at ?? null,
+    published_at: published.value,
     // Always present, and independent of published_at (§3.1): it answers
     // "why is this showing up now?" when published_at cannot.
     collected_at: feed.generatedAt ?? new Date().toISOString(),

@@ -29,6 +29,29 @@ export function signalId(sourceId, nativeId) {
     .slice(0, SIGNAL_ID_LENGTH);
 }
 
+// -- published_at -------------------------------------------------------------
+
+// §3.3 — `published_at` is ISO 8601 UTC or null, never a third thing. Sources
+// disagree about format ("Aug 26, 2026", "2026-09-25T21:50:12Z", or nothing at
+// all), so every value goes through here.
+//
+// The contract is "do not crash, do not stay silent": an unparseable or missing
+// value yields `null` plus a reason the caller records as a warning, and the
+// item still flows through the pipeline.
+export function normalizePublishedAt(raw) {
+  if (raw === null || raw === undefined || raw === "") {
+    return { value: null, reason: "missing" };
+  }
+  if (typeof raw !== "string") {
+    return { value: null, reason: `not a string (${typeof raw})` };
+  }
+  const t = Date.parse(raw);
+  if (Number.isNaN(t)) {
+    return { value: null, reason: `unparseable: ${JSON.stringify(raw)}` };
+  }
+  return { value: new Date(t).toISOString() };
+}
+
 // -- type --------------------------------------------------------------------
 
 // The full controlled enum (§3.1). New channels must map onto one of these
