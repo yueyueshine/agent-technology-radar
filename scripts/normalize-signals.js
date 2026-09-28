@@ -11,8 +11,9 @@
 // The two paths have different shapes (plan §1.1); this is the single place
 // that knows about both, so nothing downstream has to.
 //
-// Usage: node normalize-signals.js [--only x,blog] [--feeds-dir DIR] [--print]
-// Output: signals.json
+// Usage: node normalize-signals.js [--only x,blog] [--feeds-dir DIR]
+//                                  [--state FILE] [--no-dedup] [--print]
+// Output: signals.json (+ the dedup state)
 //
 // `--feeds-dir` reads the feed-*.json inputs from DIR instead of the repo root.
 // The x and podcast channels have no API key, so they can only ever be
@@ -25,11 +26,18 @@ import { readFile, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { join, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { signalId, normalizePublishedAt, TYPE_BY_CHANNEL } from "./lib/signal.js";
+import {
+  signalId,
+  normalizePublishedAt,
+  TYPE_BY_CHANNEL,
+  DEDUP_TTL_DAYS,
+  assertTtlCoversLookback,
+} from "./lib/signal.js";
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(SCRIPT_DIR, "..");
 const REGISTRY_PATH = join(REPO_ROOT, "config", "default-sources.json");
+const STATE_PATH = join(REPO_ROOT, "state-signals.json");
 
 // -- Input map ---------------------------------------------------------------
 
@@ -242,9 +250,51 @@ function normalizeEntry(channel, entry, feed, warnings, errors, registry) {
   };
 }
 
+// -- Dedup state ---------------------------------------------------------------
+
+// §3.4 — the dedup key is the signal `id`, i.e. "which source's which item".
+// A content hash would re-send on a title edit and collide across sources.
+async function loadState(statePath) {
+  if (!existsSync(statePath)) return { version: 1, seen: {} };
+  try {
+    const state = JSON.parse(await readFile(statePath, "utf-8"));
+    if (!state.seen) state.seen = {};
+    return state;
+  } catch {
+    return { version: 1, seen: {} };
+  }
+}
+
+// Drops signals already seen inside the TTL, records the rest, and prunes
+// entries that have aged out. Pruning is what keeps the state from growing
+// without bound; the TTL must outlive every lookback window or a pruned entry
+// is re-sent, which is the podcast bug (§1.4).
+function dedup(signals, state) {
+  const ttlMs = DEDUP_TTL_DAYS * 24 * 60 * 60 * 1000;
+  const now = Date.now();
+  const fresh = [];
+
+  for (const signal of signals) {
+    const seenAt = state.seen[signal.id];
+    if (seenAt !== undefined && now - seenAt < ttlMs) continue;
+    state.seen[signal.id] = now;
+    fresh.push(signal);
+  }
+
+  for (const [id, seenAt] of Object.entries(state.seen)) {
+    if (now - seenAt >= ttlMs) delete state.seen[id];
+  }
+
+  return { fresh, dropped: signals.length - fresh.length };
+}
+
 // -- Main ----------------------------------------------------------------------
 
 async function main() {
+  // Fail fast before any write: a TTL shorter than a lookback window silently
+  // re-sends content that never left the window (§3.4).
+  assertTtlCoversLookback();
+
   const args = process.argv.slice(2);
   const argValue = (name) => {
     const i = args.indexOf(name);
@@ -254,6 +304,9 @@ async function main() {
   const only = onlyArg ? new Set(onlyArg.split(",")) : null;
   const feedsDirArg = argValue("--feeds-dir");
   const feedsDir = feedsDirArg ? resolve(REPO_ROOT, feedsDirArg) : REPO_ROOT;
+  const stateArg = argValue("--state");
+  const statePath = stateArg ? resolve(REPO_ROOT, stateArg) : STATE_PATH;
+  const noDedup = args.includes("--no-dedup");
 
   const registry = await loadRegistry();
 
@@ -290,18 +343,31 @@ async function main() {
     perChannel[channel] = { entries: loaded.entries.length, signals: count };
   }
 
+  // Dedup runs last: only signals that survived traceability and time
+  // normalisation are worth recording as seen.
+  let emitted = signals;
+  let duplicates = 0;
+  if (!noDedup) {
+    const state = await loadState(statePath);
+    const result = dedup(signals, state);
+    emitted = result.fresh;
+    duplicates = result.dropped;
+    await writeFile(statePath, JSON.stringify(state, null, 2));
+  }
+
   const out = {
     generatedAt: new Date().toISOString(),
-    count: signals.length,
+    count: emitted.length,
+    duplicates,
     perChannel,
-    signals,
+    signals: emitted,
     normalization_warnings: warnings.length > 0 ? warnings : undefined,
     errors: errors.length > 0 ? errors : undefined,
   };
 
   await writeFile(join(REPO_ROOT, "signals.json"), JSON.stringify(out, null, 2));
 
-  console.error(`signals.json: ${signals.length} signal(s)`);
+  console.error(`signals.json: ${emitted.length} signal(s)`);
   for (const [channel, s] of Object.entries(perChannel)) {
     console.error(
       s.missing
@@ -309,6 +375,7 @@ async function main() {
         : `  ${channel}: ${s.entries} entr(ies) -> ${s.signals} signal(s)`,
     );
   }
+  if (duplicates > 0) console.error(`  ${duplicates} duplicate(s) suppressed`);
   if (errors.length > 0) console.error(`  ${errors.length} error(s)`);
   if (args.includes("--print")) console.log(JSON.stringify(out, null, 2));
 }

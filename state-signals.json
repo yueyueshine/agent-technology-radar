@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "migratedAt": "2026-09-28T09:24:59.798Z",
+  "migratedFrom": "state-feed.json",
+  "ttlDays": 30,
+  "seen": {
+    "138fdddeb9927e2ef34013277d71c1f8": 1789540968474,
+    "e3d173e1189507ac8b5ef9c9ec661b0f": 1789627364458,
+    "ac079d9cc4921186aeb7d8db9827507f": 1790135596496
+  }
+}
