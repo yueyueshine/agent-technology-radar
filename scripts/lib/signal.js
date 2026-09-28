@@ -47,6 +47,28 @@ export function truncateText(text, max = TEXT_MAX_CHARS) {
 
 // -- published_at -------------------------------------------------------------
 
+const MONTHS = {
+  jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5,
+  jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11,
+};
+
+// "Aug 26, 2026" / "August 26, 2026" / "Aug 26 2026" — the day-based shapes the
+// blog sources actually emit (§2.2.1 measured one).
+//
+// These carry no time and no zone, so `Date.parse` resolves them against the
+// machine's local zone: the same feed normalises to 2026-08-25T16:00:00Z on a
+// UTC+8 box and 2026-08-26T00:00:00Z on UTC. §3.3 requires a fixed ISO 8601 UTC
+// contract, and agreement between a dev box and CI is the point of a contract,
+// so the day-based forms are pinned to UTC midnight here rather than left to
+// the ambient zone.
+function parseDayMonthYear(raw) {
+  const m = raw.match(/^([A-Za-z]{3,9})\.?\s+(\d{1,2}),?\s+(\d{4})$/);
+  if (!m) return null;
+  const month = MONTHS[m[1].slice(0, 3).toLowerCase()];
+  if (month === undefined) return null;
+  return Date.UTC(Number(m[3]), month, Number(m[2]));
+}
+
 // §3.3 — `published_at` is ISO 8601 UTC or null, never a third thing. Sources
 // disagree about format ("Aug 26, 2026", "2026-09-25T21:50:12Z", or nothing at
 // all), so every value goes through here.
@@ -61,7 +83,10 @@ export function normalizePublishedAt(raw) {
   if (typeof raw !== "string") {
     return { value: null, reason: `not a string (${typeof raw})` };
   }
-  const t = Date.parse(raw);
+  // A date-only ISO string ("2026-09-25") is already defined as UTC midnight,
+  // so it needs no pinning; only the month-name forms are zone-sensitive.
+  const pinned = parseDayMonthYear(raw.trim());
+  const t = pinned !== null ? pinned : Date.parse(raw);
   if (Number.isNaN(t)) {
     return { value: null, reason: `unparseable: ${JSON.stringify(raw)}` };
   }
