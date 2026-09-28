@@ -184,6 +184,33 @@ function normalizeEntry(channel, entry, feed, warnings, errors, registry) {
     return null;
   }
 
+  // §3.5 — a signal without a clickable original link is not traceable, so it
+  // does not enter the feed at all.
+  const url = typeof entry.url === "string" ? entry.url.trim() : "";
+  if (url === "") {
+    errors.push(
+      `source_id "${sourceId}" item "${nativeId}" has no usable url — dropped (§3.5)`,
+    );
+    return null;
+  }
+
+  // §3.1/§3.5 — `original_url` is the first-hand source of *this* item. For a
+  // first-hand source that is the item's own url. For an aggregator it is the
+  // page it points at, and only when that page is a different one: a self-link
+  // means the aggregator never resolved a first-hand source.
+  //
+  // `is_secondary` is not an independent flag — it is exactly "no first-hand
+  // source", so the two can never contradict each other.
+  let originalUrl;
+  if (source.role === "aggregator") {
+    const candidate =
+      typeof entry.original_url === "string" ? entry.original_url.trim() : "";
+    originalUrl = candidate !== "" && candidate !== url ? candidate : null;
+  } else {
+    originalUrl = url;
+  }
+  const isSecondary = originalUrl === null;
+
   // §3.3 — the item survives an unparseable date, but the reason is recorded so
   // the failure is visible instead of silently becoming a null.
   const published = normalizePublishedAt(entry.published_at);
@@ -204,9 +231,9 @@ function normalizeEntry(channel, entry, feed, warnings, errors, registry) {
     channel,
     type,
     title: entry.title ?? null,
-    url: entry.url ?? null,
-    original_url: entry.original_url ?? null,
-    is_secondary: false,
+    url,
+    original_url: originalUrl,
+    is_secondary: isSecondary,
     published_at: published.value,
     // Always present, and independent of published_at (§3.1): it answers
     // "why is this showing up now?" when published_at cannot.
