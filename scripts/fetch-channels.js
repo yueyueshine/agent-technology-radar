@@ -18,22 +18,26 @@
 
 import { readFile, writeFile } from "fs/promises";
 import { join } from "path";
+import { LOOKBACK_HOURS } from "./lib/signal.js";
 
 // -- Constants ---------------------------------------------------------------
 
 const SCRIPT_DIR = decodeURIComponent(new URL(".", import.meta.url).pathname);
 const REGISTRY_PATH = join(SCRIPT_DIR, "..", "config", "default-sources.json");
 
+// The window values live in lib/signal.js — the dedup TTL has to cover the
+// widest one, and having the values in two files is how they drifted apart
+// before (plan §1.4). The rationale stays here.
+//
 // RSS sources publish at very different rates (some post a few times a year).
 // A short window would leave low-frequency sources permanently silent, so this
-// is deliberately wider than the blog channel's 72h.
-// Widened from 168h: with a 7-day window, 7 of 18 active rss sources produced
-// nothing, including quarterly-cadence writers (Lilian Weng, Chip Huyen, Eugene
-// Yan, Jay Alammar). 2B deduplicates, so a wider window costs only intermediate
-// file size.
-const RSS_LOOKBACK_HOURS = 336; // 14 days
+// is deliberately wider than the blog channel's 72h. Widened from 168h: with a
+// 7-day window, 7 of 18 active rss sources produced nothing, including
+// quarterly-cadence writers (Lilian Weng, Chip Huyen, Eugene Yan, Jay Alammar).
+// 2B deduplicates, so a wider window costs only intermediate file size.
+const RSS_LOOKBACK_HOURS = LOOKBACK_HOURS.rss;
 
-const GITHUB_LOOKBACK_HOURS = 168; // 7 days
+const GITHUB_LOOKBACK_HOURS = LOOKBACK_HOURS.github;
 // Caps how many releases one repo can emit per run. Needed because some repos
 // publish per sub-package (langchain) or ship frequent patches (claude-code).
 const MAX_RELEASES_PER_REPO = 5;
@@ -43,7 +47,7 @@ const PRERELEASE_TAG_RE = /(nightly|preview|snapshot)/i;
 
 // The AIHOT v1 API caps its window at 7d, so this cannot go wider the way the
 // rss window did.
-const API_LOOKBACK_HOURS = 168; // 7 days
+const API_LOOKBACK_HOURS = LOOKBACK_HOURS.api;
 
 // Several feed hosts reject non-browser user agents.
 const USER_AGENT =

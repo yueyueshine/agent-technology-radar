@@ -16,6 +16,11 @@
 import { readFile, writeFile } from "fs/promises";
 import { existsSync } from "fs";
 import { join } from "path";
+import {
+  DEDUP_TTL_DAYS,
+  LOOKBACK_HOURS,
+  assertTtlCoversLookback,
+} from "./lib/signal.js";
 
 // -- Constants ---------------------------------------------------------------
 
@@ -25,9 +30,11 @@ const X_API_BASE = "https://api.x.com/2";
 // Using a real Chrome UA avoids 403 errors in GitHub Actions.
 const RSS_USER_AGENT =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
-const TWEET_LOOKBACK_HOURS = 24;
-const PODCAST_LOOKBACK_HOURS = 336; // 14 days — podcasts publish weekly/biweekly, not daily
-const BLOG_LOOKBACK_HOURS = 72;
+// Lookback windows live in lib/signal.js so they cannot drift from the dedup
+// TTL again — that drift is what let podcasts be re-sent (plan §1.4).
+const TWEET_LOOKBACK_HOURS = LOOKBACK_HOURS.x;
+const PODCAST_LOOKBACK_HOURS = LOOKBACK_HOURS.podcast;
+const BLOG_LOOKBACK_HOURS = LOOKBACK_HOURS.blog;
 const MAX_TWEETS_PER_USER = 3;
 const MAX_ARTICLES_PER_BLOG = 3;
 const X_USER_LOOKUP_BATCH_SIZE = 5;
@@ -78,8 +85,10 @@ async function loadState() {
 }
 
 async function saveState(state) {
-  // Prune entries older than 7 days to prevent the file from growing forever
-  const cutoff = Date.now() - 7 * 24 * 60 * 60 * 1000;
+  // Prune entries older than the dedup TTL. This must stay >= the widest
+  // lookback window or items still inside that window lose their "seen" record
+  // and get re-sent (the podcast bug, plan §1.4). main() asserts it.
+  const cutoff = Date.now() - DEDUP_TTL_DAYS * 24 * 60 * 60 * 1000;
   for (const [id, ts] of Object.entries(state.seenTweets)) {
     if (ts < cutoff) delete state.seenTweets[id];
   }
@@ -599,6 +608,7 @@ async function fetchPodcastContent(podcasts, apiKey, state, errors) {
     return [
       {
         source: "podcast",
+        source_id: selected.podcast.id, // registry id; Phase 2B signal `source_id`
         name: selected.podcast.name,
         title: selected.title,
         guid: selected.guid,
@@ -736,6 +746,9 @@ async function fetchXContent(xAccounts, bearerToken, state, errors) {
 
       results.push({
         source: "x",
+        // Registry id of the account. Phase 2B's signal `source_id` (plan §3.1);
+        // the nested tweets[] inherit it when the normaliser flattens them.
+        source_id: account.id,
         name: account.name,
         handle: account.handle,
         bio: userData.description,
@@ -1064,6 +1077,7 @@ async function fetchBlogContent(blogs, state, errors) {
           // Merge extracted data with what we already have from the index
           results.push({
             source: "blog",
+            source_id: blog.id, // registry id; Phase 2B signal `source_id`
             name: blog.name,
             title: extracted.title || article.title || "Untitled",
             url: article.url,
@@ -1095,6 +1109,10 @@ async function fetchBlogContent(blogs, state, errors) {
 // -- Main --------------------------------------------------------------------
 
 async function main() {
+  // Fail fast before any fetch or write: a dedup TTL shorter than a lookback
+  // window silently re-sends old content.
+  assertTtlCoversLookback();
+
   const args = process.argv.slice(2);
   const tweetsOnly = args.includes("--tweets-only");
   const podcastsOnly = args.includes("--podcasts-only");

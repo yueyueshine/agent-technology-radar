@@ -12,8 +12,8 @@
 | 项 | 内容 |
 |---|---|
 | 项目目标 | 把一个 `zarazhangrui/follow-builders` 的公开 fork 改造为自有的 **Agent Technology Radar**，追踪 AI Agent 技术生态，最终经**飞书**投递 |
-| 当前位置 | Phase 0 / 1A / 1B **Done**；**Phase 2A Done**（CI 验证通过）；Phase 2B / 2C 待办；Phase 3–6 Not Started |
-| 下一步 | **Phase 2B — Signal Pipeline**（Signal Schema / Normalize / 时间归一 / traceability / dedup）。见 `.claude/plans/phase-2-signal-feed.plan.md` §3。执行记录见 `.claude/plans/phase-2a-runbook.md` |
+| 当前位置 | Phase 0 / 1A / 1B **Done**；**Phase 2A Done**（CI 验证通过）；**Phase 2B In Progress**；Phase 2C / 3–6 Not Started |
+| 下一步 | **Phase 2B — Signal Pipeline** 续做 B3–B8（B1 / B2 已落地）。见 `.claude/plans/phase-2-signal-feed.plan.md` §3。执行记录见 `.claude/plans/phase-2a-runbook.md` |
 | 当前源状态 | **61 active / 68 登记**。可抓通道：`rss` 18 · `github` 9 · `blog` 2（`x` 26 / `podcast` 6 缺 Key） |
 | 交付渠道（终态） | 飞书；第一版用 **Group Bot Webhook** |
 | 仓库 | `yueyueshine/agent-technology-radar`（public fork of `zarazhangrui/follow-builders`） |
@@ -70,7 +70,7 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 | Phase 0 | 接管现有 follow-builders | **Done**（含 Known Limitations，见该阶段） |
 | Phase 1A | Registry Foundation | **Done** |
 | Phase 1B | Radar Source Set | **Done** |
-| Phase 2 | Signal Feed | In Progress（**2A Done**，2B / 2C 待办） |
+| Phase 2 | Signal Feed | In Progress（**2A Done**；**2B In Progress**；2C 待办） |
 | Phase 3 | Topic Clustering | Not Started |
 | Phase 4 | Technology Radar | Not Started |
 | Phase 5 | Daily / Weekly Digest | Not Started |
@@ -130,7 +130,9 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 - **Dependencies**：Phase 1A / 1B Done。
 - **Exit Criteria**：详见 plan §8。核心：4 个 fetcher 产出统一 `items[]`；**`published_at` 只能是 ISO 8601 或 `null`**（blog 路实测）；`id` 用确定性哈希、`source_id` 100% 命中；aggregator 必有可解析 `original_url`；**`DEDUP_TTL_DAYS = 30` 且运行时校验 `TTL ≥ max lookback` fail-fast**；播客重复发出的 bug 已修；internal 源绝不进 public 产物。
 - **Risks & Open Questions**：① **已确认 bug：播客因 7 天 TTL < 14 天 lookback 会重复发出**；② AIHOT 有**三重前置**（`api` fetcher + internal 隔离 + **安全的下游消费 / 持久化通路**），**第三条本阶段无法满足 → 本阶段不会启用**；③ **internal 数据生命周期未闭环**（`$RUNNER_TEMP` 在 workflow 结束后消失，Phase 3/4 无法消费），本阶段只交付隔离能力；④ 36 条源（x / podcast / 批次 2）无法端到端验证；⑤ registry 第三次结构变更（新增 `redistribution`）。详见 plan §9。
-- **Status**：In Progress。**2A Done** —— 批次 1 收口：`rss` / `github` / `api` 已实现（`web` 经调查证明不需要）。CI 终态：`rss` 18 源 / 148 item / 0 error；`github` 9 源 / 20 item / 0 error。**AIHOT 的 fetcher 已实现但仍 `active: false`**（三重前置的第三条本阶段不满足）。**2B / 2C 待办。**
+- **Status**：In Progress。**2A Done** —— 批次 1 收口：`rss` / `github` / `api` 已实现（`web` 经调查证明不需要）。CI 终态：`rss` 18 源 / 148 item / 0 error；`github` 9 源 / 20 item / 0 error。**AIHOT 的 fetcher 已实现但仍 `active: false`**（三重前置的第三条本阶段不满足）。
+  **2B In Progress（2026-09-28）** —— 4 项开工裁决已定（`id` 哈希 **32 位 hex**；旧 state **迁移**而非重置；`signals.json` **不进 Git** 且 `text` **截断**；引用推文 **不特殊处理**）。已落地：**B1** 新增 `scripts/lib/signal.js`（`signalId()` / `type` 枚举 / **lookback 单一真值源** / `DEDUP_TTL_DAYS=30` + `assertTtlCoversLookback()`），两个脚本改从它取常量；**B2** 三个 legacy fetcher（x / podcast / blog）产出注入 `source_id`。**B3–B8 待做**（Normalizer / 时间归一 / traceability / dedup / `text` 策略 / Gate 脚本）。
+  实测：`--blogs-only` `source_id` **3/3 命中 registry**；`fetch-channels --channel github` **20 item / 0 error**（与 2A 基线一致）；`assertTtlCoversLookback()` 在 TTL<lookback 时**按预期抛错**。
   注意 **`runnable` ≠ `productive`** —— fetcher 能访问解析 ≠ 该源当前有内容产出（如 `github:gemini-cli`、`mcp-servers`、`autogen` 当前无 release）。
 
 ### Phase 3 — Topic Clustering
