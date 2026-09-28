@@ -29,6 +29,22 @@ export function signalId(sourceId, nativeId) {
     .slice(0, SIGNAL_ID_LENGTH);
 }
 
+// -- text --------------------------------------------------------------------
+
+// §3.1 requires an explicit retention policy for `text`, otherwise the product
+// grows with the archive (plan §2.2.1 measured `feed-rss.json` at 768 KB for
+// one run — roughly 280 MB/year of full article bodies).
+//
+// Board decision D3: truncate. 2000 characters is the size the downstream
+// digest needs to judge a signal; the full body stays in the gitignored feed
+// intermediates, where it is already available.
+export const TEXT_MAX_CHARS = 2000;
+
+export function truncateText(text, max = TEXT_MAX_CHARS) {
+  if (typeof text !== "string") return null;
+  return text.length <= max ? text : text.slice(0, max);
+}
+
 // -- published_at -------------------------------------------------------------
 
 // §3.3 — `published_at` is ISO 8601 UTC or null, never a third thing. Sources
@@ -106,12 +122,18 @@ export const DEDUP_TTL_DAYS = 30;
 // Fail-fast, checked at startup. Raising a lookback window without raising the
 // TTL is a silent re-send bug; this turns it into a crash. Merely widening the
 // TTL by hand would leave the trap for whoever next edits a lookback window.
-export function assertTtlCoversLookback() {
-  const ttlHours = DEDUP_TTL_DAYS * 24;
-  if (ttlHours < MAX_LOOKBACK_HOURS) {
+//
+// Parameterised so the gate can exercise the violating case without editing
+// this file; production callers use the defaults.
+export function assertTtlCoversLookback(
+  ttlDays = DEDUP_TTL_DAYS,
+  maxLookbackHours = MAX_LOOKBACK_HOURS,
+) {
+  const ttlHours = ttlDays * 24;
+  if (ttlHours < maxLookbackHours) {
     throw new Error(
-      `Dedup TTL ${DEDUP_TTL_DAYS}d (${ttlHours}h) < max lookback ` +
-        `${MAX_LOOKBACK_HOURS}h — items still inside a lookback window would be ` +
+      `Dedup TTL ${ttlDays}d (${ttlHours}h) < max lookback ` +
+        `${maxLookbackHours}h — items still inside a lookback window would be ` +
         `re-sent. Raise DEDUP_TTL_DAYS.`,
     );
   }

@@ -29,6 +29,7 @@ import { fileURLToPath } from "node:url";
 import {
   signalId,
   normalizePublishedAt,
+  truncateText,
   TYPE_BY_CHANNEL,
   DEDUP_TTL_DAYS,
   assertTtlCoversLookback,
@@ -246,7 +247,9 @@ function normalizeEntry(channel, entry, feed, warnings, errors, registry) {
     // Always present, and independent of published_at (§3.1): it answers
     // "why is this showing up now?" when published_at cannot.
     collected_at: feed.generatedAt ?? new Date().toISOString(),
-    text: entry.text ?? null,
+    // §3.1 / §2.2.1 — retained under an explicit policy (D3: truncated), so the
+    // product cannot grow with the archive.
+    text: truncateText(entry.text),
   };
 }
 
