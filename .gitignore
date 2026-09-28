@@ -9,3 +9,7 @@ feed-rss.json
 feed-github.json
 feed-api.json
 feed-web.json
+# Normalizer product (Phase 2B): derived from the feeds above on every run.
+# Board decision D3 keeps it out of Git — carrying full `text` would grow the
+# repo by roughly 280 MB/year (plan §2.2.1).
+signals.json
