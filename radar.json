@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-29T05:55:56.085Z",
+  "generatedAt": "2026-09-29T06:26:38.932Z",
   "radarVersion": "v1",
   "taxonomyVersion": "v1",
-  "sourceGeneratedAt": "2026-09-29T05:55:55.995Z",
+  "sourceGeneratedAt": "2026-09-29T06:26:38.851Z",
   "windowHours": 336,
   "inputSignalCount": 171,
-  "measuredSpanHours": 332.92057916666664,
+  "measuredSpanHours": 333.4324811111111,
   "ringRule": {
     "momentumMidpointHours": 168,
     "narrowBreadth": 3,
@@ -15,7 +15,7 @@
     {
       "topic": "model-capability",
       "ring": "adopt",
-      "weight": 22.420587511149037,
+      "weight": 22.373283984282736,
       "signalCount": 39,
       "clusterCount": 37,
       "breadth": 13,
@@ -68,7 +68,7 @@
     {
       "topic": "agent-framework",
       "ring": "assess",
-      "weight": 0.8646918189319598,
+      "weight": 0.8628674700977654,
       "signalCount": 1,
       "clusterCount": 1,
       "breadth": 1,
@@ -83,7 +83,7 @@
     {
       "topic": "tool-and-protocol",
       "ring": "hold",
-      "weight": 0.26934856881891495,
+      "weight": 0.26878029034471396,
       "signalCount": 1,
       "clusterCount": 1,
       "breadth": 1,
@@ -98,7 +98,7 @@
     {
       "topic": "context-and-memory",
       "ring": "trial",
-      "weight": 2.0705121081462914,
+      "weight": 2.066143688938454,
       "signalCount": 3,
       "clusterCount": 3,
       "breadth": 3,
@@ -115,7 +115,7 @@
     {
       "topic": "inference-and-cost",
       "ring": "assess",
-      "weight": 1.6073056962427152,
+      "weight": 1.6039145617264245,
       "signalCount": 4,
       "clusterCount": 4,
       "breadth": 2,
@@ -133,7 +133,7 @@
     {
       "topic": "dev-tooling",
       "ring": "adopt",
-      "weight": 12.858917761048588,
+      "weight": 12.83178768867743,
       "signalCount": 21,
       "clusterCount": 21,
       "breadth": 7,
@@ -168,7 +168,7 @@
     {
       "topic": "product-and-business",
       "ring": "hold",
-      "weight": 4.122110412548957,
+      "weight": 4.113413478958394,
       "signalCount": 9,
       "clusterCount": 9,
       "breadth": 4,
@@ -191,7 +191,7 @@
     {
       "topic": "safety-and-governance",
       "ring": "adopt",
-      "weight": 5.441448905795155,
+      "weight": 5.429968398231341,
       "signalCount": 9,
       "clusterCount": 9,
       "breadth": 5,
@@ -214,7 +214,7 @@
     {
       "topic": "eval-and-benchmark",
       "ring": "hold",
-      "weight": 1.346683669269177,
+      "weight": 1.3438424017467265,
       "signalCount": 3,
       "clusterCount": 3,
       "breadth": 3,

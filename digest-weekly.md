@@ -21,10 +21,10 @@
 覆盖广（13 个独立源）、动量温和为正（+0.41）—— 生态已收敛且仍在缓升。
 
 - **Release v0.24.6** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.24.6
-- https://www.latent.space/p/ainews-amd-buys-world-labs-for-82b
-- https://simonwillison.net/2026/Sep/28/claude-sonnet-5-5/
-- https://github.com/langchain-ai/langchain/releases/tag/langchain%3D%3D1.4.3
-- https://github.blog/changelog/2026-09-28-claude-sonnet-5-5-in-github-copilot
+- **[AINews] AMD buys World Labs for $8.2B, as Atlas solves sparse reconstruction problem for robotics, design and more** — rss:latent-space · https://www.latent.space/p/ainews-amd-buys-world-labs-for-82b
+- **Claude Sonnet 5.5** — rss:simon-willison · https://simonwillison.net/2026/Sep/28/claude-sonnet-5-5/
+- **langchain==1.4.3** — github:langchain · https://github.com/langchain-ai/langchain/releases/tag/langchain%3D%3D1.4.3
+- **Claude Sonnet 5.5 in GitHub Copilot** — rss:github-copilot-changelog · https://github.blog/changelog/2026-09-28-claude-sonnet-5-5-in-github-copilot
 - 还有 32 条
 
 #### dev-tooling —— 开发者工具与实践
@@ -33,9 +33,9 @@
 
 覆盖广（7 个独立源）、动量温和为正（+0.43）—— 生态已收敛且仍在缓升。
 
-- https://www.latent.space/p/thariq
+- **Claude Code’s Next Era — Thariq Shihipar, Anthropic** — rss:latent-space · https://www.latent.space/p/thariq
 - **0.158.0** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.158.0
-- https://openai.com/form/codex-originals
+- **Are you a Codex Original?** — rss:openai-news · https://openai.com/form/codex-originals
 - **SDK TypeScript Release v0.1.16** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.16
 - **0.157.1** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.157.1
 - 还有 16 条
@@ -46,11 +46,11 @@
 
 覆盖广（5 个独立源）、动量温和为正（+0.33）—— 生态已收敛且仍在缓升。
 
-- https://simonwillison.net/2026/Sep/28/joedaroo/
-- https://openai.com/index/how-we-will-do-better-for-australia
+- **Quoting @joedaroo** — rss:simon-willison · https://simonwillison.net/2026/Sep/28/joedaroo/
+- **How we will do better for Australia** — rss:openai-news · https://openai.com/index/how-we-will-do-better-for-australia
 - **v2.1.281** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.281
-- https://www.latent.space/p/bio-security-is-an-ai-arms-race-eric
-- https://openai.com/index/openai-extends-cyber-access-to-ukraine-for-civilian-defense
+- **🔬Bio-security is an AI Arms Race - Eric Nguyen (CEO, Radical Numerics)** — rss:latent-space · https://www.latent.space/p/bio-security-is-an-ai-arms-race-eric
+- **OpenAI extends cyber access to Ukraine for civilian defense** — rss:openai-news · https://openai.com/index/openai-extends-cyber-access-to-ukraine-for-civilian-defense
 - 还有 4 条
 
 ### 试用中（trial）
@@ -61,8 +61,8 @@
 
 覆盖达标（3 个独立源）且动量急升（+1.00）—— 共识形成前的活跃试验期。
 
-- https://github.com/langchain-ai/langchain/releases/tag/langchain-fireworks%3D%3D1.7.0
-- https://deepmind.google/blog/advancing-private-ai-compute-with-secure-server-side-memory/
+- **langchain-fireworks==1.7.0** — github:langchain · https://github.com/langchain-ai/langchain/releases/tag/langchain-fireworks%3D%3D1.7.0
+- **Advancing Private AI Compute with secure, server-side memory** — rss:google-deepmind · https://deepmind.google/blog/advancing-private-ai-compute-with-secure-server-side-memory/
 - **Better prompt caching for GPT-6** — rss:openai-news · https://openai.com/index/better-prompt-caching-for-gpt-6
 
 ### 待观察（assess）
@@ -73,7 +73,7 @@
 
 有升势（+1.00）但独立源偏少（仅 1 个）—— 只够放进观察位。
 
-- https://simonwillison.net/2026/Sep/27/bluesky-bot-check/
+- **Bluesky reply bot checker** — rss:simon-willison · https://simonwillison.net/2026/Sep/27/bluesky-bot-check/
 
 #### inference-and-cost —— 推理与成本
 
@@ -81,7 +81,7 @@
 
 动量持平但独立源偏少（仅 2 个）—— 只够放进观察位。
 
-- https://machinelearning.apple.com/research/guide-language-flow
+- **How to Guide Your Language Flow** — rss:apple-ml · https://machinelearning.apple.com/research/guide-language-flow
 - **NVIDIA Isaac ROS 5.0 Advances Agentic, Open Source Robotics Development** — rss:nvidia-blog · https://blogs.nvidia.com/blog/isaac-ros-5-0-agentic-open-source-robotics/
 - **NVIDIA Vera Rubin NVL72 Delivers Leading Performance in MLPerf Inference v6.1 Debut** — rss:nvidia-blog · https://blogs.nvidia.com/blog/vera-rubin-nvl72-mlperf-inference/
 - **Trajectory as the Teacher: Few-Step Discrete Flow Matching via Energy-Navigated Distillation** — rss:apple-ml · https://machinelearning.apple.com/research/trajectory-teacher-flow-matching
@@ -102,10 +102,10 @@
 
 动量转负（-0.11，4 个源）—— 注意力在退。
 
-- https://openai.com/index/lenfest-ai-collaborative-expansion
-- https://blogs.nvidia.com/blog/geforce-now-thursday-control-resonant/
-- https://blog.google/innovation-and-ai/technology/research/google-beam-expansion/
-- https://openai.com/index/grab-openai-ai-skills-southeast-asia
+- **The Lenfest Institute grows landmark program with expanded OpenAI support** — rss:openai-news · https://openai.com/index/lenfest-ai-collaborative-expansion
+- **Contain the Chaos: ‘CONTROL Resonant’ Launches on GeForce NOW** — rss:nvidia-blog · https://blogs.nvidia.com/blog/geforce-now-thursday-control-resonant/
+- **Google Beam expands with new regions, partners, and customers** — rss:google-ai · https://blog.google/innovation-and-ai/technology/research/google-beam-expansion/
+- **Grab and OpenAI bring practical AI skills to Southeast Asia** — rss:openai-news · https://openai.com/index/grab-openai-ai-skills-southeast-asia
 - **Cute Critters Come to the Cloud: ‘Aniimo’ Launches on GeForce NOW** — rss:nvidia-blog · https://blogs.nvidia.com/blog/geforce-now-thursday-aniimo/
 - 还有 4 条
 
@@ -115,8 +115,8 @@
 
 动量转负（-0.33，3 个源）—— 注意力在退。
 
-- https://openai.com/index/introducing-mentalhealthbench
-- https://huggingface.co/blog/evaleval-aisi
+- **Introducing MentalHealthBench** — rss:openai-news · https://openai.com/index/introducing-mentalhealthbench
+- **How UK AISI and EvalEval Are Making Benchmark Results Reproducible** — rss:huggingface-blog · https://huggingface.co/blog/evaleval-aisi
 - **REVERSAL-BENCH: A Reversibility Axis and Reset Oracle for Measuring the Reset-Free RL Cliff** — rss:apple-ml · https://machinelearning.apple.com/research/reversal-bench-rl-cliff
 
 ## 健康指标
@@ -125,6 +125,6 @@
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-09-29T06:26:03.000Z · src 2026-09-29T05:55:56.085Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-09-29T06:26:38.000Z · src 2026-09-29T06:26:38.932Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*

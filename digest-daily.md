@@ -4,75 +4,9 @@
 
 窗口 336h · 输入 171 signal · 未归类 81 / 171（47.4%）
 
-## 今日新增 48 条信号
+## 今日新增 0 条信号
 
-### 已确立（adopt）
-
-#### model-capability —— 模型能力与发布
-
-- **Qwen Code Desktop v0.24.6** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/desktop-v0.24.6
-- **Release v0.24.6** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.24.6
-- **0.157.0** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.157.0
-- **Release v0.24.5** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.24.5
-- **Release v0.61.0** — github:gemini-cli · https://github.com/google-gemini/gemini-cli/releases/tag/v0.61.0
-- 还有 17 条
-
-#### dev-tooling —— 开发者工具与实践
-
-- **0.158.0** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.158.0
-- **SDK TypeScript Release v0.1.16** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.16
-- **0.157.1** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.157.1
-- **SDK TypeScript Release v0.1.15** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.15
-- **OpenTelemetry in the GitHub Copilot app** — rss:github-copilot-changelog · https://github.blog/changelog/2026-09-22-opentelemetry-in-the-github-copilot-app
-- 还有 6 条
-
-#### safety-and-governance —— 安全与治理
-
-- **v2.1.281** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.281
-- **Priorities and principles for effective third party assessments** — rss:openai-news · https://openai.com/index/priorities-principles-third-party-assessments
-- **Jev: System One models for Prod, not God — with Diogo Almeida, CEO, TypeSafe AI** — rss:latent-space · https://www.latent.space/p/jev
-- **Glyph: A Multi-Strategy Agentic System for Column Description and Sensitivity-Ontology Tagging of Enterprise Data Catalogs** — rss:apple-ml · https://machinelearning.apple.com/research/glyph-column-description-tagging
-
-### 试用中（trial）
-
-#### context-and-memory —— 上下文与记忆
-
-- **Better prompt caching for GPT-6** — rss:openai-news · https://openai.com/index/better-prompt-caching-for-gpt-6
-
-### 待观察（assess）
-
-#### inference-and-cost —— 推理与成本
-
-- **NVIDIA Isaac ROS 5.0 Advances Agentic, Open Source Robotics Development** — rss:nvidia-blog · https://blogs.nvidia.com/blog/isaac-ros-5-0-agentic-open-source-robotics/
-- **NVIDIA Vera Rubin NVL72 Delivers Leading Performance in MLPerf Inference v6.1 Debut** — rss:nvidia-blog · https://blogs.nvidia.com/blog/vera-rubin-nvl72-mlperf-inference/
-- **Trajectory as the Teacher: Few-Step Discrete Flow Matching via Energy-Navigated Distillation** — rss:apple-ml · https://machinelearning.apple.com/research/trajectory-teacher-flow-matching
-
-### 沉寂（hold）
-
-#### tool-and-protocol —— 工具与协议
-
-- **Shared Selective Persistent Memory for Agentic LLM Systems** — rss:apple-ml · https://machinelearning.apple.com/research/shared-selective-persistent-memory
-
-#### product-and-business —— 产品与商业
-
-- **Cute Critters Come to the Cloud: ‘Aniimo’ Launches on GeForce NOW** — rss:nvidia-blog · https://blogs.nvidia.com/blog/geforce-now-thursday-aniimo/
-- **How Cooley is accelerating IPO work with ChatGPT** — rss:openai-news · https://openai.com/index/cooley-gopublic
-- **Underwriting Superintelligence: Backing Agents you can Sue — Rune Kvist, AIUC** — rss:latent-space · https://www.latent.space/p/aiuc
-- **Emerald AI, Google and NVIDIA Launch Alliance to Advance Flexible AI Data Centers** — rss:nvidia-blog · https://blogs.nvidia.com/blog/ai-energy-management-alliance/
-- **Can Skills Learned in Games Transfer to Real-World Work?** — rss:latent-space · https://www.latent.space/p/good-start-labs
-
-#### eval-and-benchmark —— 评测与基准
-
-- **REVERSAL-BENCH: A Reversibility Axis and Reset Oracle for Measuring the Reset-Free RL Cliff** — rss:apple-ml · https://machinelearning.apple.com/research/reversal-bench-rl-cliff
-
-## 未归类（100）—— 未归入扇区，非主题
-
-- **v2.1.283** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.283
-- **v2.10.0** — github:google-adk-python · https://github.com/google/adk-python/releases/tag/v2.10.0
-- **langchain-fireworks==1.6.3** — github:langchain · https://github.com/langchain-ai/langchain/releases/tag/langchain-fireworks%3D%3D1.6.3
-- **v2.1.282** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.282
-- **langchain-core==1.6.5** — github:langchain · https://github.com/langchain-ai/langchain/releases/tag/langchain-core%3D%3D1.6.5
-- 还有 95 条
+今日无新增信号。
 
 ## 当前雷达
 
@@ -96,6 +30,6 @@
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-09-29T06:26:03.000Z · src 2026-09-29T05:55:56.085Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-09-29T06:26:38.000Z · src 2026-09-29T06:26:38.932Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
