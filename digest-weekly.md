@@ -2,13 +2,13 @@
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 173 signal · 未归类 82 / 173（47.4%）
+窗口 336h · 输入 172 signal · 未归类 81 / 172（47.1%）
 
 ## 环的移动
 
-对比基线：2026-09-29T06:26:38.932Z
+对比基线：2026-09-29T08:15:23.388Z
 
-本周无环变动。
+- inference-and-cost：待观察 → 沉寂（动量 -0.50，源 2）
 
 ## 扇区全貌
 
@@ -75,17 +75,6 @@
 
 - **Bluesky reply bot checker** — rss:simon-willison · https://simonwillison.net/2026/Sep/27/bluesky-bot-check/
 
-#### inference-and-cost —— 推理与成本
-
-2 个独立源 · 4 个事件（近 2 / 远 2）· 动量 +0.00
-
-动量持平但独立源偏少（仅 2 个）—— 只够放进观察位。
-
-- **How to Guide Your Language Flow** — rss:apple-ml · https://machinelearning.apple.com/research/guide-language-flow
-- **NVIDIA Isaac ROS 5.0 Advances Agentic, Open Source Robotics Development** — rss:nvidia-blog · https://blogs.nvidia.com/blog/isaac-ros-5-0-agentic-open-source-robotics/
-- **NVIDIA Vera Rubin NVL72 Delivers Leading Performance in MLPerf Inference v6.1 Debut** — rss:nvidia-blog · https://blogs.nvidia.com/blog/vera-rubin-nvl72-mlperf-inference/
-- **Trajectory as the Teacher: Few-Step Discrete Flow Matching via Energy-Navigated Distillation** — rss:apple-ml · https://machinelearning.apple.com/research/trajectory-teacher-flow-matching
-
 ### 沉寂（hold）
 
 #### tool-and-protocol —— 工具与协议
@@ -95,6 +84,17 @@
 动量转负（-1.00，1 个源）—— 注意力在退。
 
 - **Shared Selective Persistent Memory for Agentic LLM Systems** — rss:apple-ml · https://machinelearning.apple.com/research/shared-selective-persistent-memory
+
+#### inference-and-cost —— 推理与成本
+
+2 个独立源 · 4 个事件（近 1 / 远 3）· 动量 -0.50
+
+动量转负（-0.50，2 个源）—— 注意力在退。
+
+- **How to Guide Your Language Flow** — rss:apple-ml · https://machinelearning.apple.com/research/guide-language-flow
+- **NVIDIA Isaac ROS 5.0 Advances Agentic, Open Source Robotics Development** — rss:nvidia-blog · https://blogs.nvidia.com/blog/isaac-ros-5-0-agentic-open-source-robotics/
+- **NVIDIA Vera Rubin NVL72 Delivers Leading Performance in MLPerf Inference v6.1 Debut** — rss:nvidia-blog · https://blogs.nvidia.com/blog/vera-rubin-nvl72-mlperf-inference/
+- **Trajectory as the Teacher: Few-Step Discrete Flow Matching via Energy-Navigated Distillation** — rss:apple-ml · https://machinelearning.apple.com/research/trajectory-teacher-flow-matching
 
 #### product-and-business —— 产品与商业
 
@@ -121,10 +121,10 @@
 
 ## 健康指标
 
-未归类 82 / 173（47.4%）
+未归类 81 / 172（47.1%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-09-29T08:15:23.000Z · src 2026-09-29T08:15:23.388Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-09-29T12:54:06.000Z · src 2026-09-29T12:54:06.224Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
