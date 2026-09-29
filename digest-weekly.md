@@ -2,11 +2,11 @@
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 172 signal · 未归类 82 / 172（47.7%）
+窗口 336h · 输入 171 signal · 未归类 81 / 171（47.4%）
 
 ## 环的移动
 
-对比基线：2026-09-29T05:53:16.085Z
+对比基线：2026-09-29T05:55:56.085Z
 
 本周无环变动。
 
@@ -121,10 +121,10 @@
 
 ## 健康指标
 
-未归类 82 / 172（47.7%）
+未归类 81 / 171（47.4%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-09-29T06:13:25.000Z · src 2026-09-29T05:53:16.085Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-09-29T06:26:03.000Z · src 2026-09-29T05:55:56.085Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
