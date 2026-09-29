@@ -44,5 +44,5 @@ phase-0 / 1a / 1b / 2 四份文档共用的形状，沿用：
 - **不提交**：`signals.json`、`signals-window.json`、`signals-internal.json`、`feed-<channel>.json`（派生产物）。
   **要提交**：`state-signals.json`、`state-feed.json`（跨 run 去重状态）、`topics.json`（Phase 3 产物，其 git 历史是权重序列）、`radar.json`（Phase 4 产物，其 git 历史是主题在环之间移动的记录）、`digest-daily.md` / `digest-weekly.md`（Phase 5 产物，**每次覆写、只留最新**，是整条链路唯一的人可读产物）。
 - **registry 两处必须同步改**：`config/default-sources.json` + `config/source-registry.schema.json`。
-- **CI 每天红是预期的**（缺 `X_BEARER_TOKEN` / `POD2TXT_API_KEY` → `Generate feeds` 失败）。**看步骤级结论，不要看 run 级结论** —— 否则真正的 gate 失败会被淹没。
+- **CI 每天红是预期的**（缺 `X_BEARER_TOKEN` / `POD2TXT_API_KEY` → `Generate feeds` 失败）。**看步骤级结论，不要看 run 级结论** —— 否则真正的 gate 失败会被淹没。Phase 6 的 `Deliver to Feishu` 是唯一的例外：缺 `FEISHU_WEBHOOK_URL` 时它打一行 warning 并**退 0**（一个常红步骤会把真失败淹掉）；只有「配了 URL 没配 secret」才算配错，那才红。
 - registry 的 `id` **一旦发布不可改**（signal 的 `source_id` 指向它）；例外仅限从未产出过 signal 的条目。

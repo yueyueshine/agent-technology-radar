@@ -227,6 +227,14 @@ jobs:
         if: always()
         run: cd scripts && node gate-5.js
 
+      - name: Gate 6
+        # Phase 6's executable definition (plan §7.1 / §8). Needs no secrets: it
+        # stands up a loopback HTTP server in place of Feishu, so the payloads,
+        # signature and failure paths are exercised without touching the network
+        # or the real group.
+        if: always()
+        run: cd scripts && node gate-6.js
+
       - name: Commit and push feeds
         # always(): the key-dependent step above fails while the repo has no
         # secrets, but the keyless feeds must still be committed.
@@ -265,3 +273,28 @@ jobs:
           done
           git diff --cached --quiet || git commit -m "chore: update feeds [skip ci]"
           git push
+
+      - name: Deliver to Feishu
+        # Phase 6 (plan §3, decision D2). Deliberately the SAME run that rendered
+        # the digests: a separate workflow could only read a COMMITTED digest, so
+        # it would have to be scheduled away from this one or it would post the
+        # previous version — a race for no gain.
+        #
+        # Unset FEISHU_WEBHOOK_URL is the expected state in a repo without
+        # secrets: the script warns and exits 0. A permanently red step here
+        # would bury the real gate failures (CLAUDE.md §5). A real delivery
+        # failure is red.
+        #
+        # Both modes are attempted before the step reports. The weekly call
+        # self-skips except on 周一, so a failed daily card must not cost the
+        # weekly one.
+        if: always()
+        env:
+          FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
+          FEISHU_WEBHOOK_SECRET: ${{ secrets.FEISHU_WEBHOOK_SECRET }}
+        run: |
+          cd scripts
+          status=0
+          node deliver-feishu.js --mode daily --send || status=$?
+          node deliver-feishu.js --mode weekly --send || status=$?
+          exit $status
