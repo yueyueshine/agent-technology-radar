@@ -77,6 +77,13 @@ jobs:
         if: always()
         run: cd scripts && node cluster-signals.js --signals signals-window.json
 
+      - name: Build radar
+        # Phase 4. Maps the nine frozen topics onto sectors × rings. Reads
+        # topics.json and nothing else — no signal is touched here, so this
+        # step cannot change what was clustered or weighted.
+        if: always()
+        run: cd scripts && node build-radar.js
+
       - name: Assert clustering saw the window, not the delta
         # An integration assertion, not a fixture test: it is the only thing
         # standing between this pipeline and a silently empty product.
@@ -99,6 +106,55 @@ jobs:
             console.log("clustering input: " + topics.inputSignalCount + " of " + window.count + " windowed signal(s)");
           '
 
+      - name: Assert radar covers all sectors
+        # Phase 4's counterpart to the assertion above. radar.json is derived
+        # from topics.json inside this same job, so the failure mode is not an
+        # empty file but a STALE or partially-covered one: the build ran against
+        # a previous run's topics.json, or sectors were dropped on the way. A
+        # radar missing sectors looks fine in the log and quietly shrinks the
+        # product, so it is asserted rather than eyeballed.
+        if: always()
+        run: |
+          node -e '
+            const fs = require("fs");
+            const read = (p) => JSON.parse(fs.readFileSync(p, "utf8"));
+            let topics;
+            let radar;
+            try { topics = read("topics.json"); } catch { console.log("no topics.json"); process.exit(1); }
+            try { radar = read("radar.json"); } catch { console.error("no radar.json"); process.exit(1); }
+            const EXPECTED_SECTORS = 9;
+            if (radar.sectors.length !== EXPECTED_SECTORS) {
+              console.error("radar.json holds " + radar.sectors.length + " sector(s), expected " + EXPECTED_SECTORS);
+              process.exit(1);
+            }
+            if (radar.inputSignalCount !== topics.inputSignalCount) {
+              console.error(
+                "radar.json was built from " + radar.inputSignalCount + " signal(s) while topics.json holds " +
+                topics.inputSignalCount + " — radar.json is stale"
+              );
+              process.exit(1);
+            }
+            // Provenance, not signal count: two runs can hold the same number
+            // of signals, so the count alone cannot tell a current radar.json
+            // from a stale one (review finding F4). No apostrophes below this
+            // line — the whole script is inside a shell single-quoted string.
+            if (radar.sourceGeneratedAt !== topics.generatedAt) {
+              console.error(
+                "radar.json came from a topics.json generated at " + radar.sourceGeneratedAt +
+                " but the current one was generated at " + topics.generatedAt + " — radar.json is stale"
+              );
+              process.exit(1);
+            }
+            const ringCount = Object.values(radar.summary || {}).reduce((a, b) => a + b, 0);
+            if (ringCount !== radar.sectors.length) {
+              console.error(
+                "radar summary counts " + ringCount + " sector(s) but the radar holds " + radar.sectors.length
+              );
+              process.exit(1);
+            }
+            console.log("radar: " + radar.sectors.length + " sector(s) from " + radar.inputSignalCount + " signal(s)");
+          '
+
       - name: Gate 2B
         # The repo has no test suite; this is the executable definition of
         # "2B works" (plan §7.1 / §8). It runs entirely on its own fixtures and
@@ -113,6 +169,11 @@ jobs:
         # Phase 3's executable definition (plan §7.1 / §8).
         if: always()
         run: cd scripts && node gate-3.js
+
+      - name: Gate 4
+        # Phase 4's executable definition (plan §7.1 / §8).
+        if: always()
+        run: cd scripts && node gate-4.js
 
       - name: Commit and push feeds
         # always(): the key-dependent step above fails while the repo has no
@@ -129,10 +190,14 @@ jobs:
         # topics.json IS committed: it is small and bounded, and its git history
         # is the per-topic weight series Phase 4 needs in order to compare a
         # topic across time (plan §5.1).
+        #
+        # radar.json IS committed for the same reason: it is a fixed nine
+        # sectors, and its history is the only record of a topic moving between
+        # rings, which is the thing a radar exists to show (phase 4 plan §5.3).
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add feed-x.json feed-podcasts.json feed-blogs.json state-feed.json state-signals.json topics.json
+          git add feed-x.json feed-podcasts.json feed-blogs.json state-feed.json state-signals.json topics.json radar.json
           git diff --cached --quiet || git commit -m "chore: update feeds [skip ci]"
           git push
