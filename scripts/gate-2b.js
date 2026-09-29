@@ -25,6 +25,7 @@ import {
   readFileSync,
   rmSync,
   cpSync,
+  existsSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, dirname } from "node:path";
@@ -32,7 +33,6 @@ import { fileURLToPath } from "node:url";
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(SCRIPT_DIR, "..");
-const SIGNALS_PATH = join(REPO_ROOT, "signals.json");
 
 const results = [];
 let tmpRoot;
@@ -68,12 +68,47 @@ function writeFeed(dir, channel, payload) {
 // share state (G4, G5) pass `state` explicitly; everyone else gets a fresh file,
 // so each check is order-independent.
 let stateSeq = 0;
-function normalize({ feedsDir, state, only }) {
-  const args = [join(SCRIPT_DIR, "normalize-signals.js"), "--feeds-dir", feedsDir];
+
+// Runs the normalizer without asserting on its exit code, so a check can
+// exercise a run that is supposed to fail. `scriptDir` points at a copied tree
+// when a check needs to break something inside it; `tz` sets the child's
+// timezone, which is the only way to prove a result does not depend on it.
+function runNormalize({ feedsDir, state, only, tz, scriptDir = SCRIPT_DIR }) {
+  const args = [join(scriptDir, "normalize-signals.js"), "--feeds-dir", feedsDir];
   args.push("--state", state ?? join(tmpRoot, `state-auto-${stateSeq++}.json`));
   if (only) args.push("--only", only);
-  execFileSync(process.execPath, args, { stdio: ["ignore", "ignore", "pipe"] });
-  return JSON.parse(readFileSync(SIGNALS_PATH, "utf-8"));
+  const env = tz ? { ...process.env, TZ: tz } : process.env;
+  try {
+    execFileSync(process.execPath, args, {
+      stdio: ["ignore", "ignore", "pipe"],
+      env,
+    });
+    return { ok: true, stderr: "" };
+  } catch (err) {
+    return { ok: false, stderr: String(err.stderr) };
+  }
+}
+
+function normalize(opts = {}) {
+  const result = runNormalize(opts);
+  if (!result.ok) {
+    throw new Error(`normalize-signals failed: ${result.stderr.trim()}`);
+  }
+  const root = dirname(opts.scriptDir ?? SCRIPT_DIR);
+  return JSON.parse(readFileSync(join(root, "signals.json"), "utf-8"));
+}
+
+// A throwaway copy of the tree, for checks that need to break something the
+// normalizer touches — G6 patches a constant in it, G9 occupies the product path.
+function copyTree(name) {
+  const root = join(tmpRoot, name);
+  mkdirSync(root, { recursive: true });
+  cpSync(join(REPO_ROOT, "config"), join(root, "config"), { recursive: true });
+  cpSync(SCRIPT_DIR, join(root, "scripts"), {
+    recursive: true,
+    filter: (src) => !src.includes("node_modules"),
+  });
+  return root;
 }
 
 function feedDir(name) {
@@ -374,15 +409,7 @@ function main() {
 
   // G6 — §3.4: TTL < max lookback must abort the run, not warn.
   check("G6 fail-fast：TTL 7 天 < lookback 336h 时进程退出", () => {
-    const broken = join(tmpRoot, "broken");
-    mkdirSync(broken, { recursive: true });
-    cpSync(join(REPO_ROOT, "config"), join(broken, "config"), {
-      recursive: true,
-    });
-    cpSync(SCRIPT_DIR, join(broken, "scripts"), {
-      recursive: true,
-      filter: (src) => !src.includes("node_modules"),
-    });
+    const broken = copyTree("broken");
     const libPath = join(broken, "scripts", "lib", "signal.js");
     const patched = readFileSync(libPath, "utf-8").replace(
       /export const DEDUP_TTL_DAYS = \d+;/,
@@ -414,6 +441,153 @@ function main() {
       /Dedup TTL 7d \(168h\) < max lookback 336h/.test(stderr),
       `unexpected failure message: ${stderr.trim() || "(empty)"}`,
     );
+  });
+
+  // G7 — §3.3: the contract is "the same feed normalises to the same instant
+  // everywhere". A zone-less value must be refused, not resolved against
+  // whichever timezone the runner happens to have. Nothing else in this suite
+  // varies TZ, so without this check the whole of §3.3 was unverified.
+  check("G7 时间归一不随时区变：无时区一律拒绝", () => {
+    const dir = feedDir("tz");
+    const blog = (title, url, publishedAt) => ({
+      source_id: "blog:claude-blog",
+      title,
+      url,
+      publishedAt,
+      content: "c",
+    });
+    writeFeed(dir, "blogs", {
+      generatedAt: "2026-09-28T10:00:00.000Z",
+      blogs: [
+        blog("zone-less", "https://claude.com/blog/tz-a", "2026-09-25T21:50:12"),
+        blog("zulu", "https://claude.com/blog/tz-b", "2026-09-25T21:50:12Z"),
+        blog("rfc2822", "https://claude.com/blog/tz-c", "Tue, 22 Sep 2026 21:00:00 GMT"),
+        blog("offset", "https://claude.com/blog/tz-d", "2026-09-25T21:50:12+08:00"),
+        blog("date-only", "https://claude.com/blog/tz-e", "2026-09-25"),
+      ],
+    });
+
+    const utc = normalize({ feedsDir: dir, only: "blog", tz: "UTC" });
+    const shanghai = normalize({ feedsDir: dir, only: "blog", tz: "Asia/Shanghai" });
+    assert(
+      JSON.stringify(utc.signals) === JSON.stringify(shanghai.signals),
+      "the same feed normalised differently under TZ=UTC and TZ=Asia/Shanghai",
+    );
+
+    const at = (url) => utc.signals.find((s) => s.url === url).published_at;
+    assert(at("https://claude.com/blog/tz-a") === null, "a zone-less datetime was accepted");
+    assert(
+      at("https://claude.com/blog/tz-b") === "2026-09-25T21:50:12.000Z",
+      `zulu: ${at("https://claude.com/blog/tz-b")}`,
+    );
+    assert(
+      at("https://claude.com/blog/tz-c") === "2026-09-22T21:00:00.000Z",
+      `rfc2822: ${at("https://claude.com/blog/tz-c")}`,
+    );
+    assert(
+      at("https://claude.com/blog/tz-d") === "2026-09-25T13:50:12.000Z",
+      `offset: ${at("https://claude.com/blog/tz-d")}`,
+    );
+    assert(
+      at("https://claude.com/blog/tz-e") === "2026-09-25T00:00:00.000Z",
+      `date-only: ${at("https://claude.com/blog/tz-e")}`,
+    );
+
+    const warned = new Set((utc.normalization_warnings || []).map((w) => w.native_id));
+    assert(
+      warned.has("https://claude.com/blog/tz-a"),
+      "the refusal was not recorded as a warning",
+    );
+  });
+
+  // G8 — §3.4: an untrustworthy state file must stop the run. Silently swapping
+  // in an empty state re-sends everything inside every lookback window (§1.4);
+  // a malformed `seen` used to either do that or crash with a raw TypeError.
+  check("G8 坏 state 一律报错退出，不静默重置、不改写文件", () => {
+    const dir = feedDir("badstate");
+    writeFeed(dir, "blogs", {
+      generatedAt: "2026-09-28T10:00:00.000Z",
+      blogs: [
+        {
+          source_id: "blog:claude-blog",
+          title: "t",
+          url: "https://claude.com/blog/bad-state",
+          publishedAt: "2026-09-25T21:50:12Z",
+          content: "c",
+        },
+      ],
+    });
+
+    const broken = {
+      "truncated JSON": '{"version":1,"seen":{"a":1',
+      "top-level null": "null",
+      "top-level array": "[1,2,3]",
+      "seen is an array": '{"version":1,"seen":[]}',
+      "seen is a number": '{"version":1,"seen":5}',
+      "seen is null": '{"version":1,"seen":null}',
+      "non-numeric timestamp": '{"version":1,"seen":{"a":"2026-09-01"}}',
+    };
+
+    let i = 0;
+    for (const [name, text] of Object.entries(broken)) {
+      const path = join(tmpRoot, `state-bad-${i++}.json`);
+      writeFileSync(path, text);
+      const run = runNormalize({ feedsDir: dir, only: "blog", state: path });
+      assert(!run.ok, `${name}: the run did NOT abort`);
+      assert(
+        /dedup state/.test(run.stderr),
+        `${name}: message does not name the dedup state — ${run.stderr.trim()}`,
+      );
+      assert(
+        readFileSync(path, "utf-8") === text,
+        `${name}: the state file was rewritten instead of left alone`,
+      );
+    }
+  });
+
+  // G9 — §3.4: state must never advance past a product that was not written.
+  // The other order records an id as seen and loses that signal for the TTL.
+  check("G9 产物写失败时 state 不前进，signal 不丢", () => {
+    const dir = feedDir("order");
+    writeFeed(dir, "blogs", {
+      generatedAt: "2026-09-28T10:00:00.000Z",
+      blogs: [
+        {
+          source_id: "blog:claude-blog",
+          title: "t",
+          url: "https://claude.com/blog/order",
+          publishedAt: "2026-09-25T21:50:12Z",
+          content: "c",
+        },
+      ],
+    });
+
+    // Occupy the product path with a directory so the write cannot succeed.
+    const broken = copyTree("order-broken");
+    mkdirSync(join(broken, "signals.json"));
+
+    const state = join(tmpRoot, "state-g9.json");
+    const failed = runNormalize({
+      scriptDir: join(broken, "scripts"),
+      feedsDir: dir,
+      only: "blog",
+      state,
+    });
+    assert(!failed.ok, "the product write did not fail — this check proves nothing");
+    assert(
+      !existsSync(state),
+      "state was advanced even though the product write failed — the signal is now lost",
+    );
+
+    // The signal must still be reachable on the next run.
+    const clean = copyTree("order-clean");
+    const out = normalize({
+      scriptDir: join(clean, "scripts"),
+      feedsDir: dir,
+      only: "blog",
+      state,
+    });
+    assert(out.count === 1, `the signal was lost: count=${out.count}`);
   });
 
   rmSync(tmpRoot, { recursive: true, force: true });

@@ -70,12 +70,21 @@ function parseDayMonthYear(raw) {
 }
 
 // §3.3 — `published_at` is ISO 8601 UTC or null, never a third thing. Sources
-// disagree about format ("Aug 26, 2026", "2026-09-25T21:50:12Z", or nothing at
-// all), so every value goes through here.
+// disagree about format ("Aug 26, 2026", an RFC 2822 header, "2026-09-25T21:50:12Z",
+// or nothing at all), so every value goes through here.
 //
-// The contract is "do not crash, do not stay silent": an unparseable or missing
-// value yields `null` plus a reason the caller records as a warning, and the
-// item still flows through the pipeline.
+// A string is only handed to `Date.parse` when it states its own zone. Without
+// one `Date.parse` resolves it against the machine's local zone, so the same
+// feed normalises to a different instant on a dev box than on the CI runner —
+// the one thing this contract exists to prevent. Zone-less values are refused
+// rather than guessed, and the refusal is recorded like any other.
+const HAS_ZONE = /(Z|[+-]\d{2}:?\d{2})\s*$/i;
+const NAMED_ZONE = /\b(GMT|UTC|UT)\b/i;
+const DATE_ONLY = /^(\d{4})-(\d{2})-(\d{2})$/;
+
+// The contract is "do not crash, do not stay silent": a value that cannot be
+// resolved unambiguously yields `null` plus a reason the caller records as a
+// warning, and the item still flows through the pipeline.
 export function normalizePublishedAt(raw) {
   if (raw === null || raw === undefined || raw === "") {
     return { value: null, reason: "missing" };
@@ -83,10 +92,32 @@ export function normalizePublishedAt(raw) {
   if (typeof raw !== "string") {
     return { value: null, reason: `not a string (${typeof raw})` };
   }
-  // A date-only ISO string ("2026-09-25") is already defined as UTC midnight,
-  // so it needs no pinning; only the month-name forms are zone-sensitive.
-  const pinned = parseDayMonthYear(raw.trim());
-  const t = pinned !== null ? pinned : Date.parse(raw);
+  const s = raw.trim();
+  if (s === "") return { value: null, reason: "missing" };
+
+  // Day-based forms carry no time and no zone; UTC midnight by decision above.
+  const pinned = parseDayMonthYear(s);
+  if (pinned !== null) return { value: new Date(pinned).toISOString() };
+
+  // A date-only ISO string IS defined as UTC midnight, so it is not ambiguous.
+  const dateOnly = s.match(DATE_ONLY);
+  if (dateOnly) {
+    const y = Number(dateOnly[1]);
+    const mo = Number(dateOnly[2]);
+    const d = Number(dateOnly[3]);
+    if (mo < 1 || mo > 12 || d < 1 || d > 31) {
+      return { value: null, reason: `unparseable: ${JSON.stringify(raw)}` };
+    }
+    return { value: new Date(Date.UTC(y, mo - 1, d)).toISOString() };
+  }
+
+  if (!HAS_ZONE.test(s) && !NAMED_ZONE.test(s)) {
+    return {
+      value: null,
+      reason: `no timezone in ${JSON.stringify(raw)} — refused rather than guessed`,
+    };
+  }
+  const t = Date.parse(s);
   if (Number.isNaN(t)) {
     return { value: null, reason: `unparseable: ${JSON.stringify(raw)}` };
   }

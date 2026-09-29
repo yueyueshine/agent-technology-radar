@@ -22,7 +22,7 @@
 // plan: .claude/plans/phase-2-signal-feed.plan.md  §3.2 (B3)
 // ============================================================================
 
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile, writeFile, rename } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { join, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -38,6 +38,7 @@ import {
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(SCRIPT_DIR, "..");
 const REGISTRY_PATH = join(REPO_ROOT, "config", "default-sources.json");
+const SIGNALS_PATH = join(REPO_ROOT, "signals.json");
 const STATE_PATH = join(REPO_ROOT, "state-signals.json");
 
 // -- Input map ---------------------------------------------------------------
@@ -257,15 +258,66 @@ function normalizeEntry(channel, entry, feed, warnings, errors, registry) {
 
 // §3.4 — the dedup key is the signal `id`, i.e. "which source's which item".
 // A content hash would re-send on a title edit and collide across sources.
-async function loadState(statePath) {
-  if (!existsSync(statePath)) return { version: 1, seen: {} };
+
+// Written via a temp file plus `rename`. A plain `writeFile` that is interrupted
+// leaves a truncated JSON file behind, and the workflow's commit step runs under
+// `if: always()` — so that truncated file would be committed, turning a
+// one-off crash into a state nobody can parse on any later run.
+async function writeJsonAtomic(path, value) {
+  const tmp = `${path}.tmp`;
+  await writeFile(tmp, JSON.stringify(value, null, 2));
+  await rename(tmp, path);
+}
+
+// The state file is the only thing between the operator and a mass re-send, so
+// a file that cannot be trusted stops the run. Replacing it with an empty state
+// would re-send everything inside every lookback window — the podcast bug
+// (§1.4) with a different trigger — and do it silently.
+function parseState(path, text) {
+  let state;
   try {
-    const state = JSON.parse(await readFile(statePath, "utf-8"));
-    if (!state.seen) state.seen = {};
-    return state;
-  } catch {
-    return { version: 1, seen: {} };
+    state = JSON.parse(text);
+  } catch (err) {
+    throw new Error(
+      `dedup state at ${path} is not valid JSON (${err.message}). Refusing to ` +
+        `run with a reset state, which would re-send every item still inside a ` +
+        `lookback window. Delete the file to accept that, or restore it.`,
+    );
   }
+  if (state === null || typeof state !== "object" || Array.isArray(state)) {
+    throw new Error(`dedup state at ${path} must be a JSON object`);
+  }
+  if (state.seen === undefined) {
+    state.seen = {};
+  } else if (
+    state.seen === null ||
+    typeof state.seen !== "object" ||
+    Array.isArray(state.seen)
+  ) {
+    // An array here looks harmless and is not: ids assigned as properties of an
+    // array are dropped by JSON.stringify, so dedup silently stops persisting
+    // and every run re-sends everything.
+    throw new Error(
+      `dedup state at ${path} has ${JSON.stringify(state.seen)} in \`seen\` where ` +
+        `an object of { id: timestamp } was expected`,
+    );
+  }
+  for (const [id, seenAt] of Object.entries(state.seen)) {
+    if (typeof seenAt !== "number" || !Number.isFinite(seenAt)) {
+      throw new Error(
+        `dedup state at ${path} has a non-numeric timestamp for ${id} ` +
+          `(${JSON.stringify(seenAt)}). It would compare as NaN and silently ` +
+          `never suppress anything.`,
+      );
+    }
+  }
+  return state;
+}
+
+async function loadState(statePath) {
+  // A missing file is the normal first run, not a fault.
+  if (!existsSync(statePath)) return { version: 1, seen: {} };
+  return parseState(statePath, await readFile(statePath, "utf-8"));
 }
 
 // Drops signals already seen inside the TTL, records the rest, and prunes
@@ -350,12 +402,12 @@ async function main() {
   // normalisation are worth recording as seen.
   let emitted = signals;
   let duplicates = 0;
+  let state = null;
   if (!noDedup) {
-    const state = await loadState(statePath);
+    state = await loadState(statePath);
     const result = dedup(signals, state);
     emitted = result.fresh;
     duplicates = result.dropped;
-    await writeFile(statePath, JSON.stringify(state, null, 2));
   }
 
   const out = {
@@ -368,7 +420,12 @@ async function main() {
     errors: errors.length > 0 ? errors : undefined,
   };
 
-  await writeFile(join(REPO_ROOT, "signals.json"), JSON.stringify(out, null, 2));
+  await writeJsonAtomic(SIGNALS_PATH, out);
+
+  // State is written only after the product is safely on disk. The other order
+  // loses data: an id recorded as seen but never emitted is suppressed for the
+  // whole TTL with nothing to point at. Failing here instead costs one re-send.
+  if (state) await writeJsonAtomic(statePath, state);
 
   console.error(`signals.json: ${emitted.length} signal(s)`);
   for (const [channel, s] of Object.entries(perChannel)) {

@@ -608,10 +608,10 @@ DEDUP_TTL_DAYS = 30
 - [x] GitHub 的 nightly / preview release 已过滤 —— ✅ 2026-09-23，另加每 repo 保留上限 5 条（§2.6.1）
 - [x] **`x` / `podcast` 未纳入 2A 完成条件**（缺 Key，保持 blocked）—— ✅ 保持 blocked
 
-**2B** —— 全部达成 2026-09-29；可执行证据 = `scripts/gate-2b.js`（**7/7 green**，已接入 CI）
+**2B** —— 全部达成 2026-09-29；可执行证据 = `scripts/gate-2b.js`（**10/10 green**，已接入 CI）
 - [x] Signal Schema 落地（含 `id` / `source_id` / `native_id` 三字段拆分）
 - [x] `id` 由确定性哈希生成，同输入必得同输出 —— gate `G1b`
-- [x] **`published_at` 只能是 ISO 8601 UTC 或 `null`** —— blog 路实测通过 —— gate `G2`
+- [x] **`published_at` 只能是 ISO 8601 UTC 或 `null`** —— blog 路实测通过 —— gate `G2`、`G7`（TZ 不变性）
 - [x] 时间不可解析 → `null` + warning，**pipeline 不中断、不静默** —— gate `G2`
 - [x] `collected_at` 始终必填 —— gate `G2`
 - [x] `source_id` 100% 命中 registry；命不中不进入 feed —— gate `G3`
@@ -631,6 +631,8 @@ DEDUP_TTL_DAYS = 30
 | 1 | **`type` 的 rss 映射是方案缺口补的** | §3.2 N6 未列 `rss`，而 rss 有 18 个 active 源、不能无映射。已按「个人作者文章 → `blog_post`」实现，与 `blog` 通道靠 `channel` 区分。**属方案缺口，已在代码注释与本表标注** |
 | 2 | **CI 上 x / podcast / blog 产出 0 条 signal** | 已提交的 `feed-x/podcasts/blogs.json` 是 B2 之前的产物、无 `source_id`，稳定产生 16 条 error。**待 secrets 配好后自愈**；不影响 §8（x / podcast 不在完成条件内） |
 | 3 | **`signals.json` 目前无下游消费者** | 不提交、不上传 artifact，workflow 结束后即消失。符合 2C 未开始的预期；**2C 负责交付输出通路** |
+| 4 | **首版 gate 有 3 项是虚的** | 独立对抗性审查（2026-09-29）指出：G1b 只等于测 sha256 库、G1 的父字段泄漏断言原理上不可能失败、G3 的 `is_secondary` 断言是自己比自己。三项仍在（改动它们超出本阶段范围），**但已被标注为不可信证据**，不得计入覆盖率 |
+| 5 | **审查发现的 3 个真实缺陷（已修）** | ① 产物写失败时 state 已前进 → signal 永久丢失；② `loadState` 对坏 state 静默重置或裸 TypeError 崩溃；③ 时间归一在无时区输入上随机器时区变（UTC 与 Asia/Shanghai 差 8 小时）。修复 = 先写产物后写 state + state 结构校验 + 无时区一律拒绝为 `null`；**并补 G7 / G8 / G9 使其可回归验证**（三条新检查在修复前的代码上实测全红） |
 
 **2C**
 - [ ] registry 新增 `redistribution` 字段；`api:aihot` 为 `internal`
