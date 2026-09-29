@@ -2,7 +2,7 @@
 
 > 本文件是全局路线图。每个阶段的详细实施方案放在 `.claude/plans/<phase>.plan.md`，
 > 目前存在 `phase-0-takeover.plan.md`（Done）、`phase-1a-registry-foundation.plan.md`（Done）、
-> `phase-1b-radar-source-set.plan.md`（Done）、与 `phase-2-signal-feed.plan.md`（**2A / 2B / 2C 全部 Done**）。
+> `phase-1b-radar-source-set.plan.md`（Done）、`phase-2-signal-feed.plan.md`（**2A / 2B / 2C 全部 Done**）、与 `phase-3-topic-clustering.plan.md`（方案已出，待裁决）。
 > 任何新 session 从这里开始。
 
 ---
@@ -71,7 +71,7 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 | Phase 1A | Registry Foundation | **Done** |
 | Phase 1B | Radar Source Set | **Done** |
 | Phase 2 | Signal Feed | **Done**（2A / 2B / 2C 全部完成） |
-| Phase 3 | Topic Clustering | Not Started |
+| Phase 3 | Topic Clustering | In Progress（方案已出，**2 项待裁决**） |
 | Phase 4 | Technology Radar | Not Started |
 | Phase 5 | Daily / Weekly Digest | Not Started |
 | Phase 6 | Feishu Delivery | Not Started |
@@ -147,7 +147,7 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 - **Dependencies**：Phase 2。
 - **Exit Criteria**：对给定 signal 集产出稳定的主题分组与权重；权重可解释、可复现；无任何主题因个人历史被硬编码提权。
 - **Risks & Open Questions**：聚类稳定性与主题漂移；权重公式的主观性；方法选型待定。
-- **Status**：Not Started
+- **Status**：**In Progress（2026-09-29）** —— 方案已出：`.claude/plans/phase-3-topic-clustering.plan.md`。**D1（主题体系）与 D2（聚类方法）待裁决**，其中 **D1 是本阶段唯一不可逆的决定**（主题一旦发布，历史 signal 就按旧体系标注，改表 = Phase 4 失去跨时间比较能力）。方案已给出推荐：D1 = 固定主题表（9 个，带 `taxonomyVersion`）；D2 = 首版规则/词表（**零 key、完全确定**，符合 Exit Criteria 的可复现要求；embedding 作为明确升级路径 —— §5 的输出接口一旦固定，方法可换）。
 
 ### Phase 4 — Technology Radar
 
