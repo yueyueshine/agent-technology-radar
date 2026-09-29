@@ -60,6 +60,16 @@ jobs:
         if: always()
         run: cd scripts && node normalize-signals.js
 
+      - name: Gate 2B
+        # The repo has no test suite; this is the executable definition of
+        # "2B works" (plan §7.1 / §8). It runs entirely on its own fixtures and
+        # needs no secrets, so it still runs when the steps above failed.
+        # Runs before the commit so a red gate cannot cost us the feeds.
+        # Note: it overwrites the repo-root signals.json, which is gitignored
+        # and not consumed by any later step.
+        if: always()
+        run: cd scripts && node gate-2b.js
+
       - name: Commit and push feeds
         # always(): the key-dependent step above fails while the repo has no
         # secrets, but the keyless feeds must still be committed.
