@@ -84,6 +84,21 @@ jobs:
         if: always()
         run: cd scripts && node build-radar.js
 
+      - name: Build digest
+        # Phase 5. Renders the judgements Phase 3 and 4 already computed into
+        # Markdown a human reads — no model, no key (phase 5 plan §2). The
+        # weekly report compares ring positions against the PREVIOUS radar.json,
+        # which is whatever was committed at HEAD: the working-tree copy was
+        # already overwritten by the step above, so the object store is the only
+        # place the predecessor still exists.
+        if: always()
+        run: |
+          NOW=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          git show HEAD:radar.json > "$RUNNER_TEMP/radar-prev.json" 2>/dev/null || echo '{}' > "$RUNNER_TEMP/radar-prev.json"
+          cd scripts
+          node build-digest.js --mode daily --out digest-daily.md --now "$NOW"
+          node build-digest.js --mode weekly --out digest-weekly.md --now "$NOW" --prev-radar "$RUNNER_TEMP/radar-prev.json"
+
       - name: Assert clustering saw the window, not the delta
         # An integration assertion, not a fixture test: it is the only thing
         # standing between this pipeline and a silently empty product.
@@ -155,6 +170,38 @@ jobs:
             console.log("radar: " + radar.sectors.length + " sector(s) from " + radar.inputSignalCount + " signal(s)");
           '
 
+      - name: Assert digest is current and covers every sector
+        # Phase 5's counterpart to the two assertions above. The digest is
+        # rendered in this same job, so the failure mode is not a missing file
+        # but a STALE one: if the build step failed, the previously committed
+        # digest-daily.md is still sitting in the tree looking current. Which is
+        # why this checks provenance and not just content.
+        if: always()
+        run: |
+          node -e '
+            const fs = require("fs");
+            const read = (p) => fs.readFileSync(p, "utf8");
+            let radar, daily, weekly;
+            try { radar = JSON.parse(read("radar.json")); } catch { console.log("no radar.json"); process.exit(0); }
+            try { daily = read("digest-daily.md"); } catch { console.error("no digest-daily.md"); process.exit(1); }
+            try { weekly = read("digest-weekly.md"); } catch { console.error("no digest-weekly.md"); process.exit(1); }
+            if (daily.trim().length === 0 || weekly.trim().length === 0) {
+              console.error("a digest file is empty");
+              process.exit(1);
+            }
+            const sectors = (weekly.match(/^#### \S+ —— /gm) || []).length;
+            if (sectors !== radar.sectors.length) {
+              console.error("digest-weekly.md lists " + sectors + " sector(s), radar.json holds " + radar.sectors.length);
+              process.exit(1);
+            }
+            const src = (weekly.match(/^<!-- [^>]*?\bsrc (\S+) -->$/m) || [])[1];
+            if (src !== radar.generatedAt) {
+              console.error("digest-weekly.md was rendered from radar " + src + " but the current radar.json was generated at " + radar.generatedAt + " — the digest is stale");
+              process.exit(1);
+            }
+            console.log("digest: " + sectors + " sector(s) per report, rendered from radar " + radar.generatedAt);
+          '
+
       - name: Gate 2B
         # The repo has no test suite; this is the executable definition of
         # "2B works" (plan §7.1 / §8). It runs entirely on its own fixtures and
@@ -175,6 +222,11 @@ jobs:
         if: always()
         run: cd scripts && node gate-4.js
 
+      - name: Gate 5
+        # Phase 5's executable definition (plan §7.1 / §8).
+        if: always()
+        run: cd scripts && node gate-5.js
+
       - name: Commit and push feeds
         # always(): the key-dependent step above fails while the repo has no
         # secrets, but the keyless feeds must still be committed.
@@ -194,10 +246,22 @@ jobs:
         # radar.json IS committed for the same reason: it is a fixed nine
         # sectors, and its history is the only record of a topic moving between
         # rings, which is the thing a radar exists to show (phase 4 plan §5.3).
+        #
+        # digest-daily.md / digest-weekly.md ARE committed: they are the only
+        # human-readable product of the whole pipeline, and Phase 6 delivers
+        # them. Overwritten every run rather than archived, so the repo does not
+        # grow without bound (phase 5 plan §5.2, decision D3).
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add feed-x.json feed-podcasts.json feed-blogs.json state-feed.json state-signals.json topics.json radar.json
+          # Added only if present. `git add` on a missing path is fatal, so a
+          # first run (or a failed digest step) would otherwise block the FEEDS
+          # from being committed. The assert step above already reports the
+          # digest problem; this step must not compound it.
+          for f in digest-daily.md digest-weekly.md; do
+            if [ -f "$f" ]; then git add "$f"; fi
+          done
           git diff --cached --quiet || git commit -m "chore: update feeds [skip ci]"
           git push

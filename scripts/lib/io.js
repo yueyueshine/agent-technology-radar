@@ -13,3 +13,13 @@ export async function writeJsonAtomic(path, value) {
   await writeFile(tmp, JSON.stringify(value, null, 2));
   await rename(tmp, path);
 }
+
+// Same reasoning as writeJsonAtomic, for the Markdown products. The digest is
+// committed by the same `if: always()` step, so a write interrupted halfway
+// would be committed as half a report — worse than none, because it reads as a
+// complete one.
+export async function writeTextAtomic(path, text) {
+  const tmp = `${path}.tmp`;
+  await writeFile(tmp, text);
+  await rename(tmp, path);
+}
