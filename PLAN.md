@@ -3,7 +3,8 @@
 > 本文件是全局路线图。每个阶段的详细实施方案放在 `.claude/plans/<phase>.plan.md`，
 > 目前存在 `phase-0-takeover.plan.md`（Done）、`phase-1a-registry-foundation.plan.md`（Done）、
 > `phase-1b-radar-source-set.plan.md`（Done）、`phase-2-signal-feed.plan.md`（**2A / 2B / 2C 全部 Done**）、
-> `phase-3-topic-clustering.plan.md`（Done）、与 `phase-4-technology-radar.plan.md`（**Done**）。
+> `phase-3-topic-clustering.plan.md`（Done）、`phase-4-technology-radar.plan.md`（**Done**）、
+> 与 `phase-5-daily-weekly-digest.plan.md`（**Done**）。
 > 任何新 session 从这里开始。
 
 ---
@@ -13,8 +14,8 @@
 | 项 | 内容 |
 |---|---|
 | 项目目标 | 把一个 `zarazhangrui/follow-builders` 的公开 fork 改造为自有的 **Agent Technology Radar**，追踪 AI Agent 技术生态，最终经**飞书**投递 |
-| 当前位置 | Phase 0 / 1A / 1B / 2A / 2B / 2C / **3 / 4 全部 Done**；Phase 5–6 Not Started |
-| 下一步 | **Phase 5 — Daily / Weekly Digest**（Phase 2 完成即可启动；现已有 Signal + Topic + Radar 三层可用，按分级演进做 Topic-aware / Radar-aware Digest）。遗留：internal 的下游消费/持久化通路（独立议题，plan §4.3）；`unclassified` 占比 47.7%（CI 实测）需几天数据判断词表是否要调；Phase 4 的环阈值取自单日快照（phase 4 plan §9） |
+| 当前位置 | Phase 0 / 1A / 1B / 2A / 2B / 2C / **3 / 4 / 5 全部 Done**；Phase 6 Not Started |
+| 下一步 | **Phase 6 — Feishu Delivery**（第一版 Group Bot Webhook）。遗留：internal 的下游消费/持久化通路（独立议题，phase 2 plan §4.3）；`unclassified` 占比 47.7%（CI 实测）需几天数据判断词表是否要调；Phase 4 的环阈值取自单日快照（phase 4 plan §9）；日报「增量」的语义依赖 cron 频率（phase 5 plan §9） |
 | 当前源状态 | **61 active / 68 登记**。可抓通道：`rss` 18 · `github` 9 · `blog` 2（`x` 26 / `podcast` 6 缺 Key） |
 | 交付渠道（终态） | 飞书；第一版用 **Group Bot Webhook** |
 | 仓库 | `yueyueshine/agent-technology-radar`（public fork of `zarazhangrui/follow-builders`） |
@@ -74,7 +75,7 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 | Phase 2 | Signal Feed | **Done**（2A / 2B / 2C 全部完成） |
 | Phase 3 | Topic Clustering | **Done**（gate 9/9，已接入 CI） |
 | Phase 4 | Technology Radar | **Done**（gate 11/11，已接入 CI） |
-| Phase 5 | Daily / Weekly Digest | Not Started |
+| Phase 5 | Daily / Weekly Digest | **Done**（gate 13/13，已接入 CI） |
 | Phase 6 | Feishu Delivery | Not Started |
 
 阶段边界总原则：每个 phase 都必须能独立交付；后一阶段不依赖前一阶段「全部打磨完毕」，
@@ -178,7 +179,11 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 - **Dependencies**：**Phase 2 完成即可启动**（产出 Digest v1）；Phase 3 / Phase 4 完成后按分级升级，**不强制等待 Phase 4**。
 - **Exit Criteria**：能生成含来源链接的日报 / 周报；内容为经过组织的判断，而非新闻条目堆砌。
 - **Risks & Open Questions**：日报与周报的内容密度 / 频率设定；与 Phase 4 的职责重叠。
-- **Status**：Not Started
+- **Status**：**Done（2026-09-29）** —— 方案 `.claude/plans/phase-5-daily-weekly-digest.plan.md`。三项裁决均已定：**D1 = 确定性渲染**（仓库直接产出 Markdown，判断句由模板从 Phase 3/4 **已算好的量**填出，零 LLM、零新 secrets —— 仓库没有服务端 LLM 是前提，且判断在 Phase 3/4 就算完了）；**D2 = 增量 + 全窗**（日报 = 当日增量 + 当前雷达全貌，周报 = 整窗口 + 与上一份 `radar.json` 的环移动对比，无基线时降级）；**D3 = 只提交最新一份**（每次覆写，有界）。
+  交付：`scripts/lib/digest.js` · `scripts/build-digest.js` · `scripts/gate-5.js`（**13/13 green，已接入 CI**）；`digest-daily.md` / `digest-weekly.md` 纳入提交；CI 新增 `Build digest`、`Assert digest is current and covers every sector`、`Gate 5` 三步。
+  **「Radar ≠ 新闻摘要」的落法**：每条内容先给结论（环 + 动量），再给证据（几个源、前后半段各多少事件），最后给链接；分组按**环**而不是按时间或权重。gate `G3` 守排序、`G4` 守「断言了方向就必须印出所依据的动量」、`G6` 守日报锚定增量。
+  **检查可信度已双重验证**：（1）**18 条注入违规全部被对应检查捕获**，过程中暴露了日报夹具的覆盖空洞（每个环下只有一个扇区）；（2）一次**无作者上下文的独立证伪审查**给出 7 条发现（**未接入 CI**、**gate G4 把作者的理解当成规范**（Phase 4 F1 的复发）、跨主题表的臆造环移动、缺 `windowHours` 静默降级、已分类信号被贴「词表未命中」、日报排序偏离文档、「还有 N 条」多报），**逐条复现后全部成立并已修**。
+  **边界**：不做可视化、不做「这个主题重不重要」的价值判断、不调用任何 LLM、不重算 Phase 3/4 的权重与环 —— 见 plan §10。
 
 ### Phase 6 — Feishu Delivery
 
@@ -197,7 +202,7 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 | 层 | 文件 | 职责 |
 |---|---|---|
 | 全局路线图 | `PLAN.md`（项目根） | 7 个 phase 的目标、边界、依赖、退出标准、状态；不含实现细节 |
-| 单阶段方案 | `.claude/plans/<phase>.plan.md` | 该阶段的逐步可执行方案；目前存在 `phase-0-takeover`（Done）、`phase-1a-registry-foundation`（Done）、`phase-1b-radar-source-set`（Done）、`phase-2-signal-feed`（2A/2B/2C 全部 Done）、`phase-3-topic-clustering`（Done）、`phase-4-technology-radar`（Done） |
+| 单阶段方案 | `.claude/plans/<phase>.plan.md` | 该阶段的逐步可执行方案；目前存在 `phase-0-takeover`（Done）、`phase-1a-registry-foundation`（Done）、`phase-1b-radar-source-set`（Done）、`phase-2-signal-feed`（2A/2B/2C 全部 Done）、`phase-3-topic-clustering`（Done）、`phase-4-technology-radar`（Done）、`phase-5-daily-weekly-digest`（Done） |
 
 规则：
 
