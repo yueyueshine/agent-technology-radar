@@ -60,12 +60,44 @@ jobs:
         if: always()
         run: cd scripts && node normalize-signals.js
 
-      - name: Cluster topics
-        # Phase 3. Reads the public signals.json written by the step above;
-        # internal signals live in signals-internal.json and are not an input,
-        # which is what keeps them out of topics.json too (plan §4.3).
+      - name: Build signal window
+        # `signals.json` (written above) is the DEDUPLICATED product: cross-run
+        # dedup means it holds only what is new since the last run, and on a
+        # quiet run it is empty. Topical activity is a question about the whole
+        # lookback window, not about this run's delta — so clustering gets its
+        # own input (plan §4). `--no-dedup` writes no state, so no side effects.
         if: always()
-        run: cd scripts && node cluster-signals.js
+        run: cd scripts && node normalize-signals.js --no-dedup --out signals-window.json
+
+      - name: Cluster topics
+        # Phase 3. Reads the window product, never the deduped delta. The step
+        # below asserts that, because getting it wrong is silent: the first
+        # version consumed signals.json and committed an empty topics.json on
+        # every run while the gate stayed green.
+        if: always()
+        run: cd scripts && node cluster-signals.js --signals signals-window.json
+
+      - name: Assert clustering saw the window, not the delta
+        # An integration assertion, not a fixture test: it is the only thing
+        # standing between this pipeline and a silently empty product.
+        if: always()
+        run: |
+          node -e '
+            const fs = require("fs");
+            const read = (p) => JSON.parse(fs.readFileSync(p, "utf8"));
+            let window;
+            let topics;
+            try { window = read("signals-window.json"); } catch { console.log("no window product (no feeds this run)"); process.exit(0); }
+            try { topics = read("topics.json"); } catch { console.error("no topics.json"); process.exit(1); }
+            if (window.count > 0 && topics.inputSignalCount === 0) {
+              console.error(
+                "topics.json was built from an empty input while the window holds " +
+                window.count + " signal(s) — clustering is reading the deduped delta"
+              );
+              process.exit(1);
+            }
+            console.log("clustering input: " + topics.inputSignalCount + " of " + window.count + " windowed signal(s)");
+          '
 
       - name: Gate 2B
         # The repo has no test suite; this is the executable definition of
