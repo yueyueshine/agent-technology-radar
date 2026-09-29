@@ -2,7 +2,8 @@
 
 > 本文件是全局路线图。每个阶段的详细实施方案放在 `.claude/plans/<phase>.plan.md`，
 > 目前存在 `phase-0-takeover.plan.md`（Done）、`phase-1a-registry-foundation.plan.md`（Done）、
-> `phase-1b-radar-source-set.plan.md`（Done）、`phase-2-signal-feed.plan.md`（**2A / 2B / 2C 全部 Done**）、与 `phase-3-topic-clustering.plan.md`（方案已出，待裁决）。
+> `phase-1b-radar-source-set.plan.md`（Done）、`phase-2-signal-feed.plan.md`（**2A / 2B / 2C 全部 Done**）、
+> `phase-3-topic-clustering.plan.md`（Done）、与 `phase-4-technology-radar.plan.md`（**Done**）。
 > 任何新 session 从这里开始。
 
 ---
@@ -12,8 +13,8 @@
 | 项 | 内容 |
 |---|---|
 | 项目目标 | 把一个 `zarazhangrui/follow-builders` 的公开 fork 改造为自有的 **Agent Technology Radar**，追踪 AI Agent 技术生态，最终经**飞书**投递 |
-| 当前位置 | Phase 0 / 1A / 1B / 2A / 2B / 2C / **3 全部 Done**；Phase 4–6 Not Started |
-| 下一步 | **Phase 4 — Technology Radar** 起方案。遗留：internal 的下游消费/持久化通路（独立议题，plan §4.3）；`unclassified` 占比 42.6% 需要几天数据判断词表是否要调 |
+| 当前位置 | Phase 0 / 1A / 1B / 2A / 2B / 2C / **3 / 4 全部 Done**；Phase 5–6 Not Started |
+| 下一步 | **Phase 5 — Daily / Weekly Digest**（Phase 2 完成即可启动；现已有 Signal + Topic + Radar 三层可用，按分级演进做 Topic-aware / Radar-aware Digest）。遗留：internal 的下游消费/持久化通路（独立议题，plan §4.3）；`unclassified` 占比 47.7%（CI 实测）需几天数据判断词表是否要调；Phase 4 的环阈值取自单日快照（phase 4 plan §9） |
 | 当前源状态 | **61 active / 68 登记**。可抓通道：`rss` 18 · `github` 9 · `blog` 2（`x` 26 / `podcast` 6 缺 Key） |
 | 交付渠道（终态） | 飞书；第一版用 **Group Bot Webhook** |
 | 仓库 | `yueyueshine/agent-technology-radar`（public fork of `zarazhangrui/follow-builders`） |
@@ -72,7 +73,7 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 | Phase 1B | Radar Source Set | **Done** |
 | Phase 2 | Signal Feed | **Done**（2A / 2B / 2C 全部完成） |
 | Phase 3 | Topic Clustering | **Done**（gate 9/9，已接入 CI） |
-| Phase 4 | Technology Radar | Not Started |
+| Phase 4 | Technology Radar | **Done**（gate 11/11，已接入 CI） |
 | Phase 5 | Daily / Weekly Digest | Not Started |
 | Phase 6 | Feishu Delivery | Not Started |
 
@@ -159,7 +160,11 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 - **Dependencies**：Phase 3。
 - **Exit Criteria**：能从主题产出 Radar 视图；环的归属有明确规则支撑，且不是简单按时间排序（体现「Radar ≠ 新闻摘要」）。
 - **Risks & Open Questions**：环 / 象限的具体定义尚未确定；与 Phase 5 digest 的职责边界（判断 vs 呈现）。
-- **Status**：Not Started
+- **Status**：**Done（2026-09-29）** —— 方案 `.claude/plans/phase-4-technology-radar.plan.md`。两项裁决均已定：**D1 = 成熟度环**（`adopt` / `trial` / `assess` / `hold`，含义是**生态注意力的成熟度**，不是「该不该用」）；**D2 = 9 个 Phase-3 主题即 9 个扇区**（极坐标雷达，不做 9→4 人工映射）。环由**两条正交的可数量**算出：**源广度 × 窗口内动量**；动量用**未衰减的 cluster 计数**（前后半段对比），因为 Phase 3 的 `weight` 已含指数衰减，拿它算动量等于把 recency 换个名字 —— 那样就违反了「不是简单按时间排序」。
+  交付：`scripts/lib/radar.js` · `scripts/build-radar.js` · `scripts/gate-4.js`（**11/11 green，已接入 CI**）；CI 新增 `Build radar` 与 `Assert radar covers all sectors` 两步，`radar.json` 纳入提交。
+  **首版实测（CI，172 signal）**：`adopt=3 trial=1 assess=2 hold=3`，`measuredSpanHours=336.9h` 与声明窗口一致。**扇区顺序按主题表冻结**（Phase 3 的 `topics` 按 weight 排序，若沿用，扇区每天换位，雷达就失去跨时间可比性）。
+  **检查可信度已双重验证**：（1）两轮共 15 条注入违规全部被对应检查捕获；（2）一次**无作者上下文的独立证伪审查**给出 6 条发现（gate 把实现当成标准答案、缺条目时扇区计数自相矛盾、中点判据无人验、CI 断言近乎空转、坏 `windowHours` 静默降级、`tier` 扫描可被命名绕过），**逐条复现后全部成立并已修**。过程另抓到一处 CI 缺陷：断言里 JS 注释中的单引号会终止 `node -e '...'` 的 shell 引号，整个 step 会在 CI 上语法错误 —— 用真实回放发现，已修。
+  **边界**：不做可视化/渲染、不做「这个主题重不重要」的价值判断、不重算或再衰减 Phase 3 的权重 —— 见 plan §10。
 
 ### Phase 5 — Daily / Weekly Digest
 
@@ -192,7 +197,7 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 | 层 | 文件 | 职责 |
 |---|---|---|
 | 全局路线图 | `PLAN.md`（项目根） | 7 个 phase 的目标、边界、依赖、退出标准、状态；不含实现细节 |
-| 单阶段方案 | `.claude/plans/<phase>.plan.md` | 该阶段的逐步可执行方案；目前存在 `phase-0-takeover`（Done）、`phase-1a-registry-foundation`（Done）、`phase-1b-radar-source-set`（Done）、`phase-2-signal-feed`（方案待裁决） |
+| 单阶段方案 | `.claude/plans/<phase>.plan.md` | 该阶段的逐步可执行方案；目前存在 `phase-0-takeover`（Done）、`phase-1a-registry-foundation`（Done）、`phase-1b-radar-source-set`（Done）、`phase-2-signal-feed`（2A/2B/2C 全部 Done）、`phase-3-topic-clustering`（Done）、`phase-4-technology-radar`（Done） |
 
 规则：
 
