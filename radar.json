@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-29T06:26:38.932Z",
+  "generatedAt": "2026-09-29T08:15:23.388Z",
   "radarVersion": "v1",
   "taxonomyVersion": "v1",
-  "sourceGeneratedAt": "2026-09-29T06:26:38.851Z",
+  "sourceGeneratedAt": "2026-09-29T08:15:23.278Z",
   "windowHours": 336,
-  "inputSignalCount": 171,
-  "measuredSpanHours": 333.4324811111111,
+  "inputSignalCount": 173,
+  "measuredSpanHours": 335.24483,
   "ringRule": {
     "momentumMidpointHours": 168,
     "narrowBreadth": 3,
@@ -15,14 +15,14 @@
     {
       "topic": "model-capability",
       "ring": "adopt",
-      "weight": 22.373283984282736,
+      "weight": 22.206611816244685,
       "signalCount": 39,
       "clusterCount": 37,
       "breadth": 13,
-      "recentClusters": 26,
-      "priorClusters": 11,
-      "momentum": 0.40540540540540543,
-      "ringReason": "momentum +0.405 >= 0; breadth 13 >= 3; momentum +0.405 < 0.5 -> adopt",
+      "recentClusters": 25,
+      "priorClusters": 12,
+      "momentum": 0.35135135135135137,
+      "ringReason": "momentum +0.351 >= 0; breadth 13 >= 3; momentum +0.351 < 0.5 -> adopt",
       "signalIds": [
         "0fdfaac39f4f94db03ccd0f78855e98e",
         "1643ad1744ec6896e5b47673bf830475",
@@ -68,7 +68,7 @@
     {
       "topic": "agent-framework",
       "ring": "assess",
-      "weight": 0.8628674700977654,
+      "weight": 0.856439446743137,
       "signalCount": 1,
       "clusterCount": 1,
       "breadth": 1,
@@ -83,7 +83,7 @@
     {
       "topic": "tool-and-protocol",
       "ring": "hold",
-      "weight": 0.26878029034471396,
+      "weight": 0.26677798287169746,
       "signalCount": 1,
       "clusterCount": 1,
       "breadth": 1,
@@ -98,7 +98,7 @@
     {
       "topic": "context-and-memory",
       "ring": "trial",
-      "weight": 2.066143688938454,
+      "weight": 2.050751730906928,
       "signalCount": 3,
       "clusterCount": 3,
       "breadth": 3,
@@ -115,7 +115,7 @@
     {
       "topic": "inference-and-cost",
       "ring": "assess",
-      "weight": 1.6039145617264245,
+      "weight": 1.5919660289344326,
       "signalCount": 4,
       "clusterCount": 4,
       "breadth": 2,
@@ -133,14 +133,14 @@
     {
       "topic": "dev-tooling",
       "ring": "adopt",
-      "weight": 12.83178768867743,
-      "signalCount": 21,
-      "clusterCount": 21,
+      "weight": 13.735529948815042,
+      "signalCount": 22,
+      "clusterCount": 22,
       "breadth": 7,
-      "recentClusters": 15,
+      "recentClusters": 16,
       "priorClusters": 6,
-      "momentum": 0.42857142857142855,
-      "ringReason": "momentum +0.429 >= 0; breadth 7 >= 3; momentum +0.429 < 0.5 -> adopt",
+      "momentum": 0.45454545454545453,
+      "ringReason": "momentum +0.455 >= 0; breadth 7 >= 3; momentum +0.455 < 0.5 -> adopt",
       "signalIds": [
         "08c2266872ef8cc7ea4f116e548aecb8",
         "0d157d694cdb06ca8172d08d95a6ad8d",
@@ -154,6 +154,7 @@
         "6ee1e831a4936dfe67d20a42c45b2aae",
         "7658be58e9818e9ef1ec86396987c6a6",
         "79365779cf387914051a6bbeee266d37",
+        "7bdb18f9f6c088176d91b4a619482879",
         "89b29b1324688294c5aa3ac349fed972",
         "8b06d8616471176a4d3f4ec9b6ad2aa3",
         "9ee05d74e1a91e40ba4836d147bd691d",
@@ -168,7 +169,7 @@
     {
       "topic": "product-and-business",
       "ring": "hold",
-      "weight": 4.113413478958394,
+      "weight": 4.08277016602067,
       "signalCount": 9,
       "clusterCount": 9,
       "breadth": 4,
@@ -191,7 +192,7 @@
     {
       "topic": "safety-and-governance",
       "ring": "adopt",
-      "weight": 5.429968398231341,
+      "weight": 5.389517268842063,
       "signalCount": 9,
       "clusterCount": 9,
       "breadth": 5,
@@ -214,7 +215,7 @@
     {
       "topic": "eval-and-benchmark",
       "ring": "hold",
-      "weight": 1.3438424017467265,
+      "weight": 1.3338313042807517,
       "signalCount": 3,
       "clusterCount": 3,
       "breadth": 3,
@@ -230,8 +231,8 @@
     }
   ],
   "unclassified": {
-    "signalCount": 81,
-    "ratio": 0.47368421052631576
+    "signalCount": 82,
+    "ratio": 0.47398843930635837
   },
   "summary": {
     "adopt": 3,

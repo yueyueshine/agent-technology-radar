@@ -2,11 +2,11 @@
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 171 signal · 未归类 81 / 171（47.4%）
+窗口 336h · 输入 173 signal · 未归类 82 / 173（47.4%）
 
 ## 环的移动
 
-对比基线：2026-09-29T05:55:56.085Z
+对比基线：2026-09-29T06:26:38.932Z
 
 本周无环变动。
 
@@ -16,9 +16,9 @@
 
 #### model-capability —— 模型能力与发布
 
-13 个独立源 · 37 个事件（近 26 / 远 11）· 动量 +0.41
+13 个独立源 · 37 个事件（近 25 / 远 12）· 动量 +0.35
 
-覆盖广（13 个独立源）、动量温和为正（+0.41）—— 生态已收敛且仍在缓升。
+覆盖广（13 个独立源）、动量温和为正（+0.35）—— 生态已收敛且仍在缓升。
 
 - **Release v0.24.6** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.24.6
 - **[AINews] AMD buys World Labs for $8.2B, as Atlas solves sparse reconstruction problem for robotics, design and more** — rss:latent-space · https://www.latent.space/p/ainews-amd-buys-world-labs-for-82b
@@ -29,16 +29,16 @@
 
 #### dev-tooling —— 开发者工具与实践
 
-7 个独立源 · 21 个事件（近 15 / 远 6）· 动量 +0.43
+7 个独立源 · 22 个事件（近 16 / 远 6）· 动量 +0.45
 
-覆盖广（7 个独立源）、动量温和为正（+0.43）—— 生态已收敛且仍在缓升。
+覆盖广（7 个独立源）、动量温和为正（+0.45）—— 生态已收敛且仍在缓升。
 
+- **0.159.0** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.159.0
 - **Claude Code’s Next Era — Thariq Shihipar, Anthropic** — rss:latent-space · https://www.latent.space/p/thariq
 - **0.158.0** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.158.0
 - **Are you a Codex Original?** — rss:openai-news · https://openai.com/form/codex-originals
 - **SDK TypeScript Release v0.1.16** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.16
-- **0.157.1** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.157.1
-- 还有 16 条
+- 还有 17 条
 
 #### safety-and-governance —— 安全与治理
 
@@ -121,10 +121,10 @@
 
 ## 健康指标
 
-未归类 81 / 171（47.4%）
+未归类 82 / 173（47.4%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-09-29T06:26:38.000Z · src 2026-09-29T06:26:38.932Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-09-29T08:15:23.000Z · src 2026-09-29T08:15:23.388Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
