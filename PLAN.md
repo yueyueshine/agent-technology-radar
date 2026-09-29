@@ -2,7 +2,7 @@
 
 > 本文件是全局路线图。每个阶段的详细实施方案放在 `.claude/plans/<phase>.plan.md`，
 > 目前存在 `phase-0-takeover.plan.md`（Done）、`phase-1a-registry-foundation.plan.md`（Done）、
-> `phase-1b-radar-source-set.plan.md`（Done）、与 `phase-2-signal-feed.plan.md`（2A / 2B Done，2C 待办）。
+> `phase-1b-radar-source-set.plan.md`（Done）、与 `phase-2-signal-feed.plan.md`（**2A / 2B / 2C 全部 Done**）。
 > 任何新 session 从这里开始。
 
 ---
@@ -12,8 +12,8 @@
 | 项 | 内容 |
 |---|---|
 | 项目目标 | 把一个 `zarazhangrui/follow-builders` 的公开 fork 改造为自有的 **Agent Technology Radar**，追踪 AI Agent 技术生态，最终经**飞书**投递 |
-| 当前位置 | Phase 0 / 1A / 1B **Done**；**Phase 2A / 2B Done**（CI 验证通过）；**Phase 2C 待办**；Phase 3–6 Not Started |
-| 下一步 | **Phase 2C — Output**（public + internal 分区；registry 新增 `redistribution` 字段）。见 `.claude/plans/phase-2-signal-feed.plan.md` §4。执行记录见 `.claude/plans/phase-2a-runbook.md` |
+| 当前位置 | Phase 0 / 1A / 1B / **2A / 2B / 2C 全部 Done**（CI 验证通过）—— **Phase 2 完成**；Phase 3–6 Not Started |
+| 下一步 | **Phase 3 — Topic Clustering** 起方案。Phase 2 遗留：internal 的下游消费/持久化通路（独立议题，见 plan §4.3） |
 | 当前源状态 | **61 active / 68 登记**。可抓通道：`rss` 18 · `github` 9 · `blog` 2（`x` 26 / `podcast` 6 缺 Key） |
 | 交付渠道（终态） | 飞书；第一版用 **Group Bot Webhook** |
 | 仓库 | `yueyueshine/agent-technology-radar`（public fork of `zarazhangrui/follow-builders`） |
@@ -70,7 +70,7 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 | Phase 0 | 接管现有 follow-builders | **Done**（含 Known Limitations，见该阶段） |
 | Phase 1A | Registry Foundation | **Done** |
 | Phase 1B | Radar Source Set | **Done** |
-| Phase 2 | Signal Feed | In Progress（**2A Done**；**2B Done**；2C 待办） |
+| Phase 2 | Signal Feed | **Done**（2A / 2B / 2C 全部完成） |
 | Phase 3 | Topic Clustering | Not Started |
 | Phase 4 | Technology Radar | Not Started |
 | Phase 5 | Daily / Weekly Digest | Not Started |
@@ -131,10 +131,12 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 - **Exit Criteria**：详见 plan §8。核心：4 个 fetcher 产出统一 `items[]`；**`published_at` 只能是 ISO 8601 或 `null`**（blog 路实测）；`id` 用确定性哈希、`source_id` 100% 命中；aggregator 必有可解析 `original_url`；**`DEDUP_TTL_DAYS = 30` 且运行时校验 `TTL ≥ max lookback` fail-fast**；播客重复发出的 bug 已修；internal 源绝不进 public 产物。
 - **Risks & Open Questions**：① **已确认 bug：播客因 7 天 TTL < 14 天 lookback 会重复发出**；② AIHOT 有**三重前置**（`api` fetcher + internal 隔离 + **安全的下游消费 / 持久化通路**），**第三条本阶段无法满足 → 本阶段不会启用**；③ **internal 数据生命周期未闭环**（`$RUNNER_TEMP` 在 workflow 结束后消失，Phase 3/4 无法消费），本阶段只交付隔离能力；④ 36 条源（x / podcast / 批次 2）无法端到端验证；⑤ registry 第三次结构变更（新增 `redistribution`）。详见 plan §9。
 - **Status**：In Progress。**2A Done** —— 批次 1 收口：`rss` / `github` / `api` 已实现（`web` 经调查证明不需要）。CI 终态：`rss` 18 源 / 148 item / 0 error；`github` 9 源 / 20 item / 0 error。**AIHOT 的 fetcher 已实现但仍 `active: false`**（三重前置的第三条本阶段不满足）。
-  **2B Done（2026-09-29）** —— 4 项开工裁决已定（`id` 哈希 **32 位 hex**；旧 state **迁移**而非重置；`signals.json` **不进 Git** 且 `text` **截断**；引用推文 **不特殊处理**）。B1–B8 全部落地：**B1** `scripts/lib/signal.js`（`signalId()` / `type` 枚举 / **lookback 单一真值源** / `DEDUP_TTL_DAYS=30` + `assertTtlCoversLookback()`），两个脚本改从它取常量；**B2** 三个 legacy fetcher 注入 `source_id`；**B3** `scripts/normalize-signals.js` 把六通道归一为 `signals[]`；**B4** 时间归一（源格式钉 UTC 午夜）；**B5** traceability 强制（缺 url 剔除、aggregator 二者必居其一）；**B6** dedup（键 = signal id）+ TTL 30 天 + fail-fast + `state-signals.json` 迁移；**B7** `text` 截断 2000 字；**B8** `scripts/gate-2b.js`（10 项检查）。
+  **2B Done（2026-09-29）** —— 4 项开工裁决已定（`id` 哈希 **32 位 hex**；旧 state **迁移**而非重置；`signals.json` **不进 Git** 且 `text` **截断**；引用推文 **不特殊处理**）。B1–B8 全部落地：**B1** `scripts/lib/signal.js`（`signalId()` / `type` 枚举 / **lookback 单一真值源** / `DEDUP_TTL_DAYS=30` + `assertTtlCoversLookback()`），两个脚本改从它取常量；**B2** 三个 legacy fetcher 注入 `source_id`；**B3** `scripts/normalize-signals.js` 把六通道归一为 `signals[]`；**B4** 时间归一（源格式钉 UTC 午夜）；**B5** traceability 强制（缺 url 剔除、aggregator 二者必居其一）；**B6** dedup（键 = signal id）+ TTL 30 天 + fail-fast + `state-signals.json` 迁移；**B7** `text` 截断 2000 字；**B8** `scripts/gate-2b.js`（11 项检查）。
   CI 已验证：`Normalize signals` 与 `Gate 2B` 两个步骤均接入 `.github/workflows/generate-feed.yml` 且**绿**。首次 dispatch 实测 **170 signal**（rss 150 + github 20）；16 条 error 全部来自已提交的 legacy feed 缺 `source_id`（B2 之前的产物），待 secrets 配好后自愈 —— 不影响 2B 完成条件（§2.1 已把 x / podcast 排除在外）。**gate 已接入 CI**，不再依赖人工手敲。
-  实测：`--blogs-only` `source_id` **3/3 命中 registry**；`fetch-channels --channel github` **20 item / 0 error**（与 2A 基线一致）；`assertTtlCoversLookback()` 在 TTL<lookback 时**按预期抛错**；gate **10/10 green**。
-  **独立对抗性审查（2026-09-29）** 找出的 3 个真实缺陷已全部修复，并补了对应的 gate 检查（G7 时间归一时区盲区 / G8 坏 state / G9 产物写失败导致 signal 丢失）。**审查同时指出原 gate 的 7 项里有 3 项是虚的**（G1b 只测哈希库、G1 的父字段断言不可能失败、G3 的 `is_secondary` 断言是自己比自己）—— 已在代码注释与本行标注。
+  实测：`--blogs-only` `source_id` **3/3 命中 registry**；`fetch-channels --channel github` **20 item / 0 error**（与 2A 基线一致）；`assertTtlCoversLookback()` 在 TTL<lookback 时**按预期抛错**；gate **11/11 green**。
+  **独立对抗性审查（2026-09-29）** 找出的 3 个真实缺陷已全部修复，并补了对应的 gate 检查（G7 时间归一时区盲区 / G8 坏 state / G9 产物写失败导致 signal 丢失）。**审查同时指出原 gate 的 7 项里有 3 项是虚的**（G1b 只测哈希库、G1 的父字段断言不可能失败、G3 的 `is_secondary` 断言是自己比自己）—— 已在 plan §8.1 与代码注释标注为「不可信证据」。
+  **2C Done（2026-09-29）** —— registry 加 `redistribution` 字段（schema 的 `$defs/common`，非必填、缺省 `public`，故只有限制被写下来），`api:aihot` 置 `internal`；`normalize-signals.js` 在去重后按 registry 分区：public → `signals.json`，internal → `$RUNNER_TEMP/signals-internal.json`（本地退回仓库根同名文件；两者均 gitignored）。gate 新增 `G10` 验证 internal 源不进 public 产物 —— **实测该检查在 2C 前的代码上会红**。
+  **一处与 plan §4.3 表格的有意偏离**：internal 产物**不上传 CI artifact**。本仓库是 public fork，Actions artifact 对所有人可下载，传上去等于把分区目的作废。2C 交付的是**隔离能力**（plan §4.3 自身的结论也是「这不是一条可用通路」）。
   注意 **`runnable` ≠ `productive`** —— fetcher 能访问解析 ≠ 该源当前有内容产出（如 `github:gemini-cli`、`mcp-servers`、`autogen` 当前无 release）。
 
 ### Phase 3 — Topic Clustering

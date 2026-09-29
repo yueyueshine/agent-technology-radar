@@ -73,11 +73,11 @@ let stateSeq = 0;
 // exercise a run that is supposed to fail. `scriptDir` points at a copied tree
 // when a check needs to break something inside it; `tz` sets the child's
 // timezone, which is the only way to prove a result does not depend on it.
-function runNormalize({ feedsDir, state, only, tz, scriptDir = SCRIPT_DIR }) {
+function runNormalize({ feedsDir, state, only, tz, env: extraEnv, scriptDir = SCRIPT_DIR }) {
   const args = [join(scriptDir, "normalize-signals.js"), "--feeds-dir", feedsDir];
   args.push("--state", state ?? join(tmpRoot, `state-auto-${stateSeq++}.json`));
   if (only) args.push("--only", only);
-  const env = tz ? { ...process.env, TZ: tz } : process.env;
+  const env = { ...process.env, ...(tz ? { TZ: tz } : {}), ...extraEnv };
   try {
     execFileSync(process.execPath, args, {
       stdio: ["ignore", "ignore", "pipe"],
@@ -344,7 +344,15 @@ function main() {
       `expected drop errors, got: ${errs || "(none)"}`,
     );
 
-    const agg = normalize({ feedsDir: apiDir, only: "api" });
+    // api:aihot is the only aggregator the pipeline can actually fetch, and it
+    // is marked `internal` (§4.2) — so its traceability is asserted on the
+    // internal product, which is where its signals now land.
+    const runnerTemp = join(tmpRoot, "runner-temp-g3");
+    mkdirSync(runnerTemp, { recursive: true });
+    normalize({ feedsDir: apiDir, only: "api", env: { RUNNER_TEMP: runnerTemp } });
+    const agg = JSON.parse(
+      readFileSync(join(runnerTemp, "signals-internal.json"), "utf-8"),
+    );
     const byId = Object.fromEntries(agg.signals.map((s) => [s.native_id, s]));
     assert(
       byId["agg-resolved"].original_url === "https://x.com/a/status/1" &&
@@ -588,6 +596,68 @@ function main() {
       state,
     });
     assert(out.count === 1, `the signal was lost: count=${out.count}`);
+  });
+
+  // G10 — §4.1/§4.4: an `internal` source's signals must land in the internal
+  // product and never in signals.json. What this deliberately does NOT show is
+  // anything consuming that internal file — no such path exists yet (§4.3).
+  check("G10 internal 分区：internal 源不进 signals.json，只进 internal 产物", () => {
+    const dir = feedDir("partition");
+    writeFeed(dir, "api", {
+      generatedAt: "2026-09-28T10:00:00.000Z",
+      items: [
+        {
+          source_id: "api:aihot",
+          native_id: "internal-1",
+          title: "internal item",
+          url: "https://aihot.news/items/1",
+          original_url: "https://x.com/a/status/1",
+          published_at: "2026-09-25T21:50:12Z",
+          text: "x",
+        },
+      ],
+    });
+    writeFeed(dir, "blogs", {
+      generatedAt: "2026-09-28T10:00:00.000Z",
+      blogs: [
+        {
+          source_id: "blog:claude-blog",
+          title: "public item",
+          url: "https://claude.com/blog/public",
+          publishedAt: "2026-09-25T21:50:12Z",
+          content: "c",
+        },
+      ],
+    });
+
+    const runnerTemp = join(tmpRoot, "runner-temp");
+    mkdirSync(runnerTemp, { recursive: true });
+    const publicOut = normalize({ feedsDir: dir, env: { RUNNER_TEMP: runnerTemp } });
+
+    assert(
+      publicOut.signals.length === 1 &&
+        publicOut.signals[0].source_id === "blog:claude-blog",
+      `signals.json should hold only the public item, got ` +
+        JSON.stringify(publicOut.signals.map((s) => s.source_id)),
+    );
+    assert(
+      !publicOut.signals.some((s) => s.source_id === "api:aihot"),
+      "an internal source's signal reached the public product",
+    );
+
+    const internalPath = join(runnerTemp, "signals-internal.json");
+    assert(existsSync(internalPath), `no internal product at ${internalPath}`);
+    const internalOut = JSON.parse(readFileSync(internalPath, "utf-8"));
+    assert(
+      internalOut.partition === "internal",
+      "the internal product is not marked as internal",
+    );
+    assert(
+      internalOut.signals.length === 1 &&
+        internalOut.signals[0].source_id === "api:aihot",
+      `the internal item is missing: ` +
+        JSON.stringify(internalOut.signals.map((s) => s.source_id)),
+    );
   });
 
   rmSync(tmpRoot, { recursive: true, force: true });

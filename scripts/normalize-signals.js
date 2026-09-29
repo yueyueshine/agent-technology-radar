@@ -41,6 +41,14 @@ const REGISTRY_PATH = join(REPO_ROOT, "config", "default-sources.json");
 const SIGNALS_PATH = join(REPO_ROOT, "signals.json");
 const STATE_PATH = join(REPO_ROOT, "state-signals.json");
 
+// §4.3 — the internal partition must never reach the working tree. In CI the
+// runner sets RUNNER_TEMP and discards it when the job ends; the repo-root
+// fallback exists only so a local run behaves the same way. Both names are
+// gitignored, so a stray `git add -A` cannot pick either up.
+const INTERNAL_PATH = process.env.RUNNER_TEMP
+  ? join(process.env.RUNNER_TEMP, "signals-internal.json")
+  : join(REPO_ROOT, "signals-internal.json");
+
 // -- Input map ---------------------------------------------------------------
 
 // The three legacy feeds carry the channel in the file, and x is the only one
@@ -410,24 +418,49 @@ async function main() {
     duplicates = result.dropped;
   }
 
+  // §4.1 — the partition is decided by the registry, not by the feed: a source
+  // marked `redistribution: "internal"` must not reach the public product
+  // whichever channel carried it. Registry entries without the field are public
+  // (§4.2), so only restrictions are ever written down.
+  const isInternal = (signal) =>
+    registry.get(signal.source_id)?.redistribution === "internal";
+  const publicSignals = emitted.filter((signal) => !isInternal(signal));
+  const internalSignals = emitted.filter(isInternal);
+
   const out = {
     generatedAt: new Date().toISOString(),
-    count: emitted.length,
+    count: publicSignals.length,
     duplicates,
     perChannel,
-    signals: emitted,
+    signals: publicSignals,
     normalization_warnings: warnings.length > 0 ? warnings : undefined,
     errors: errors.length > 0 ? errors : undefined,
   };
 
   await writeJsonAtomic(SIGNALS_PATH, out);
 
+  // Written every run, even when empty, so that "no internal signals" and "the
+  // partition never ran" cannot look the same. `partition` is marked because
+  // this file leaves the repository — an unlabelled copy of internal content
+  // downstream is the failure this whole phase exists to prevent.
+  await writeJsonAtomic(INTERNAL_PATH, {
+    generatedAt: out.generatedAt,
+    partition: "internal",
+    count: internalSignals.length,
+    signals: internalSignals,
+  });
+
   // State is written only after the product is safely on disk. The other order
   // loses data: an id recorded as seen but never emitted is suppressed for the
   // whole TTL with nothing to point at. Failing here instead costs one re-send.
   if (state) await writeJsonAtomic(statePath, state);
 
-  console.error(`signals.json: ${emitted.length} signal(s)`);
+  console.error(
+    `signals.json: ${publicSignals.length} public signal(s)` +
+      (internalSignals.length > 0
+        ? ` + ${internalSignals.length} internal → ${INTERNAL_PATH}`
+        : ""),
+  );
   for (const [channel, s] of Object.entries(perChannel)) {
     console.error(
       s.missing

@@ -26,7 +26,7 @@
 | **D3 — 去重状态策略** | ✅ **已裁决** | TTL 提到 **30 天** + 运行时约束 fail-fast（见 §3.4） |
 | 2A 实现（批次 1：rss / github / api / web） | ✅ Done（2026-09-23） | 见 §2。`web` 经调查证明不需要，实际交付 3 个通道 |
 | 2B 实现 | ✅ Done（2026-09-29） | 见 §3、§8。B1–B8 全部落地，gate 已接入 CI |
-| 2C 实现 | ⬜ Not Started | 见 §4 |
+| 2C 实现 | ✅ Done（2026-09-29） | 见 §4。`redistribution` 字段 + internal 分区已落地；**internal 产物不上传 CI artifact**（见 §8.1 #6） |
 
 ### 0.1 决策记录
 
@@ -608,7 +608,7 @@ DEDUP_TTL_DAYS = 30
 - [x] GitHub 的 nightly / preview release 已过滤 —— ✅ 2026-09-23，另加每 repo 保留上限 5 条（§2.6.1）
 - [x] **`x` / `podcast` 未纳入 2A 完成条件**（缺 Key，保持 blocked）—— ✅ 保持 blocked
 
-**2B** —— 全部达成 2026-09-29；可执行证据 = `scripts/gate-2b.js`（**10/10 green**，已接入 CI）
+**2B** —— 全部达成 2026-09-29；可执行证据 = `scripts/gate-2b.js`（**11/11 green**，已接入 CI）
 - [x] Signal Schema 落地（含 `id` / `source_id` / `native_id` 三字段拆分）
 - [x] `id` 由确定性哈希生成，同输入必得同输出 —— gate `G1b`
 - [x] **`published_at` 只能是 ISO 8601 UTC 或 `null`** —— blog 路实测通过 —— gate `G2`、`G7`（TZ 不变性）
@@ -633,13 +633,14 @@ DEDUP_TTL_DAYS = 30
 | 3 | **`signals.json` 目前无下游消费者** | 不提交、不上传 artifact，workflow 结束后即消失。符合 2C 未开始的预期；**2C 负责交付输出通路** |
 | 4 | **首版 gate 有 3 项是虚的** | 独立对抗性审查（2026-09-29）指出：G1b 只等于测 sha256 库、G1 的父字段泄漏断言原理上不可能失败、G3 的 `is_secondary` 断言是自己比自己。三项仍在（改动它们超出本阶段范围），**但已被标注为不可信证据**，不得计入覆盖率 |
 | 5 | **审查发现的 3 个真实缺陷（已修）** | ① 产物写失败时 state 已前进 → signal 永久丢失；② `loadState` 对坏 state 静默重置或裸 TypeError 崩溃；③ 时间归一在无时区输入上随机器时区变（UTC 与 Asia/Shanghai 差 8 小时）。修复 = 先写产物后写 state + state 结构校验 + 无时区一律拒绝为 `null`；**并补 G7 / G8 / G9 使其可回归验证**（三条新检查在修复前的代码上实测全红） |
+| 6 | **internal 产物「不上传 CI artifact」—— 与 §4.3 表格的一处偏离** | §4.3 把「上传为 GitHub Actions artifact」列为暂存做法。**本仓库是 public fork，Actions artifact 对任何有读权限的人可下载 —— 即对所有人公开**。把 `internal` 内容传上去，等于把 §4.1 的分区目的整个作废。因此**不做 artifact 上传**：2C 交付的是**隔离能力**，符合 §4.3 自身的结论（「这不是一条可用通路」）。将来要把 internal 送出去，必须走独立议题里的安全通路 |
 
-**2C**
-- [ ] registry 新增 `redistribution` 字段；`api:aihot` 为 `internal`
-- [ ] `internal` 源的内容**绝不进入** `signals.json`
-- [ ] `signals-internal.json` 写入 `$RUNNER_TEMP` 且被 `.gitignore` 覆盖
-- [ ] **AIHOT 保持 `active: false`** —— 启用需**三**条件全满足（api fetcher + internal 隔离 + 安全下游消费通路）；**第三条本阶段无法满足，故本阶段不启用**
-- [ ] **不引入** internal 的持久化基础设施（属独立议题）
+**2C** —— 全部达成 2026-09-29；可执行证据 = gate `G10`
+- [x] registry 新增 `redistribution` 字段；`api:aihot` 为 `internal` —— 字段加在 schema 的 `$defs/common`（非必填，缺省即 `public`，故只有限制被写下来）
+- [x] `internal` 源的内容**绝不进入** `signals.json` —— gate `G10`
+- [x] `signals-internal.json` 写入 `$RUNNER_TEMP` 且被 `.gitignore` 覆盖 —— 本地退回仓库根同名文件，两者都 gitignored
+- [x] **AIHOT 保持 `active: false`** —— 启用需**三**条件全满足（api fetcher + internal 隔离 + 安全下游消费通路）；**第三条本阶段无法满足，故本阶段不启用**
+- [x] **不引入** internal 的持久化基础设施（属独立议题）
 
 **不以本阶段为条件：** X / podcast 的 Key 与真实抓取、批次 2 通道、internal 分区的飞书投递。
 

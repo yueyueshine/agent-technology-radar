@@ -54,6 +54,12 @@
         "active": {
           "type": "boolean",
           "description": "true = eligible for fetching; false = registered but skipped by the loader. Entries whose channel has no fetcher yet MUST be false."
+        },
+        "redistribution": {
+          "type": "string",
+          "enum": ["public", "internal"],
+          "default": "public",
+          "description": "Whether content fetched from this source may be redistributed (Phase 2C). Omitted = `public`, so only restrictions are written down. `internal` = the source's terms forbid redistribution; its signals go to signals-internal.json in $RUNNER_TEMP, never to signals.json. This is a legal/terms question, NOT a quality or attention question — it is independent of `tier` and of `role`."
         }
       }
     },

@@ -13,3 +13,7 @@ feed-web.json
 # Board decision D3 keeps it out of Git — carrying full `text` would grow the
 # repo by roughly 280 MB/year (plan §2.2.1).
 signals.json
+# The internal partition (Phase 2C). It is written to $RUNNER_TEMP in CI, so it
+# should never reach the working tree at all — this is the second lock, for the
+# `git add -A` that someone will eventually run (plan §4.3).
+signals-internal.json
