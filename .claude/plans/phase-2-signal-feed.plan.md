@@ -24,8 +24,8 @@
 | **D1 — fetcher 归属** | ✅ **已裁决** | **并入 Phase 2**，内部分 2A。**不新增 Phase 1C**（见 §0.1） |
 | **D2 — signal `id` 形态** | ✅ **已裁决** | schema 拆 `id` / `source_id` / `native_id`；`id` = 确定性 hash（见 §3.1） |
 | **D3 — 去重状态策略** | ✅ **已裁决** | TTL 提到 **30 天** + 运行时约束 fail-fast（见 §3.4） |
-| 2A 实现（批次 1：rss / github / api / web） | ⬜ Not Started | 见 §2 |
-| 2B 实现 | ⬜ Not Started | 见 §3 |
+| 2A 实现（批次 1：rss / github / api / web） | ✅ Done（2026-09-23） | 见 §2。`web` 经调查证明不需要，实际交付 3 个通道 |
+| 2B 实现 | ✅ Done（2026-09-29） | 见 §3、§8。B1–B8 全部落地，gate 已接入 CI |
 | 2C 实现 | ⬜ Not Started | 见 §4 |
 
 ### 0.1 决策记录
@@ -604,25 +604,33 @@ DEDUP_TTL_DAYS = 30
 **完成定义：「2A 批次 1 可抓 + 2B 规范落地 + 2C 分区生效」。**
 
 **2A**
-- [ ] `rss` / `github` / `api` / `web` 四个 fetcher 实现完毕，产出统一的 `items[]` 形状
-- [ ] GitHub 的 nightly / preview release 已过滤
-- [ ] **`x` / `podcast` 未纳入 2A 完成条件**（缺 Key，保持 blocked）
+- [x] `rss` / `github` / `api` / `web` 四个 fetcher 实现完毕，产出统一的 `items[]` 形状 —— ✅ 2026-09-23。**`web` 经 §2.7 证明不需要**（其两个成员一个改判 `rss`、一个退休），批次 1 实际收缩为 3 个通道
+- [x] GitHub 的 nightly / preview release 已过滤 —— ✅ 2026-09-23，另加每 repo 保留上限 5 条（§2.6.1）
+- [x] **`x` / `podcast` 未纳入 2A 完成条件**（缺 Key，保持 blocked）—— ✅ 保持 blocked
 
-**2B**
-- [ ] Signal Schema 落地（含 `id` / `source_id` / `native_id` 三字段拆分）
-- [ ] `id` 由确定性哈希生成，同输入必得同输出
-- [ ] **`published_at` 只能是 ISO 8601 UTC 或 `null`** —— blog 路实测通过
-- [ ] 时间不可解析 → `null` + warning，**pipeline 不中断、不静默**
-- [ ] `collected_at` 始终必填
-- [ ] `source_id` 100% 命中 registry；命不中不进入 feed
-- [ ] `role=aggregator` 的条目：`original_url` 为原文 URL，**或** `original_url === null && is_secondary === true`（**二者必居其一**）
-- [ ] `url` 全部为**非空字符串**（永不为 `null`）
-- [ ] `id` 取 `sha256(source_id + "\n" + native_id)` 的**前 32 位** hex
-- [ ] 去重键 = signal `id`
-- [ ] **`DEDUP_TTL_DAYS = 30`**，且**运行时校验 `TTL >= max lookback`，违反即 fail-fast**
-- [ ] 播客重复发出的 bug 已修（构造用例验证）
-- [ ] 跨源去重边界写清（本阶段不做，属 Phase 3）
-- [ ] **`text` 的保留策略已定并落地**（截断 / 摘要 / 外置引用），且证明 `signals.json` 的体量**不随时间无界膨胀** —— 否则 §2.2.1 只是把仓库膨胀推迟了
+**2B** —— 全部达成 2026-09-29；可执行证据 = `scripts/gate-2b.js`（**7/7 green**，已接入 CI）
+- [x] Signal Schema 落地（含 `id` / `source_id` / `native_id` 三字段拆分）
+- [x] `id` 由确定性哈希生成，同输入必得同输出 —— gate `G1b`
+- [x] **`published_at` 只能是 ISO 8601 UTC 或 `null`** —— blog 路实测通过 —— gate `G2`
+- [x] 时间不可解析 → `null` + warning，**pipeline 不中断、不静默** —— gate `G2`
+- [x] `collected_at` 始终必填 —— gate `G2`
+- [x] `source_id` 100% 命中 registry；命不中不进入 feed —— gate `G3`
+- [x] `role=aggregator` 的条目：`original_url` 为原文 URL，**或** `original_url === null && is_secondary === true`（**二者必居其一**）—— gate `G3`（含 self-link 视为未解析）
+- [x] `url` 全部为**非空字符串**（永不为 `null`）—— gate `G3`
+- [x] `id` 取 `sha256(source_id + "\n" + native_id)` 的**前 32 位** hex —— gate `G1`
+- [x] 去重键 = signal `id` —— gate `G4`（幂等）
+- [x] **`DEDUP_TTL_DAYS = 30`**，且**运行时校验 `TTL >= max lookback`，违反即 fail-fast** —— gate `G6`
+- [x] 播客重复发出的 bug 已修（构造用例验证）—— gate `G5`
+- [x] 跨源去重边界写清（本阶段不做，属 Phase 3）—— §3.4 / §10
+- [x] **`text` 的保留策略已定并落地**（截断 / 摘要 / 外置引用），且证明 `signals.json` 的体量**不随时间无界膨胀** —— 否则 §2.2.1 只是把仓库膨胀推迟了。**裁决 D3 = 截断 2000 字**，且 `signals.json` 不进 Git
+
+### 8.1 已知偏离与遗留（2B 收口时记录）
+
+| # | 事 | 处置 |
+|---|---|---|
+| 1 | **`type` 的 rss 映射是方案缺口补的** | §3.2 N6 未列 `rss`，而 rss 有 18 个 active 源、不能无映射。已按「个人作者文章 → `blog_post`」实现，与 `blog` 通道靠 `channel` 区分。**属方案缺口，已在代码注释与本表标注** |
+| 2 | **CI 上 x / podcast / blog 产出 0 条 signal** | 已提交的 `feed-x/podcasts/blogs.json` 是 B2 之前的产物、无 `source_id`，稳定产生 16 条 error。**待 secrets 配好后自愈**；不影响 §8（x / podcast 不在完成条件内） |
+| 3 | **`signals.json` 目前无下游消费者** | 不提交、不上传 artifact，workflow 结束后即消失。符合 2C 未开始的预期；**2C 负责交付输出通路** |
 
 **2C**
 - [ ] registry 新增 `redistribution` 字段；`api:aihot` 为 `internal`
@@ -646,7 +654,7 @@ DEDUP_TTL_DAYS = 30
 | ⚠️ 中 | **36 条源（x + podcast + 批次 2）本阶段无法端到端验证** | x/podcast 缺 Key，批次 2 无 fetcher。方案已按 §7.3 分档表述，不夸大 |
 | ⚠️ 中 | **3 条 RSS 本地不可达** + 1 条 406 + 1 条限流 | 须在 CI 复核；不得据本地结果判定不可用 |
 | ⚠️ 中 | **registry 第三次结构变更** | §4.2 的 `redistribution` 字段。1B schema 文件需同步 |
-| 开放问题 | `id` 哈希取多少位 | 方案用 `sha256[:16]`（64 bit）。规模远小于碰撞风险，但若你偏好更长/更短请说 |
+| 已裁决（2026-09-28） | `id` 哈希取多少位 | **取 `sha256[:32]`（128 bit）**，与 §3.1 / §8 一致。原方案写 `sha256[:16]`，已按董事裁决 D1 修正，本节不再是开放问题。 |
 | 开放问题 | `type` 是否要做成受控枚举 | 方案列为受控值，但新通道会带来新 `type`，是否要像 `role` 一样冻结需定 |
 | 开放问题 | internal 分区的实际投递 | 2C 只保证"不落入 public"；送到飞书是 Phase 6 |
 | 已知（本阶段不解决） | 跨源重复 | Phase 3 聚类的职责，§3.4 已划界 |
