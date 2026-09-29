@@ -379,7 +379,21 @@ async function main() {
     );
   }
   if (duplicates > 0) console.error(`  ${duplicates} duplicate(s) suppressed`);
-  if (errors.length > 0) console.error(`  ${errors.length} error(s)`);
+  // Printed in full, not just counted: `signals.json` is gitignored and not
+  // uploaded from CI, so this log is the only place a failure can be read.
+  // A bare count is unactionable when the error only reproduces on the runner.
+  if (warnings.length > 0) {
+    console.error(`  ${warnings.length} normalization warning(s)`);
+    for (const w of warnings) {
+      console.error(
+        `    ! ${w.source_id} ${w.native_id} — ${w.field}: ${w.reason}`,
+      );
+    }
+  }
+  if (errors.length > 0) {
+    console.error(`  ${errors.length} error(s)`);
+    for (const e of errors) console.error(`    ! ${e}`);
+  }
   if (args.includes("--print")) console.log(JSON.stringify(out, null, 2));
 }
 
