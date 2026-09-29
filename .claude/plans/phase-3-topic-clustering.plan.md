@@ -11,11 +11,32 @@
 | 步骤 | 状态 | 备注 |
 |---|---|---|
 | Step 0 生成本方案 | ✅ Done | 本文件 |
-| **D1 — 主题体系** | ⏸ **待裁决** | 三个选项见 §2。**这是本阶段唯一"选错返工大"的决定** |
-| **D2 — 聚类方法** | ⏸ **待裁决** | 见 §3。**风险低**：只要 §5 的输出接口先固定，实现可随时替换 |
-| D3 — 权重公式 | ⏸ 待 D1/D2 | 见 §4 |
-| 实现 | ⬜ Not Started | |
-| Gate `scripts/gate-3.js` | ⬜ Not Started | |
+| **D1 — 主题体系** | ✅ **已裁决（2026-09-29）** | **采用 §2.2 的 9 个固定主题**，含 `unclassified` 兜底桶。理由见 §2.1 |
+| **D2 — 聚类方法** | ✅ **已裁决（2026-09-29）** | **首版规则/词表**（零 key、完全确定）；embedding 作为明确升级路径 —— §5 的输出接口已按「可替换」设计 |
+| D3 — 权重公式 | ✅ 已实现 | `weight = Σ (source_diversity × recency)`，半衰期 168h，见 §4 |
+| 实现 | ✅ Done | `lib/taxonomy.js` · `lib/topics.js` · `cluster-signals.js` |
+| Gate `scripts/gate-3.js` | ✅ Done | 9 项检查，已接入 CI。**10 条注入违规全部被对应检查捕获**（见 §7.3） |
+
+### 0.3 首版实测（2026-09-29，本地 148 条 signal）
+
+```
+148 signal → 145 cluster → 8 topic
+  model-capability       weight=15.172  signals=36  clusters=33  sources=13
+  dev-tooling            weight= 9.290  signals=21  clusters=21  sources= 7
+  safety-and-governance  weight= 3.147  signals=11  clusters=11  sources= 6
+  product-and-business   weight= 2.167  signals= 8  clusters= 8  sources= 4
+  inference-and-cost     weight= 1.270  signals= 4  clusters= 4  sources= 3
+  context-and-memory     weight= 0.783  signals= 2  clusters= 2  sources= 1
+  tool-and-protocol      weight= 0.428  signals= 2  clusters= 2  sources= 2
+  eval-and-benchmark     weight= 0.305  signals= 1  clusters= 1  sources= 1
+  unclassified             63 signal(s) (42.6%)   <-- 主题表老化指标
+```
+
+三件必须如实说明的事：
+
+1. **`unclassified` 占 42.6%** —— 这是 §3.1 预告过的低召回代价，不是意外。**调词表是后续的常规维护，不是本阶段的缺陷。** 这个数字从此每次运行都会打印出来。
+2. **`agent-framework` 一条都没有。** 今天的语料里没有一个信号同时命中它的词表条目。可能说明词表不对，也可能说明这批源当天确实没聊这个 —— 单次快照无法区分，需要看几天。
+3. **含 `unclassified` 共 9 个主题全部出现在实跑中，但分布极度不均**（前 2 个主题占 63% 的 signal）。这是语料的真实形状，不是权重公式的问题。
 
 ### 0.1 为什么 D1 风险高、D2 风险低
 
@@ -194,13 +215,11 @@ Phase 4 依赖的是这个形状。**它一旦定下，§3 的方法就是可换
 }
 ```
 
-### 5.1 一个待定项：`topics.json` 要不要提交
+### 5.1 `topics.json` 提交（已定）
 
-上表暂不在 .gitignore 里。**判断依据应沿用 Phase 2B 的同一条准则**：它的体积会不会随时间无界膨胀？
-- 如果只保留当前窗口 → 有界，可提交（且 Phase 4/5 消费方便）
-- 如果保留历史 → 无界，**不提交**，但那样 Phase 4 就没有历史可比较，与 D1 的初衷冲突
+**提交。** 它小且有界（当前窗口的快照），而**它的 git 历史就是 Phase 4 需要的历史权重序列** —— 每次 bot 提交给出一份带时间戳的快照，不需要再单独造一份历史文件。
 
-**建议**：提交**当前窗口**的快照 + 一份极小的**历史权重序列**（每主题每天一个数）。后者有界（9 个主题 × 每天 1 个数），且这正是 Phase 4 唯一需要的"历史"。
+已加进 `.github/workflows/generate-feed.yml` 的 `git add` 列表。`signals.json` 仍然不提交（体积无界）。
 
 ---
 
@@ -219,19 +238,47 @@ Phase 4 依赖的是这个形状。**它一旦定下，§3 的方法就是可换
 
 ## 7. 验证
 
-### 7.1 可完整验证（→ 全部可 gate）
+### 7.1 可完整验证（9 项，全部已 gate）
 
-| 对象 | 成功信号 |
-|---|---|
-| **确定性** | 同一输入跑两次，`topics.json` 逐字节相同 |
-| **主题合法性** | 每个 `topic` ∈ 主题表；不存在表外主题 |
-| **完整性** | 每条 signal 恰好属于一个主题（或在 `unclassified` 里）；**总数守恒**：`Σ signalCount + unclassified.signalCount = 输入 signal 数` |
-| **权重可复现** | §4 公式独立重算一遍，与输出一致（同一份代码，用输入重算） |
-| **权重可解释** | 每个 `weight` 能由 `signalCount` / `sourceDiversity` / `recency` 三个可数事实还原 |
-| **无硬编码提权** | 代码里不存在按 `source_id` / 人名 / `role` 给某主题加分的分支（**静态检查**） |
-| **`tier` 未被使用** | `scripts/` 下不存在把 `tier` 用于权重计算的引用（**静态检查**） |
-| **跨源合并生效** | 构造同一事件的 3 条不同源 signal → 产出 1 个 cluster（不是 3 个） |
-| **`unclassified` 可见** | 存在且计入输出，不被静默丢弃 |
+| gate | 对象 | 成功信号 |
+|---|---|---|
+| `G1` | **确定性** | 同一输入 + 同一 `--now` 跑两次，`topics.json` **逐字节**相同 |
+| `G2` | **主题合法性** | 每个 `topic` ∈ 主题表；`unclassified` 不作为主题出现；`taxonomyVersion` 匹配 |
+| `G3` | **完整性 / 总数守恒** | 每条 signal 恰好归属一次；`Σ topic.signalCount + unclassified.signalCount = 输入数`；无发明、无丢失 |
+| `G4` | **权重可复现** | 按 §4 公式**独立重算**每个 cluster 与每个 topic 的权重，与输出一致 |
+| `G5` | **权重可解释** | `sourceDiversity` 由 signal 的 `source_id` 独立数出，与输出一致（topic 为各 cluster 的并集） |
+| `G6` | **无硬编码提权** | `taxonomy.js` / `topics.js` 的**代码**中不出现 `tier`，也不出现任何具体 registry 源 id |
+| `G7` | **`tier` 未进入阶段 3 计算** | `cluster-signals.js` + `lib/topics.js` + `lib/taxonomy.js` 的代码中不出现 `tier` |
+| `G8` | **跨源合并生效** | 同一事件的 3 条不同源 signal → 1 个 cluster，`sourceDiversity = 3` |
+| `G9` | **`unclassified` 可见** | 桶存在、`ratio` 算术正确、不被静默丢弃 |
+
+> **G6 / G7 先剥离注释再扫描。** 否则"在注释里写明 `tier` 不得使用"这件事本身会触发检查，而显而易见的"修法"就变成了删掉解释。扫描器是刻意朴素的，它是防字面量复现的护栏，不是解析器。
+>
+> **G7 的范围刻意不含 `generate-feed.js`** —— 它用 `tier` 校验 registry schema，那是合法的，不该被禁。被禁的是 `tier` **进入主题或权重的计算**。
+
+### 7.3 检查是否可信：注入验证（2026-09-29 实测）
+
+按 `CLAUDE.md` §3.1，每条新检查都必须证明**它在被违反时会红**。用 10 条注入违规逐个验证：
+
+| 注入的违规 | 应红 | 实际红 |
+|---|---|---|
+| `tier` 进入权重代码 | G6, G7 | G6, G7 ✅ |
+| 按具体源加成（`SOURCE_BOOST`） | G6 | G6 ✅ |
+| 主题表外 id 被放行 | G2 | G2 ✅ |
+| 合并阈值设为不可达 | G8 | G8 ✅ |
+| 悄悄丢一条 signal | G3 | G3, G8, G9 ✅ |
+| 输出层排序随机化 | G1 | G1 ✅ |
+| 主题数组排序随机化 | G1 | G1 ✅ |
+| 权重漏乘 `source_diversity` | G4 | G4 ✅ |
+| `unclassified` 的 signalIds 被静默清空 | G3 | G3 ✅ |
+| `sourceDiversity` 恒为 1（数错） | G5 | G5, G8 ✅ |
+
+**这个过程抓到两个真实的夹具缺陷，都已修**：
+
+1. **夹具太薄，G1 测不到主题数组排序。** 最初的夹具只产出 1–2 个主题，打乱主题数组等于没打乱 —— G1 通过了，但那是因为无东西可乱。夹具加厚到跨 7 个主题后，注入被抓住。
+2. **夹具里没有任何合并，G4 测不到 `source_diversity` 乘法。** 每个 cluster 的 diversity 都是 1，`weight = diversity × recency` 与 `weight = recency` 数值相同，注入不被发现。夹具加入一对同标题异源 signal 后，注入被抓住。
+
+> **未被抓住的一条不算通过**：单独注入"只破坏内层排序"时 G1 不红 —— 这是**正确的**，因为输出层的排序把它归一了，可观察的产物仍然确定。G1 的职责是产物的确定性（Exit Criteria 的原文是"稳定的主题分组与权重"），不是算法内部的纯性。这个边界写在 `gate-3.js` 的注释里，不要误读成 G1 能证明算法无副作用。
 
 ### 7.2 无法验证（必须诚实标注）
 
@@ -243,29 +290,31 @@ Phase 4 依赖的是这个形状。**它一旦定下，§3 的方法就是可换
 
 ## 8. Phase 3 Exit Criteria
 
-（按 `CLAUDE.md` §1：**每条必须挂 gate 检查编号**，未挂的是承诺不是证据）
+全部达成 2026-09-29。可执行证据 = `scripts/gate-3.js`，**9/9 green**，已接入 CI。
 
 **判定原则**
-- [ ] 聚类方法已选定并记录（D2）—— 悬而未决不算完成
-- [ ] 主题体系已冻结并打上 `taxonomyVersion`（D1）—— 未冻结则历史不可比，Phase 4 不成立
+- [x] 聚类方法已选定并记录（D2）—— 首版规则/词表，见 §0 / §3
+- [x] 主题体系已冻结并打上 `taxonomyVersion`（D1）—— 9 个主题 / `TAXONOMY_VERSION = "v1"` —— gate `G2`
 
 **产出**
-- [ ] 主题表落地（§2），每个主题有覆盖边界说明
-- [ ] `topics.json` 形态按 §5 落地
-- [ ] 跨源合并生效（§7.1 对应项）
-- [ ] `unclassified` 占比作为可见指标输出
+- [x] 主题表落地（§2），每个主题有覆盖边界说明 —— `lib/taxonomy.js`
+- [x] `topics.json` 形态按 §5 落地 —— `cluster-signals.js`
+- [x] 跨源合并生效 —— gate `G8`
+- [x] `unclassified` 占比作为可见指标输出 —— gate `G9`；首版实测 42.6%（§0.3）
 
 **确定性（本阶段的可 gate 核心）**
-- [ ] 同输入两次运行 `topics.json` 逐字节相同
-- [ ] 每条 signal 恰好归属一次，总数守恒
+- [x] 同输入两次运行 `topics.json` 逐字节相同 —— gate `G1`
+- [x] 每条 signal 恰好归属一次，总数守恒 —— gate `G3`
 
 **权重**
-- [ ] 权重可由可数事实解释与重算（§7.1）
-- [ ] `tier` 未被用于权重（静态检查）
-- [ ] 无按人 / 按源的硬编码提权（静态检查）
+- [x] 权重可由可数事实解释与重算 —— gate `G4`（重算公式）、gate `G5`（重算 `source_diversity`）
+- [x] `tier` 未进入本阶段任何计算 —— gate `G7`
+- [x] 无按人 / 按源的硬编码提权 —— gate `G6`
 
 **本阶段不以其为条件**
 - 聚类质量达某个人工标准（无法验证，见 §7.2）
+
+> **检查可信度已单独验证**：10 条注入违规全部被对应检查捕获，过程中抓出并修掉了两个真实的夹具缺陷。见 §7.3。
 
 ---
 

@@ -60,15 +60,27 @@ jobs:
         if: always()
         run: cd scripts && node normalize-signals.js
 
+      - name: Cluster topics
+        # Phase 3. Reads the public signals.json written by the step above;
+        # internal signals live in signals-internal.json and are not an input,
+        # which is what keeps them out of topics.json too (plan §4.3).
+        if: always()
+        run: cd scripts && node cluster-signals.js
+
       - name: Gate 2B
         # The repo has no test suite; this is the executable definition of
         # "2B works" (plan §7.1 / §8). It runs entirely on its own fixtures and
         # needs no secrets, so it still runs when the steps above failed.
         # Runs before the commit so a red gate cannot cost us the feeds.
-        # Note: it overwrites the repo-root signals.json, which is gitignored
-        # and not consumed by any later step.
+        # The gate isolates its own output, so it no longer clobbers the real
+        # signals.json that the clustering step just consumed.
         if: always()
         run: cd scripts && node gate-2b.js
+
+      - name: Gate 3
+        # Phase 3's executable definition (plan §7.1 / §8).
+        if: always()
+        run: cd scripts && node gate-3.js
 
       - name: Commit and push feeds
         # always(): the key-dependent step above fails while the repo has no
@@ -81,10 +93,14 @@ jobs:
         # signals.json is absent by design: it is derived on every run and its
         # `text` would grow the repo (plan §2.2.1, board decision D3).
         # state-signals.json IS committed — cross-run dedup has to persist.
+        #
+        # topics.json IS committed: it is small and bounded, and its git history
+        # is the per-topic weight series Phase 4 needs in order to compare a
+        # topic across time (plan §5.1).
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add feed-x.json feed-podcasts.json feed-blogs.json state-feed.json state-signals.json
+          git add feed-x.json feed-podcasts.json feed-blogs.json state-feed.json state-signals.json topics.json
           git diff --cached --quiet || git commit -m "chore: update feeds [skip ci]"
           git push

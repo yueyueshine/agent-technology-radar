@@ -73,9 +73,27 @@ let stateSeq = 0;
 // exercise a run that is supposed to fail. `scriptDir` points at a copied tree
 // when a check needs to break something inside it; `tz` sets the child's
 // timezone, which is the only way to prove a result does not depend on it.
-function runNormalize({ feedsDir, state, only, tz, env: extraEnv, scriptDir = SCRIPT_DIR }) {
+let outSeq = 0;
+function runNormalize({
+  feedsDir,
+  state,
+  only,
+  tz,
+  env: extraEnv,
+  scriptDir = SCRIPT_DIR,
+  isolateProduct = true,
+}) {
+  const root = dirname(scriptDir);
   const args = [join(scriptDir, "normalize-signals.js"), "--feeds-dir", feedsDir];
   args.push("--state", state ?? join(tmpRoot, `state-auto-${stateSeq++}.json`));
+  // By default the product goes to a temp path, so running the gate cannot
+  // clobber the repository's real `signals.json` — topic clustering reads that
+  // file, so a clobber would feed fixture output into the next stage. G9 is the
+  // exception: it deliberately occupies the tree's own product path.
+  const productPath = isolateProduct
+    ? join(tmpRoot, `signals-out-${outSeq++}.json`)
+    : join(root, "signals.json");
+  if (isolateProduct) args.push("--out", productPath);
   if (only) args.push("--only", only);
   const env = { ...process.env, ...(tz ? { TZ: tz } : {}), ...extraEnv };
   try {
@@ -83,9 +101,9 @@ function runNormalize({ feedsDir, state, only, tz, env: extraEnv, scriptDir = SC
       stdio: ["ignore", "ignore", "pipe"],
       env,
     });
-    return { ok: true, stderr: "" };
+    return { ok: true, stderr: "", productPath };
   } catch (err) {
-    return { ok: false, stderr: String(err.stderr) };
+    return { ok: false, stderr: String(err.stderr), productPath };
   }
 }
 
@@ -94,8 +112,7 @@ function normalize(opts = {}) {
   if (!result.ok) {
     throw new Error(`normalize-signals failed: ${result.stderr.trim()}`);
   }
-  const root = dirname(opts.scriptDir ?? SCRIPT_DIR);
-  return JSON.parse(readFileSync(join(root, "signals.json"), "utf-8"));
+  return JSON.parse(readFileSync(result.productPath, "utf-8"));
 }
 
 // A throwaway copy of the tree, for checks that need to break something the
@@ -580,6 +597,7 @@ function main() {
       feedsDir: dir,
       only: "blog",
       state,
+      isolateProduct: false,
     });
     assert(!failed.ok, "the product write did not fail — this check proves nothing");
     assert(

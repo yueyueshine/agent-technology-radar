@@ -12,8 +12,8 @@
 | 项 | 内容 |
 |---|---|
 | 项目目标 | 把一个 `zarazhangrui/follow-builders` 的公开 fork 改造为自有的 **Agent Technology Radar**，追踪 AI Agent 技术生态，最终经**飞书**投递 |
-| 当前位置 | Phase 0 / 1A / 1B / **2A / 2B / 2C 全部 Done**（CI 验证通过）—— **Phase 2 完成**；Phase 3–6 Not Started |
-| 下一步 | **Phase 3 — Topic Clustering** 起方案。Phase 2 遗留：internal 的下游消费/持久化通路（独立议题，见 plan §4.3） |
+| 当前位置 | Phase 0 / 1A / 1B / 2A / 2B / 2C / **3 全部 Done**；Phase 4–6 Not Started |
+| 下一步 | **Phase 4 — Technology Radar** 起方案。遗留：internal 的下游消费/持久化通路（独立议题，plan §4.3）；`unclassified` 占比 42.6% 需要几天数据判断词表是否要调 |
 | 当前源状态 | **61 active / 68 登记**。可抓通道：`rss` 18 · `github` 9 · `blog` 2（`x` 26 / `podcast` 6 缺 Key） |
 | 交付渠道（终态） | 飞书；第一版用 **Group Bot Webhook** |
 | 仓库 | `yueyueshine/agent-technology-radar`（public fork of `zarazhangrui/follow-builders`） |
@@ -71,7 +71,7 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 | Phase 1A | Registry Foundation | **Done** |
 | Phase 1B | Radar Source Set | **Done** |
 | Phase 2 | Signal Feed | **Done**（2A / 2B / 2C 全部完成） |
-| Phase 3 | Topic Clustering | In Progress（方案已出，**2 项待裁决**） |
+| Phase 3 | Topic Clustering | **Done**（gate 9/9，已接入 CI） |
 | Phase 4 | Technology Radar | Not Started |
 | Phase 5 | Daily / Weekly Digest | Not Started |
 | Phase 6 | Feishu Delivery | Not Started |
@@ -147,7 +147,9 @@ Sources → Fetch → Normalize → Deduplicate → Signal Feed
 - **Dependencies**：Phase 2。
 - **Exit Criteria**：对给定 signal 集产出稳定的主题分组与权重；权重可解释、可复现；无任何主题因个人历史被硬编码提权。
 - **Risks & Open Questions**：聚类稳定性与主题漂移；权重公式的主观性；方法选型待定。
-- **Status**：**In Progress（2026-09-29）** —— 方案已出：`.claude/plans/phase-3-topic-clustering.plan.md`。**D1（主题体系）与 D2（聚类方法）待裁决**，其中 **D1 是本阶段唯一不可逆的决定**（主题一旦发布，历史 signal 就按旧体系标注，改表 = Phase 4 失去跨时间比较能力）。方案已给出推荐：D1 = 固定主题表（9 个，带 `taxonomyVersion`）；D2 = 首版规则/词表（**零 key、完全确定**，符合 Exit Criteria 的可复现要求；embedding 作为明确升级路径 —— §5 的输出接口一旦固定，方法可换）。
+- **Status**：**Done（2026-09-29）** —— 方案 `.claude/plans/phase-3-topic-clustering.plan.md`。两项裁决均已定：**D1 = 9 个固定主题**（含 `unclassified` 兜底桶，`taxonomyVersion = v1`）；**D2 = 首版规则/词表**（零 key、完全确定；embedding 为明确升级路径，输出接口已按可替换设计）。交付：`scripts/lib/taxonomy.js` · `lib/topics.js` · `cluster-signals.js` · `gate-3.js`（**9/9 green，已接入 CI**）。
+  **首版实测（148 signal）**：→ 145 cluster → 8 主题。**`unclassified` 占 42.6%**，是 §3.1 预告的低召回代价，如实报告且每次运行都会打印；`agent-framework` 一条未命中，单次快照无法区分"词表不对"与"当天没人聊"，需看几天。
+  **检查可信度已单独验证**：10 条注入违规全部被对应检查捕获，过程中抓出并修掉两个真实的夹具缺陷（G1 测不到主题数组排序、G4 测不到 `source_diversity` 乘法）。
 
 ### Phase 4 — Technology Radar
 

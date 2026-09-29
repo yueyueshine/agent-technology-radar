@@ -22,10 +22,11 @@
 // plan: .claude/plans/phase-2-signal-feed.plan.md  §3.2 (B3)
 // ============================================================================
 
-import { readFile, writeFile, rename } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { join, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { writeJsonAtomic } from "./lib/io.js";
 import {
   signalId,
   normalizePublishedAt,
@@ -267,16 +268,6 @@ function normalizeEntry(channel, entry, feed, warnings, errors, registry) {
 // §3.4 — the dedup key is the signal `id`, i.e. "which source's which item".
 // A content hash would re-send on a title edit and collide across sources.
 
-// Written via a temp file plus `rename`. A plain `writeFile` that is interrupted
-// leaves a truncated JSON file behind, and the workflow's commit step runs under
-// `if: always()` — so that truncated file would be committed, turning a
-// one-off crash into a state nobody can parse on any later run.
-async function writeJsonAtomic(path, value) {
-  const tmp = `${path}.tmp`;
-  await writeFile(tmp, JSON.stringify(value, null, 2));
-  await rename(tmp, path);
-}
-
 // The state file is the only thing between the operator and a mass re-send, so
 // a file that cannot be trusted stops the run. Replacing it with an empty state
 // would re-send everything inside every lookback window — the podcast bug
@@ -369,6 +360,12 @@ async function main() {
   const feedsDir = feedsDirArg ? resolve(REPO_ROOT, feedsDirArg) : REPO_ROOT;
   const stateArg = argValue("--state");
   const statePath = stateArg ? resolve(REPO_ROOT, stateArg) : STATE_PATH;
+  // Lets a caller (the gate) keep the product out of the repository. Without
+  // this, running the gate overwrites the real `signals.json`, and anything
+  // downstream in the same job — topic clustering reads it — would consume
+  // fixture output instead.
+  const outArg = argValue("--out");
+  const signalsPath = outArg ? resolve(REPO_ROOT, outArg) : SIGNALS_PATH;
   const noDedup = args.includes("--no-dedup");
 
   const registry = await loadRegistry();
@@ -437,7 +434,7 @@ async function main() {
     errors: errors.length > 0 ? errors : undefined,
   };
 
-  await writeJsonAtomic(SIGNALS_PATH, out);
+  await writeJsonAtomic(signalsPath, out);
 
   // Written every run, even when empty, so that "no internal signals" and "the
   // partition never ran" cannot look the same. `partition` is marked because
