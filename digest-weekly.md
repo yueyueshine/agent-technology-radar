@@ -1,17 +1,16 @@
-# Agent Technology Radar — 周报 — 2026-10-01
+# Agent Technology Radar — 周报 — 2026-10-02
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 162 signal · 未归类 75 / 162（46.3%）
+窗口 336h · 输入 169 signal · 未归类 79 / 169（46.7%）
 
 ## 环的移动
 
-对比基线：2026-09-30T12:35:39.195Z
+对比基线：2026-10-01T13:16:16.634Z
 
-- context-and-memory：已确立 → 沉寂（动量 -0.33，源 3）
-- dev-tooling：已确立 → 试用中（动量 +0.58，源 8）
-- safety-and-governance：已确立 → 沉寂（动量 -0.25，源 3）
-- eval-and-benchmark：沉寂 → 已确立（动量 +0.33，源 4）
+- agent-framework：待观察 → 试用中（动量 +1.00，源 3）
+- context-and-memory：沉寂 → 已确立（动量 +0.00，源 4）
+- product-and-business：沉寂 → 已确立（动量 +0.00，源 4）
 
 ## 扇区全貌
 
@@ -19,16 +18,40 @@
 
 #### model-capability —— 模型能力与发布
 
-12 个独立源 · 39 个事件（近 22 / 远 17）· 动量 +0.13
+13 个独立源 · 40 个事件（近 22 / 远 18）· 动量 +0.10
 
-覆盖广（12 个独立源）、动量温和为正（+0.13）—— 生态已收敛且仍在缓升。
+覆盖广（13 个独立源）、动量温和为正（+0.10）—— 生态已收敛且仍在缓升。
 
 - **Release v0.24.6** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.24.6
+- **How NVIDIA GPUs Help Accelerate OpenAI’s GPT-6 Astra Ultrafast** — rss:nvidia-blog · https://blogs.nvidia.com/blog/gpus-openai-gpt-6-astra-ultrafast/
 - **[AINews] Gemini 4 Argon: GDM’s answer to Astra/Fable, with 1M output** — rss:latent-space · https://www.latent.space/p/ainews-gemini-4-argon-gdms-answer
 - **Gemini 4 Argon: our next era of frontier intelligence** — rss:google-deepmind · https://deepmind.google/blog/gemini-4-argon-our-next-era-of-frontier-intelligence/
 - **0.159.1** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.159.1
-- **GPT 6.1 Sol: Near-Astra intelligence for a fifth of the price** — rss:simon-willison · https://simonwillison.net/2026/Sep/29/hn-49898129/
-- 还有 34 条
+- 还有 35 条
+
+#### context-and-memory —— 上下文与记忆
+
+4 个独立源 · 4 个事件（近 2 / 远 2）· 动量 +0.00
+
+覆盖广（4 个独立源）、动量持平 —— 生态已收敛，处于稳定期。
+
+- **v2.11.0** — github:google-adk-python · https://github.com/google/adk-python/releases/tag/v2.11.0
+- **langchain-fireworks==1.7.0** — github:langchain · https://github.com/langchain-ai/langchain/releases/tag/langchain-fireworks%3D%3D1.7.0
+- **Advancing Private AI Compute with secure, server-side memory** — rss:google-deepmind · https://deepmind.google/blog/advancing-private-ai-compute-with-secure-server-side-memory/
+- **Better prompt caching for GPT-6** — rss:openai-news · https://openai.com/index/better-prompt-caching-for-gpt-6
+
+#### product-and-business —— 产品与商业
+
+4 个独立源 · 6 个事件（近 3 / 远 3）· 动量 +0.00
+
+覆盖广（4 个独立源）、动量持平 —— 生态已收敛，处于稳定期。
+
+- **How Albertsons Companies is reimagining retail from the inside out** — rss:openai-news · https://openai.com/index/albertsons-reimagining-retail
+- **Why Dwarkesh is Wrong about Computer Use + How OpenAI shipped its Jev competitor in 1 Week** — rss:latent-space · https://www.latent.space/p/devday-2026
+- **The Lenfest Institute grows landmark program with expanded OpenAI support** — rss:openai-news · https://openai.com/index/lenfest-ai-collaborative-expansion
+- **Contain the Chaos: ‘CONTROL Resonant’ Launches on GeForce NOW** — rss:nvidia-blog · https://blogs.nvidia.com/blog/geforce-now-thursday-control-resonant/
+- **Google Beam expands with new regions, partners, and customers** — rss:google-ai · https://blog.google/innovation-and-ai/technology/research/google-beam-expansion/
+- 还有 1 条
 
 #### eval-and-benchmark —— 评测与基准
 
@@ -45,28 +68,30 @@
 
 ### 试用中（trial）
 
+#### agent-framework —— Agent 框架与编排
+
+3 个独立源 · 3 个事件（近 3 / 远 0）· 动量 +1.00
+
+覆盖达标（3 个独立源）且动量急升（+1.00）—— 共识形成前的活跃试验期。
+
+- **Dynamic workflows in Copilot CLI and the Copilot app** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-01-dynamic-workflows-in-copilot-cli-and-the-copilot-app
+- **How Much of a Harness Does a Strong Agent Need for Autonomous ML Engineering?** — rss:apple-ml · https://machinelearning.apple.com/research/harness-autonomous-ml-engineering
+- **Bluesky reply bot checker** — rss:simon-willison · https://simonwillison.net/2026/Sep/27/bluesky-bot-check/
+
 #### dev-tooling —— 开发者工具与实践
 
-8 个独立源 · 19 个事件（近 15 / 远 4）· 动量 +0.58
+8 个独立源 · 16 个事件（近 14 / 远 2）· 动量 +0.75
 
-覆盖达标（8 个独立源）且动量急升（+0.58）—— 共识形成前的活跃试验期。
+覆盖达标（8 个独立源）且动量急升（+0.75）—— 共识形成前的活跃试验期。
 
+- **GitHub Copilot can now interact with desktop apps with computer use** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-01-github-copilot-can-now-interact-with-desktop-apps
+- **GitHub Copilot in VS Code, September 2026 releases** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-01-github-copilot-in-vs-code-september-2026-releases
 - **0.159.3** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.159.3
 - **v2.1.286** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.286
 - **HydraFusion in VS Code and the GitHub Copilot app** — rss:github-copilot-changelog · https://github.blog/changelog/2026-09-30-hydrafusion-in-vs-code-and-the-github-copilot-app
-- **0.159.2** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.159.2
-- **SDK TypeScript Release v0.1.17** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.17
-- 还有 14 条
+- 还有 11 条
 
 ### 待观察（assess）
-
-#### agent-framework —— Agent 框架与编排
-
-1 个独立源 · 1 个事件（近 1 / 远 0）· 动量 +1.00
-
-有升势（+1.00）但独立源偏少（仅 1 个）—— 只够放进观察位。
-
-- **Bluesky reply bot checker** — rss:simon-willison · https://simonwillison.net/2026/Sep/27/bluesky-bot-check/
 
 #### tool-and-protocol —— 工具与协议
 
@@ -78,16 +103,6 @@
 
 ### 沉寂（hold）
 
-#### context-and-memory —— 上下文与记忆
-
-3 个独立源 · 3 个事件（近 1 / 远 2）· 动量 -0.33
-
-动量转负（-0.33，3 个源）—— 注意力在退。
-
-- **langchain-fireworks==1.7.0** — github:langchain · https://github.com/langchain-ai/langchain/releases/tag/langchain-fireworks%3D%3D1.7.0
-- **Advancing Private AI Compute with secure, server-side memory** — rss:google-deepmind · https://deepmind.google/blog/advancing-private-ai-compute-with-secure-server-side-memory/
-- **Better prompt caching for GPT-6** — rss:openai-news · https://openai.com/index/better-prompt-caching-for-gpt-6
-
 #### inference-and-cost —— 推理与成本
 
 3 个独立源 · 3 个事件（近 1 / 远 2）· 动量 -0.33
@@ -98,37 +113,25 @@
 - **How to Guide Your Language Flow** — rss:apple-ml · https://machinelearning.apple.com/research/guide-language-flow
 - **NVIDIA Isaac ROS 5.0 Advances Agentic, Open Source Robotics Development** — rss:nvidia-blog · https://blogs.nvidia.com/blog/isaac-ros-5-0-agentic-open-source-robotics/
 
-#### product-and-business —— 产品与商业
-
-4 个独立源 · 5 个事件（近 2 / 远 3）· 动量 -0.20
-
-动量转负（-0.20，4 个源）—— 注意力在退。
-
-- **Why Dwarkesh is Wrong about Computer Use + How OpenAI shipped its Jev competitor in 1 Week** — rss:latent-space · https://www.latent.space/p/devday-2026
-- **The Lenfest Institute grows landmark program with expanded OpenAI support** — rss:openai-news · https://openai.com/index/lenfest-ai-collaborative-expansion
-- **Contain the Chaos: ‘CONTROL Resonant’ Launches on GeForce NOW** — rss:nvidia-blog · https://blogs.nvidia.com/blog/geforce-now-thursday-control-resonant/
-- **Google Beam expands with new regions, partners, and customers** — rss:google-ai · https://blog.google/innovation-and-ai/technology/research/google-beam-expansion/
-- **Grab and OpenAI bring practical AI skills to Southeast Asia** — rss:openai-news · https://openai.com/index/grab-openai-ai-skills-southeast-asia
-
 #### safety-and-governance —— 安全与治理
 
-3 个独立源 · 8 个事件（近 3 / 远 5）· 动量 -0.25
+4 个独立源 · 9 个事件（近 4 / 远 5）· 动量 -0.11
 
-动量转负（-0.25，3 个源）—— 注意力在退。
+动量转负（-0.11，4 个源）—— 注意力在退。
 
+- **0.160.0** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.160.0
 - **Quoting Anthropic Frontier Red Team** — rss:simon-willison · https://simonwillison.net/2026/Sep/29/anthropic-frontier-red-team/
 - **Quoting @joedaroo** — rss:simon-willison · https://simonwillison.net/2026/Sep/28/joedaroo/
 - **How we will do better for Australia** — rss:openai-news · https://openai.com/index/how-we-will-do-better-for-australia
 - **🔬Bio-security is an AI Arms Race - Eric Nguyen (CEO, Radical Numerics)** — rss:latent-space · https://www.latent.space/p/bio-security-is-an-ai-arms-race-eric
-- **OpenAI extends cyber access to Ukraine for civilian defense** — rss:openai-news · https://openai.com/index/openai-extends-cyber-access-to-ukraine-for-civilian-defense
-- 还有 3 条
+- 还有 4 条
 
 ## 健康指标
 
-未归类 75 / 162（46.3%）
+未归类 79 / 169（46.7%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-10-01T13:16:16.000Z · src 2026-10-01T13:16:16.634Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-10-02T12:36:10.000Z · src 2026-10-02T12:36:10.004Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*

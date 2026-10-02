@@ -1,73 +1,74 @@
-# Agent Technology Radar — 日报 — 2026-10-01
+# Agent Technology Radar — 日报 — 2026-10-02
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 162 signal · 未归类 75 / 162（46.3%）
+窗口 336h · 输入 169 signal · 未归类 79 / 169（46.7%）
 
-## 今日新增 10 条信号
+## 今日新增 8 条信号
 
 ### 已确立（adopt）
 
 #### model-capability —— 模型能力与发布
 
-- **[AINews] Gemini 4 Argon: GDM’s answer to Astra/Fable, with 1M output** — rss:latent-space · https://www.latent.space/p/ainews-gemini-4-argon-gdms-answer
-- **Gemini 4 Argon: our next era of frontier intelligence** — rss:google-deepmind · https://deepmind.google/blog/gemini-4-argon-our-next-era-of-frontier-intelligence/
-- **Photo Scrubber — local face blur & metadata removal** — rss:simon-willison · https://simonwillison.net/2026/Sep/29/photo-scrubber/
+- **How NVIDIA GPUs Help Accelerate OpenAI’s GPT-6 Astra Ultrafast** — rss:nvidia-blog · https://blogs.nvidia.com/blog/gpus-openai-gpt-6-astra-ultrafast/
 
-#### eval-and-benchmark —— 评测与基准
+#### context-and-memory —— 上下文与记忆
 
-- **SCLATE: A Substrate for Continual-Learning Agent Training and Evaluation** — rss:apple-ml · https://machinelearning.apple.com/research/sclate-agent-training-evaluation
-- **Open TTS Leaderboard: Scalable Evaluation for Multilingual Text-to-Speech and Voice Cloning** — rss:huggingface-blog · https://huggingface.co/blog/open-tts-leaderboard
-
-### 试用中（trial）
-
-#### dev-tooling —— 开发者工具与实践
-
-- **0.159.3** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.159.3
-- **v2.1.286** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.286
-- **HydraFusion in VS Code and the GitHub Copilot app** — rss:github-copilot-changelog · https://github.blog/changelog/2026-09-30-hydrafusion-in-vs-code-and-the-github-copilot-app
-
-### 沉寂（hold）
-
-#### inference-and-cost —— 推理与成本
-
-- **Disrupting a coordinated model-distillation campaign** — rss:openai-news · https://openai.com/index/disrupting-a-coordinated-model-distillation-campaign
+- **v2.11.0** — github:google-adk-python · https://github.com/google/adk-python/releases/tag/v2.11.0
 
 #### product-and-business —— 产品与商业
 
-- **Why Dwarkesh is Wrong about Computer Use + How OpenAI shipped its Jev competitor in 1 Week** — rss:latent-space · https://www.latent.space/p/devday-2026
+- **How Albertsons Companies is reimagining retail from the inside out** — rss:openai-news · https://openai.com/index/albertsons-reimagining-retail
 
-## 未归类（10）—— 未归入扇区，非主题
+### 试用中（trial）
 
-- **Fall Into 25 New Games on GeForce NOW This October** — rss:nvidia-blog · https://blogs.nvidia.com/blog/geforce-now-thursday-october-2026-games-list/
-- **Productive, Durable, Fungible: How NVIDIA AI Factories Maximize Return on Investment** — rss:nvidia-blog · https://blogs.nvidia.com/blog/productive-durable-fungible-ai-factories/
-- **Quoting Matthew Green** — rss:simon-willison · https://simonwillison.net/2026/Oct/1/matthew-green/
-- **He Built This City** — rss:simon-willison · https://simonwillison.net/2026/Sep/30/he-built-this-city/
-- **NVIDIA Opens Applications for 2027–2028 Graduate Fellowships With Awards Up to $60,000** — rss:nvidia-blog · https://blogs.nvidia.com/blog/applications-open-graduate-fellowship-awards-2026/
-- 还有 5 条
+#### agent-framework —— Agent 框架与编排
+
+- **Dynamic workflows in Copilot CLI and the Copilot app** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-01-dynamic-workflows-in-copilot-cli-and-the-copilot-app
+- **How Much of a Harness Does a Strong Agent Need for Autonomous ML Engineering?** — rss:apple-ml · https://machinelearning.apple.com/research/harness-autonomous-ml-engineering
+
+#### dev-tooling —— 开发者工具与实践
+
+- **GitHub Copilot can now interact with desktop apps with computer use** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-01-github-copilot-can-now-interact-with-desktop-apps
+- **GitHub Copilot in VS Code, September 2026 releases** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-01-github-copilot-in-vs-code-september-2026-releases
+
+### 沉寂（hold）
+
+#### safety-and-governance —— 安全与治理
+
+- **0.160.0** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.160.0
+
+## 未归类（8）—— 未归入扇区，非主题
+
+- **[AINews] Pi 1.0, Pi Durable, and AIE NYC** — rss:latent-space · https://www.latent.space/p/ainews-pi-10-pi-durable-and-aie-nyc
+- **AutoSynthData: Generating Training Data for Enterprise Agents** — rss:huggingface-blog · https://huggingface.co/blog/ServiceNow-AI/autosynthdata
+- **Academia is for Ambition — Alex Zhang, MIT** — rss:latent-space · https://www.latent.space/p/rlm
+- **v2.1.287** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.287
+- **The eternal complement** — rss:openai-news · https://openai.com/index/the-eternal-complement
+- 还有 3 条
 
 ## 当前雷达
 
 | 扇区 | 环 | 源 | 事件（近/远） | 动量 |
 | --- | --- | --- | --- | --- |
-| model-capability | 已确立 | 12 | 22 / 17 | +0.13 |
-| agent-framework | 待观察 | 1 | 1 / 0 | +1.00 |
+| model-capability | 已确立 | 13 | 22 / 18 | +0.10 |
+| agent-framework | 试用中 | 3 | 3 / 0 | +1.00 |
 | tool-and-protocol | 待观察 | 1 | 1 / 0 | +1.00 |
-| context-and-memory | 沉寂 | 3 | 1 / 2 | -0.33 |
+| context-and-memory | 已确立 | 4 | 2 / 2 | +0.00 |
 | inference-and-cost | 沉寂 | 3 | 1 / 2 | -0.33 |
-| dev-tooling | 试用中 | 8 | 15 / 4 | +0.58 |
-| product-and-business | 沉寂 | 4 | 2 / 3 | -0.20 |
-| safety-and-governance | 沉寂 | 3 | 3 / 5 | -0.25 |
+| dev-tooling | 试用中 | 8 | 14 / 2 | +0.75 |
+| product-and-business | 已确立 | 4 | 3 / 3 | +0.00 |
+| safety-and-governance | 沉寂 | 4 | 4 / 5 | -0.11 |
 | eval-and-benchmark | 已确立 | 4 | 4 / 2 | +0.33 |
 
 > 动量 = 窗口后半段 vs 前半段的事件数对比，未含时间衰减。
 
 ## 健康指标
 
-未归类 75 / 162（46.3%）
+未归类 79 / 169（46.7%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-10-01T13:16:16.000Z · src 2026-10-01T13:16:16.634Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-10-02T12:36:10.000Z · src 2026-10-02T12:36:10.004Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
