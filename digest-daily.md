@@ -1,8 +1,8 @@
-# Agent Technology Radar — 日报 — 2026-10-02
+# Agent Technology Radar — 日报 — 2026-10-03
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 169 signal · 未归类 79 / 169（46.7%）
+窗口 336h · 输入 170 signal · 未归类 79 / 170（46.5%）
 
 ## 今日新增 8 条信号
 
@@ -10,53 +10,41 @@
 
 #### model-capability —— 模型能力与发布
 
-- **How NVIDIA GPUs Help Accelerate OpenAI’s GPT-6 Astra Ultrafast** — rss:nvidia-blog · https://blogs.nvidia.com/blog/gpus-openai-gpt-6-astra-ultrafast/
+- **[AINews] not much happened today** — rss:latent-space · https://www.latent.space/p/ainews-not-much-happened-today-cee
+- **Selected models in GitHub Copilot deprecated** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-02-selected-models-in-github-copilot-deprecated
+- **A model guide for the GPT-6 family** — rss:openai-news · https://openai.com/index/practical-guide-building-gpt-6
+- **Inside-Out AI: Rebuilding Airbnb Behind the Scenes and Across the Guest Experience** — rss:latent-space · https://www.latent.space/p/airbnb
+- **Chatham scales its capital markets expertise with OpenAI** — rss:openai-news · https://openai.com/index/chatham-financial
 
 #### context-and-memory —— 上下文与记忆
 
-- **v2.11.0** — github:google-adk-python · https://github.com/google/adk-python/releases/tag/v2.11.0
-
-#### product-and-business —— 产品与商业
-
-- **How Albertsons Companies is reimagining retail from the inside out** — rss:openai-news · https://openai.com/index/albertsons-reimagining-retail
+- **NVIDIA DGX Spark 64GB Gives Developers More Ways to Build and Scale Local AI** — rss:nvidia-blog · https://blogs.nvidia.com/blog/local-ai-dgx-spark-64gb-sync/
 
 ### 试用中（trial）
 
-#### agent-framework —— Agent 框架与编排
-
-- **Dynamic workflows in Copilot CLI and the Copilot app** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-01-dynamic-workflows-in-copilot-cli-and-the-copilot-app
-- **How Much of a Harness Does a Strong Agent Need for Autonomous ML Engineering?** — rss:apple-ml · https://machinelearning.apple.com/research/harness-autonomous-ml-engineering
-
 #### dev-tooling —— 开发者工具与实践
 
-- **GitHub Copilot can now interact with desktop apps with computer use** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-01-github-copilot-can-now-interact-with-desktop-apps
-- **GitHub Copilot in VS Code, September 2026 releases** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-01-github-copilot-in-vs-code-september-2026-releases
+- **v2.1.288** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.288
+- **Copilot code review: API support and new default effort level** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-02-copilot-code-review-api-support-and-new-default-effort-level
 
-### 沉寂（hold）
+## 未归类（5）—— 未归入扇区，非主题
 
-#### safety-and-governance —— 安全与治理
-
-- **0.160.0** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.160.0
-
-## 未归类（8）—— 未归入扇区，非主题
-
-- **[AINews] Pi 1.0, Pi Durable, and AIE NYC** — rss:latent-space · https://www.latent.space/p/ainews-pi-10-pi-durable-and-aie-nyc
-- **AutoSynthData: Generating Training Data for Enterprise Agents** — rss:huggingface-blog · https://huggingface.co/blog/ServiceNow-AI/autosynthdata
-- **Academia is for Ambition — Alex Zhang, MIT** — rss:latent-space · https://www.latent.space/p/rlm
-- **v2.1.287** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.287
-- **The eternal complement** — rss:openai-news · https://openai.com/index/the-eternal-complement
-- 还有 3 条
+- **langchain-text-splitters==1.1.3** — github:langchain · https://github.com/langchain-ai/langchain/releases/tag/langchain-text-splitters%3D%3D1.1.3
+- **Open-sourcing AstaBrief, the fast report-generation model in Asta** — rss:huggingface-blog · https://huggingface.co/blog/allenai/astabrief
+- **The latest AI news we announced in September 2026** — rss:google-ai · https://blog.google/innovation-and-ai/technology/ai/google-ai-updates-september-2026/
+- **Language Discrimination Improves Linguistic Learning in Multilingual Speech Models** — rss:apple-ml · https://machinelearning.apple.com/research/language-discrimination-multilingual-learning
+- **Limits of Confidence in Diffusion** — rss:apple-ml · https://machinelearning.apple.com/research/limits-confidence-diffusion
 
 ## 当前雷达
 
 | 扇区 | 环 | 源 | 事件（近/远） | 动量 |
 | --- | --- | --- | --- | --- |
-| model-capability | 已确立 | 13 | 22 / 18 | +0.10 |
+| model-capability | 已确立 | 13 | 24 / 19 | +0.12 |
 | agent-framework | 试用中 | 3 | 3 / 0 | +1.00 |
 | tool-and-protocol | 待观察 | 1 | 1 / 0 | +1.00 |
 | context-and-memory | 已确立 | 4 | 2 / 2 | +0.00 |
-| inference-and-cost | 沉寂 | 3 | 1 / 2 | -0.33 |
-| dev-tooling | 试用中 | 8 | 14 / 2 | +0.75 |
+| inference-and-cost | 待观察 | 2 | 1 / 1 | +0.00 |
+| dev-tooling | 试用中 | 8 | 12 / 4 | +0.50 |
 | product-and-business | 已确立 | 4 | 3 / 3 | +0.00 |
 | safety-and-governance | 沉寂 | 4 | 4 / 5 | -0.11 |
 | eval-and-benchmark | 已确立 | 4 | 4 / 2 | +0.33 |
@@ -65,10 +53,10 @@
 
 ## 健康指标
 
-未归类 79 / 169（46.7%）
+未归类 79 / 170（46.5%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-10-02T12:36:10.000Z · src 2026-10-02T12:36:10.004Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-10-03T11:40:12.000Z · src 2026-10-03T11:40:12.920Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*

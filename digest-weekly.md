@@ -1,16 +1,14 @@
-# Agent Technology Radar — 周报 — 2026-10-02
+# Agent Technology Radar — 周报 — 2026-10-03
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 169 signal · 未归类 79 / 169（46.7%）
+窗口 336h · 输入 170 signal · 未归类 79 / 170（46.5%）
 
 ## 环的移动
 
-对比基线：2026-10-01T13:16:16.634Z
+对比基线：2026-10-02T12:36:10.004Z
 
-- agent-framework：待观察 → 试用中（动量 +1.00，源 3）
-- context-and-memory：沉寂 → 已确立（动量 +0.00，源 4）
-- product-and-business：沉寂 → 已确立（动量 +0.00，源 4）
+- inference-and-cost：沉寂 → 待观察（动量 +0.00，源 2）
 
 ## 扇区全貌
 
@@ -18,16 +16,16 @@
 
 #### model-capability —— 模型能力与发布
 
-13 个独立源 · 40 个事件（近 22 / 远 18）· 动量 +0.10
+13 个独立源 · 43 个事件（近 24 / 远 19）· 动量 +0.12
 
-覆盖广（13 个独立源）、动量温和为正（+0.10）—— 生态已收敛且仍在缓升。
+覆盖广（13 个独立源）、动量温和为正（+0.12）—— 生态已收敛且仍在缓升。
 
-- **Release v0.24.6** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.24.6
-- **How NVIDIA GPUs Help Accelerate OpenAI’s GPT-6 Astra Ultrafast** — rss:nvidia-blog · https://blogs.nvidia.com/blog/gpus-openai-gpt-6-astra-ultrafast/
-- **[AINews] Gemini 4 Argon: GDM’s answer to Astra/Fable, with 1M output** — rss:latent-space · https://www.latent.space/p/ainews-gemini-4-argon-gdms-answer
-- **Gemini 4 Argon: our next era of frontier intelligence** — rss:google-deepmind · https://deepmind.google/blog/gemini-4-argon-our-next-era-of-frontier-intelligence/
-- **0.159.1** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.159.1
-- 还有 35 条
+- **Release v0.24.7** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.24.7
+- **[AINews] not much happened today** — rss:latent-space · https://www.latent.space/p/ainews-not-much-happened-today-cee
+- **Selected models in GitHub Copilot deprecated** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-02-selected-models-in-github-copilot-deprecated
+- **A model guide for the GPT-6 family** — rss:openai-news · https://openai.com/index/practical-guide-building-gpt-6
+- **Inside-Out AI: Rebuilding Airbnb Behind the Scenes and Across the Guest Experience** — rss:latent-space · https://www.latent.space/p/airbnb
+- 还有 38 条
 
 #### context-and-memory —— 上下文与记忆
 
@@ -35,8 +33,8 @@
 
 覆盖广（4 个独立源）、动量持平 —— 生态已收敛，处于稳定期。
 
+- **NVIDIA DGX Spark 64GB Gives Developers More Ways to Build and Scale Local AI** — rss:nvidia-blog · https://blogs.nvidia.com/blog/local-ai-dgx-spark-64gb-sync/
 - **v2.11.0** — github:google-adk-python · https://github.com/google/adk-python/releases/tag/v2.11.0
-- **langchain-fireworks==1.7.0** — github:langchain · https://github.com/langchain-ai/langchain/releases/tag/langchain-fireworks%3D%3D1.7.0
 - **Advancing Private AI Compute with secure, server-side memory** — rss:google-deepmind · https://deepmind.google/blog/advancing-private-ai-compute-with-secure-server-side-memory/
 - **Better prompt caching for GPT-6** — rss:openai-news · https://openai.com/index/better-prompt-caching-for-gpt-6
 
@@ -80,15 +78,15 @@
 
 #### dev-tooling —— 开发者工具与实践
 
-8 个独立源 · 16 个事件（近 14 / 远 2）· 动量 +0.75
+8 个独立源 · 16 个事件（近 12 / 远 4）· 动量 +0.50
 
-覆盖达标（8 个独立源）且动量急升（+0.75）—— 共识形成前的活跃试验期。
+覆盖达标（8 个独立源）且动量急升（+0.50）—— 共识形成前的活跃试验期。
 
+- **v2.1.288** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.288
+- **Copilot code review: API support and new default effort level** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-02-copilot-code-review-api-support-and-new-default-effort-level
 - **GitHub Copilot can now interact with desktop apps with computer use** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-01-github-copilot-can-now-interact-with-desktop-apps
 - **GitHub Copilot in VS Code, September 2026 releases** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-01-github-copilot-in-vs-code-september-2026-releases
 - **0.159.3** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.159.3
-- **v2.1.286** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.286
-- **HydraFusion in VS Code and the GitHub Copilot app** — rss:github-copilot-changelog · https://github.blog/changelog/2026-09-30-hydrafusion-in-vs-code-and-the-github-copilot-app
 - 还有 11 条
 
 ### 待观察（assess）
@@ -101,17 +99,16 @@
 
 - **Getting the Source Right, Not Just the Fact: Source-Aware Verification for MCP Agents** — rss:huggingface-blog · https://huggingface.co/blog/MultiverseComputingCAI/getting-the-source-right-not-just-the-fact-source
 
-### 沉寂（hold）
-
 #### inference-and-cost —— 推理与成本
 
-3 个独立源 · 3 个事件（近 1 / 远 2）· 动量 -0.33
+2 个独立源 · 2 个事件（近 1 / 远 1）· 动量 +0.00
 
-动量转负（-0.33，3 个源）—— 注意力在退。
+动量持平但独立源偏少（仅 2 个）—— 只够放进观察位。
 
 - **Disrupting a coordinated model-distillation campaign** — rss:openai-news · https://openai.com/index/disrupting-a-coordinated-model-distillation-campaign
-- **How to Guide Your Language Flow** — rss:apple-ml · https://machinelearning.apple.com/research/guide-language-flow
 - **NVIDIA Isaac ROS 5.0 Advances Agentic, Open Source Robotics Development** — rss:nvidia-blog · https://blogs.nvidia.com/blog/isaac-ros-5-0-agentic-open-source-robotics/
+
+### 沉寂（hold）
 
 #### safety-and-governance —— 安全与治理
 
@@ -128,10 +125,10 @@
 
 ## 健康指标
 
-未归类 79 / 169（46.7%）
+未归类 79 / 170（46.5%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-10-02T12:36:10.000Z · src 2026-10-02T12:36:10.004Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-10-03T11:40:12.000Z · src 2026-10-03T11:40:12.920Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
