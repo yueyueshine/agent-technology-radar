@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-03T11:40:12.920Z",
+  "generatedAt": "2026-10-04T12:22:43.299Z",
   "radarVersion": "v1",
   "taxonomyVersion": "v1",
-  "sourceGeneratedAt": "2026-10-03T11:40:12.838Z",
+  "sourceGeneratedAt": "2026-10-04T12:22:43.215Z",
   "windowHours": 336,
-  "inputSignalCount": 170,
-  "measuredSpanHours": 331.9647,
+  "inputSignalCount": 169,
+  "measuredSpanHours": 333.08424972222224,
   "ringRule": {
     "momentumMidpointHours": 168,
     "narrowBreadth": 3,
@@ -15,14 +15,14 @@
     {
       "topic": "model-capability",
       "ring": "adopt",
-      "weight": 25.266494838629075,
-      "signalCount": 44,
-      "clusterCount": 43,
-      "breadth": 13,
-      "recentClusters": 24,
+      "weight": 22.252592761207328,
+      "signalCount": 43,
+      "clusterCount": 42,
+      "breadth": 12,
+      "recentClusters": 23,
       "priorClusters": 19,
-      "momentum": 0.11627906976744186,
-      "ringReason": "momentum +0.116 >= 0; breadth 13 >= 3; momentum +0.116 < 0.5 -> adopt",
+      "momentum": 0.09523809523809523,
+      "ringReason": "momentum +0.095 >= 0; breadth 12 >= 3; momentum +0.095 < 0.5 -> adopt",
       "signalIds": [
         "0e9d8effb4d6b269094b1939f4214778",
         "0fbaed1f26adc9beaf8c16750a1bd453",
@@ -45,7 +45,6 @@
         "760b979c4a78e6909783dabea8eb6a8c",
         "763905a0c66f9b99f993b6c432f7ba3d",
         "809b58b9d5d5b095b4be1b19fd0b44df",
-        "889efe5f29e2a80f9b96da58f725db81",
         "88c52cc4ebff83c61239e4966bd0c4ba",
         "893f71be497fc29b5e26b453f23ff52e",
         "8b18cee2d7f07323e9869e59fe8c5f15",
@@ -73,7 +72,7 @@
     {
       "topic": "agent-framework",
       "ring": "trial",
-      "weight": 2.186908140389964,
+      "weight": 1.9749533638409094,
       "signalCount": 3,
       "clusterCount": 3,
       "breadth": 3,
@@ -90,7 +89,7 @@
     {
       "topic": "tool-and-protocol",
       "ring": "assess",
-      "weight": 0.6769781399340044,
+      "weight": 0.611365530182266,
       "signalCount": 1,
       "clusterCount": 1,
       "breadth": 1,
@@ -105,7 +104,7 @@
     {
       "topic": "context-and-memory",
       "ring": "adopt",
-      "weight": 2.5044340119743245,
+      "weight": 2.261704680281766,
       "signalCount": 4,
       "clusterCount": 4,
       "breadth": 4,
@@ -122,31 +121,32 @@
     },
     {
       "topic": "inference-and-cost",
-      "ring": "assess",
-      "weight": 1.0763674189290464,
-      "signalCount": 2,
-      "clusterCount": 2,
-      "breadth": 2,
-      "recentClusters": 1,
+      "ring": "adopt",
+      "weight": 1.9144803516709996,
+      "signalCount": 3,
+      "clusterCount": 3,
+      "breadth": 3,
+      "recentClusters": 2,
       "priorClusters": 1,
-      "momentum": 0,
-      "ringReason": "momentum +0.000 >= 0; breadth 2 < 3 -> assess",
+      "momentum": 0.3333333333333333,
+      "ringReason": "momentum +0.333 >= 0; breadth 3 >= 3; momentum +0.333 < 0.5 -> adopt",
       "signalIds": [
         "146b44ca65904ca826a8f08c4cb6cd74",
-        "2aa7151b68dbd715c0e6a8914f15e6f0"
+        "2aa7151b68dbd715c0e6a8914f15e6f0",
+        "b58cf14ec0fa79f068455788e51bb616"
       ]
     },
     {
       "topic": "dev-tooling",
       "ring": "trial",
-      "weight": 10.730072427314544,
-      "signalCount": 16,
-      "clusterCount": 16,
-      "breadth": 8,
+      "weight": 9.778885234359926,
+      "signalCount": 15,
+      "clusterCount": 15,
+      "breadth": 7,
       "recentClusters": 12,
-      "priorClusters": 4,
-      "momentum": 0.5,
-      "ringReason": "momentum +0.500 >= 0; breadth 8 >= 3; momentum +0.500 >= 0.5 -> trial",
+      "priorClusters": 3,
+      "momentum": 0.6,
+      "ringReason": "momentum +0.600 >= 0; breadth 7 >= 3; momentum +0.600 >= 0.5 -> trial",
       "signalIds": [
         "166e58862711327887f5a23362c6f14b",
         "243b3c7d276e0cd6818b1c65ed32652f",
@@ -157,11 +157,10 @@
         "4dfc2734a62b6b11e3ecf8b4b86f981d",
         "5b0233517658b36612c0279c652c4605",
         "6ee1e831a4936dfe67d20a42c45b2aae",
-        "7bdb18f9f6c088176d91b4a619482879",
         "8acc26660fbf86996297980a0d07c0d9",
         "95de646a3acb34ec540bcc2b613c3b81",
-        "c723f951f37f06c7988f29d3f12df397",
         "d4cc2c340e2dbe437a12744ad845208d",
+        "dd73134fb0e1b62a43534d07914582cc",
         "f036d68f67af4dea91212d36c713a997",
         "f03d681dce3e18f7da6d3dc31325eb55"
       ]
@@ -169,7 +168,7 @@
     {
       "topic": "product-and-business",
       "ring": "adopt",
-      "weight": 3.357411252718747,
+      "weight": 3.032011507429771,
       "signalCount": 6,
       "clusterCount": 6,
       "breadth": 4,
@@ -189,7 +188,7 @@
     {
       "topic": "safety-and-governance",
       "ring": "hold",
-      "weight": 4.569101773721553,
+      "weight": 4.126265182831938,
       "signalCount": 9,
       "clusterCount": 9,
       "breadth": 4,
@@ -212,7 +211,7 @@
     {
       "topic": "eval-and-benchmark",
       "ring": "adopt",
-      "weight": 3.460091355762038,
+      "weight": 3.124739871808494,
       "signalCount": 6,
       "clusterCount": 6,
       "breadth": 4,
@@ -232,12 +231,12 @@
   ],
   "unclassified": {
     "signalCount": 79,
-    "ratio": 0.4647058823529412
+    "ratio": 0.46745562130177515
   },
   "summary": {
-    "adopt": 4,
+    "adopt": 5,
     "trial": 2,
-    "assess": 2,
+    "assess": 1,
     "hold": 1
   }
 }

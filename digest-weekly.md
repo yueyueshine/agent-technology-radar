@@ -1,14 +1,14 @@
-# Agent Technology Radar — 周报 — 2026-10-03
+# Agent Technology Radar — 周报 — 2026-10-04
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 170 signal · 未归类 79 / 170（46.5%）
+窗口 336h · 输入 169 signal · 未归类 79 / 169（46.7%）
 
 ## 环的移动
 
-对比基线：2026-10-02T12:36:10.004Z
+对比基线：2026-10-03T11:40:12.920Z
 
-- inference-and-cost：沉寂 → 待观察（动量 +0.00，源 2）
+- inference-and-cost：待观察 → 已确立（动量 +0.33，源 3）
 
 ## 扇区全貌
 
@@ -16,16 +16,16 @@
 
 #### model-capability —— 模型能力与发布
 
-13 个独立源 · 43 个事件（近 24 / 远 19）· 动量 +0.12
+12 个独立源 · 42 个事件（近 23 / 远 19）· 动量 +0.10
 
-覆盖广（13 个独立源）、动量温和为正（+0.12）—— 生态已收敛且仍在缓升。
+覆盖广（12 个独立源）、动量温和为正（+0.10）—— 生态已收敛且仍在缓升。
 
 - **Release v0.24.7** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.24.7
 - **[AINews] not much happened today** — rss:latent-space · https://www.latent.space/p/ainews-not-much-happened-today-cee
 - **Selected models in GitHub Copilot deprecated** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-02-selected-models-in-github-copilot-deprecated
 - **A model guide for the GPT-6 family** — rss:openai-news · https://openai.com/index/practical-guide-building-gpt-6
 - **Inside-Out AI: Rebuilding Airbnb Behind the Scenes and Across the Guest Experience** — rss:latent-space · https://www.latent.space/p/airbnb
-- 还有 38 条
+- 还有 37 条
 
 #### context-and-memory —— 上下文与记忆
 
@@ -37,6 +37,16 @@
 - **v2.11.0** — github:google-adk-python · https://github.com/google/adk-python/releases/tag/v2.11.0
 - **Advancing Private AI Compute with secure, server-side memory** — rss:google-deepmind · https://deepmind.google/blog/advancing-private-ai-compute-with-secure-server-side-memory/
 - **Better prompt caching for GPT-6** — rss:openai-news · https://openai.com/index/better-prompt-caching-for-gpt-6
+
+#### inference-and-cost —— 推理与成本
+
+3 个独立源 · 3 个事件（近 2 / 远 1）· 动量 +0.33
+
+覆盖广（3 个独立源）、动量温和为正（+0.33）—— 生态已收敛且仍在缓升。
+
+- **September sponsors-only newsletter** — rss:simon-willison · https://simonwillison.net/2026/Oct/3/newsletter/
+- **Disrupting a coordinated model-distillation campaign** — rss:openai-news · https://openai.com/index/disrupting-a-coordinated-model-distillation-campaign
+- **NVIDIA Isaac ROS 5.0 Advances Agentic, Open Source Robotics Development** — rss:nvidia-blog · https://blogs.nvidia.com/blog/isaac-ros-5-0-agentic-open-source-robotics/
 
 #### product-and-business —— 产品与商业
 
@@ -78,16 +88,16 @@
 
 #### dev-tooling —— 开发者工具与实践
 
-8 个独立源 · 16 个事件（近 12 / 远 4）· 动量 +0.50
+7 个独立源 · 15 个事件（近 12 / 远 3）· 动量 +0.60
 
-覆盖达标（8 个独立源）且动量急升（+0.50）—— 共识形成前的活跃试验期。
+覆盖达标（7 个独立源）且动量急升（+0.60）—— 共识形成前的活跃试验期。
 
+- **v2.1.289** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.289
 - **v2.1.288** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.288
 - **Copilot code review: API support and new default effort level** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-02-copilot-code-review-api-support-and-new-default-effort-level
 - **GitHub Copilot can now interact with desktop apps with computer use** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-01-github-copilot-can-now-interact-with-desktop-apps
 - **GitHub Copilot in VS Code, September 2026 releases** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-01-github-copilot-in-vs-code-september-2026-releases
-- **0.159.3** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.159.3
-- 还有 11 条
+- 还有 10 条
 
 ### 待观察（assess）
 
@@ -98,15 +108,6 @@
 有升势（+1.00）但独立源偏少（仅 1 个）—— 只够放进观察位。
 
 - **Getting the Source Right, Not Just the Fact: Source-Aware Verification for MCP Agents** — rss:huggingface-blog · https://huggingface.co/blog/MultiverseComputingCAI/getting-the-source-right-not-just-the-fact-source
-
-#### inference-and-cost —— 推理与成本
-
-2 个独立源 · 2 个事件（近 1 / 远 1）· 动量 +0.00
-
-动量持平但独立源偏少（仅 2 个）—— 只够放进观察位。
-
-- **Disrupting a coordinated model-distillation campaign** — rss:openai-news · https://openai.com/index/disrupting-a-coordinated-model-distillation-campaign
-- **NVIDIA Isaac ROS 5.0 Advances Agentic, Open Source Robotics Development** — rss:nvidia-blog · https://blogs.nvidia.com/blog/isaac-ros-5-0-agentic-open-source-robotics/
 
 ### 沉寂（hold）
 
@@ -125,10 +126,10 @@
 
 ## 健康指标
 
-未归类 79 / 170（46.5%）
+未归类 79 / 169（46.7%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-10-03T11:40:12.000Z · src 2026-10-03T11:40:12.920Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-10-04T12:22:43.000Z · src 2026-10-04T12:22:43.299Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
