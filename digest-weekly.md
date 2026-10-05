@@ -1,14 +1,15 @@
-# Agent Technology Radar — 周报 — 2026-10-04
+# Agent Technology Radar — 周报 — 2026-10-05
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 169 signal · 未归类 79 / 169（46.7%）
+窗口 336h · 输入 163 signal · 未归类 75 / 163（46.0%）
 
 ## 环的移动
 
-对比基线：2026-10-03T11:40:12.920Z
+对比基线：2026-10-04T12:22:43.299Z
 
-- inference-and-cost：待观察 → 已确立（动量 +0.33，源 3）
+- dev-tooling：试用中 → 已确立（动量 +0.47，源 7）
+- product-and-business：已确立 → 沉寂（动量 -0.33，源 4）
 
 ## 扇区全貌
 
@@ -16,16 +17,16 @@
 
 #### model-capability —— 模型能力与发布
 
-12 个独立源 · 42 个事件（近 23 / 远 19）· 动量 +0.10
+11 个独立源 · 38 个事件（近 21 / 远 17）· 动量 +0.11
 
-覆盖广（12 个独立源）、动量温和为正（+0.10）—— 生态已收敛且仍在缓升。
+覆盖广（11 个独立源）、动量温和为正（+0.11）—— 生态已收敛且仍在缓升。
 
 - **Release v0.24.7** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.24.7
+- **Qwen Code Desktop v0.25.0** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/desktop-v0.25.0
 - **[AINews] not much happened today** — rss:latent-space · https://www.latent.space/p/ainews-not-much-happened-today-cee
 - **Selected models in GitHub Copilot deprecated** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-02-selected-models-in-github-copilot-deprecated
 - **A model guide for the GPT-6 family** — rss:openai-news · https://openai.com/index/practical-guide-building-gpt-6
-- **Inside-Out AI: Rebuilding Airbnb Behind the Scenes and Across the Guest Experience** — rss:latent-space · https://www.latent.space/p/airbnb
-- 还有 37 条
+- 还有 33 条
 
 #### context-and-memory —— 上下文与记忆
 
@@ -48,18 +49,18 @@
 - **Disrupting a coordinated model-distillation campaign** — rss:openai-news · https://openai.com/index/disrupting-a-coordinated-model-distillation-campaign
 - **NVIDIA Isaac ROS 5.0 Advances Agentic, Open Source Robotics Development** — rss:nvidia-blog · https://blogs.nvidia.com/blog/isaac-ros-5-0-agentic-open-source-robotics/
 
-#### product-and-business —— 产品与商业
+#### dev-tooling —— 开发者工具与实践
 
-4 个独立源 · 6 个事件（近 3 / 远 3）· 动量 +0.00
+7 个独立源 · 15 个事件（近 11 / 远 4）· 动量 +0.47
 
-覆盖广（4 个独立源）、动量持平 —— 生态已收敛，处于稳定期。
+覆盖广（7 个独立源）、动量温和为正（+0.47）—— 生态已收敛且仍在缓升。
 
-- **How Albertsons Companies is reimagining retail from the inside out** — rss:openai-news · https://openai.com/index/albertsons-reimagining-retail
-- **Why Dwarkesh is Wrong about Computer Use + How OpenAI shipped its Jev competitor in 1 Week** — rss:latent-space · https://www.latent.space/p/devday-2026
-- **The Lenfest Institute grows landmark program with expanded OpenAI support** — rss:openai-news · https://openai.com/index/lenfest-ai-collaborative-expansion
-- **Contain the Chaos: ‘CONTROL Resonant’ Launches on GeForce NOW** — rss:nvidia-blog · https://blogs.nvidia.com/blog/geforce-now-thursday-control-resonant/
-- **Google Beam expands with new regions, partners, and customers** — rss:google-ai · https://blog.google/innovation-and-ai/technology/research/google-beam-expansion/
-- 还有 1 条
+- **SDK TypeScript Release v0.1.18** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.18
+- **v2.1.289** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.289
+- **v2.1.288** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.288
+- **Copilot code review: API support and new default effort level** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-02-copilot-code-review-api-support-and-new-default-effort-level
+- **GitHub Copilot can now interact with desktop apps with computer use** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-01-github-copilot-can-now-interact-with-desktop-apps
+- 还有 10 条
 
 #### eval-and-benchmark —— 评测与基准
 
@@ -78,26 +79,14 @@
 
 #### agent-framework —— Agent 框架与编排
 
-3 个独立源 · 3 个事件（近 3 / 远 0）· 动量 +1.00
+4 个独立源 · 4 个事件（近 3 / 远 1）· 动量 +0.50
 
-覆盖达标（3 个独立源）且动量急升（+1.00）—— 共识形成前的活跃试验期。
+覆盖达标（4 个独立源）且动量急升（+0.50）—— 共识形成前的活跃试验期。
 
+- **Import AI 475: Swarm scaling; Google DeepMind watermarks biology; and the AI science economy** — rss:import-ai · https://jack-clark.net/2026/10/05/import-ai-475-swarm-scaling-google-deepmind-watermarks-biology-and-the-ai-science-economy/
 - **Dynamic workflows in Copilot CLI and the Copilot app** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-01-dynamic-workflows-in-copilot-cli-and-the-copilot-app
 - **How Much of a Harness Does a Strong Agent Need for Autonomous ML Engineering?** — rss:apple-ml · https://machinelearning.apple.com/research/harness-autonomous-ml-engineering
 - **Bluesky reply bot checker** — rss:simon-willison · https://simonwillison.net/2026/Sep/27/bluesky-bot-check/
-
-#### dev-tooling —— 开发者工具与实践
-
-7 个独立源 · 15 个事件（近 12 / 远 3）· 动量 +0.60
-
-覆盖达标（7 个独立源）且动量急升（+0.60）—— 共识形成前的活跃试验期。
-
-- **v2.1.289** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.289
-- **v2.1.288** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.288
-- **Copilot code review: API support and new default effort level** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-02-copilot-code-review-api-support-and-new-default-effort-level
-- **GitHub Copilot can now interact with desktop apps with computer use** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-01-github-copilot-can-now-interact-with-desktop-apps
-- **GitHub Copilot in VS Code, September 2026 releases** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-01-github-copilot-in-vs-code-september-2026-releases
-- 还有 10 条
 
 ### 待观察（assess）
 
@@ -110,6 +99,19 @@
 - **Getting the Source Right, Not Just the Fact: Source-Aware Verification for MCP Agents** — rss:huggingface-blog · https://huggingface.co/blog/MultiverseComputingCAI/getting-the-source-right-not-just-the-fact-source
 
 ### 沉寂（hold）
+
+#### product-and-business —— 产品与商业
+
+4 个独立源 · 6 个事件（近 2 / 远 4）· 动量 -0.33
+
+动量转负（-0.33，4 个源）—— 注意力在退。
+
+- **How Albertsons Companies is reimagining retail from the inside out** — rss:openai-news · https://openai.com/index/albertsons-reimagining-retail
+- **Why Dwarkesh is Wrong about Computer Use + How OpenAI shipped its Jev competitor in 1 Week** — rss:latent-space · https://www.latent.space/p/devday-2026
+- **The Lenfest Institute grows landmark program with expanded OpenAI support** — rss:openai-news · https://openai.com/index/lenfest-ai-collaborative-expansion
+- **Contain the Chaos: ‘CONTROL Resonant’ Launches on GeForce NOW** — rss:nvidia-blog · https://blogs.nvidia.com/blog/geforce-now-thursday-control-resonant/
+- **Google Beam expands with new regions, partners, and customers** — rss:google-ai · https://blog.google/innovation-and-ai/technology/research/google-beam-expansion/
+- 还有 1 条
 
 #### safety-and-governance —— 安全与治理
 
@@ -126,10 +128,10 @@
 
 ## 健康指标
 
-未归类 79 / 169（46.7%）
+未归类 75 / 163（46.0%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-10-04T12:22:43.000Z · src 2026-10-04T12:22:43.299Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-10-05T14:40:16.000Z · src 2026-10-05T14:40:16.367Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
