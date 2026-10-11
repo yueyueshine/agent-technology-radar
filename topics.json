@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-10-10T12:32:56.810Z",
+  "generatedAt": "2026-10-11T12:51:03.029Z",
   "windowHours": 336,
   "taxonomyVersion": "v1",
-  "inputSignalCount": 150,
-  "clusterCount": 150,
+  "inputSignalCount": 156,
+  "clusterCount": 155,
   "topics": [
     {
       "topic": "model-capability",
-      "weight": 17.74984862348738,
-      "signalCount": 30,
+      "weight": 17.98884587097919,
+      "signalCount": 31,
       "clusterCount": 30,
       "sourceDiversity": 10,
       "undatedClusters": 0,
@@ -23,6 +23,7 @@
         "5b42f1fa16fc6f17c6f061188da7eaf1",
         "624c67d8522042f2de2e393023be6fef",
         "65608ae88ff0fd3b4f65bfe2c07ff22d",
+        "6c1f5b045abf0cddbe817f9a1434aa9f",
         "74400c42b98f53210d81f92da7a77b5a",
         "809b58b9d5d5b095b4be1b19fd0b44df",
         "88c52cc4ebff83c61239e4966bd0c4ba",
@@ -33,12 +34,12 @@
         "a16131e66e988df71c2fd5e499b75c91",
         "a7bdbb8d6abbb3b1801316daaba8b734",
         "aac83051f983358272508ae38473b645",
+        "b499b1a02519ccbf7bbb852687b39b0a",
         "b4a044f7da8eaf474934f2cfef314e00",
         "bc6327af9bca43cde035bb92a87ff7df",
         "c0ef350d0dbd5715116b9f0bbdd073ae",
         "d33d463623a679e1206c855799d8e84d",
         "d7fee74c9ab8552d775bfa38939bb59e",
-        "dba3edb57d4cfea1203c3616d19c9642",
         "dedc9e131fd07dd28838e42c8713ca67",
         "ec6ae12d077722305d41ab4ca18c1e78",
         "f8578d3c308713347a0b31363dcf58c0",
@@ -47,15 +48,16 @@
     },
     {
       "topic": "dev-tooling",
-      "weight": 11.35634419922845,
-      "signalCount": 16,
-      "clusterCount": 16,
+      "weight": 11.268213735827123,
+      "signalCount": 17,
+      "clusterCount": 17,
       "sourceDiversity": 8,
       "undatedClusters": 0,
       "signalIds": [
         "0fa4ab93aea1d35e3a3eb2fbee73419d",
         "1e8c0f73b23e9238b35987e929c9d1bf",
         "3936d91aef2547ac72add0ca54c607fa",
+        "3a360bf5acb9884ec11ba890a33b508d",
         "3fa04c0248861e18e9ca786d8e829d7a",
         "64c15ab5603c47bfda89752c55f5c3ec",
         "6ee1e831a4936dfe67d20a42c45b2aae",
@@ -73,7 +75,7 @@
     },
     {
       "topic": "agent-framework",
-      "weight": 5.885794331357596,
+      "weight": 5.324270948422823,
       "signalCount": 8,
       "clusterCount": 8,
       "sourceDiversity": 5,
@@ -91,7 +93,7 @@
     },
     {
       "topic": "inference-and-cost",
-      "weight": 4.801320881147357,
+      "weight": 4.343259693148734,
       "signalCount": 7,
       "clusterCount": 7,
       "sourceDiversity": 5,
@@ -107,29 +109,14 @@
       ]
     },
     {
-      "topic": "safety-and-governance",
-      "weight": 3.7759016445374947,
-      "signalCount": 6,
-      "clusterCount": 6,
-      "sourceDiversity": 5,
-      "undatedClusters": 0,
-      "signalIds": [
-        "5555dd7b5e48b739d29c4cb25d677e66",
-        "8ab803f351897bedbddb63b05afc90af",
-        "990b193bf1c5b0b102df8523ffd7b145",
-        "b80f97384d93ae50914634bbf0c9416a",
-        "d0919850ec39df9c41777f3de57f7824",
-        "f0dea004bbcae3638b47f35f7f713878"
-      ]
-    },
-    {
       "topic": "product-and-business",
-      "weight": 3.4161304977486657,
-      "signalCount": 6,
-      "clusterCount": 6,
+      "weight": 4.0312587207280295,
+      "signalCount": 7,
+      "clusterCount": 7,
       "sourceDiversity": 2,
       "undatedClusters": 0,
       "signalIds": [
+        "370dcf0eb6e0e5d5936c1368892c7447",
         "50a108cd0245785a39de936364b8b19d",
         "693cdb3fc3b4411d8f5b4010105f4fec",
         "6c01b3e3feaee0d2885ea8dd1e79af07",
@@ -139,20 +126,49 @@
       ]
     },
     {
+      "topic": "safety-and-governance",
+      "weight": 3.098745754932381,
+      "signalCount": 5,
+      "clusterCount": 5,
+      "sourceDiversity": 4,
+      "undatedClusters": 0,
+      "signalIds": [
+        "8ab803f351897bedbddb63b05afc90af",
+        "990b193bf1c5b0b102df8523ffd7b145",
+        "b80f97384d93ae50914634bbf0c9416a",
+        "d0919850ec39df9c41777f3de57f7824",
+        "f0dea004bbcae3638b47f35f7f713878"
+      ]
+    },
+    {
       "topic": "context-and-memory",
-      "weight": 1.1494943077033952,
-      "signalCount": 2,
-      "clusterCount": 2,
-      "sourceDiversity": 2,
+      "weight": 1.9987126912868507,
+      "signalCount": 3,
+      "clusterCount": 3,
+      "sourceDiversity": 3,
       "undatedClusters": 0,
       "signalIds": [
         "18a1e696d333ea0deed6065561eef3bf",
+        "8dcaa89e3bd314ffe7a6415cb774b985",
         "a5b09efa710ae6fa2a3d117101587d2c"
       ]
     },
     {
+      "topic": "tool-and-protocol",
+      "weight": 1.7987266206328214,
+      "signalCount": 3,
+      "clusterCount": 3,
+      "sourceDiversity": 3,
+      "undatedClusters": 0,
+      "signalIds": [
+        "0a9ac29bd2715f325d1802e7d3699a00",
+        "afa07ed818e9ec41e65648e625c0bcf1",
+        "e451ab20d40ba4e653c7b7026f8b07c0"
+      ]
+    },
+    {
       "topic": "eval-and-benchmark",
-      "weight": 1.0396176827522583,
+      "weight": 0.9404348698109832,
       "signalCount": 3,
       "clusterCount": 3,
       "sourceDiversity": 3,
@@ -162,24 +178,12 @@
         "e3d9cf56df9872a2408eef6d11492df1",
         "eadcc1b39b6b6e083f9eb59a5a7fe1d4"
       ]
-    },
-    {
-      "topic": "tool-and-protocol",
-      "weight": 0.9619044568441664,
-      "signalCount": 2,
-      "clusterCount": 2,
-      "sourceDiversity": 2,
-      "undatedClusters": 0,
-      "signalIds": [
-        "0a9ac29bd2715f325d1802e7d3699a00",
-        "afa07ed818e9ec41e65648e625c0bcf1"
-      ]
     }
   ],
   "unclassified": {
-    "signalCount": 70,
-    "clusterCount": 70,
-    "ratio": 0.4666666666666667,
+    "signalCount": 72,
+    "clusterCount": 72,
+    "ratio": 0.46153846153846156,
     "signalIds": [
       "00bd98f7a1c846161f466d041c4b1c0c",
       "05020e6a6f2d489b774793e9fe40ea29",
@@ -204,12 +208,12 @@
       "4727c3dcbe3c83a29f054a07ae6d1958",
       "48e6fcd1647793723138c33e28b4579d",
       "496b6cdc072038408a5fb8ed2d8562ee",
+      "498bd6e82e654e3d8566271848917dcd",
       "513b83f01382553ef1e5bcfcfbab64f8",
       "52d71a77456181f6050ea1817c6b61b0",
       "5423da6cfc3199046626bf5a91227881",
       "5a983a86af4618e35461706d70df5b33",
       "5af8c77c444237ec7ca135a881caead3",
-      "5ce2da8eb753fd60b34ea389e3ced851",
       "62e62f6e0e6833645f99f7d14140854d",
       "6aea04e5a9646b5112b0ba3501cf6daf",
       "6c0bd08b6bc253a58bbe16a49c791396",
@@ -218,6 +222,7 @@
       "852e70520605557dc74233669ed73eda",
       "8605c92fe66ffa4c4eb10b43a3736686",
       "8c54233bde4e79c6d75db53aae2f22b2",
+      "8e4b130c7d9fed204d9297f9b63e389c",
       "91185b2bf7b65655ca9795dd24bc29ff",
       "93daa8734cf8df31210aea51d8eeecef",
       "966340041e1f59ae648b0df8e8bd9395",
@@ -246,6 +251,7 @@
       "df5c461409f0b61273031b6e81de3dba",
       "e427b82c7c35ce94865353640de863be",
       "e4646ef93d96ccbacfff9aa571f0a313",
+      "eb45ffb732767ed26b70388480f73258",
       "eb76c29c1debb9bf7458cd46ca80a9e3",
       "ebc063bf9a99b3e63c8c701619733f03",
       "f6f140b1b6a5af26361808755ed73433",
@@ -263,7 +269,7 @@
       "primaryUrl": "https://openai.com/form/codex-originals",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-28T00:00:00.000Z",
-      "weight": 0.2893760000402545
+      "weight": 0.26176861498144677
     },
     {
       "clusterId": "023b951d592541dd509aec09e8e49a20",
@@ -274,7 +280,7 @@
       "primaryUrl": "https://huggingface.co/blog/LiquidAI/open-d1",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-07T16:54:33.000Z",
-      "weight": 0.7564838911178555
+      "weight": 0.6843129368231988
     },
     {
       "clusterId": "0329c1147bad4ba007a53b28e0739c6a",
@@ -285,7 +291,7 @@
       "primaryUrl": "https://openai.com/index/practical-guide-building-gpt-6",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-02T16:15:00.000Z",
-      "weight": 0.45982982256518834
+      "weight": 0.4159606040698244
     },
     {
       "clusterId": "040e2ac27ff7fa94cc765b6fc4d8a146",
@@ -296,7 +302,7 @@
       "primaryUrl": "https://blog.google/innovation-and-ai/technology/ai/google-ai-updates-september-2026/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-02T15:00:00.000Z",
-      "weight": 0.4574644263112804
+      "weight": 0.4138208740950455
     },
     {
       "clusterId": "04ba4ea6dae388a9385125c76bb2a3cf",
@@ -307,7 +313,7 @@
       "primaryUrl": "https://simonwillison.net/2026/Oct/9/ttok/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-09T00:34:43.000Z",
-      "weight": 0.8620777313465452
+      "weight": 0.7798327909347741
     },
     {
       "clusterId": "079c55e76dd0ae2927f0b0bc971ab3dd",
@@ -318,7 +324,7 @@
       "primaryUrl": "https://openai.com/index/introducing-dots",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-29T00:00:00.000Z",
-      "weight": 0.3194970071533176
+      "weight": 0.289015982809933
     },
     {
       "clusterId": "09f6cff0604b73d38918ff1dc88aa904",
@@ -329,7 +335,7 @@
       "primaryUrl": "https://machinelearning.apple.com/research/ontological-boundary-negotiation",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-05T00:00:00.000Z",
-      "weight": 0.5787520000805089
+      "weight": 0.5235372299628935
     },
     {
       "clusterId": "0a885779110faaf9385707cf7d857783",
@@ -340,18 +346,7 @@
       "primaryUrl": "https://github.com/anthropics/claude-code/releases/tag/v2.1.292",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-06T18:59:30.000Z",
-      "weight": 0.6910777601198234
-    },
-    {
-      "clusterId": "0b7e810c674a2196e236f9f98bf1efeb",
-      "topic": "unclassified",
-      "signalIds": [
-        "5ce2da8eb753fd60b34ea389e3ced851"
-      ],
-      "primaryUrl": "https://simonwillison.net/2026/Sep/30/he-built-this-city/",
-      "sourceDiversity": 1,
-      "publishedAtLatest": "2026-09-30T21:54:19.000Z",
-      "weight": 0.3861196879378103
+      "weight": 0.6251467574570171
     },
     {
       "clusterId": "0ca6e3715450be22b3b5ba455c839752",
@@ -362,7 +357,7 @@
       "primaryUrl": "https://simonwillison.net/2026/Oct/6/datasette-atom/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-06T17:35:39.000Z",
-      "weight": 0.6871045323462404
+      "weight": 0.6215525881715477
     },
     {
       "clusterId": "0d13d9a3c454b2a0949076cf88ab020e",
@@ -373,7 +368,7 @@
       "primaryUrl": "https://openai.com/index/gpt-6-for-everyone",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-07T00:00:00.000Z",
-      "weight": 0.7055065904962899
+      "weight": 0.6381990318091557
     },
     {
       "clusterId": "0e38b074228ddd6296cbb36677514273",
@@ -384,7 +379,7 @@
       "primaryUrl": "https://openai.com/index/the-eternal-complement",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-01T17:00:00.000Z",
-      "weight": 0.4177695026441972
+      "weight": 0.3779129716128728
     },
     {
       "clusterId": "0f4da74d14bbe04ad623cd200a9d89ab",
@@ -395,7 +390,7 @@
       "primaryUrl": "https://machinelearning.apple.com/research/communication-bottleneck-serialization",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-29T00:00:00.000Z",
-      "weight": 0.3194970071533176
+      "weight": 0.289015982809933
     },
     {
       "clusterId": "1371c6f4a1d1fc3686a89455838df80b",
@@ -406,7 +401,7 @@
       "primaryUrl": "https://www.latent.space/p/airbnb",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-02T14:04:49.000Z",
-      "weight": 0.4557317938461055
+      "weight": 0.4122535402435248
     },
     {
       "clusterId": "1625ec5ecf282cfe95972b8f4abbb053",
@@ -417,7 +412,7 @@
       "primaryUrl": "https://www.latent.space/p/ainews-openai-devday-2026-dots-61",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-30T05:53:10.000Z",
-      "weight": 0.36142490823346274
+      "weight": 0.3269438296020026
     },
     {
       "clusterId": "16f5a983acd1460432dae01aedc423f7",
@@ -428,7 +423,7 @@
       "primaryUrl": "https://simonwillison.net/2026/Oct/6/datasette-parseable-opentelemetry/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-06T19:07:31.000Z",
-      "weight": 0.691458830666145
+      "weight": 0.6254914726687378
     },
     {
       "clusterId": "19ec99d540b1bd65ef1b155fa88523bf",
@@ -439,7 +434,7 @@
       "primaryUrl": "https://huggingface.co/blog/building-with-ml-intern",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-08T00:00:00.000Z",
-      "weight": 0.7789424283947183
+      "weight": 0.7046288586572685
     },
     {
       "clusterId": "1a7532ca666cd0b6cc4babea486402a3",
@@ -450,7 +445,7 @@
       "primaryUrl": "https://github.com/anthropics/claude-code/releases/tag/v2.1.293",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-07T18:10:20.000Z",
-      "weight": 0.7604363777395065
+      "weight": 0.6878883437281886
     },
     {
       "clusterId": "1f8b2d69e95949ec8f3de1a5a41888bb",
@@ -461,7 +456,7 @@
       "primaryUrl": "https://simonwillison.net/2026/Oct/8/carson-gross/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-08T21:05:44.000Z",
-      "weight": 0.8497777006140577
+      "weight": 0.7687062220119034
     },
     {
       "clusterId": "1ffeef8d9081b0088d2dad4ad9bf958a",
@@ -472,7 +467,7 @@
       "primaryUrl": "https://github.blog/changelog/2026-10-02-selected-models-in-github-copilot-deprecated",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-02T18:24:19.000Z",
-      "weight": 0.4639370519429247
+      "weight": 0.4196759907828607
     },
     {
       "clusterId": "2232d8ad88a179738df3941e6ca62392",
@@ -483,7 +478,7 @@
       "primaryUrl": "https://github.com/langchain-ai/langchain/releases/tag/langchain-huggingface%3D%3D1.2.3",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-07T20:10:07.000Z",
-      "weight": 0.7667258476755234
+      "weight": 0.6935777783526551
     },
     {
       "clusterId": "22744b74f71acadd6f448d71c5533574",
@@ -494,7 +489,7 @@
       "primaryUrl": "https://openai.com/index/chatham-financial",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-02T00:00:00.000Z",
-      "weight": 0.4300110834731114
+      "weight": 0.38898666693771855
     },
     {
       "clusterId": "23640ab0781e18bee16bbafa4e45c3dd",
@@ -505,7 +500,7 @@
       "primaryUrl": "https://openai.com/index/radisson",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-07T07:00:00.000Z",
-      "weight": 0.7261795115645555
+      "weight": 0.656899690864875
     },
     {
       "clusterId": "24e0465ddc0501dcdf5a5d78e3bce193",
@@ -516,7 +511,7 @@
       "primaryUrl": "https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.18",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-05T10:23:32.000Z",
-      "weight": 0.6041068475985139
+      "weight": 0.5464731448864901
     },
     {
       "clusterId": "25dfdbb31277faad0368d327ad9981b6",
@@ -527,7 +522,7 @@
       "primaryUrl": "https://www.latent.space/p/ainews-pi-10-pi-durable-and-aie-nyc",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-02T06:40:53.000Z",
-      "weight": 0.4420299174993324
+      "weight": 0.3998588662089024
     },
     {
       "clusterId": "2611f536ee231dcd648f43c9acea14ee",
@@ -538,7 +533,7 @@
       "primaryUrl": "https://machinelearning.apple.com/research/limits-confidence-diffusion",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-02T00:00:00.000Z",
-      "weight": 0.4300110834731114
+      "weight": 0.38898666693771855
     },
     {
       "clusterId": "28c052065721d740210f51f47c6797c4",
@@ -549,7 +544,7 @@
       "primaryUrl": "https://machinelearning.apple.com/research/sclate-agent-training-evaluation",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-30T00:00:00.000Z",
-      "weight": 0.352753295248145
+      "weight": 0.3190995159045778
     },
     {
       "clusterId": "2a33f1df70d273d902549885c0938240",
@@ -560,7 +555,7 @@
       "primaryUrl": "https://simonwillison.net/2026/Oct/6/llm-openai-decisions/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-06T23:04:13.000Z",
-      "weight": 0.7028055084695218
+      "weight": 0.6357556415452774
     },
     {
       "clusterId": "2d9c195a7f3b1ea00c544ad8bf077eb4",
@@ -571,7 +566,7 @@
       "primaryUrl": "https://blogs.nvidia.com/blog/geforce-now-thursday-gears-of-war-e-day/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-08T13:00:46.000Z",
-      "weight": 0.8219061757674939
+      "weight": 0.7434937287315655
     },
     {
       "clusterId": "2fd9db73ca05a04e3f692db389c40830",
@@ -582,7 +577,7 @@
       "primaryUrl": "https://blogs.nvidia.com/blog/local-ai-rtx-spark-microsoft-windows-event/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-07T18:45:28.000Z",
-      "weight": 0.7622757595507048
+      "weight": 0.6895522427007105
     },
     {
       "clusterId": "35330cbdd5d659b22e2a828d173a3934",
@@ -593,7 +588,7 @@
       "primaryUrl": "https://blogs.nvidia.com/blog/developers-simulation-frontier-ai-agents/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-08T21:06:35.000Z",
-      "weight": 0.8498273714966937
+      "weight": 0.7687511541353371
     },
     {
       "clusterId": "37bcd71d9639dbd83263737d759c9e31",
@@ -604,7 +599,7 @@
       "primaryUrl": "https://huggingface.co/blog/tiiuae/falcon-asr",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-07T13:21:03.000Z",
-      "weight": 0.7454588961038446
+      "weight": 0.6743397611811499
     },
     {
       "clusterId": "381e08f92301fe44beec2e938ab76f61",
@@ -615,7 +610,7 @@
       "primaryUrl": "https://huggingface.co/blog/microsoft/thinkingbox",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-03T22:56:48.000Z",
-      "weight": 0.5219162386569103
+      "weight": 0.4721237798246592
     },
     {
       "clusterId": "381ed7ad59b2f4337d763f5089bf7985",
@@ -626,7 +621,7 @@
       "primaryUrl": "https://openai.com/index/teens-learn-and-plan",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-07T12:00:00.000Z",
-      "weight": 0.7413157335775751
+      "weight": 0.6705918694555275
     },
     {
       "clusterId": "386861c045a785ef83e952de4f8ed488",
@@ -637,7 +632,7 @@
       "primaryUrl": "https://simonwillison.net/2026/Oct/6/hn-49982139/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-06T18:20:58.000Z",
-      "weight": 0.6892490150390155
+      "weight": 0.623492480437186
     },
     {
       "clusterId": "38cfddecd747df6234ab2113d798c22b",
@@ -648,7 +643,18 @@
       "primaryUrl": "https://simonwillison.net/2026/Oct/1/matthew-green/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-01T06:29:01.000Z",
-      "weight": 0.40003039592820044
+      "weight": 0.3618662317470629
+    },
+    {
+      "clusterId": "39a774ef192b1344857b01b13bbc86bb",
+      "topic": "dev-tooling",
+      "signalIds": [
+        "3a360bf5acb9884ec11ba890a33b508d"
+      ],
+      "primaryUrl": "https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.19",
+      "sourceDiversity": 1,
+      "publishedAtLatest": "2026-10-11T11:42:33.000Z",
+      "weight": 0.9953006681536166
     },
     {
       "clusterId": "39f8eda49726029ad2dc46cfecf6848d",
@@ -659,7 +665,7 @@
       "primaryUrl": "https://openai.com/index/towards-safety-cases-for-frontier-ai-training",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-28T19:00:00.000Z",
-      "weight": 0.31297350115752615
+      "weight": 0.28311483990553193
     },
     {
       "clusterId": "3b2a11b994e82ecca7401fed307467dd",
@@ -670,18 +676,7 @@
       "primaryUrl": "https://jack-clark.net/2026/09/28/import-ai-474-platonic-mindspace-tpus-in-space-zhipu-starts-an-outer-rsi-loop/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-28T12:32:03.000Z",
-      "weight": 0.3047346198698153
-    },
-    {
-      "clusterId": "3cc08a9a86c4cfc17b3d9c8419d074e3",
-      "topic": "model-capability",
-      "signalIds": [
-        "8fefaa8d190a685d3291eb927c8ae9d5"
-      ],
-      "primaryUrl": "https://github.com/google-gemini/gemini-cli/releases/tag/v0.63.0",
-      "sourceDiversity": 1,
-      "publishedAtLatest": "2026-10-06T20:38:49.000Z",
-      "weight": 0.6958136088913385
+      "weight": 0.27566197393399106
     },
     {
       "clusterId": "4373d04417f68a0452f3dc1f7e99af24",
@@ -692,7 +687,7 @@
       "primaryUrl": "https://openai.com/index/disrupting-a-coordinated-model-distillation-campaign",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-30T10:30:00.000Z",
-      "weight": 0.3683710178925147
+      "weight": 0.33322725844443024
     },
     {
       "clusterId": "450726df163be5e5bb855141c5e041ef",
@@ -703,7 +698,7 @@
       "primaryUrl": "https://openai.com/index/atlassian-partnership",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-06T16:00:00.000Z",
-      "weight": 0.6826000462632024
+      "weight": 0.617477844298538
     },
     {
       "clusterId": "45d21e4146a5724dd53d6c6db026f3d9",
@@ -714,7 +709,7 @@
       "primaryUrl": "https://www.latent.space/p/ainews-claude-haiku-55-better-than",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-08T07:27:51.000Z",
-      "weight": 0.8033041146161388
+      "weight": 0.726666363011143
     },
     {
       "clusterId": "47b3cb1833883caccdbf65fafda8b308",
@@ -725,7 +720,7 @@
       "primaryUrl": "https://www.interconnects.ai/p/the-cyber-risk-discourse-is-broken",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-06T14:22:41.000Z",
-      "weight": 0.6780473765860304
+      "weight": 0.6133595136985728
     },
     {
       "clusterId": "48cf22c41e28233fe5da580f8884e9ba",
@@ -736,7 +731,7 @@
       "primaryUrl": "https://cursor.com/changelog/remote-control-local-agents",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-06T00:00:00.000Z",
-      "weight": 0.6389940143066353
+      "weight": 0.578031965619866
     },
     {
       "clusterId": "4908a71b19be3ba037c97784843543e9",
@@ -747,7 +742,7 @@
       "primaryUrl": "https://openai.com/index/devday-2026-recap",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-29T10:00:00.000Z",
-      "weight": 0.33295477409854535
+      "weight": 0.30118983625149454
     },
     {
       "clusterId": "4a4cd0cf20af434944efb53a345e07aa",
@@ -758,7 +753,7 @@
       "primaryUrl": "https://www.latent.space/p/devday-2026",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-30T22:23:40.000Z",
-      "weight": 0.3868997574602723
+      "weight": 0.3499882976920844
     },
     {
       "clusterId": "4d727fd77535f4c99a4c08317e93f038",
@@ -769,7 +764,7 @@
       "primaryUrl": "https://openai.com/index/helping-small-businesses-put-ai-to-work",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-30T10:00:00.000Z",
-      "weight": 0.367611874609837
+      "weight": 0.33254053983040777
     },
     {
       "clusterId": "507f7aeb7fdc1a4e5cb9327eadcaf405",
@@ -780,7 +775,7 @@
       "primaryUrl": "https://simonwillison.net/2026/Oct/6/victoria-kim/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-06T23:58:56.000Z",
-      "weight": 0.7054548442560815
+      "weight": 0.6381522223238218
     },
     {
       "clusterId": "53ca2aac909d432b6dad76e03e5134d5",
@@ -791,7 +786,18 @@
       "primaryUrl": "https://simonwillison.net/2026/Oct/1/pwasm/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-01T17:10:31.000Z",
-      "weight": 0.41807173211847287
+      "weight": 0.3781863674400206
+    },
+    {
+      "clusterId": "55624113195c03603254a2d2e5f1ea7d",
+      "topic": "product-and-business",
+      "signalIds": [
+        "370dcf0eb6e0e5d5936c1368892c7447"
+      ],
+      "primaryUrl": "https://www.latent.space/p/nyc2026",
+      "sourceDiversity": 1,
+      "publishedAtLatest": "2026-10-10T22:07:17.000Z",
+      "weight": 0.941037870114455
     },
     {
       "clusterId": "5733b4461216e79acdcde1d70ba7c4d3",
@@ -802,7 +808,7 @@
       "primaryUrl": "https://www.latent.space/p/ainews-amd-buys-world-labs-for-82b",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-29T02:55:27.000Z",
-      "weight": 0.32337500493919014
+      "weight": 0.2925240073495208
     },
     {
       "clusterId": "5aacfbf9a4273f4be58f2956573ed77a",
@@ -813,7 +819,7 @@
       "primaryUrl": "https://huggingface.co/blog/ServiceNow-AI/autosynthdata",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-02T04:01:31.000Z",
-      "weight": 0.43721225263589336
+      "weight": 0.3955008218010323
     },
     {
       "clusterId": "5b43d76604ba9e3d207cea13ef39f642",
@@ -824,7 +830,7 @@
       "primaryUrl": "https://simonwillison.net/2026/Oct/6/hn-49983751/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-06T20:37:53.000Z",
-      "weight": 0.695768952802041
+      "weight": 0.6293903955295053
     },
     {
       "clusterId": "608f2b481323efd78ab215eadb1c814a",
@@ -835,7 +841,7 @@
       "primaryUrl": "https://openai.com/index/jump-trading",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-06T12:00:00.000Z",
-      "weight": 0.6714272025923672
+      "weight": 0.6073709252288437
     },
     {
       "clusterId": "61c283f36c638d4bf20468406a34befe",
@@ -846,7 +852,7 @@
       "primaryUrl": "https://simonwillison.net/2026/Oct/3/default-hard-budget-caps/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-03T23:34:02.000Z",
-      "weight": 0.5232542313607574
+      "weight": 0.4733341237954537
     },
     {
       "clusterId": "62a269b2616732bf5f50dfa19301f485",
@@ -857,7 +863,18 @@
       "primaryUrl": "https://github.com/anthropics/claude-code/releases/tag/v2.1.295",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-08T19:48:38.000Z",
-      "weight": 0.8452843129831882
+      "weight": 0.7646415177636458
+    },
+    {
+      "clusterId": "64c3fb28c316429cd008a908c86b3c99",
+      "topic": "tool-and-protocol",
+      "signalIds": [
+        "e451ab20d40ba4e653c7b7026f8b07c0"
+      ],
+      "primaryUrl": "https://github.blog/changelog/2026-10-10-new-controls-and-chat-improvements-in-copilot-for-jetbrains",
+      "sourceDiversity": 1,
+      "publishedAtLatest": "2026-10-10T18:53:39.000Z",
+      "weight": 0.9285908893435941
     },
     {
       "clusterId": "64dd61779e01edde6b1dd5ff6b253cd7",
@@ -868,7 +885,7 @@
       "primaryUrl": "https://machinelearning.apple.com/research/effectiveness-fluency-llm-conditioning",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-30T00:00:00.000Z",
-      "weight": 0.352753295248145
+      "weight": 0.3190995159045778
     },
     {
       "clusterId": "663b881d39a7337653f71db021724680",
@@ -879,7 +896,7 @@
       "primaryUrl": "https://github.blog/changelog/2026-10-09-github-copilot-weekly-releases-october-5",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-09T22:58:23.000Z",
-      "weight": 0.9455267170084193
+      "weight": 0.8553204796003049
     },
     {
       "clusterId": "69732b1e8dd8a26de5232e61f9f98f8c",
@@ -890,7 +907,7 @@
       "primaryUrl": "https://github.com/langchain-ai/langchain/releases/tag/langchain-openai%3D%3D1.7.0",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-08T16:07:53.000Z",
-      "weight": 0.8325499750219785
+      "weight": 0.7531220758944243
     },
     {
       "clusterId": "6a343b819816b278468af58362b5eddb",
@@ -901,7 +918,7 @@
       "primaryUrl": "https://www.latent.space/p/ainews-opus-55-is-good-at-explainer",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-29T02:44:29.000Z",
-      "weight": 0.3231312338060641
+      "weight": 0.2923034927530028
     },
     {
       "clusterId": "6d38d12719467c5e4500ad50a051d98d",
@@ -912,7 +929,7 @@
       "primaryUrl": "https://github.com/anthropics/claude-code/releases/tag/v2.1.294",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-08T05:03:54.000Z",
-      "weight": 0.7953917025776543
+      "weight": 0.7195088200905535
     },
     {
       "clusterId": "6ecc5fa5e073d5dc95b2c87cf39918dd",
@@ -923,7 +940,7 @@
       "primaryUrl": "https://www.latent.space/p/periodic",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-08T16:27:54.000Z",
-      "weight": 0.8336967175581014
+      "weight": 0.7541594155679958
     },
     {
       "clusterId": "7179caad8976e0238c236961b6989b9e",
@@ -934,7 +951,7 @@
       "primaryUrl": "https://openai.com/index/sophos",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-09T07:00:00.000Z",
-      "weight": 0.8852227400007299
+      "weight": 0.8007696926069816
     },
     {
       "clusterId": "71bc5ac9be91e1d615a3f35d4f58c001",
@@ -945,7 +962,7 @@
       "primaryUrl": "https://blogs.nvidia.com/blog/productive-durable-fungible-ai-factories/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-01T13:00:49.000Z",
-      "weight": 0.410954500837437
+      "weight": 0.3717481425192247
     },
     {
       "clusterId": "72535b5cc216708d89dfbb0f09da6293",
@@ -956,7 +973,7 @@
       "primaryUrl": "https://simonwillison.net/2026/Oct/7/openai-rogue-agents-wikimedia/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-07T00:16:45.000Z",
-      "weight": 0.7063196661390173
+      "weight": 0.6389345374656105
     },
     {
       "clusterId": "72816849beb691783350ceea05fcea3f",
@@ -967,7 +984,7 @@
       "primaryUrl": "https://github.blog/changelog/2026-10-07-claude-haiku-5-5-in-github-copilot",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-07T20:12:18.000Z",
-      "weight": 0.7668409695044526
+      "weight": 0.6936819171952291
     },
     {
       "clusterId": "78f114d17bee78cfd5ca4d9e424678e9",
@@ -978,7 +995,7 @@
       "primaryUrl": "https://github.com/openai/codex/releases/tag/rust-v0.160.1",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-05T18:29:37.000Z",
-      "weight": 0.6246405778495643
+      "weight": 0.5650478923689087
     },
     {
       "clusterId": "7b1a8e793fbc072445ad8b586dd1de72",
@@ -989,7 +1006,7 @@
       "primaryUrl": "https://blogs.nvidia.com/blog/telecom-operators-open-models/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-06T13:00:19.000Z",
-      "weight": 0.6742178319361416
+      "weight": 0.609895319712646
     },
     {
       "clusterId": "7c59451efd3e89566c14a468457a4083",
@@ -1000,7 +1017,7 @@
       "primaryUrl": "https://github.blog/changelog/2026-10-08-copilot-code-review-new-organization-billing-options-and-controls",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-08T19:43:05.000Z",
-      "weight": 0.8449617772390381
+      "weight": 0.7643497529489532
     },
     {
       "clusterId": "7cd199eb72a805202b51cc58f44d7b47",
@@ -1011,7 +1028,7 @@
       "primaryUrl": "https://www.latent.space/p/ainews-typesafejev-at-100m-arr-75b",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-10T06:45:57.000Z",
-      "weight": 0.9764213263570128
+      "weight": 0.8832676455658626
     },
     {
       "clusterId": "7f047c59f29df51e0fddcf7f92b0eef2",
@@ -1022,7 +1039,7 @@
       "primaryUrl": "https://deepmind.google/blog/embeddinggemma-2-an-open-lightweight-multimodal-embedding-model/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-06T19:57:04.000Z",
-      "weight": 0.6938188469957929
+      "weight": 0.6276263359810361
     },
     {
       "clusterId": "80e38770d202c6facb5b7897c3ebf235",
@@ -1033,18 +1050,7 @@
       "primaryUrl": "https://openai.com/index/new-chatgpt-ads-format-and-measurement",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-05T10:00:00.000Z",
-      "weight": 0.6031300360613916
-    },
-    {
-      "clusterId": "8105c801a99a744c126d1c0d186c7452",
-      "topic": "model-capability",
-      "signalIds": [
-        "dba3edb57d4cfea1203c3616d19c9642"
-      ],
-      "primaryUrl": "https://github.blog/changelog/2026-10-02-github-copilot-weekly-releases-september-28",
-      "sourceDiversity": 1,
-      "publishedAtLatest": "2026-10-02T14:00:30.000Z",
-      "weight": 0.4555965372930369
+      "weight": 0.5455895242574993
     },
     {
       "clusterId": "81ca9158304f9bc6721f1b5fc8dda628",
@@ -1055,7 +1061,7 @@
       "primaryUrl": "https://github.blog/changelog/2026-10-07-purpose-built-model-for-leaked-secret-detection",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-07T16:13:56.000Z",
-      "weight": 0.7543739878563166
+      "weight": 0.6824043250017587
     },
     {
       "clusterId": "83195efb4cefc36020bf67926bcb68bf",
@@ -1066,7 +1072,7 @@
       "primaryUrl": "https://github.com/openai/codex/releases/tag/rust-v0.161.0",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-07T15:58:45.000Z",
-      "weight": 0.7535867752108572
+      "weight": 0.681692214930885
     },
     {
       "clusterId": "88876565ed2b09f1952ef6e7b7a6696c",
@@ -1077,7 +1083,7 @@
       "primaryUrl": "https://simonwillison.net/2026/Oct/7/claude-haiku-5-5/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-07T20:56:21.000Z",
-      "weight": 0.7691673142377597
+      "weight": 0.6957863212879062
     },
     {
       "clusterId": "89744833261f31664c1174b26bda4eb7",
@@ -1088,7 +1094,7 @@
       "primaryUrl": "https://blogs.nvidia.com/blog/local-ai-dgx-spark-64gb-sync/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-02T13:00:39.000Z",
-      "weight": 0.45372535490135424
+      "weight": 0.4104385219160225
     },
     {
       "clusterId": "89920c3d91f7a7158a89222f04afb4c4",
@@ -1099,7 +1105,18 @@
       "primaryUrl": "https://simonwillison.net/2026/Oct/7/ben-affleck/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-07T23:14:58.000Z",
-      "weight": 0.7765340089923711
+      "weight": 0.7024502100783983
+    },
+    {
+      "clusterId": "8bb58d1fca79173764a9061d77732941",
+      "topic": "unclassified",
+      "signalIds": [
+        "8e4b130c7d9fed204d9297f9b63e389c"
+      ],
+      "primaryUrl": "https://www.latent.space/p/standard-bots",
+      "sourceDiversity": 1,
+      "publishedAtLatest": "2026-10-10T14:04:11.000Z",
+      "weight": 0.910289976691682
     },
     {
       "clusterId": "8c02ce3a5ea9f400f3a49e9938285bf7",
@@ -1110,7 +1127,7 @@
       "primaryUrl": "https://github.com/langchain-ai/langchain/releases/tag/langchain-core%3D%3D1.6.9",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-08T20:11:32.000Z",
-      "weight": 0.8466164386900593
+      "weight": 0.7658465544675199
     },
     {
       "clusterId": "8c10372178ea35dceee93b6e5bc908c4",
@@ -1121,7 +1138,19 @@
       "primaryUrl": "https://openai.com/index/introducing-gpt-6-1-sol",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-29T10:00:00.000Z",
-      "weight": 0.33295477409854535
+      "weight": 0.30118983625149454
+    },
+    {
+      "clusterId": "8dae9179df2df24486be0eea0fe76037",
+      "topic": "model-capability",
+      "signalIds": [
+        "6c1f5b045abf0cddbe817f9a1434aa9f",
+        "8fefaa8d190a685d3291eb927c8ae9d5"
+      ],
+      "primaryUrl": "https://github.com/QwenLM/qwen-code/releases/tag/v0.25.1",
+      "sourceDiversity": 2,
+      "publishedAtLatest": "2026-10-11T10:20:36.000Z",
+      "weight": 1.9794153296924994
     },
     {
       "clusterId": "8e06961ad85ca5fb25723643f3e26362",
@@ -1132,7 +1161,7 @@
       "primaryUrl": "https://openai.com/index/pollo-ai",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-08T12:00:00.000Z",
-      "weight": 0.8184789277644102
+      "weight": 0.7403934510207659
     },
     {
       "clusterId": "8e4f5d9a44ffda97b6371c598447d8d3",
@@ -1143,7 +1172,7 @@
       "primaryUrl": "https://openai.com/index/the-den-family-social",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-01T00:00:00.000Z",
-      "weight": 0.3894712141973592
+      "weight": 0.3523144293286342
     },
     {
       "clusterId": "8ee0c6bf08bd6efd3c97d451f978d001",
@@ -1154,7 +1183,7 @@
       "primaryUrl": "https://openai.com/index/advancing-computer-use-with-ironclad",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-06T10:00:00.000Z",
-      "weight": 0.6659095481970907
+      "weight": 0.6023796725029891
     },
     {
       "clusterId": "9091861342bb34243d4472619f50b11a",
@@ -1165,7 +1194,7 @@
       "primaryUrl": "https://simonwillison.net/2026/Oct/5/felix-rieseberg/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-05T23:56:47.000Z",
-      "weight": 0.638852689061636
+      "weight": 0.5779041232499381
     },
     {
       "clusterId": "90aa1d5200fb60e6c20ed911a83e4108",
@@ -1176,7 +1205,7 @@
       "primaryUrl": "https://blogs.nvidia.com/blog/applications-open-graduate-fellowship-awards-2026/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-30T17:00:21.000Z",
-      "weight": 0.3783928316542851
+      "weight": 0.34229295949654137
     },
     {
       "clusterId": "9157a1f6e4712cfa436e21d453c4b615",
@@ -1187,7 +1216,7 @@
       "primaryUrl": "https://openai.com/index/how-we-will-do-better-for-australia",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-28T19:00:00.000Z",
-      "weight": 0.31297350115752615
+      "weight": 0.28311483990553193
     },
     {
       "clusterId": "9275ca09363aee535249451e69292270",
@@ -1198,7 +1227,7 @@
       "primaryUrl": "https://github.blog/changelog/2026-10-06-update-your-ide-to-restore-agent-activity-in-copilot-usage-metrics",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-06T23:43:00.000Z",
-      "weight": 0.7046823364166096
+      "weight": 0.6374534141739657
     },
     {
       "clusterId": "9335326d67c3c0a42ede835f87082cd3",
@@ -1209,7 +1238,7 @@
       "primaryUrl": "https://machinelearning.apple.com/research/harness-autonomous-ml-engineering",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-01T00:00:00.000Z",
-      "weight": 0.3894712141973592
+      "weight": 0.3523144293286342
     },
     {
       "clusterId": "93efb38c7229d35c732f2523f90be768",
@@ -1220,7 +1249,7 @@
       "primaryUrl": "https://machinelearning.apple.com/research/rised-multi-environment-selection",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-06T00:00:00.000Z",
-      "weight": 0.6389940143066353
+      "weight": 0.578031965619866
     },
     {
       "clusterId": "945618ccdaf95055b608a41bc877d732",
@@ -1231,7 +1260,7 @@
       "primaryUrl": "https://www.latent.space/p/thariq",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-29T01:48:18.000Z",
-      "weight": 0.32188524911006305
+      "weight": 0.2911763789352885
     },
     {
       "clusterId": "94e28d0e791181875990eebe9ec7a6d7",
@@ -1242,7 +1271,7 @@
       "primaryUrl": "https://www.interconnects.ai/p/i-expect-rapid-progress-but-not-towards",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-09T21:33:47.000Z",
-      "weight": 0.9400420980771267
+      "weight": 0.8503591106507522
     },
     {
       "clusterId": "9906783709b0b0aad4d864b10940e1b6",
@@ -1253,7 +1282,7 @@
       "primaryUrl": "https://www.latent.space/p/ainews-gemini-4-argon-gdms-answer",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-01T06:45:05.000Z",
-      "weight": 0.4004726009138584
+      "weight": 0.36226624897937487
     },
     {
       "clusterId": "99390a586249c3f73c58ed9496ca5983",
@@ -1264,7 +1293,7 @@
       "primaryUrl": "https://huggingface.co/blog/MultiverseComputingCAI/getting-the-source-right-not-just-the-fact-source",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-29T13:07:00.000Z",
-      "weight": 0.33726387899460203
+      "weight": 0.30508783892031854
     },
     {
       "clusterId": "9957b04eb7d2c74679f12c6544073089",
@@ -1275,7 +1304,7 @@
       "primaryUrl": "https://github.com/anthropics/claude-code/releases/tag/v2.1.296",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-09T19:28:59.000Z",
-      "weight": 0.9320093410434287
+      "weight": 0.8430927040278771
     },
     {
       "clusterId": "99bfdc8055a5c6335aba34f23fdb6c0b",
@@ -1286,7 +1315,7 @@
       "primaryUrl": "https://machinelearning.apple.com/research/normalizing-trajectory-models",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-08T00:00:00.000Z",
-      "weight": 0.7789424283947183
+      "weight": 0.7046288586572685
     },
     {
       "clusterId": "9c49ece3a90c57148b72d5d0e9c6ed14",
@@ -1297,7 +1326,7 @@
       "primaryUrl": "https://openai.com/index/asana-browser-agent",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-09T07:00:00.000Z",
-      "weight": 0.8852227400007299
+      "weight": 0.8007696926069816
     },
     {
       "clusterId": "9f2fac63eacb93517c41d362b26d4a0a",
@@ -1308,7 +1337,7 @@
       "primaryUrl": "https://huggingface.co/blog/rl-environments",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-28T00:00:00.000Z",
-      "weight": 0.2893760000402545
+      "weight": 0.26176861498144677
     },
     {
       "clusterId": "9f5fd07d0896f1c818d6c4b971d58b3a",
@@ -1319,7 +1348,7 @@
       "primaryUrl": "https://blog.google/innovation-and-ai/technology/ai/playground-experimental-gaming-platform/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-07T12:00:00.000Z",
-      "weight": 0.7413157335775751
+      "weight": 0.6705918694555275
     },
     {
       "clusterId": "a141f056e0847f17df87569543bba4c3",
@@ -1330,7 +1359,7 @@
       "primaryUrl": "https://openai.com/index/disrupting-ai-enabled-false-front-operations",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-08T00:00:00.000Z",
-      "weight": 0.7789424283947183
+      "weight": 0.7046288586572685
     },
     {
       "clusterId": "a3a125fa3151811a65dad303828d9143",
@@ -1341,7 +1370,7 @@
       "primaryUrl": "https://simonwillison.net/2026/Oct/9/built-using-my-voice/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-09T12:54:06.000Z",
-      "weight": 0.9070420786503394
+      "weight": 0.8205073973832065
     },
     {
       "clusterId": "a44724f07b1dc462a821b345bd1e7f4a",
@@ -1352,7 +1381,7 @@
       "primaryUrl": "https://simonwillison.net/2026/Oct/3/newsletter/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-03T22:00:31.000Z",
-      "weight": 0.5199001696438978
+      "weight": 0.47030005016784626
     },
     {
       "clusterId": "a55b68d4da40a2b49b8156a5128c73b7",
@@ -1363,7 +1392,7 @@
       "primaryUrl": "https://www.latent.space/p/ainews-not-much-happened-today-60f",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-08T23:29:43.000Z",
-      "weight": 0.8582331018721487
+      "weight": 0.7763549512642776
     },
     {
       "clusterId": "a5ade64405f32c6560960a727d435120",
@@ -1374,7 +1403,7 @@
       "primaryUrl": "https://simonwillison.net/2026/Oct/6/llm-mistral/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-06T21:32:34.000Z",
-      "weight": 0.6983901623672505
+      "weight": 0.6317615334171172
     },
     {
       "clusterId": "a74479bb766a77243d7d4b7f4791f7c6",
@@ -1385,7 +1414,7 @@
       "primaryUrl": "https://huggingface.co/blog/open-tts-leaderboard",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-30T00:00:00.000Z",
-      "weight": 0.352753295248145
+      "weight": 0.3190995159045778
     },
     {
       "clusterId": "a82ba6c7e45b78a7fcd6d658c62ef397",
@@ -1396,7 +1425,7 @@
       "primaryUrl": "https://simonwillison.net/2026/Oct/6/le-chonk/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-06T20:18:19.000Z",
-      "weight": 0.6948334293408102
+      "weight": 0.6285441239634633
     },
     {
       "clusterId": "a9e1b54b74e0572406c81b4b67259e06",
@@ -1407,7 +1436,7 @@
       "primaryUrl": "https://www.latent.space/p/ainews-not-much-happened-today-cee",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-03T08:45:15.000Z",
-      "weight": 0.49223222958077895
+      "weight": 0.4452717190391251
     },
     {
       "clusterId": "ad237d7bb08f8cd1cd924a86f27efe5f",
@@ -1418,7 +1447,7 @@
       "primaryUrl": "https://www.latent.space/p/stacklok",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-07T14:10:45.000Z",
-      "weight": 0.748010935377115
+      "weight": 0.6766483278413061
     },
     {
       "clusterId": "ae4bc6f16880dfae44b8886543b8cc6c",
@@ -1429,7 +1458,18 @@
       "primaryUrl": "https://www.latent.space/p/ainews-quasi-riemann-hypothesis-openai",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-07T04:55:44.000Z",
-      "weight": 0.720000637616012
+      "weight": 0.6513103010211071
+    },
+    {
+      "clusterId": "b6df7e9dedcf94efc527f9f41e6467f7",
+      "topic": "unclassified",
+      "signalIds": [
+        "498bd6e82e654e3d8566271848917dcd"
+      ],
+      "primaryUrl": "https://simonwillison.net/2026/Oct/10/python-actions/",
+      "sourceDiversity": 1,
+      "publishedAtLatest": "2026-10-10T23:58:04.000Z",
+      "weight": 0.948234045344758
     },
     {
       "clusterId": "b886ab59326524eecd411d43e3c45ee0",
@@ -1440,7 +1480,7 @@
       "primaryUrl": "https://simonwillison.net/2026/Oct/2/rex-s-dino-store/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-02T22:57:38.000Z",
-      "weight": 0.4727389770950583
+      "weight": 0.4276381844544985
     },
     {
       "clusterId": "b8f1d52efbf097dcc844d6b797d8756f",
@@ -1451,7 +1491,7 @@
       "primaryUrl": "https://huggingface.co/blog/nvidia/nemotron-ioi-and-imo-2026",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-07T12:45:31.000Z",
-      "weight": 0.7436396388990505
+      "weight": 0.6726940668639718
     },
     {
       "clusterId": "b92c9ecdbf2a088c493644dfc68de027",
@@ -1462,7 +1502,7 @@
       "primaryUrl": "https://www.latent.space/p/rlm",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-02T00:28:04.000Z",
-      "weight": 0.4308418032989659
+      "weight": 0.3897381334664607
     },
     {
       "clusterId": "bd866184a708910896c11f0fd0423611",
@@ -1473,7 +1513,7 @@
       "primaryUrl": "https://openai.com/index/eu-text-provenance",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-05T15:00:00.000Z",
-      "weight": 0.6157014594948027
+      "weight": 0.5569615941598116
     },
     {
       "clusterId": "be4131c09e5abdd6ef087a8fb8b75857",
@@ -1484,7 +1524,7 @@
       "primaryUrl": "https://openai.com/index/sharing-ai-progress-in-mathematics",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-06T12:00:00.000Z",
-      "weight": 0.6714272025923672
+      "weight": 0.6073709252288437
     },
     {
       "clusterId": "be85d99db3e26424f41a7bb6a5ed01ae",
@@ -1495,7 +1535,7 @@
       "primaryUrl": "https://github.blog/changelog/2026-10-07-discover-local-models-in-github-copilot-cli",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-07T15:46:13.000Z",
-      "weight": 0.7529375764941505
+      "weight": 0.681104951823729
     },
     {
       "clusterId": "bef3b5367f2999a3645f96312f5ca403",
@@ -1506,7 +1546,7 @@
       "primaryUrl": "https://simonwillison.net/2026/Oct/7/anti-patterns-in-software-blogging/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-07T14:53:51.000Z",
-      "weight": 0.750231144465505
+      "weight": 0.6786567219650628
     },
     {
       "clusterId": "bf6a1fa629d9c2df97a1c34a4c4be367",
@@ -1517,7 +1557,7 @@
       "primaryUrl": "https://github.com/langchain-ai/langchain/releases/tag/langchain-core%3D%3D1.6.8",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-08T15:41:22.000Z",
-      "weight": 0.8310332799262625
+      "weight": 0.7517500783047849
     },
     {
       "clusterId": "c1868566785f61918560ce4a15a488c1",
@@ -1528,7 +1568,7 @@
       "primaryUrl": "https://blogs.nvidia.com/blog/ai-breast-cancer-startups/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-05T13:00:57.000Z",
-      "weight": 0.6106816404178209
+      "weight": 0.5524206816893367
     },
     {
       "clusterId": "c3e4485ac87766587d46f6df49ab3af0",
@@ -1539,7 +1579,7 @@
       "primaryUrl": "https://simonwillison.net/2026/Oct/9/matthew-green/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-09T15:02:29.000Z",
-      "weight": 0.9150851041790321
+      "weight": 0.8277830928541974
     },
     {
       "clusterId": "c42349021e9abe81802e6c56130500a0",
@@ -1550,7 +1590,7 @@
       "primaryUrl": "https://deepmind.google/blog/gemini-4-argon-our-next-era-of-frontier-intelligence/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-30T20:01:45.000Z",
-      "weight": 0.3831424268916146
+      "weight": 0.346589428335786
     },
     {
       "clusterId": "c6ea6e075d1c0a121727d5304c29c488",
@@ -1561,7 +1601,7 @@
       "primaryUrl": "https://simonwillison.net/2026/Oct/7/jake-boggan/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-07T04:47:55.000Z",
-      "weight": 0.7196137340890405
+      "weight": 0.6509603093135271
     },
     {
       "clusterId": "cafcbd06993a672549f37db184877ed5",
@@ -1572,7 +1612,7 @@
       "primaryUrl": "https://github.blog/changelog/2026-10-07-local-sandboxing-for-github-copilot-now-generally-available",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-07T15:46:17.000Z",
-      "weight": 0.7529410281988764
+      "weight": 0.6811080742249139
     },
     {
       "clusterId": "cbac6097c6fc8ee7c96debd00b0ebf67",
@@ -1583,7 +1623,7 @@
       "primaryUrl": "https://github.com/langchain-ai/langchain/releases/tag/langchain%3D%3D1.4.4",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-08T22:14:22.000Z",
-      "weight": 0.8537977426116374
+      "weight": 0.7723427392964306
     },
     {
       "clusterId": "cf8abc4b6168d18228afc608b0b3e5fb",
@@ -1594,7 +1634,7 @@
       "primaryUrl": "https://simonwillison.net/2026/Oct/9/deno-is-joining-cloudflare/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-09T22:48:37.000Z",
-      "weight": 0.9448919135687354
+      "weight": 0.8547462384152432
     },
     {
       "clusterId": "d243ebedf0613780c84b5c81dbde7fc2",
@@ -1605,7 +1645,7 @@
       "primaryUrl": "https://huggingface.co/blog/Hcompany/holo4",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-28T09:44:05.000Z",
-      "weight": 0.3012351347045619
+      "weight": 0.2724963507146188
     },
     {
       "clusterId": "d2707f00f3c6b0d1adcbec1a02f7656d",
@@ -1616,7 +1656,7 @@
       "primaryUrl": "https://openai.com/index/legalon-halves-codex-costs",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-08T12:00:00.000Z",
-      "weight": 0.8184789277644102
+      "weight": 0.7403934510207659
     },
     {
       "clusterId": "d3be4da8493a2c62497778337d89fda6",
@@ -1627,7 +1667,7 @@
       "primaryUrl": "https://simonwillison.net/2026/Oct/8/ttok/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-08T23:34:28.000Z",
-      "weight": 0.8585134739297542
+      "weight": 0.7766085749413919
     },
     {
       "clusterId": "d44ffc1bda952c75360a4d3769310a30",
@@ -1638,7 +1678,7 @@
       "primaryUrl": "https://jack-clark.net/2026/10/05/import-ai-475-swarm-scaling-google-deepmind-watermarks-biology-and-the-ai-science-economy/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-05T12:32:30.000Z",
-      "weight": 0.6094880994905868
+      "weight": 0.5513410083390855
     },
     {
       "clusterId": "d7e6d7e2fd33891512e3a12d63e2de29",
@@ -1649,7 +1689,7 @@
       "primaryUrl": "https://openai.com/index/lenfest-ai-collaborative-expansion",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-28T07:00:00.000Z",
-      "weight": 0.2978553640723811
+      "weight": 0.26943902088347227
     },
     {
       "clusterId": "dbb186d808d0d2588ed6a6bc04850dff",
@@ -1660,7 +1700,7 @@
       "primaryUrl": "https://simonwillison.net/2026/Oct/10/the-new-york-times/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-10T02:04:12.000Z",
-      "weight": 0.9576858042863736
+      "weight": 0.8663195515196966
     },
     {
       "clusterId": "dc25a3e7666e0e9616e62cb8c0c7ac4c",
@@ -1671,7 +1711,7 @@
       "primaryUrl": "https://blog.google/innovation-and-ai/technology/ai/winner-future-vision-xprize/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-28T19:00:00.000Z",
-      "weight": 0.31297350115752615
+      "weight": 0.28311483990553193
     },
     {
       "clusterId": "dc741585a037cbc4e6905df9d12b3b5f",
@@ -1682,7 +1722,7 @@
       "primaryUrl": "https://magazine.sebastianraschka.com/p/classifier-history-and-jev",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-29T10:50:25.000Z",
-      "weight": 0.3341110922559682
+      "weight": 0.3022358380018276
     },
     {
       "clusterId": "e258d5f9e545686e005da089b9dbac92",
@@ -1693,7 +1733,7 @@
       "primaryUrl": "https://www.latent.space/p/biohub-deepmind",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-10T00:31:26.000Z",
-      "weight": 0.9515961102784405
+      "weight": 0.8608108335683263
     },
     {
       "clusterId": "e44bd61f7d0be8b356edcc999d305548",
@@ -1704,7 +1744,7 @@
       "primaryUrl": "https://simonwillison.net/2026/Oct/6/scrimshaw-jukebox/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-06T15:17:39.000Z",
-      "weight": 0.6806150831601692
+      "weight": 0.6156822529495735
     },
     {
       "clusterId": "e479de2cc4889ee1e024fd79b3d55b12",
@@ -1715,7 +1755,7 @@
       "primaryUrl": "https://openai.com/index/albertsons-reimagining-retail",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-01T16:00:00.000Z",
-      "weight": 0.4160493883777252
+      "weight": 0.3763569616843315
     },
     {
       "clusterId": "e5835f85f1ca3a1390938998cdf6d3c6",
@@ -1726,18 +1766,7 @@
       "primaryUrl": "https://github.blog/changelog/2026-10-02-copilot-code-review-api-support-and-new-default-effort-level",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-02T19:13:50.000Z",
-      "weight": 0.4655194472404438
-    },
-    {
-      "clusterId": "e73a91489b177705e2bf9786a1eeb6d7",
-      "topic": "safety-and-governance",
-      "signalIds": [
-        "5555dd7b5e48b739d29c4cb25d677e66"
-      ],
-      "primaryUrl": "https://simonwillison.net/2026/Sep/29/anthropic-frontier-red-team/",
-      "sourceDiversity": 1,
-      "publishedAtLatest": "2026-09-29T22:20:28.000Z",
-      "weight": 0.35034716480123657
+      "weight": 0.42110742056738715
     },
     {
       "clusterId": "e83e0aa3ffedf08002a10c4b87c46bf5",
@@ -1748,7 +1777,7 @@
       "primaryUrl": "https://machinelearning.apple.com/research/rltl-dr-self-improvement",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-01T00:00:00.000Z",
-      "weight": 0.3894712141973592
+      "weight": 0.3523144293286342
     },
     {
       "clusterId": "e87f83189597d176258fa245a792c615",
@@ -1759,7 +1788,7 @@
       "primaryUrl": "https://blogs.nvidia.com/blog/gpus-openai-gpt-6-astra-ultrafast/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-01T23:44:13.000Z",
-      "weight": 0.4295446307303885
+      "weight": 0.38856471526100766
     },
     {
       "clusterId": "ee9db9a7e7671af729ab54851e538636",
@@ -1770,7 +1799,7 @@
       "primaryUrl": "https://blogs.nvidia.com/blog/coreweave-agentic-ai-vera-rubin/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-30T15:00:00.000Z",
-      "weight": 0.3752742430188941
+      "weight": 0.33947189407415107
     },
     {
       "clusterId": "eebd0c3af6ed7e34afde96f27b76c4a8",
@@ -1781,7 +1810,18 @@
       "primaryUrl": "https://github.com/QwenLM/qwen-code/releases/tag/desktop-v0.25.0",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-05T10:45:59.000Z",
-      "weight": 0.605040167013809
+      "weight": 0.5473174226795452
+    },
+    {
+      "clusterId": "eedf38986cf26ace343727907bb1ebff",
+      "topic": "context-and-memory",
+      "signalIds": [
+        "8dcaa89e3bd314ffe7a6415cb774b985"
+      ],
+      "primaryUrl": "https://github.com/modelcontextprotocol/servers/releases/tag/v1.0.0",
+      "sourceDiversity": 1,
+      "publishedAtLatest": "2026-10-11T02:40:29.000Z",
+      "weight": 0.9588837738413231
     },
     {
       "clusterId": "efb9dcbde0de6ff4703a954770594cd3",
@@ -1792,7 +1832,7 @@
       "primaryUrl": "https://deepmind.google/blog/introducing-synthid-bio/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-30T15:03:07.000Z",
-      "weight": 0.3753546790404297
+      "weight": 0.3395446562449912
     },
     {
       "clusterId": "efd6722902ad415f175f79f40b7a21ba",
@@ -1803,7 +1843,7 @@
       "primaryUrl": "https://huggingface.co/blog/allenai/impactful-scheduling",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-09T15:20:29.000Z",
-      "weight": 0.9162184637708289
+      "weight": 0.8288083263586322
     },
     {
       "clusterId": "f15ed86fc38ac0b934008a9c1efbdc6d",
@@ -1814,7 +1854,18 @@
       "primaryUrl": "https://openai.com/index/oracle",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-08T16:00:00.000Z",
-      "weight": 0.8320987767554503
+      "weight": 0.7527139233686629
+    },
+    {
+      "clusterId": "f1f9a4ffeac13a3769837b7cec7a4726",
+      "topic": "unclassified",
+      "signalIds": [
+        "eb45ffb732767ed26b70388480f73258"
+      ],
+      "primaryUrl": "https://simonwillison.net/2026/Oct/11/dwarf-fortress/",
+      "sourceDiversity": 1,
+      "publishedAtLatest": "2026-10-11T00:52:37.000Z",
+      "weight": 0.9517976541684212
     },
     {
       "clusterId": "f2a9327a68aaa83a8510581c11e15666",
@@ -1825,7 +1876,7 @@
       "primaryUrl": "https://openai.com/index/basis-tax-workbook-with-astra",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-28T00:00:00.000Z",
-      "weight": 0.2893760000402545
+      "weight": 0.26176861498144677
     },
     {
       "clusterId": "f32f8fe7920575fca51ac22fe774d5b5",
@@ -1836,7 +1887,7 @@
       "primaryUrl": "https://simonwillison.net/2026/Oct/4/qwen38-addition-in-words/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-04T23:34:00.000Z",
-      "weight": 0.5777181856106568
+      "weight": 0.5226020446611294
     },
     {
       "clusterId": "f4a979f0684f8687de18b944cb752a69",
@@ -1847,7 +1898,7 @@
       "primaryUrl": "https://sebastianraschka.com/blog/2026/focusing-on-llm-post-training.html",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-09-27T22:12:03.000Z",
-      "weight": 0.2872358749043294
+      "weight": 0.2598326645479618
     },
     {
       "clusterId": "f85343cad37fa1f566f5b017190a411c",
@@ -1858,7 +1909,7 @@
       "primaryUrl": "https://github.com/openai/codex/releases/tag/rust-v0.162.1",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-09T19:44:51.000Z",
-      "weight": 0.9330267787655291
+      "weight": 0.8440130749753886
     },
     {
       "clusterId": "f936d7d806abd2c1106b1750218ecfec",
@@ -1869,7 +1920,7 @@
       "primaryUrl": "https://www.latent.space/p/ainews-reflection-beam-501b-a23b",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-06T06:28:43.000Z",
-      "weight": 0.6563046152180716
+      "weight": 0.5936910804892848
     },
     {
       "clusterId": "f9f2403a099aa0a614b2cf34e8ce6df8",
@@ -1880,7 +1931,18 @@
       "primaryUrl": "https://blogs.nvidia.com/blog/geforce-now-thursday-october-2026-games-list/",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-01T13:00:54.000Z",
-      "weight": 0.41095685577104935
+      "weight": 0.371750272784727
+    },
+    {
+      "clusterId": "fb023e954824a14ceb3d4cb987b22247",
+      "topic": "model-capability",
+      "signalIds": [
+        "b499b1a02519ccbf7bbb852687b39b0a"
+      ],
+      "primaryUrl": "https://github.com/QwenLM/qwen-code/releases/tag/desktop-v0.25.1",
+      "sourceDiversity": 1,
+      "publishedAtLatest": "2026-10-11T11:31:22.000Z",
+      "weight": 0.9945355587935095
     },
     {
       "clusterId": "fc0d3a64ebad02c9da010f76096e660a",
@@ -1891,7 +1953,7 @@
       "primaryUrl": "https://machinelearning.apple.com/research/language-discrimination-multilingual-learning",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-02T00:00:00.000Z",
-      "weight": 0.4300110834731114
+      "weight": 0.38898666693771855
     },
     {
       "clusterId": "fc8fd3471a1272ee4d36f190a66e4a86",
@@ -1902,7 +1964,7 @@
       "primaryUrl": "https://github.com/openai/codex/releases/tag/rust-v0.162.0",
       "sourceDiversity": 1,
       "publishedAtLatest": "2026-10-08T18:55:59.000Z",
-      "weight": 0.8422295312929885
+      "weight": 0.7618781719021954
     }
   ]
 }
