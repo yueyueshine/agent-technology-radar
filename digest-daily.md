@@ -1,64 +1,64 @@
-# Agent Technology Radar — 日报 — 2026-10-13
+# Agent Technology Radar — 日报 — 2026-10-14
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 141 signal · 未归类 67 / 141（47.5%）
+窗口 336h · 输入 150 signal · 未归类 71 / 150（47.3%）
 
-## 今日新增 6 条信号
+## 今日新增 14 条信号
 
 ### 已确立（adopt）
 
 #### model-capability —— 模型能力与发布
 
-- **[AINews] Meta Muse Wonder & Wonder Full: MSL’s Claude 5.5-tier Frontier Model** — rss:latent-space · https://www.latent.space/p/ainews-meta-muse-wonder-and-wonder
-- **web-edit 0.1a0** — rss:simon-willison · https://simonwillison.net/2026/Oct/12/web-edit/
-- **Self-Compacting Language Model Agents** — rss:apple-ml · https://machinelearning.apple.com/research/self-compacting-language-agents
-
-#### inference-and-cost —— 推理与成本
-
-- **Minions: A Dynamic and Distributed Virtual GPU Cloud Built on Idle Apple Silicon Devices** — rss:apple-ml · https://machinelearning.apple.com/research/distributed-gpu-cloud
-
-### 试用中（trial）
+- **[AINews] AI Engineer NYC: Gemini 4 Argon, Vals AI Benchmarks** — rss:latent-space · https://www.latent.space/p/ainews-ai-engineer-nyc-gemini-4-argon
+- **llm-gemini 0.35** — rss:simon-willison · https://simonwillison.net/2026/Oct/13/llm-gemini/
+- **Release v0.64.0** — github:gemini-cli · https://github.com/google-gemini/gemini-cli/releases/tag/v0.64.0
+- **Developing Gemini 4 Argon responsibly and safely** — rss:google-deepmind · https://deepmind.google/blog/developing-gemini-4-argon-responsibly-and-safely/
+- **Gemini 4 Argon in GitHub Copilot** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-13-gemini-4-argon-in-github-copilot
+- 还有 6 条
 
 #### context-and-memory —— 上下文与记忆
 
-- **All Systems Go: Global PC App Ecosystem Ready for NVIDIA RTX Spark** — rss:nvidia-blog · https://blogs.nvidia.com/blog/local-ai-rtx-spark-laptops-software-updates/
+- **v2.1.299** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.299
+
+### 试用中（trial）
 
 #### dev-tooling —— 开发者工具与实践
 
-- **Client telemetry user attribution and configurable capture** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-12-client-telemetry-user-attribution-and-configurable-capture
+- **Enterprise managed settings enforcement updates** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-13-enterprise-managed-settings-enforcement-updates
+- **Origin App Marketplace** — rss:cursor-changelog · https://cursor.com/changelog/origin-app-marketplace
 
-## 未归类（7）—— 未归入扇区，非主题
+## 未归类（10）—— 未归入扇区，非主题
 
-- **Quoting Geoffrey Huntley** — rss:simon-willison · https://simonwillison.net/2026/Oct/13/geoffrey-huntley/
-- **From Earth to Orbit, France’s Ecosystem Delivers Agentic Computing at Scale With NVIDIA** — rss:nvidia-blog · https://blogs.nvidia.com/blog/france-ecosystem-agentic-computing/
-- **langchain==1.4.5** — github:langchain · https://github.com/langchain-ai/langchain/releases/tag/langchain%3D%3D1.4.5
-- **How Anthropic’s Dynamic Workflows Coordinate Claude Agents** — rss:latent-space · https://www.latent.space/p/claude-dynamic-workflows
-- **Hello Python 3.15, goodbye 3.10, and now I can use 3.11** — rss:simon-willison · https://simonwillison.net/2026/Oct/12/python-3-15/
-- 还有 2 条
+- **From Enterprise to Earthshot: UK’s Ecosystem Moves From Ambition to Application With NVIDIA** — rss:nvidia-blog · https://blogs.nvidia.com/blog/uk-ecosystem-deployment/
+- **European Cities Deploy NVIDIA-Powered AI Agents to Run Smarter Urban Operations** — rss:nvidia-blog · https://blogs.nvidia.com/blog/european-cities-agents-urban-operations/
+- **Google DeepMind and Singapore Government collaborate to build fine-tuned AI model for scam detection** — rss:google-deepmind · https://deepmind.google/blog/on-device-ai-scam-detection-mddi/
+- **The EU’s next chapter in AI is agentic** — rss:openai-news · https://openai.com/index/the-eus-next-chapter-in-ai-is-agentic
+- **Redesigning source control at Anthropic** — rss:simon-willison · https://simonwillison.net/2026/Oct/13/redesigning-source-control-at-anthropic/
+- 还有 5 条
 
 ## 当前雷达
 
 | 扇区 | 环 | 源 | 事件（近/远） | 动量 |
 | --- | --- | --- | --- | --- |
-| model-capability | 已确立 | 11 | 19 / 8 | +0.41 |
+| model-capability | 已确立 | 11 | 20 / 14 | +0.18 |
 | agent-framework | 已确立 | 5 | 5 / 2 | +0.43 |
 | tool-and-protocol | 待观察 | 1 | 1 / 0 | +1.00 |
-| context-and-memory | 试用中 | 3 | 3 / 1 | +0.50 |
-| inference-and-cost | 已确立 | 5 | 4 / 3 | +0.14 |
-| dev-tooling | 试用中 | 8 | 13 / 2 | +0.73 |
-| product-and-business | 待观察 | 2 | 3 / 3 | +0.00 |
-| safety-and-governance | 试用中 | 4 | 4 / 0 | +1.00 |
-| eval-and-benchmark | 待观察 | 2 | 1 / 1 | +0.00 |
+| context-and-memory | 已确立 | 4 | 3 / 2 | +0.20 |
+| inference-and-cost | 试用中 | 3 | 4 / 1 | +0.60 |
+| dev-tooling | 试用中 | 8 | 14 / 1 | +0.87 |
+| product-and-business | 沉寂 | 2 | 2 / 4 | -0.33 |
+| safety-and-governance | 已确立 | 3 | 2 / 1 | +0.33 |
+| eval-and-benchmark | 待观察 | 1 | 1 / 0 | +1.00 |
 
 > 动量 = 窗口后半段 vs 前半段的事件数对比，未含时间衰减。
 
 ## 健康指标
 
-未归类 67 / 141（47.5%）
+未归类 71 / 150（47.3%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-10-13T14:12:50.000Z · src 2026-10-13T14:12:50.856Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-10-14T11:53:09.000Z · src 2026-10-14T11:53:09.545Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*

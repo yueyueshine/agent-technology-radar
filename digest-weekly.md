@@ -1,17 +1,17 @@
-# Agent Technology Radar — 周报 — 2026-10-13
+# Agent Technology Radar — 周报 — 2026-10-14
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 141 signal · 未归类 67 / 141（47.5%）
+窗口 336h · 输入 150 signal · 未归类 71 / 150（47.3%）
 
 ## 环的移动
 
-对比基线：2026-10-12T15:26:41.468Z
+对比基线：2026-10-13T14:12:50.856Z
 
-- agent-framework：试用中 → 已确立（动量 +0.43，源 5）
-- tool-and-protocol：已确立 → 待观察（动量 +1.00，源 1）
-- context-and-memory：已确立 → 试用中（动量 +0.50，源 3）
-- eval-and-benchmark：沉寂 → 待观察（动量 +0.00，源 2）
+- context-and-memory：试用中 → 已确立（动量 +0.20，源 4）
+- inference-and-cost：已确立 → 试用中（动量 +0.60，源 3）
+- product-and-business：待观察 → 沉寂（动量 -0.33，源 2）
+- safety-and-governance：试用中 → 已确立（动量 +0.33，源 3）
 
 ## 扇区全貌
 
@@ -19,16 +19,16 @@
 
 #### model-capability —— 模型能力与发布
 
-11 个独立源 · 27 个事件（近 19 / 远 8）· 动量 +0.41
+11 个独立源 · 34 个事件（近 20 / 远 14）· 动量 +0.18
 
-覆盖广（11 个独立源）、动量温和为正（+0.41）—— 生态已收敛且仍在缓升。
+覆盖广（11 个独立源）、动量温和为正（+0.18）—— 生态已收敛且仍在缓升。
 
 - **Release v0.25.1** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.25.1
-- **[AINews] Meta Muse Wonder & Wonder Full: MSL’s Claude 5.5-tier Frontier Model** — rss:latent-space · https://www.latent.space/p/ainews-meta-muse-wonder-and-wonder
-- **web-edit 0.1a0** — rss:simon-willison · https://simonwillison.net/2026/Oct/12/web-edit/
-- **Self-Compacting Language Model Agents** — rss:apple-ml · https://machinelearning.apple.com/research/self-compacting-language-agents
-- **Qwen Code Desktop v0.25.1** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/desktop-v0.25.1
-- 还有 22 条
+- **Gemini 4 Argon: Built to solve your hardest problems** — rss:google-ai · https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/
+- **[AINews] AI Engineer NYC: Gemini 4 Argon, Vals AI Benchmarks** — rss:latent-space · https://www.latent.space/p/ainews-ai-engineer-nyc-gemini-4-argon
+- **llm-gemini 0.35** — rss:simon-willison · https://simonwillison.net/2026/Oct/13/llm-gemini/
+- **Developing Gemini 4 Argon responsibly and safely** — rss:google-deepmind · https://deepmind.google/blog/developing-gemini-4-argon-responsibly-and-safely/
+- 还有 29 条
 
 #### agent-framework —— Agent 框架与编排
 
@@ -43,55 +43,54 @@
 - **Helping teens learn, plan, and shape the future of AI** — rss:openai-news · https://openai.com/index/teens-learn-and-plan
 - 还有 2 条
 
+#### context-and-memory —— 上下文与记忆
+
+4 个独立源 · 5 个事件（近 3 / 远 2）· 动量 +0.20
+
+覆盖广（4 个独立源）、动量温和为正（+0.20）—— 生态已收敛且仍在缓升。
+
+- **v2.1.299** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.299
+- **All Systems Go: Global PC App Ecosystem Ready for NVIDIA RTX Spark** — rss:nvidia-blog · https://blogs.nvidia.com/blog/local-ai-rtx-spark-laptops-software-updates/
+- **v1.0.0** — github:mcp-servers · https://github.com/modelcontextprotocol/servers/releases/tag/v1.0.0
+- **EmbeddingGemma 2** — rss:simon-willison · https://simonwillison.net/2026/Oct/6/hn-49983751/
+- **NVIDIA DGX Spark 64GB Gives Developers More Ways to Build and Scale Local AI** — rss:nvidia-blog · https://blogs.nvidia.com/blog/local-ai-dgx-spark-64gb-sync/
+
+#### safety-and-governance —— 安全与治理
+
+3 个独立源 · 3 个事件（近 2 / 远 1）· 动量 +0.33
+
+覆盖广（3 个独立源）、动量温和为正（+0.33）—— 生态已收敛且仍在缓升。
+
+- **Sophos cuts threat investigation time by 96% with OpenAI Daybreak** — rss:openai-news · https://openai.com/index/sophos
+- **[AINews] not much happened today** — rss:latent-space · https://www.latent.space/p/ainews-not-much-happened-today-60f
+- **The Cyber Risk Discourse is Broken** — rss:interconnects · https://www.interconnects.ai/p/the-cyber-risk-discourse-is-broken
+
+### 试用中（trial）
+
 #### inference-and-cost —— 推理与成本
 
-5 个独立源 · 7 个事件（近 4 / 远 3）· 动量 +0.14
+3 个独立源 · 5 个事件（近 4 / 远 1）· 动量 +0.60
 
-覆盖广（5 个独立源）、动量温和为正（+0.14）—— 生态已收敛且仍在缓升。
+覆盖达标（3 个独立源）且动量急升（+0.60）—— 共识形成前的活跃试验期。
 
 - **Minions: A Dynamic and Distributed Virtual GPU Cloud Built on Idle Apple Silicon Devices** — rss:apple-ml · https://machinelearning.apple.com/research/distributed-gpu-cloud
 - **I expect rapid progress but not towards general superintelligence** — rss:interconnects · https://www.interconnects.ai/p/i-expect-rapid-progress-but-not-towards
 - **Impactful scheduling for GPU clusters** — rss:huggingface-blog · https://huggingface.co/blog/allenai/impactful-scheduling
 - **Normalizing Trajectory Models** — rss:apple-ml · https://machinelearning.apple.com/research/normalizing-trajectory-models
 - **RISED: Rubrics for Agentic Multi-Environment Selection and Self-Distillation** — rss:apple-ml · https://machinelearning.apple.com/research/rised-multi-environment-selection
-- 还有 2 条
-
-### 试用中（trial）
-
-#### context-and-memory —— 上下文与记忆
-
-3 个独立源 · 4 个事件（近 3 / 远 1）· 动量 +0.50
-
-覆盖达标（3 个独立源）且动量急升（+0.50）—— 共识形成前的活跃试验期。
-
-- **All Systems Go: Global PC App Ecosystem Ready for NVIDIA RTX Spark** — rss:nvidia-blog · https://blogs.nvidia.com/blog/local-ai-rtx-spark-laptops-software-updates/
-- **v1.0.0** — github:mcp-servers · https://github.com/modelcontextprotocol/servers/releases/tag/v1.0.0
-- **EmbeddingGemma 2** — rss:simon-willison · https://simonwillison.net/2026/Oct/6/hn-49983751/
-- **NVIDIA DGX Spark 64GB Gives Developers More Ways to Build and Scale Local AI** — rss:nvidia-blog · https://blogs.nvidia.com/blog/local-ai-dgx-spark-64gb-sync/
 
 #### dev-tooling —— 开发者工具与实践
 
-8 个独立源 · 15 个事件（近 13 / 远 2）· 动量 +0.73
+8 个独立源 · 15 个事件（近 14 / 远 1）· 动量 +0.87
 
-覆盖达标（8 个独立源）且动量急升（+0.73）—— 共识形成前的活跃试验期。
+覆盖达标（8 个独立源）且动量急升（+0.87）—— 共识形成前的活跃试验期。
 
+- **Enterprise managed settings enforcement updates** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-13-enterprise-managed-settings-enforcement-updates
+- **Origin App Marketplace** — rss:cursor-changelog · https://cursor.com/changelog/origin-app-marketplace
 - **Client telemetry user attribution and configurable capture** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-12-client-telemetry-user-attribution-and-configurable-capture
 - **SDK TypeScript Release v0.1.19** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.19
 - **GitHub Copilot weekly releases — October 5** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-09-github-copilot-weekly-releases-october-5
-- **0.162.1** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.162.1
-- **ttok 0.4** — rss:simon-willison · https://simonwillison.net/2026/Oct/8/ttok/
 - 还有 10 条
-
-#### safety-and-governance —— 安全与治理
-
-4 个独立源 · 4 个事件（近 4 / 远 0）· 动量 +1.00
-
-覆盖达标（4 个独立源）且动量急升（+1.00）—— 共识形成前的活跃试验期。
-
-- **Sophos cuts threat investigation time by 96% with OpenAI Daybreak** — rss:openai-news · https://openai.com/index/sophos
-- **[AINews] not much happened today** — rss:latent-space · https://www.latent.space/p/ainews-not-much-happened-today-60f
-- **v2.1.292** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.292
-- **The Cyber Risk Discourse is Broken** — rss:interconnects · https://www.interconnects.ai/p/the-cyber-risk-discourse-is-broken
 
 ### 待观察（assess）
 
@@ -103,11 +102,21 @@
 
 - **New controls and chat improvements in Copilot for JetBrains** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-10-new-controls-and-chat-improvements-in-copilot-for-jetbrains
 
+#### eval-and-benchmark —— 评测与基准
+
+1 个独立源 · 1 个事件（近 1 / 远 0）· 动量 +1.00
+
+有升势（+1.00）但独立源偏少（仅 1 个）—— 只够放进观察位。
+
+- **Import AI 476: Creativity and RSI; worse-than-China open weight models; AI goes to space** — rss:import-ai · https://jack-clark.net/2026/10/12/import-ai-476-creativity-and-rsi-worse-than-china-open-weight-models-ai-goes-to-space/
+
+### 沉寂（hold）
+
 #### product-and-business —— 产品与商业
 
-2 个独立源 · 6 个事件（近 3 / 远 3）· 动量 +0.00
+2 个独立源 · 6 个事件（近 2 / 远 4）· 动量 -0.33
 
-动量持平但独立源偏少（仅 2 个）—— 只够放进观察位。
+动量转负（-0.33，2 个源）—— 注意力在退。
 
 - **[Subscriber Exclusive] NYC Subscriber Meetups!** — rss:latent-space · https://www.latent.space/p/nyc2026
 - **[AINews] TypeSafe/Jev at >$100M ARR, $7.5B valuation 3 weeks after launch** — rss:latent-space · https://www.latent.space/p/ainews-typesafejev-at-100m-arr-75b
@@ -116,21 +125,12 @@
 - **How Albertsons Companies is reimagining retail from the inside out** — rss:openai-news · https://openai.com/index/albertsons-reimagining-retail
 - 还有 1 条
 
-#### eval-and-benchmark —— 评测与基准
-
-2 个独立源 · 2 个事件（近 1 / 远 1）· 动量 +0.00
-
-动量持平但独立源偏少（仅 2 个）—— 只够放进观察位。
-
-- **Import AI 476: Creativity and RSI; worse-than-China open weight models; AI goes to space** — rss:import-ai · https://jack-clark.net/2026/10/12/import-ai-476-creativity-and-rsi-worse-than-china-open-weight-models-ai-goes-to-space/
-- **Open TTS Leaderboard: Scalable Evaluation for Multilingual Text-to-Speech and Voice Cloning** — rss:huggingface-blog · https://huggingface.co/blog/open-tts-leaderboard
-
 ## 健康指标
 
-未归类 67 / 141（47.5%）
+未归类 71 / 150（47.3%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-10-13T14:12:50.000Z · src 2026-10-13T14:12:50.856Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-10-14T11:53:09.000Z · src 2026-10-14T11:53:09.545Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
