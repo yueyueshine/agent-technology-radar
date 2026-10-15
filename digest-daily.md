@@ -1,53 +1,52 @@
-# Agent Technology Radar — 日报 — 2026-10-14
+# Agent Technology Radar — 日报 — 2026-10-15
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 150 signal · 未归类 71 / 150（47.3%）
+窗口 336h · 输入 149 signal · 未归类 75 / 149（50.3%）
 
-## 今日新增 14 条信号
+## 今日新增 6 条信号
 
 ### 已确立（adopt）
 
 #### model-capability —— 模型能力与发布
 
-- **[AINews] AI Engineer NYC: Gemini 4 Argon, Vals AI Benchmarks** — rss:latent-space · https://www.latent.space/p/ainews-ai-engineer-nyc-gemini-4-argon
-- **llm-gemini 0.35** — rss:simon-willison · https://simonwillison.net/2026/Oct/13/llm-gemini/
-- **Release v0.64.0** — github:gemini-cli · https://github.com/google-gemini/gemini-cli/releases/tag/v0.64.0
-- **Developing Gemini 4 Argon responsibly and safely** — rss:google-deepmind · https://deepmind.google/blog/developing-gemini-4-argon-responsibly-and-safely/
-- **Gemini 4 Argon in GitHub Copilot** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-13-gemini-4-argon-in-github-copilot
-- 还有 6 条
-
-#### context-and-memory —— 上下文与记忆
-
-- **v2.1.299** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.299
+- **Tree Appreciator** — rss:simon-willison · https://simonwillison.net/2026/Oct/14/tree-appreciator/
+- **Amp puts AI agents to work beyond code with OpenAI models** — rss:openai-news · https://openai.com/index/amp-beyond-coding
+- **How Third Moment Research runs 10,000 agents for 36+ hours** — rss:openai-news · https://openai.com/index/third-moment-research
+- **The Design Space of Tri-Modal Masked Diffusion Models** — rss:apple-ml · https://machinelearning.apple.com/research/tri-modal-masked-diffusion
 
 ### 试用中（trial）
 
 #### dev-tooling —— 开发者工具与实践
 
-- **Enterprise managed settings enforcement updates** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-13-enterprise-managed-settings-enforcement-updates
-- **Origin App Marketplace** — rss:cursor-changelog · https://cursor.com/changelog/origin-app-marketplace
+- **HydraFusion updates and new Max option** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-14-hydrafusion-updates-and-new-max-option
 
-## 未归类（10）—— 未归入扇区，非主题
+### 待观察（assess）
 
-- **From Enterprise to Earthshot: UK’s Ecosystem Moves From Ambition to Application With NVIDIA** — rss:nvidia-blog · https://blogs.nvidia.com/blog/uk-ecosystem-deployment/
-- **European Cities Deploy NVIDIA-Powered AI Agents to Run Smarter Urban Operations** — rss:nvidia-blog · https://blogs.nvidia.com/blog/european-cities-agents-urban-operations/
-- **Google DeepMind and Singapore Government collaborate to build fine-tuned AI model for scam detection** — rss:google-deepmind · https://deepmind.google/blog/on-device-ai-scam-detection-mddi/
-- **The EU’s next chapter in AI is agentic** — rss:openai-news · https://openai.com/index/the-eus-next-chapter-in-ai-is-agentic
-- **Redesigning source control at Anthropic** — rss:simon-willison · https://simonwillison.net/2026/Oct/13/redesigning-source-control-at-anthropic/
-- 还有 5 条
+#### product-and-business —— 产品与商业
+
+- **[AINews] Modal’s $1B ARR, $16B Series D makes it NYC’s newest AI Infra Decacorn, 3x usage and 3x valuation in 5 months, 15x in 1 yr** — rss:latent-space · https://www.latent.space/p/ainews-modals-1b-arr-16b-series-d
+
+## 未归类（12）—— 未归入扇区，非主题
+
+- **NVIDIA Expands Advanced Technology Access for Europe’s Scientific Community Through Open Learning Resources, Collaborations and Compute** — rss:nvidia-blog · https://blogs.nvidia.com/blog/ec-scientific-computing-pledge/
+- **The Nordics and NVIDIA Show What’s Possible When a Region Commits to Advanced Computing** — rss:nvidia-blog · https://blogs.nvidia.com/blog/nordics-technology-ecosystem/
+- **Crossing the Threshold: How OpenAI and Anthropic Approach Autonomy and Safety in Financial Agents** — rss:latent-space · https://www.latent.space/p/crossing-the-threshold
+- **Lab-in-the-Loop at Compute Speed — Ian Quigley, Leash Bio** — rss:latent-space · https://www.latent.space/p/lab-in-the-loop-at-compute-speed
+- **v2.1.300** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.300
+- 还有 7 条
 
 ## 当前雷达
 
 | 扇区 | 环 | 源 | 事件（近/远） | 动量 |
 | --- | --- | --- | --- | --- |
-| model-capability | 已确立 | 11 | 20 / 14 | +0.18 |
-| agent-framework | 已确立 | 5 | 5 / 2 | +0.43 |
+| model-capability | 已确立 | 10 | 21 / 13 | +0.24 |
+| agent-framework | 沉寂 | 3 | 1 / 2 | -0.33 |
 | tool-and-protocol | 待观察 | 1 | 1 / 0 | +1.00 |
 | context-and-memory | 已确立 | 4 | 3 / 2 | +0.20 |
-| inference-and-cost | 试用中 | 3 | 4 / 1 | +0.60 |
-| dev-tooling | 试用中 | 8 | 14 / 1 | +0.87 |
-| product-and-business | 沉寂 | 2 | 2 / 4 | -0.33 |
+| inference-and-cost | 待观察 | 2 | 2 / 2 | +0.00 |
+| dev-tooling | 试用中 | 8 | 12 / 3 | +0.60 |
+| product-and-business | 待观察 | 2 | 3 / 3 | +0.00 |
 | safety-and-governance | 已确立 | 3 | 2 / 1 | +0.33 |
 | eval-and-benchmark | 待观察 | 1 | 1 / 0 | +1.00 |
 
@@ -55,10 +54,10 @@
 
 ## 健康指标
 
-未归类 71 / 150（47.3%）
+未归类 75 / 149（50.3%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-10-14T11:53:09.000Z · src 2026-10-14T11:53:09.545Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-10-15T11:30:07.000Z · src 2026-10-15T11:30:07.101Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
