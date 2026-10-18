@@ -1,4 +1,4 @@
-# Agent Technology Radar — 周报 — 2026-10-17
+# Agent Technology Radar — 周报 — 2026-10-18
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
@@ -6,9 +6,10 @@
 
 ## 环的移动
 
-对比基线：2026-10-16T11:25:13.250Z
+对比基线：2026-10-17T10:45:10.522Z
 
-- product-and-business：试用中 → 已确立（动量 +0.40，源 5）
+- tool-and-protocol：待观察 → 沉寂（动量 -1.00，源 1）
+- context-and-memory：试用中 → 待观察（动量 +1.00，源 2）
 
 ## 扇区全貌
 
@@ -16,16 +17,16 @@
 
 #### model-capability —— 模型能力与发布
 
-10 个独立源 · 28 个事件（近 20 / 远 8）· 动量 +0.43
+10 个独立源 · 29 个事件（近 21 / 远 8）· 动量 +0.45
 
-覆盖广（10 个独立源）、动量温和为正（+0.43）—— 生态已收敛且仍在缓升。
+覆盖广（10 个独立源）、动量温和为正（+0.45）—— 生态已收敛且仍在缓升。
 
 - **Release v0.25.2** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.25.2
 - **Gemini 4 Argon: Built to solve your hardest problems** — rss:google-ai · https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/
 - **Upcoming deprecation of selected GitHub Copilot models in mid-November** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-15-upcoming-deprecation-of-selected-github-copilot-models-in-mid-november
 - **Qwen Code Desktop v0.25.2** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/desktop-v0.25.2
 - **Welcome Muse Spark Open: open-weight frontier multimodal mixture-of-experts model from Meta** — rss:huggingface-blog · https://huggingface.co/blog/meta-muse-spark-open
-- 还有 23 条
+- 还有 24 条
 
 #### dev-tooling —— 开发者工具与实践
 
@@ -42,9 +43,9 @@
 
 #### product-and-business —— 产品与商业
 
-5 个独立源 · 10 个事件（近 7 / 远 3）· 动量 +0.40
+5 个独立源 · 10 个事件（近 6 / 远 4）· 动量 +0.20
 
-覆盖广（5 个独立源）、动量温和为正（+0.40）—— 生态已收敛且仍在缓升。
+覆盖广（5 个独立源）、动量温和为正（+0.20）—— 生态已收敛且仍在缓升。
 
 - **How Itaú is building generative AI for its entire customer base** — rss:openai-news · https://openai.com/index/itau-generative-ai
 - **Be There for the Beginning: Celebrate the Launch of NVIDIA RTX Spark** — rss:nvidia-blog · https://blogs.nvidia.com/blog/local-ai-rtx-spark-launch-event-invite/
@@ -53,28 +54,18 @@
 - **Dial Up the Cloud: NVIDIA DLSS 4.5 Controls Arrive on GeForce NOW** — rss:nvidia-blog · https://blogs.nvidia.com/blog/geforce-now-thursday-enshrouded-update/
 - 还有 5 条
 
-### 试用中（trial）
+### 待观察（assess）
 
 #### context-and-memory —— 上下文与记忆
 
-3 个独立源 · 4 个事件（近 4 / 远 0）· 动量 +1.00
+2 个独立源 · 4 个事件（近 4 / 远 0）· 动量 +1.00
 
-覆盖达标（3 个独立源）且动量急升（+1.00）—— 共识形成前的活跃试验期。
+有升势（+1.00）但独立源偏少（仅 2 个）—— 只够放进观察位。
 
+- **RTX Spark Ignites Global Celebration as New Windows PCs Arrive** — rss:nvidia-blog · https://blogs.nvidia.com/blog/local-ai-rtx-spark-windows-laptops-celebration/
 - **v2.1.302** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.302
 - **v2.1.299** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.299
 - **All Systems Go: Global PC App Ecosystem Ready for NVIDIA RTX Spark** — rss:nvidia-blog · https://blogs.nvidia.com/blog/local-ai-rtx-spark-laptops-software-updates/
-- **v1.0.0** — github:mcp-servers · https://github.com/modelcontextprotocol/servers/releases/tag/v1.0.0
-
-### 待观察（assess）
-
-#### tool-and-protocol —— 工具与协议
-
-1 个独立源 · 1 个事件（近 1 / 远 0）· 动量 +1.00
-
-有升势（+1.00）但独立源偏少（仅 1 个）—— 只够放进观察位。
-
-- **New controls and chat improvements in Copilot for JetBrains** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-10-new-controls-and-chat-improvements-in-copilot-for-jetbrains
 
 #### inference-and-cost —— 推理与成本
 
@@ -108,6 +99,14 @@
 - **Helping teens learn, plan, and shape the future of AI** — rss:openai-news · https://openai.com/index/teens-learn-and-plan
 - **Import AI 475: Swarm scaling; Google DeepMind watermarks biology; and the AI science economy** — rss:import-ai · https://jack-clark.net/2026/10/05/import-ai-475-swarm-scaling-google-deepmind-watermarks-biology-and-the-ai-science-economy/
 
+#### tool-and-protocol —— 工具与协议
+
+1 个独立源 · 1 个事件（近 0 / 远 1）· 动量 -1.00
+
+动量转负（-1.00，1 个源）—— 注意力在退。
+
+- **New controls and chat improvements in Copilot for JetBrains** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-10-new-controls-and-chat-improvements-in-copilot-for-jetbrains
+
 #### safety-and-governance —— 安全与治理
 
 3 个独立源 · 4 个事件（近 1 / 远 3）· 动量 -0.50
@@ -125,6 +124,6 @@
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-10-17T10:45:10.000Z · src 2026-10-17T10:45:10.522Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-10-18T11:06:03.000Z · src 2026-10-18T11:06:03.293Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
