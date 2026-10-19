@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-18T11:06:03.293Z",
+  "generatedAt": "2026-10-19T13:16:52.224Z",
   "radarVersion": "v1",
   "taxonomyVersion": "v1",
-  "sourceGeneratedAt": "2026-10-18T11:06:03.031Z",
+  "sourceGeneratedAt": "2026-10-19T13:16:52.138Z",
   "windowHours": 336,
   "inputSignalCount": 154,
-  "measuredSpanHours": 313.1009147222222,
+  "measuredSpanHours": 334.28117333333336,
   "ringRule": {
     "momentumMidpointHours": 168,
     "narrowBreadth": 3,
@@ -15,22 +15,22 @@
     {
       "topic": "model-capability",
       "ring": "adopt",
-      "weight": 17.625958790317622,
+      "weight": 16.250748198867704,
       "signalCount": 31,
-      "clusterCount": 29,
+      "clusterCount": 28,
       "breadth": 10,
-      "recentClusters": 21,
-      "priorClusters": 8,
-      "momentum": 0.4482758620689655,
-      "ringReason": "momentum +0.448 >= 0; breadth 10 >= 3; momentum +0.448 < 0.5 -> adopt",
+      "recentClusters": 19,
+      "priorClusters": 9,
+      "momentum": 0.35714285714285715,
+      "ringReason": "momentum +0.357 >= 0; breadth 10 >= 3; momentum +0.357 < 0.5 -> adopt",
       "signalIds": [
         "00773639d8a30977826390ee17ebb890",
-        "03bada85ad674f97d641485d9c40dbfc",
         "1fcbc28f7d4d89032ba84156f8a66223",
         "26be09427259b92716ddc5f790bf2a08",
         "4bb1400132449ad14cecd1e6b7d6c58e",
         "4c57a49b6b49566d6956322f76dc36c2",
         "4cf28150a31a0cdf2773d3db04a46e95",
+        "555a8f6ae43c9850337683b0e1be5247",
         "5a0cdb299cc61de126ce699dedfd99ab",
         "65608ae88ff0fd3b4f65bfe2c07ff22d",
         "6f4f22bcc9e1451b3fd7fd236e594831",
@@ -43,7 +43,6 @@
         "ad1fbae664c4a83f7358b676774b9203",
         "ad840a0998e5e43435da818147cfaa0b",
         "b454053be8c3323fb90784a459f758ad",
-        "b499b1a02519ccbf7bbb852687b39b0a",
         "b815557b1b0ca7448b5221beda954f23",
         "cb99eccd8f0751071b6724410964f0c4",
         "d7fee74c9ab8552d775bfa38939bb59e",
@@ -54,29 +53,29 @@
         "f21985f598f2e7b16f2d6d32492ad297",
         "f2e81bfeb898705f47faaf08b265ded3",
         "f57f4621025e44bbb77ac2e48d7c50b3",
+        "f8fb29fd25fdfee3b01c313ab5f2d7fc",
         "fc3bf34b0c7c3118b8e04de59dde1e32"
       ]
     },
     {
       "topic": "agent-framework",
       "ring": "hold",
-      "weight": 0.6153937521578279,
-      "signalCount": 2,
-      "clusterCount": 2,
-      "breadth": 2,
+      "weight": 0.3031467784699679,
+      "signalCount": 1,
+      "clusterCount": 1,
+      "breadth": 1,
       "recentClusters": 0,
-      "priorClusters": 2,
+      "priorClusters": 1,
       "momentum": -1,
       "ringReason": "momentum -1.000 < 0 -> hold",
       "signalIds": [
-        "6110849f3556e4d1e9574b321b429213",
-        "f398477ffc408e9dba353dbe028d4c9b"
+        "6110849f3556e4d1e9574b321b429213"
       ]
     },
     {
       "topic": "tool-and-protocol",
       "ring": "hold",
-      "weight": 0.46765991978552857,
+      "weight": 0.41977743757858316,
       "signalCount": 1,
       "clusterCount": 1,
       "breadth": 1,
@@ -91,7 +90,7 @@
     {
       "topic": "context-and-memory",
       "ring": "assess",
-      "weight": 3.0597995703193512,
+      "weight": 2.746514654755438,
       "signalCount": 4,
       "clusterCount": 4,
       "breadth": 2,
@@ -108,15 +107,15 @@
     },
     {
       "topic": "inference-and-cost",
-      "ring": "assess",
-      "weight": 2.729928796520143,
+      "ring": "hold",
+      "weight": 2.450418491070938,
       "signalCount": 5,
       "clusterCount": 5,
       "breadth": 2,
-      "recentClusters": 3,
-      "priorClusters": 2,
-      "momentum": 0.2,
-      "ringReason": "momentum +0.200 >= 0; breadth 2 < 3 -> assess",
+      "recentClusters": 2,
+      "priorClusters": 3,
+      "momentum": -0.2,
+      "ringReason": "momentum -0.200 < 0 -> hold",
       "signalIds": [
         "2aa8fc99d81c9bcdbe90d4fb58c4fb44",
         "520b12268976a3cac76e96bc8477c8d9",
@@ -128,7 +127,7 @@
     {
       "topic": "dev-tooling",
       "ring": "adopt",
-      "weight": 11.017032723971838,
+      "weight": 10.416710090187776,
       "signalCount": 19,
       "clusterCount": 19,
       "breadth": 8,
@@ -141,7 +140,6 @@
         "1b509df8f7f2ded0c822c7ff6b4986b8",
         "1e8c0f73b23e9238b35987e929c9d1bf",
         "356058f6379a5945b511532da5ab94ab",
-        "3a360bf5acb9884ec11ba890a33b508d",
         "3fa04c0248861e18e9ca786d8e829d7a",
         "4990ce5d10ebfc731aaa6e07fa53bfd3",
         "576c03d1c98a92326be7d32e457d4e1c",
@@ -152,6 +150,7 @@
         "ad10849cfbfb40985c8086a2a50eab19",
         "b2b117b6f989867dcef31e5ccbddf535",
         "cd1b26abc518dd4da7f9a512c6209a5d",
+        "d866958e875e53e2f1ae2fabe64840c3",
         "d9167251ea34d8c6ca0fd98641dcdf9f",
         "dd63ed360ae5f914dd0be77c3a8bbe2c",
         "ecc1978ce28db1c7b9cac862bbc41209",
@@ -161,7 +160,7 @@
     {
       "topic": "product-and-business",
       "ring": "adopt",
-      "weight": 6.126943254099345,
+      "weight": 5.49962147830569,
       "signalCount": 10,
       "clusterCount": 10,
       "breadth": 5,
@@ -185,7 +184,7 @@
     {
       "topic": "safety-and-governance",
       "ring": "hold",
-      "weight": 1.9007472445117024,
+      "weight": 1.7061346804139048,
       "signalCount": 4,
       "clusterCount": 4,
       "breadth": 3,
@@ -203,14 +202,14 @@
     {
       "topic": "eval-and-benchmark",
       "ring": "assess",
-      "weight": 1.3103331098173467,
+      "weight": 1.176171512550738,
       "signalCount": 2,
       "clusterCount": 2,
       "breadth": 2,
-      "recentClusters": 2,
-      "priorClusters": 0,
-      "momentum": 1,
-      "ringReason": "momentum +1.000 >= 0; breadth 2 < 3 -> assess",
+      "recentClusters": 1,
+      "priorClusters": 1,
+      "momentum": 0,
+      "ringReason": "momentum +0.000 >= 0; breadth 2 < 3 -> assess",
       "signalIds": [
         "4b7ac9b989154771d41fbcec256de91b",
         "6a929f2ea1491a465156c818a13065e1"
@@ -218,13 +217,13 @@
     }
   ],
   "unclassified": {
-    "signalCount": 76,
-    "ratio": 0.4935064935064935
+    "signalCount": 77,
+    "ratio": 0.5
   },
   "summary": {
     "adopt": 3,
     "trial": 0,
-    "assess": 3,
-    "hold": 3
+    "assess": 2,
+    "hold": 4
   }
 }
