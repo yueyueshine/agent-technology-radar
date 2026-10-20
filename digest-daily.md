@@ -1,8 +1,8 @@
-# Agent Technology Radar — 日报 — 2026-10-19
+# Agent Technology Radar — 日报 — 2026-10-20
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 154 signal · 未归类 77 / 154（50.0%）
+窗口 336h · 输入 157 signal · 未归类 82 / 157（52.2%）
 
 ## 今日新增 3 条信号
 
@@ -10,32 +10,33 @@
 
 #### model-capability —— 模型能力与发布
 
-- **Qwen Code Desktop v0.25.3** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/desktop-v0.25.3
-- **Release v0.25.3** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.25.3
+- **[AINews] not much happened today** — rss:latent-space · https://www.latent.space/p/ainews-not-much-happened-today-f09
+- **GitHub Copilot models deprecated on October 19, 2026** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-19-github-copilot-models-deprecated-on-october-19-2026
 
 #### dev-tooling —— 开发者工具与实践
 
-- **SDK TypeScript Release v0.1.21** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.21
+- **Copilot model policy API for enterprise, orgs, and teams** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-19-copilot-model-policy-api-for-enterprise-orgs-and-teams
 
-## 未归类（5）—— 未归入扇区，非主题
+## 未归类（9）—— 未归入扇区，非主题
 
-- **v2.0.0** — github:mcp-servers · https://github.com/modelcontextprotocol/servers/releases/tag/v2.0.0
-- **llm-tools-datasette 0.1.1** — rss:simon-willison · https://simonwillison.net/2026/Oct/18/llm-tools-datasette/
-- **llm-echo 0.5** — rss:simon-willison · https://simonwillison.net/2026/Oct/18/llm-echo/
-- **v2.1.303** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.303
-- **Apertus 1.5 Release Notes** — rss:huggingface-blog · https://huggingface.co/blog/swiss-ai/apertus-v15-release-notes
+- **Spain-Based Startups Advance Regional Innovation With Barcelona Supercomputing Center** — rss:nvidia-blog · https://blogs.nvidia.com/blog/spain-startups-barcelona-supercomputing-center/
+- **MPS in PyTorch 2.15** — rss:huggingface-blog · https://huggingface.co/blog/mps-pytorch-2-15
+- **My obituary for programming** — rss:simon-willison · https://simonwillison.net/2026/Oct/19/my-obituary-for-programming/
+- **v2.1.304** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.304
+- **Germany Wants to Lead the World in Industrial AI: How NVIDIA Will Help** — rss:nvidia-blog · https://blogs.nvidia.com/blog/germany-wants-to-lead-the-world-in-industrial-ai-how-nvidia-will-help/
+- 还有 4 条
 
 ## 当前雷达
 
 | 扇区 | 环 | 源 | 事件（近/远） | 动量 |
 | --- | --- | --- | --- | --- |
-| model-capability | 已确立 | 10 | 19 / 9 | +0.36 |
+| model-capability | 已确立 | 10 | 17 / 13 | +0.13 |
 | agent-framework | 沉寂 | 1 | 0 / 1 | -1.00 |
 | tool-and-protocol | 沉寂 | 1 | 0 / 1 | -1.00 |
-| context-and-memory | 待观察 | 2 | 4 / 0 | +1.00 |
+| context-and-memory | 待观察 | 2 | 3 / 0 | +1.00 |
 | inference-and-cost | 沉寂 | 2 | 2 / 3 | -0.20 |
-| dev-tooling | 已确立 | 8 | 12 / 7 | +0.26 |
-| product-and-business | 已确立 | 5 | 6 / 4 | +0.20 |
+| dev-tooling | 已确立 | 8 | 11 / 6 | +0.29 |
+| product-and-business | 已确立 | 5 | 6 / 3 | +0.33 |
 | safety-and-governance | 沉寂 | 3 | 1 / 3 | -0.50 |
 | eval-and-benchmark | 待观察 | 2 | 1 / 1 | +0.00 |
 
@@ -43,10 +44,10 @@
 
 ## 健康指标
 
-未归类 77 / 154（50.0%）
+未归类 82 / 157（52.2%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-10-19T13:16:52.000Z · src 2026-10-19T13:16:52.224Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-10-20T11:37:42.000Z · src 2026-10-20T11:37:42.219Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
