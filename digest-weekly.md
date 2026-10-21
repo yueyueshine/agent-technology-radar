@@ -1,59 +1,73 @@
-# Agent Technology Radar — 周报 — 2026-10-20
+# Agent Technology Radar — 周报 — 2026-10-21
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 157 signal · 未归类 82 / 157（52.2%）
+窗口 336h · 输入 158 signal · 未归类 79 / 158（50.0%）
 
 ## 环的移动
 
-对比基线：2026-10-19T13:16:52.224Z
+对比基线：2026-10-20T11:37:42.219Z
 
-本周无环变动。
+- model-capability：已确立 → 沉寂（动量 -0.13，源 12）
+- tool-and-protocol：沉寂 → 待观察（动量 +0.00，源 2）
+- inference-and-cost：沉寂 → 已确立（动量 +0.14，源 3）
+- product-and-business：已确立 → 试用中（动量 +0.64，源 5）
 
 ## 扇区全貌
 
 ### 已确立（adopt）
 
-#### model-capability —— 模型能力与发布
+#### inference-and-cost —— 推理与成本
 
-10 个独立源 · 30 个事件（近 17 / 远 13）· 动量 +0.13
+3 个独立源 · 7 个事件（近 4 / 远 3）· 动量 +0.14
 
-覆盖广（10 个独立源）、动量温和为正（+0.13）—— 生态已收敛且仍在缓升。
+覆盖广（3 个独立源）、动量温和为正（+0.14）—— 生态已收敛且仍在缓升。
 
-- **Release v0.25.2** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.25.2
-- **Gemini 4 Argon: Built to solve your hardest problems** — rss:google-ai · https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-argon/
-- **[AINews] not much happened today** — rss:latent-space · https://www.latent.space/p/ainews-not-much-happened-today-f09
-- **GitHub Copilot models deprecated on October 19, 2026** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-19-github-copilot-models-deprecated-on-october-19-2026
-- **Qwen Code Desktop v0.25.3** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/desktop-v0.25.3
-- 还有 25 条
+- **NVIDIA Cloud Partners Scale Across Europe — Sovereign, Open and Built for Safe AI Agents** — rss:nvidia-blog · https://blogs.nvidia.com/blog/cloud-partners-europe-sovereign-safety-open-agents/
+- **Europe’s Industrial Leaders Reinvent Engineering and Manufacturing With NVIDIA** — rss:nvidia-blog · https://blogs.nvidia.com/blog/europe-industrial-leaders-engineering-manufacturing/
+- **Local and Distributed Large LLM Inference with MLX and RDMA on Mac Studio** — rss:apple-ml · https://machinelearning.apple.com/research/mlx-distributed-inference
+- **Selection-Based Structured Reasoning: Toward Efficient Multimodal Search Agents** — rss:apple-ml · https://machinelearning.apple.com/research/selection-structured-reasoning
+- **Minions: A Dynamic and Distributed Virtual GPU Cloud Built on Idle Apple Silicon Devices** — rss:apple-ml · https://machinelearning.apple.com/research/distributed-gpu-cloud
+- 还有 2 条
 
 #### dev-tooling —— 开发者工具与实践
 
-8 个独立源 · 17 个事件（近 11 / 远 6）· 动量 +0.29
+6 个独立源 · 15 个事件（近 9 / 远 6）· 动量 +0.20
 
-覆盖广（8 个独立源）、动量温和为正（+0.29）—— 生态已收敛且仍在缓升。
+覆盖广（6 个独立源）、动量温和为正（+0.20）—— 生态已收敛且仍在缓升。
 
 - **Copilot model policy API for enterprise, orgs, and teams** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-19-copilot-model-policy-api-for-enterprise-orgs-and-teams
 - **SDK TypeScript Release v0.1.21** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.21
 - **Multi-repository support and other improvements for GitHub in Slack and Teams** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-15-copilot-in-slack-and-teams-adds-model-and-repository-updates
 - **Benefit Street Partners answers questions faster with Codex** — rss:openai-news · https://openai.com/index/benefit-street-partners
 - **Stack Overflow for Agents triples signups with ChatGPT plugin** — rss:openai-news · https://openai.com/index/stack-overflow-chatgpt-plugin
-- 还有 12 条
+- 还有 10 条
+
+### 试用中（trial）
 
 #### product-and-business —— 产品与商业
 
-5 个独立源 · 9 个事件（近 6 / 远 3）· 动量 +0.33
+5 个独立源 · 11 个事件（近 9 / 远 2）· 动量 +0.64
 
-覆盖广（5 个独立源）、动量温和为正（+0.33）—— 生态已收敛且仍在缓升。
+覆盖达标（5 个独立源）且动量急升（+0.64）—— 共识形成前的活跃试验期。
 
+- **Google Cloud and NVIDIA Announce General Availability of NVIDIA Vera Rubin Infrastructure** — rss:nvidia-blog · https://blogs.nvidia.com/blog/google-cloud-vera-rubin-infrastructure/
+- **NVIDIA cuDSS Now Generally Available to Accelerate Engineering and Scientific Simulations** — rss:nvidia-blog · https://blogs.nvidia.com/blog/cudss-generally-available-engineering-scientific-simulation/
+- **OpenAI acquires Orchestra Bio** — rss:openai-news · https://openai.com/index/openai-to-acquire-orchestra-bio
 - **How Itaú is building generative AI for its entire customer base** — rss:openai-news · https://openai.com/index/itau-generative-ai
 - **Be There for the Beginning: Celebrate the Launch of NVIDIA RTX Spark** — rss:nvidia-blog · https://blogs.nvidia.com/blog/local-ai-rtx-spark-launch-event-invite/
-- **Agentic autofix for code scanning alerts general availability** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-15-agentic-autofix-for-code-scanning-alerts-general-availability
-- **Anthropic tells investors quarterly revenue up nearly 50% to $16.8bn ahead of IPO** — rss:simon-willison · https://simonwillison.net/2026/Oct/15/anthropic-tells-investors/
-- **Dial Up the Cloud: NVIDIA DLSS 4.5 Controls Arrive on GeForce NOW** — rss:nvidia-blog · https://blogs.nvidia.com/blog/geforce-now-thursday-enshrouded-update/
-- 还有 4 条
+- 还有 6 条
 
 ### 待观察（assess）
+
+#### tool-and-protocol —— 工具与协议
+
+2 个独立源 · 2 个事件（近 1 / 远 1）· 动量 +0.00
+
+动量持平但独立源偏少（仅 2 个）—— 只够放进观察位。
+
+- **v2.1.306** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.306
+- **New controls and chat improvements in Copilot for JetBrains** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-10-new-controls-and-chat-improvements-in-copilot-for-jetbrains
 
 #### context-and-memory —— 上下文与记忆
 
@@ -61,9 +75,9 @@
 
 有升势（+1.00）但独立源偏少（仅 2 个）—— 只够放进观察位。
 
+- **NVIDIA Open Models Advance Europe’s Sovereign Intelligence Across Industries** — rss:nvidia-blog · https://blogs.nvidia.com/blog/open-models-europe-industry/
 - **RTX Spark Ignites Global Celebration as New Windows PCs Arrive** — rss:nvidia-blog · https://blogs.nvidia.com/blog/local-ai-rtx-spark-windows-laptops-celebration/
 - **v2.1.302** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.302
-- **All Systems Go: Global PC App Ecosystem Ready for NVIDIA RTX Spark** — rss:nvidia-blog · https://blogs.nvidia.com/blog/local-ai-rtx-spark-laptops-software-updates/
 
 #### eval-and-benchmark —— 评测与基准
 
@@ -76,6 +90,19 @@
 
 ### 沉寂（hold）
 
+#### model-capability —— 模型能力与发布
+
+12 个独立源 · 32 个事件（近 14 / 远 18）· 动量 -0.13
+
+动量转负（-0.13，12 个源）—— 注意力在退。
+
+- **Release v0.25.2** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.25.2
+- **Bringing the Spark to Europe: Local Intelligence Powers Next Wave of Agents** — rss:nvidia-blog · https://blogs.nvidia.com/blog/local-ai-gtc-rtx-dgx-spark-station-sync/
+- **NVIDIA Confidential Computing Expands, Enabling Frontier Model Builders to Securely Scale Across Global Infrastructure** — rss:nvidia-blog · https://blogs.nvidia.com/blog/confidential-computing-model-builders-infrastructure/
+- **[AINews] DeepSeek DeepInfer: Open Source SOTA Inference running 155T toks/day/cluster making $22m/day at ~80% margin for a 81 day payback** — rss:latent-space · https://www.latent.space/p/ainews-deepseek-deepinfer-open-source
+- **Latest open artifacts (#25): DeepSeek V4.1 Flash 1017, American-made models, and new regulatory controls in the US & China** — rss:interconnects · https://www.interconnects.ai/p/latest-open-artifacts-25-deepseek
+- 还有 27 条
+
 #### agent-framework —— Agent 框架与编排
 
 1 个独立源 · 1 个事件（近 0 / 远 1）· 动量 -1.00
@@ -84,43 +111,22 @@
 
 - **Helping teens learn, plan, and shape the future of AI** — rss:openai-news · https://openai.com/index/teens-learn-and-plan
 
-#### tool-and-protocol —— 工具与协议
-
-1 个独立源 · 1 个事件（近 0 / 远 1）· 动量 -1.00
-
-动量转负（-1.00，1 个源）—— 注意力在退。
-
-- **New controls and chat improvements in Copilot for JetBrains** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-10-new-controls-and-chat-improvements-in-copilot-for-jetbrains
-
-#### inference-and-cost —— 推理与成本
-
-2 个独立源 · 5 个事件（近 2 / 远 3）· 动量 -0.20
-
-动量转负（-0.20，2 个源）—— 注意力在退。
-
-- **Local and Distributed Large LLM Inference with MLX and RDMA on Mac Studio** — rss:apple-ml · https://machinelearning.apple.com/research/mlx-distributed-inference
-- **Selection-Based Structured Reasoning: Toward Efficient Multimodal Search Agents** — rss:apple-ml · https://machinelearning.apple.com/research/selection-structured-reasoning
-- **Minions: A Dynamic and Distributed Virtual GPU Cloud Built on Idle Apple Silicon Devices** — rss:apple-ml · https://machinelearning.apple.com/research/distributed-gpu-cloud
-- **I expect rapid progress but not towards general superintelligence** — rss:interconnects · https://www.interconnects.ai/p/i-expect-rapid-progress-but-not-towards
-- **Normalizing Trajectory Models** — rss:apple-ml · https://machinelearning.apple.com/research/normalizing-trajectory-models
-
 #### safety-and-governance —— 安全与治理
 
-3 个独立源 · 4 个事件（近 1 / 远 3）· 动量 -0.50
+2 个独立源 · 3 个事件（近 1 / 远 2）· 动量 -0.33
 
-动量转负（-0.50，3 个源）—— 注意力在退。
+动量转负（-0.33，2 个源）—— 注意力在退。
 
 - **[AINews] Agents disprove Polysemanticity; greatly improve Interpretability & Alignment** — rss:latent-space · https://www.latent.space/p/ainews-agents-disprove-polysemanticity
 - **Sophos cuts threat investigation time by 96% with OpenAI Daybreak** — rss:openai-news · https://openai.com/index/sophos
 - **[AINews] not much happened today** — rss:latent-space · https://www.latent.space/p/ainews-not-much-happened-today-60f
-- **The Cyber Risk Discourse is Broken** — rss:interconnects · https://www.interconnects.ai/p/the-cyber-risk-discourse-is-broken
 
 ## 健康指标
 
-未归类 82 / 157（52.2%）
+未归类 79 / 158（50.0%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-10-20T11:37:42.000Z · src 2026-10-20T11:37:42.219Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-10-21T11:50:01.000Z · src 2026-10-21T11:50:01.598Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
