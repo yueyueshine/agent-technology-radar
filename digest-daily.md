@@ -1,78 +1,72 @@
-# Agent Technology Radar — 日报 — 2026-10-21
+# Agent Technology Radar — 日报 — 2026-10-22
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 158 signal · 未归类 79 / 158（50.0%）
+窗口 336h · 输入 164 signal · 未归类 87 / 164（53.0%）
 
-## 今日新增 14 条信号
+## 今日新增 12 条信号
 
 ### 已确立（adopt）
 
 #### inference-and-cost —— 推理与成本
 
-- **NVIDIA Cloud Partners Scale Across Europe — Sovereign, Open and Built for Safe AI Agents** — rss:nvidia-blog · https://blogs.nvidia.com/blog/cloud-partners-europe-sovereign-safety-open-agents/
-- **Europe’s Industrial Leaders Reinvent Engineering and Manufacturing With NVIDIA** — rss:nvidia-blog · https://blogs.nvidia.com/blog/europe-industrial-leaders-engineering-manufacturing/
+- **NVIDIA Transforms European Retail, From Digital Discovery to Physical Operations** — rss:nvidia-blog · https://blogs.nvidia.com/blog/european-retail-open-models-robotics/
+- **How Specializing the Vocabulary of SLMs Can Cut Inference Cost by 77% in Real Applications** — rss:huggingface-blog · https://huggingface.co/blog/Dharma-AI/vocabx-vocabulary-specialization
 
-### 试用中（trial）
+#### dev-tooling —— 开发者工具与实践
 
-#### product-and-business —— 产品与商业
-
-- **Google Cloud and NVIDIA Announce General Availability of NVIDIA Vera Rubin Infrastructure** — rss:nvidia-blog · https://blogs.nvidia.com/blog/google-cloud-vera-rubin-infrastructure/
-- **NVIDIA cuDSS Now Generally Available to Accelerate Engineering and Scientific Simulations** — rss:nvidia-blog · https://blogs.nvidia.com/blog/cudss-generally-available-engineering-scientific-simulation/
-- **OpenAI acquires Orchestra Bio** — rss:openai-news · https://openai.com/index/openai-to-acquire-orchestra-bio
+- **SDK TypeScript Release v0.1.22** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.22
+- **Claude Mods: Flipping the Harness Inside Out** — rss:latent-space · https://www.latent.space/p/claude-mods
+- **Cloudflare links vulnerability discovery to defense with OpenAI** — rss:openai-news · https://openai.com/index/cloudflare-cyber
+- **sparqlite: SPARQL 1.1 inside SQLite, written in Rust** — rss:simon-willison · https://simonwillison.net/2026/Oct/16/sqlite-sparql-rust/
 
 ### 待观察（assess）
 
-#### tool-and-protocol —— 工具与协议
+#### safety-and-governance —— 安全与治理
 
-- **v2.1.306** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.306
-
-#### context-and-memory —— 上下文与记忆
-
-- **NVIDIA Open Models Advance Europe’s Sovereign Intelligence Across Industries** — rss:nvidia-blog · https://blogs.nvidia.com/blog/open-models-europe-industry/
+- **Democratic governance of frontier AI, part II: Empowering cyber defenders** — rss:openai-news · https://openai.com/index/empowering-cyber-defenders
 
 ### 沉寂（hold）
 
 #### model-capability —— 模型能力与发布
 
-- **Bringing the Spark to Europe: Local Intelligence Powers Next Wave of Agents** — rss:nvidia-blog · https://blogs.nvidia.com/blog/local-ai-gtc-rtx-dgx-spark-station-sync/
-- **NVIDIA Confidential Computing Expands, Enabling Frontier Model Builders to Securely Scale Across Global Infrastructure** — rss:nvidia-blog · https://blogs.nvidia.com/blog/confidential-computing-model-builders-infrastructure/
-- **[AINews] DeepSeek DeepInfer: Open Source SOTA Inference running 155T toks/day/cluster making $22m/day at ~80% margin for a 81 day payback** — rss:latent-space · https://www.latent.space/p/ainews-deepseek-deepinfer-open-source
-- **Release v0.65.0** — github:gemini-cli · https://github.com/google-gemini/gemini-cli/releases/tag/v0.65.0
-- **Latest open artifacts (#25): DeepSeek V4.1 Flash 1017, American-made models, and new regulatory controls in the US & China** — rss:interconnects · https://www.interconnects.ai/p/latest-open-artifacts-25-deepseek
-- 还有 2 条
+- **[AINews] OpenAI’s Patch the Planet program is 1 of 2 parties to discover PHP2Shell vulnerabilities in core PHP affecting 70% of the web, using GPT-5.6 Sol; coordinated response over 2 months** — rss:latent-space · https://www.latent.space/p/ainews-openais-patch-the-planet-program
+- **Leading European Financial Services Organizations Embrace Open Models to Build Proprietary Intelligence** — rss:nvidia-blog · https://blogs.nvidia.com/blog/european-financial-services-organizations-open-models-proprietary-intelligence/
+- **Qwen Code Desktop v0.26.0** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/desktop-v0.26.0
+- **Release v0.26.0** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.26.0
+- **OpenAI models are coming to Google Cloud** — rss:openai-news · https://openai.com/index/openai-models-google-cloud
 
-## 未归类（14）—— 未归入扇区，非主题
+## 未归类（21）—— 未归入扇区，非主题
 
-- **Announcing SimReady Central: An Open Library of Simulation-Ready 3D Assets for Robotics and AI Factories** — rss:huggingface-blog · https://huggingface.co/blog/nvidia/simready-central-assets-robotics-ai-factories
-- **NVIDIA Agent Toolkit Expands, Grounding Enterprise Agents in Company Data** — rss:nvidia-blog · https://blogs.nvidia.com/blog/enterprise-platforms-agent-toolkit/
-- **GTC Berlin 2026: Live Updates From NVIDIA CEO Jensen Huang’s Keynote** — rss:nvidia-blog · https://blogs.nvidia.com/blog/gtc-berlin-2026-keynote/
-- **AI for the Fortune 2000: How Tenex Builds an AI-Native SDLC — Alex Lieberman & CJ Hess** — rss:latent-space · https://www.latent.space/p/tenex
-- **Southeast Asia’s digital economy to hit $368 billion** — rss:google-ai · https://blog.google/company-news/inside-google/around-the-globe/google-asia/e-conomy-sea-report-2026/
-- 还有 9 条
+- **Ensemble forecasting with IBM Granite time-series models** — rss:huggingface-blog · https://huggingface.co/blog/ibm-research/granite-timeseries-ensemble-r1
+- **NVIDIA Cosmos Opens New Tools to Train, Evaluate and Deploy World Models** — rss:nvidia-blog · https://blogs.nvidia.com/blog/cosmos-open-train-evaluate-deploy-world-models/
+- **How Companies Are Using NVIDIA DSX to Break the Power Bottleneck** — rss:nvidia-blog · https://blogs.nvidia.com/blog/dsx-power/
+- **Pioneers Across Europe Deploy NVIDIA Earth-2 Open Models to Power Real-World Weather and Climate Prediction** — rss:nvidia-blog · https://blogs.nvidia.com/blog/europe-earth-2-open-models-weather-climate-prediction/
+- **NVIDIA Open Models Power a New Wave of European Public Sector Projects** — rss:nvidia-blog · https://blogs.nvidia.com/blog/european-public-sector-open-models/
+- 还有 16 条
 
 ## 当前雷达
 
 | 扇区 | 环 | 源 | 事件（近/远） | 动量 |
 | --- | --- | --- | --- | --- |
-| model-capability | 沉寂 | 12 | 14 / 18 | -0.13 |
-| agent-framework | 沉寂 | 1 | 0 / 1 | -1.00 |
+| model-capability | 沉寂 | 12 | 13 / 19 | -0.19 |
+| agent-framework | 沉寂 | 0 | 0 / 0 | n/a |
 | tool-and-protocol | 待观察 | 2 | 1 / 1 | +0.00 |
-| context-and-memory | 待观察 | 2 | 3 / 0 | +1.00 |
-| inference-and-cost | 已确立 | 3 | 4 / 3 | +0.14 |
-| dev-tooling | 已确立 | 6 | 9 / 6 | +0.20 |
-| product-and-business | 试用中 | 5 | 9 / 2 | +0.64 |
-| safety-and-governance | 沉寂 | 2 | 1 / 2 | -0.33 |
-| eval-and-benchmark | 待观察 | 2 | 1 / 1 | +0.00 |
+| context-and-memory | 待观察 | 1 | 1 / 0 | +1.00 |
+| inference-and-cost | 已确立 | 4 | 4 / 4 | +0.00 |
+| dev-tooling | 已确立 | 7 | 11 / 6 | +0.29 |
+| product-and-business | 已确立 | 5 | 6 / 3 | +0.33 |
+| safety-and-governance | 待观察 | 2 | 2 / 2 | +0.00 |
+| eval-and-benchmark | 沉寂 | 1 | 0 / 1 | -1.00 |
 
 > 动量 = 窗口后半段 vs 前半段的事件数对比，未含时间衰减。
 
 ## 健康指标
 
-未归类 79 / 158（50.0%）
+未归类 87 / 164（53.0%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-10-21T11:50:01.000Z · src 2026-10-21T11:50:01.598Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-10-22T11:53:23.000Z · src 2026-10-22T11:53:23.418Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
