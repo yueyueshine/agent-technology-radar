@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-25T11:30:43.030Z",
+  "generatedAt": "2026-10-26T13:03:58.742Z",
   "radarVersion": "v1",
   "taxonomyVersion": "v1",
-  "sourceGeneratedAt": "2026-10-25T11:30:42.950Z",
+  "sourceGeneratedAt": "2026-10-26T13:03:58.655Z",
   "windowHours": 336,
-  "inputSignalCount": 169,
-  "measuredSpanHours": 323.51195277777776,
+  "inputSignalCount": 165,
+  "measuredSpanHours": 332.09965055555557,
   "ringRule": {
     "momentumMidpointHours": 168,
     "narrowBreadth": 3,
@@ -15,18 +15,17 @@
     {
       "topic": "model-capability",
       "ring": "hold",
-      "weight": 17.36917148210457,
-      "signalCount": 35,
-      "clusterCount": 32,
+      "weight": 14.504069124756088,
+      "signalCount": 32,
+      "clusterCount": 29,
       "breadth": 12,
-      "recentClusters": 15,
-      "priorClusters": 17,
-      "momentum": -0.0625,
-      "ringReason": "momentum -0.063 < 0 -> hold",
+      "recentClusters": 14,
+      "priorClusters": 15,
+      "momentum": -0.034482758620689655,
+      "ringReason": "momentum -0.034 < 0 -> hold",
       "signalIds": [
         "005a83fb31d804b5d89dc65c81f6e028",
         "00773639d8a30977826390ee17ebb890",
-        "0ba67944f90721b2bb973abfba250b9a",
         "0dea2a84d96dfc1d6b6d634a96ace81c",
         "182c957f5077384b903e06db07c537f3",
         "19d3b4ac7b82cc48bb108bf08b44e396",
@@ -46,7 +45,6 @@
         "9d0288e01ff8e306db0bb9d47323476b",
         "ad1fbae664c4a83f7358b676774b9203",
         "ad8096c50135ba8d97c8c7adb5159a62",
-        "ad840a0998e5e43435da818147cfaa0b",
         "b1132969d133da0a510b2007c6630e9b",
         "b349892f3aa9528a5efe58297b82e556",
         "b454053be8c3323fb90784a459f758ad",
@@ -57,8 +55,7 @@
         "eb34c7ccea724d4a7c69cd18d363b31f",
         "ef18238eec8b98dd90850791cc08b3fa",
         "f21985f598f2e7b16f2d6d32492ad297",
-        "f2e81bfeb898705f47faaf08b265ded3",
-        "f57f4621025e44bbb77ac2e48d7c50b3"
+        "f2e81bfeb898705f47faaf08b265ded3"
       ]
     },
     {
@@ -77,7 +74,7 @@
     {
       "topic": "tool-and-protocol",
       "ring": "trial",
-      "weight": 3.1580469463944727,
+      "weight": 2.8420330215780707,
       "signalCount": 4,
       "clusterCount": 4,
       "breadth": 3,
@@ -95,7 +92,7 @@
     {
       "topic": "context-and-memory",
       "ring": "assess",
-      "weight": 0.6687706392982063,
+      "weight": 0.6018492672876075,
       "signalCount": 1,
       "clusterCount": 1,
       "breadth": 1,
@@ -110,16 +107,15 @@
     {
       "topic": "inference-and-cost",
       "ring": "adopt",
-      "weight": 4.63019036119382,
-      "signalCount": 8,
-      "clusterCount": 8,
+      "weight": 3.9299851938400385,
+      "signalCount": 7,
+      "clusterCount": 7,
       "breadth": 4,
       "recentClusters": 5,
-      "priorClusters": 3,
-      "momentum": 0.25,
-      "ringReason": "momentum +0.250 >= 0; breadth 4 >= 3; momentum +0.250 < 0.5 -> adopt",
+      "priorClusters": 2,
+      "momentum": 0.42857142857142855,
+      "ringReason": "momentum +0.429 >= 0; breadth 4 >= 3; momentum +0.429 < 0.5 -> adopt",
       "signalIds": [
-        "2aa8fc99d81c9bcdbe90d4fb58c4fb44",
         "789d13d264c6b9194e067f128dced019",
         "a4496ca288b66ea3a7d65fca3728ca02",
         "bb4fc1cb3f791af690e82c1739a3df5d",
@@ -132,16 +128,17 @@
     {
       "topic": "dev-tooling",
       "ring": "adopt",
-      "weight": 9.75067579284536,
-      "signalCount": 16,
-      "clusterCount": 16,
+      "weight": 9.741142491570706,
+      "signalCount": 17,
+      "clusterCount": 17,
       "breadth": 7,
-      "recentClusters": 10,
+      "recentClusters": 11,
       "priorClusters": 6,
-      "momentum": 0.25,
-      "ringReason": "momentum +0.250 >= 0; breadth 7 >= 3; momentum +0.250 < 0.5 -> adopt",
+      "momentum": 0.29411764705882354,
+      "ringReason": "momentum +0.294 >= 0; breadth 7 >= 3; momentum +0.294 < 0.5 -> adopt",
       "signalIds": [
         "0504c75e9f95cc665028aa004891a02f",
+        "3819ff2b05b60ea2d7cd21b21660b041",
         "38c15550f859656ea5c5fc31e2de08a0",
         "5bbc97432cfecc4ed20f3d11828c56bd",
         "5d0b3cb3f17634c79536ce8b50d85b3c",
@@ -162,7 +159,7 @@
     {
       "topic": "product-and-business",
       "ring": "adopt",
-      "weight": 3.8361634473830297,
+      "weight": 3.4522929451953455,
       "signalCount": 7,
       "clusterCount": 7,
       "breadth": 4,
@@ -182,45 +179,44 @@
     },
     {
       "topic": "safety-and-governance",
-      "ring": "assess",
-      "weight": 1.8221256964953245,
-      "signalCount": 3,
-      "clusterCount": 3,
-      "breadth": 2,
-      "recentClusters": 2,
+      "ring": "trial",
+      "weight": 2.540858353867253,
+      "signalCount": 4,
+      "clusterCount": 4,
+      "breadth": 3,
+      "recentClusters": 3,
       "priorClusters": 1,
-      "momentum": 0.3333333333333333,
-      "ringReason": "momentum +0.333 >= 0; breadth 2 < 3 -> assess",
+      "momentum": 0.5,
+      "ringReason": "momentum +0.500 >= 0; breadth 3 >= 3; momentum +0.500 >= 0.5 -> trial",
       "signalIds": [
         "1e910372a611df2390c9c9e0dac0da3f",
         "247443529bf241e9e90023e7a59f21d6",
+        "cbd1ec1c29383135a60cf88de3b93bfe",
         "faff7f7e51be2c9e50ba22f2470c1cf7"
       ]
     },
     {
       "topic": "eval-and-benchmark",
       "ring": "hold",
-      "weight": 0.2771623104068504,
-      "signalCount": 1,
-      "clusterCount": 1,
-      "breadth": 1,
+      "weight": 0,
+      "signalCount": 0,
+      "clusterCount": 0,
+      "breadth": 0,
       "recentClusters": 0,
-      "priorClusters": 1,
-      "momentum": -1,
-      "ringReason": "momentum -1.000 < 0 -> hold",
-      "signalIds": [
-        "4b7ac9b989154771d41fbcec256de91b"
-      ]
+      "priorClusters": 0,
+      "momentum": null,
+      "ringReason": "no clusters in window -> hold",
+      "signalIds": []
     }
   ],
   "unclassified": {
-    "signalCount": 94,
-    "ratio": 0.5562130177514792
+    "signalCount": 93,
+    "ratio": 0.5636363636363636
   },
   "summary": {
     "adopt": 3,
-    "trial": 1,
-    "assess": 2,
+    "trial": 2,
+    "assess": 1,
     "hold": 3
   }
 }
