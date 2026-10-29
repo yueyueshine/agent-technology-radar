@@ -1,72 +1,80 @@
-# Agent Technology Radar — 日报 — 2026-10-28
+# Agent Technology Radar — 日报 — 2026-10-29
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 169 signal · 未归类 93 / 169（55.0%）
+窗口 336h · 输入 165 signal · 未归类 89 / 165（53.9%）
 
-## 今日新增 15 条信号
+## 今日新增 20 条信号
 
 ### 已确立（adopt）
 
 #### model-capability —— 模型能力与发布
 
-- **Release v0.66.0** — github:gemini-cli · https://github.com/google-gemini/gemini-cli/releases/tag/v0.66.0
-- **0.165.0** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.165.0
-- **How Anthropic ships the #1 LLM in the World safely: Separating the Brain from the Hands** — rss:latent-space · https://latent.space/p/how_anthropic_ships_the_1_llm_in_the_world_safely_separating_the_brain_from_the_hands/
-- **Build specialized multimodal models with LFM3** — rss:huggingface-blog · https://huggingface.co/blog/LiquidAI/lfm3
-- **Release v0.26.2** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.26.2
+- **[AINews] Gemini 4 Carbon tops leaderboards, launches for cyber defenders** — rss:latent-space · https://latent.space/p/ainews-gemini-4-carbon/
+- **Gemini 4 Carbon: Our next frontier model** — rss:google-deepmind · https://deepmind.google/blog/gemini-4-carbon-our-next-frontier-model/
+- **Qwen Code Desktop v0.26.3** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/desktop-v0.26.3
+- **GitHub intelligence puts your code, context, and history to work** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-28-github-intelligence-puts-your-code-context-and-history-to-work
+- **Generate and edit images directly in Copilot** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-28-generate-and-edit-images-directly-in-copilot
 - 还有 2 条
 
 #### dev-tooling —— 开发者工具与实践
 
-- **Legora is building the agentic operating system for legal work** — rss:openai-news · https://openai.com/index/legora-agentic-operating-system-for-legal-work
-- **GitHub Copilot supports server-to-server authentication** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-27-github-copilot-supports-server-to-server-authentication
-- **SDK TypeScript Release v0.1.24** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.24
-- **How Localiza reorganized work around generative AI** — rss:openai-news · https://openai.com/index/localiza-generative-ai
+- **SDK TypeScript Release v0.1.25** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.25
+- **Route and orchestrate models with GitHub Copilot Fusion** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-28-route-and-orchestrate-models-with-github-copilot-fusion
+- **GitHub Copilot app, Universe releases** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-28-github-copilot-app-universe-releases
+- **GitHub Enterprise now includes access to GitHub Copilot** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-28-github-enterprise-now-includes-access-to-github-copilot
+- **Security extension for the GitHub Copilot app** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-28-security-extension-for-the-github-copilot-app
+- 还有 5 条
+
+### 试用中（trial）
 
 #### safety-and-governance —— 安全与治理
 
-- **v2.1.312** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.312
-- **How Check Point accelerates vulnerability research with Daybreak** — rss:openai-news · https://openai.com/index/check-point-daybreak
+- **v2.2.0** — github:mcp-servers · https://github.com/modelcontextprotocol/servers/releases/tag/v2.2.0
+
+### 待观察（assess）
+
+#### context-and-memory —— 上下文与记忆
+
+- **Thin, Light and Built for Everything: NVIDIA RTX Spark Windows Laptops Gain New Models, Agent Tools and Games** — rss:nvidia-blog · https://blogs.nvidia.com/blog/local-ai-rtx-spark-laptops-updates-models-agents-games/
 
 ### 沉寂（hold）
 
 #### product-and-business —— 产品与商业
 
-- **How Anthropic ships Claude with Claude: Separating the Brain from the Hands** — rss:latent-space · https://latent.space/p/opus55/
-- **OpenAI expands partnership with Oracle to bring its apps to ChatGPT** — rss:openai-news · https://openai.com/index/oracle-apps-in-chatgpt
+- **Why Agents Love Supabase** — rss:latent-space · https://latent.space/p/supabase/
 
-## 未归类（9）—— 未归入扇区，非主题
+## 未归类（8）—— 未归入扇区，非主题
 
-- **Quoting Terk Terkowitz** — rss:simon-willison · https://simonwillison.net/2026/Oct/28/terk-terkowitz/
-- **[AINews] Anthropic ends Coding Interviews: "Hunger beats tenure"** — rss:latent-space · https://latent.space/p/ainews-anthropic-ends-coding-interviews-hunger-beats-tenure/
-- **langchain-anthropic==1.7.7** — github:langchain · https://github.com/langchain-ai/langchain/releases/tag/langchain-anthropic%3D%3D1.7.7
-- **Game Boy Color on My Conference Badge** — rss:simon-willison · https://simonwillison.net/2026/Oct/27/game-boy-color-on-my-conference-badge/
-- **Can we trust LLMs to judge whether a research idea is novel?** — rss:huggingface-blog · https://huggingface.co/blog/allenai/novelty-bench
-- 还有 4 条
+- **Introducing AnySpeechRecognizer and AnyDecisionModel: Open Models for Speech and Decisions on Apple Platforms** — rss:huggingface-blog · https://huggingface.co/blog/anydecisionmodel
+- **Quoting Ted Sanders** — rss:simon-willison · https://simonwillison.net/2026/Oct/28/ted-sanders/
+- **GitHub Octoverse 2026** — rss:simon-willison · https://simonwillison.net/2026/Oct/28/github-octoverse-2026/
+- **GitHub Agentic Workflows generally available** — rss:github-copilot-changelog · https://github.blog/changelog/2026-10-28-github-agentic-workflows-generally-available
+- **langchain-core==1.7.1** — github:langchain · https://github.com/langchain-ai/langchain/releases/tag/langchain-core%3D%3D1.7.1
+- 还有 3 条
 
 ## 当前雷达
 
 | 扇区 | 环 | 源 | 事件（近/远） | 动量 |
 | --- | --- | --- | --- | --- |
-| model-capability | 已确立 | 10 | 14 / 9 | +0.22 |
+| model-capability | 已确立 | 11 | 16 / 9 | +0.28 |
 | agent-framework | 沉寂 | 0 | 0 / 0 | n/a |
-| tool-and-protocol | 试用中 | 3 | 3 / 0 | +1.00 |
-| context-and-memory | 沉寂 | 1 | 0 / 1 | -1.00 |
-| inference-and-cost | 沉寂 | 4 | 3 / 4 | -0.14 |
+| tool-and-protocol | 待观察 | 2 | 2 / 0 | +1.00 |
+| context-and-memory | 待观察 | 1 | 1 / 0 | +1.00 |
+| inference-and-cost | 沉寂 | 3 | 1 / 4 | -0.60 |
 | dev-tooling | 已确立 | 7 | 14 / 8 | +0.27 |
 | product-and-business | 沉寂 | 4 | 4 / 6 | -0.20 |
-| safety-and-governance | 已确立 | 5 | 5 / 2 | +0.43 |
+| safety-and-governance | 试用中 | 6 | 6 / 2 | +0.50 |
 | eval-and-benchmark | 沉寂 | 0 | 0 / 0 | n/a |
 
 > 动量 = 窗口后半段 vs 前半段的事件数对比，未含时间衰减。
 
 ## 健康指标
 
-未归类 93 / 169（55.0%）
+未归类 89 / 165（53.9%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-10-28T12:55:22.000Z · src 2026-10-28T12:55:22.797Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-10-29T13:02:00.000Z · src 2026-10-29T13:02:00.817Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
