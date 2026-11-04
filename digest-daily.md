@@ -1,8 +1,8 @@
-# Agent Technology Radar — 日报 — 2026-11-03
+# Agent Technology Radar — 日报 — 2026-11-04
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 150 signal · 未归类 82 / 150（54.7%）
+窗口 336h · 输入 161 signal · 未归类 88 / 161（54.7%）
 
 ## 今日新增 10 条信号
 
@@ -10,69 +10,58 @@
 
 #### model-capability —— 模型能力与发布
 
-- **llm 0.37** — rss:simon-willison · https://simonwillison.net/2026/Nov/2/llm/
-- **The U.S. Census Bureau and “Super Intelligence”** — rss:simon-willison · https://simonwillison.net/2026/Nov/2/census-bureau-super-intelligence/
-
-#### product-and-business —— 产品与商业
-
-- **Building AI for Lawyers - Jacob Lauritzen, CTO of Legora** — rss:latent-space · https://latent.space/p/building-ai-for-lawyers-jacob-lauritzen-cto-of-legora/
+- **Release v0.26.7** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.26.7
+- **Qwen 3.8 27B on my laptop can interpret model weights, too** — rss:simon-willison · https://simonwillison.net/2026/Nov/3/qwen-can-interpret-model-weights/
+- **How Cisco defends at machine speed with OpenAI** — rss:openai-news · https://openai.com/index/cisco-cyber
+- **Release v0.26.6** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.26.6
 
 ### 试用中（trial）
 
 #### dev-tooling —— 开发者工具与实践
 
-- **Heimstaden is changing residential real estate management with AI** — rss:openai-news · https://openai.com/index/heimstaden
-- **Scaling Git at OpenAI** — rss:openai-news · https://openai.com/index/scaling-git-at-openai
-- **Qodo builds context into AI code review with Codex** — rss:openai-news · https://openai.com/index/qodo-codex-plugin
+- **BYOK and enterprise custom models in the Copilot usage API** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-03-byok-and-enterprise-custom-models-in-the-copilot-usage-api
+- **v2.1.318** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.318
+- **GitHub Copilot is now available in JetBrains Air** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-03-github-copilot-is-now-available-in-jetbrains-air
+- **Accelerating engineering for the physical world** — rss:openai-news · https://openai.com/index/accelerating-engineering-for-the-physical-world
+- **SDK TypeScript Release v0.1.27** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.27
 
 ### 待观察（assess）
 
-#### eval-and-benchmark —— 评测与基准
+#### context-and-memory —— 上下文与记忆
 
-- **LifeVal** — rss:openai-news · https://openai.com/index/lifeval
-
-### 沉寂（hold）
-
-#### inference-and-cost —— 推理与成本
-
-- **Import AI 479: Spacewar; low-latency tasks versus LLMs; Genie 4** — rss:import-ai · https://jack-clark.net/2026/11/02/import-ai-479-spacewar-low-latency-tasks-versus-llms-genie-4/
-
-#### safety-and-governance —— 安全与治理
-
-- **October sponsors-only newsletter** — rss:simon-willison · https://simonwillison.net/2026/Nov/3/october-newsletter/
-- **OpenAI appoints Dan Driscoll as Senior Counselor for National Security Modernization** — rss:openai-news · https://openai.com/index/dan-driscoll-joins-openai
+- **langchain-anthropic==1.7.8** — github:langchain · https://github.com/langchain-ai/langchain/releases/tag/langchain-anthropic%3D%3D1.7.8
 
 ## 未归类（12）—— 未归入扇区，非主题
 
-- **Cities Worldwide Build and Scale AI Services With NVIDIA Physical and Agentic AI** — rss:nvidia-blog · https://blogs.nvidia.com/blog/cities-physical-agentic-ai-applications/
-- **[AINews] LLMs can read & write neural network weights: "Weight Space Programming" cuts Autoresearch out of the RSI loop** — rss:latent-space · https://latent.space/p/ainews-llms-can-read-write-neural-network-weights-weight-space-programming-cuts-autoresearch-out-of/
-- **I discovered a sound that leaks your exact location (and it's everywhere) - YouTube** — rss:simon-willison · https://simonwillison.net/2026/Nov/3/a-sound-that-leaks-your-exact-location/
-- **Transformers Model Integration Contracts** — rss:huggingface-blog · https://huggingface.co/blog/transformers-mic
-- **Building Legal Agents When You Can't See the Data - Jacob Lauritzen, CTO of Legora** — rss:latent-space · https://latent.space/p/building_legal_agents_when_you_can_t_see_the_data_-_jacob_lauritzen_cto_of_legora/
+- **langchain-typesafe==0.0.1** — github:langchain · https://github.com/langchain-ai/langchain/releases/tag/langchain-typesafe%3D%3D0.0.1
+- **StateBench: Testing how language models track state changes over long documents** — rss:huggingface-blog · https://huggingface.co/blog/allenai/statebench
+- **Agentic cheminformatics with Google Antigravity** — rss:google-deepmind · https://deepmind.google/blog/agentic-cheminformatics-with-google-antigravity/
+- **Palette: teaching a small model to build decks in your design language** — rss:huggingface-blog · https://huggingface.co/blog/ibm-research/palette-deck-building
+- **AI Is Changing How Semiconductor Fabs Work — and Engineers Are Moving Faster Because of It** — rss:nvidia-blog · https://blogs.nvidia.com/blog/ai-semiconductor-fabs/
 - 还有 7 条
 
 ## 当前雷达
 
 | 扇区 | 环 | 源 | 事件（近/远） | 动量 |
 | --- | --- | --- | --- | --- |
-| model-capability | 已确立 | 8 | 15 / 10 | +0.20 |
+| model-capability | 已确立 | 9 | 17 / 11 | +0.21 |
 | agent-framework | 沉寂 | 0 | 0 / 0 | n/a |
 | tool-and-protocol | 待观察 | 1 | 1 / 0 | +1.00 |
-| context-and-memory | 待观察 | 1 | 1 / 0 | +1.00 |
-| inference-and-cost | 沉寂 | 4 | 1 / 4 | -0.60 |
-| dev-tooling | 试用中 | 3 | 14 / 3 | +0.65 |
-| product-and-business | 已确立 | 3 | 5 / 4 | +0.11 |
-| safety-and-governance | 沉寂 | 4 | 3 / 5 | -0.25 |
+| context-and-memory | 待观察 | 2 | 2 / 0 | +1.00 |
+| inference-and-cost | 沉寂 | 4 | 1 / 3 | -0.50 |
+| dev-tooling | 试用中 | 5 | 16 / 4 | +0.60 |
+| product-and-business | 已确立 | 3 | 4 / 4 | +0.00 |
+| safety-and-governance | 已确立 | 5 | 4 / 4 | +0.00 |
 | eval-and-benchmark | 待观察 | 1 | 1 / 0 | +1.00 |
 
 > 动量 = 窗口后半段 vs 前半段的事件数对比，未含时间衰减。
 
 ## 健康指标
 
-未归类 82 / 150（54.7%）
+未归类 88 / 161（54.7%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-03T14:14:56.000Z · src 2026-11-03T14:14:56.956Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-04T14:32:34.000Z · src 2026-11-04T14:32:34.377Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
