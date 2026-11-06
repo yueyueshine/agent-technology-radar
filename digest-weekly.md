@@ -1,91 +1,95 @@
-# Agent Technology Radar — 周报 — 2026-11-05
+# Agent Technology Radar — 周报 — 2026-11-06
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 158 signal · 未归类 83 / 158（52.5%）
+窗口 336h · 输入 162 signal · 未归类 79 / 162（48.8%）
 
 ## 环的移动
 
-对比基线：2026-11-04T14:32:34.377Z
+对比基线：2026-11-05T14:40:36.614Z
 
-- model-capability：已确立 → 沉寂（动量 -0.08，源 10）
-- tool-and-protocol：待观察 → 沉寂（动量 -1.00，源 1）
-- inference-and-cost：沉寂 → 待观察（动量 +0.00，源 2）
-- dev-tooling：试用中 → 已确立（动量 +0.13，源 5）
-- product-and-business：已确立 → 沉寂（动量 -0.25，源 3）
+- context-and-memory：待观察 → 试用中（动量 +0.60，源 4）
+- inference-and-cost：待观察 → 已确立（动量 +0.33，源 3）
 
 ## 扇区全貌
 
 ### 已确立（adopt）
 
+#### inference-and-cost —— 推理与成本
+
+3 个独立源 · 3 个事件（近 2 / 远 1）· 动量 +0.33
+
+覆盖广（3 个独立源）、动量温和为正（+0.33）—— 生态已收敛且仍在缓升。
+
+- **Vera Delivers the Best of Both Worlds: Highest Throughput and Fastest Agents** — rss:nvidia-blog · https://blogs.nvidia.com/blog/vera-cpu-highest-throughput-fastest-agents/
+- **Import AI 479: Spacewar; low-latency tasks versus LLMs; Genie 4** — rss:import-ai · https://jack-clark.net/2026/11/02/import-ai-479-spacewar-low-latency-tasks-versus-llms-genie-4/
+- **Building Reasoning Models from the Ground Up: A Full Video Course** — rss:sebastian-raschka · https://magazine.sebastianraschka.com/p/building-reasoning-models
+
 #### dev-tooling —— 开发者工具与实践
 
-5 个独立源 · 23 个事件（近 13 / 远 10）· 动量 +0.13
+7 个独立源 · 27 个事件（近 18 / 远 9）· 动量 +0.33
 
-覆盖广（5 个独立源）、动量温和为正（+0.13）—— 生态已收敛且仍在缓升。
+覆盖广（7 个独立源）、动量温和为正（+0.33）—— 生态已收敛且仍在缓升。
 
-- **[AINews] It's Swapping Season** — rss:latent-space · https://latent.space/p/ainews-it-s-swapping-season/
-- **GitHub Copilot is now available in Xcode’s coding assistant** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-04-github-copilot-is-now-available-in-xcodes-coding-assistant
-- **OpenAI to acquire Pierre Computer Company, Inc.** — rss:openai-news · https://openai.com/index/openai-to-acquire-pierre
-- **BYOK and enterprise custom models in the Copilot usage API** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-03-byok-and-enterprise-custom-models-in-the-copilot-usage-api
-- **v2.1.318** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.318
-- 还有 18 条
+- **0.167.0** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.167.0
+- **Usage metrics API adds code review details and addressed rate** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-05-usage-metrics-api-adds-code-review-details-and-addressed-rate
+- **Usage metrics API flags telemetry and version gaps** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-05-usage-metrics-api-flags-telemetry-and-version-gaps
+- **Cult.fit builds operational muscle with Codex** — rss:openai-news · https://openai.com/index/cultfit-builds-with-codex
+- **Qwen Code Desktop v0.26.8** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/desktop-v0.26.8
+- 还有 22 条
 
 #### safety-and-governance —— 安全与治理
 
-4 个独立源 · 8 个事件（近 4 / 远 4）· 动量 +0.00
+4 个独立源 · 8 个事件（近 5 / 远 3）· 动量 +0.25
 
-覆盖广（4 个独立源）、动量持平 —— 生态已收敛，处于稳定期。
+覆盖广（4 个独立源）、动量温和为正（+0.25）—— 生态已收敛且仍在缓升。
 
+- **GPT‑6 Cyber: Advancing the frontier of aligned cybersecurity agents** — rss:openai-news · https://openai.com/index/introducing-gpt-6-cyber
 - **Setting a new standard for responsible AI infrastructure** — rss:openai-news · https://openai.com/index/setting-new-standard-responsible-ai-infrastructure
 - **October sponsors-only newsletter** — rss:simon-willison · https://simonwillison.net/2026/Nov/3/october-newsletter/
 - **OpenAI appoints Dan Driscoll as Senior Counselor for National Security Modernization** — rss:openai-news · https://openai.com/index/dan-driscoll-joins-openai
 - **Was I wrong about open models & cyber risks?** — rss:interconnects · https://www.interconnects.ai/p/was-i-wrong-about-open-models-and
-- **How Check Point accelerates vulnerability research with Daybreak** — rss:openai-news · https://openai.com/index/check-point-daybreak
 - 还有 3 条
 
-### 待观察（assess）
+### 试用中（trial）
 
 #### context-and-memory —— 上下文与记忆
 
-2 个独立源 · 2 个事件（近 1 / 远 1）· 动量 +0.00
+4 个独立源 · 5 个事件（近 4 / 远 1）· 动量 +0.60
 
-动量持平但独立源偏少（仅 2 个）—— 只够放进观察位。
+覆盖达标（4 个独立源）且动量急升（+0.60）—— 共识形成前的活跃试验期。
 
+- **[AINews] Inkling 2 Small: 17A-594B trained in 68 hours on 12T tokens, beating Muse Spark** — rss:latent-space · https://latent.space/p/ainews-inkling-2-small-17a-594b-trained-in-68-hours-on-12t-tokens-beating-muse-spark/
+- **More Performance From Every Byte: How Full-Stack Codesign Solves AI’s Memory Challenge** — rss:nvidia-blog · https://blogs.nvidia.com/blog/memory-full-stack-codesign/
+- **Faster Retrieval for Better, More Efficient RAG** — rss:apple-ml · https://machinelearning.apple.com/research/faster-retrieval
 - **v2.3.0** — github:mcp-servers · https://github.com/modelcontextprotocol/servers/releases/tag/v2.3.0
 - **Thin, Light and Built for Everything: NVIDIA RTX Spark Windows Laptops Gain New Models, Agent Tools and Games** — rss:nvidia-blog · https://blogs.nvidia.com/blog/local-ai-rtx-spark-laptops-updates-models-agents-games/
 
-#### inference-and-cost —— 推理与成本
-
-2 个独立源 · 2 个事件（近 1 / 远 1）· 动量 +0.00
-
-动量持平但独立源偏少（仅 2 个）—— 只够放进观察位。
-
-- **Import AI 479: Spacewar; low-latency tasks versus LLMs; Genie 4** — rss:import-ai · https://jack-clark.net/2026/11/02/import-ai-479-spacewar-low-latency-tasks-versus-llms-genie-4/
-- **Building Reasoning Models from the Ground Up: A Full Video Course** — rss:sebastian-raschka · https://magazine.sebastianraschka.com/p/building-reasoning-models
+### 待观察（assess）
 
 #### eval-and-benchmark —— 评测与基准
 
-1 个独立源 · 1 个事件（近 1 / 远 0）· 动量 +1.00
+2 个独立源 · 2 个事件（近 2 / 远 0）· 动量 +1.00
 
-有升势（+1.00）但独立源偏少（仅 1 个）—— 只够放进观察位。
+有升势（+1.00）但独立源偏少（仅 2 个）—— 只够放进观察位。
 
+- **Egyptian and Nigerian English join the Open ASR Leaderboard** — rss:huggingface-blog · https://huggingface.co/blog/open-asr-leaderboard-liva
 - **LifeVal** — rss:openai-news · https://openai.com/index/lifeval
 
 ### 沉寂（hold）
 
 #### model-capability —— 模型能力与发布
 
-10 个独立源 · 26 个事件（近 12 / 远 14）· 动量 -0.08
+10 个独立源 · 24 个事件（近 11 / 远 13）· 动量 -0.08
 
 动量转负（-0.08，10 个源）—— 注意力在退。
 
+- **Gemini Omni 1.2 Flash: Fast and cost-effective with longer clips** — rss:google-deepmind · https://deepmind.google/blog/gemini-omni-12-flash-fast-and-cost-effective-with-longer-clips/
 - **Release v0.67.0** — github:gemini-cli · https://github.com/google-gemini/gemini-cli/releases/tag/v0.67.0
+- **Merge builds product and business tools with OpenAI technology** — rss:openai-news · https://openai.com/index/merge-builds-with-openai
 - **Daybreak Red is now available in AWS GovCloud (US-East)** — rss:openai-news · https://openai.com/index/daybreak-red-aws-govcloud
 - **DevRev delivers autonomous self-service with GPT-6.1 Sol** — rss:openai-news · https://openai.com/index/devrev-enterprise-self-service
-- **Qwen 3.8 27B on my laptop can interpret model weights, too** — rss:simon-willison · https://simonwillison.net/2026/Nov/3/qwen-can-interpret-model-weights/
-- **How Cisco defends at machine speed with OpenAI** — rss:openai-news · https://openai.com/index/cisco-cyber
-- 还有 21 条
+- 还有 19 条
 
 #### agent-framework —— Agent 框架与编排
 
@@ -117,10 +121,10 @@
 
 ## 健康指标
 
-未归类 83 / 158（52.5%）
+未归类 79 / 162（48.8%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-05T14:40:36.000Z · src 2026-11-05T14:40:36.614Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-06T14:17:19.000Z · src 2026-11-06T14:17:19.088Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
