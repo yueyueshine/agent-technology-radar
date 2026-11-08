@@ -1,16 +1,14 @@
-# Agent Technology Radar — 周报 — 2026-11-07
+# Agent Technology Radar — 周报 — 2026-11-08
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 163 signal · 未归类 79 / 163（48.5%）
+窗口 336h · 输入 163 signal · 未归类 80 / 163（49.1%）
 
 ## 环的移动
 
-对比基线：2026-11-06T14:17:19.088Z
+对比基线：2026-11-07T13:01:43.347Z
 
-- tool-and-protocol：沉寂 → 待观察（动量 +0.00，源 2）
-- inference-and-cost：已确立 → 待观察（动量 +1.00，源 2）
-- dev-tooling：已确立 → 试用中（动量 +0.57，源 7）
+本周无环变动。
 
 ## 扇区全貌
 
@@ -18,16 +16,16 @@
 
 #### safety-and-governance —— 安全与治理
 
-4 个独立源 · 8 个事件（近 4 / 远 4）· 动量 +0.00
+4 个独立源 · 7 个事件（近 4 / 远 3）· 动量 +0.14
 
-覆盖广（4 个独立源）、动量持平 —— 生态已收敛，处于稳定期。
+覆盖广（4 个独立源）、动量温和为正（+0.14）—— 生态已收敛且仍在缓升。
 
 - **GPT‑6 Cyber: Advancing the frontier of aligned cybersecurity agents** — rss:openai-news · https://openai.com/index/introducing-gpt-6-cyber
 - **Setting a new standard for responsible AI infrastructure** — rss:openai-news · https://openai.com/index/setting-new-standard-responsible-ai-infrastructure
 - **October sponsors-only newsletter** — rss:simon-willison · https://simonwillison.net/2026/Nov/3/october-newsletter/
 - **OpenAI appoints Dan Driscoll as Senior Counselor for National Security Modernization** — rss:openai-news · https://openai.com/index/dan-driscoll-joins-openai
 - **Was I wrong about open models & cyber risks?** — rss:interconnects · https://www.interconnects.ai/p/was-i-wrong-about-open-models-and
-- 还有 3 条
+- 还有 2 条
 
 ### 试用中（trial）
 
@@ -45,16 +43,16 @@
 
 #### dev-tooling —— 开发者工具与实践
 
-7 个独立源 · 28 个事件（近 22 / 远 6）· 动量 +0.57
+7 个独立源 · 27 个事件（近 21 / 远 6）· 动量 +0.56
 
-覆盖达标（7 个独立源）且动量急升（+0.57）—— 共识形成前的活跃试验期。
+覆盖达标（7 个独立源）且动量急升（+0.56）—— 共识形成前的活跃试验期。
 
+- **SDK TypeScript Release v0.1.30** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.30
 - **Copilot code review: API management and review overview updates** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-06-copilot-code-review-api-management-and-review-overview-updates
 - **Copilot impact dashboard adds chat and VS Code agent usage** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-06-copilot-impact-dashboard-adds-chat-and-vs-code-agent-usage
 - **GitHub Copilot weekly releases — November 2** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-06-github-copilot-weekly-releases-november-2
 - **0.167.0** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.167.0
-- **Usage metrics API adds code review details and addressed rate** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-05-usage-metrics-api-adds-code-review-details-and-addressed-rate
-- 还有 23 条
+- 还有 22 条
 
 ### 待观察（assess）
 
@@ -90,16 +88,16 @@
 
 #### model-capability —— 模型能力与发布
 
-9 个独立源 · 22 个事件（近 9 / 远 13）· 动量 -0.18
+9 个独立源 · 23 个事件（近 10 / 远 13）· 动量 -0.13
 
-动量转负（-0.18，9 个源）—— 注意力在退。
+动量转负（-0.13，9 个源）—— 注意力在退。
 
 - **Release v0.26.9** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.26.9
 - **Gemini Omni 1.2 Flash: Fast and cost-effective with longer clips** — rss:google-deepmind · https://deepmind.google/blog/gemini-omni-12-flash-fast-and-cost-effective-with-longer-clips/
+- **Qwen Code Desktop v0.27.0** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/desktop-v0.27.0
 - **Merge builds product and business tools with OpenAI technology** — rss:openai-news · https://openai.com/index/merge-builds-with-openai
 - **Daybreak Red is now available in AWS GovCloud (US-East)** — rss:openai-news · https://openai.com/index/daybreak-red-aws-govcloud
-- **DevRev delivers autonomous self-service with GPT-6.1 Sol** — rss:openai-news · https://openai.com/index/devrev-enterprise-self-service
-- 还有 17 条
+- 还有 18 条
 
 #### agent-framework —— Agent 框架与编排
 
@@ -123,10 +121,10 @@
 
 ## 健康指标
 
-未归类 79 / 163（48.5%）
+未归类 80 / 163（49.1%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-07T13:01:43.000Z · src 2026-11-07T13:01:43.347Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-08T13:25:27.000Z · src 2026-11-08T13:25:27.425Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
