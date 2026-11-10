@@ -1,31 +1,29 @@
-# Agent Technology Radar — 周报 — 2026-11-09
+# Agent Technology Radar — 周报 — 2026-11-10
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 166 signal · 未归类 83 / 166（50.0%）
+窗口 336h · 输入 172 signal · 未归类 88 / 172（51.2%）
 
 ## 环的移动
 
-对比基线：2026-11-08T13:25:27.425Z
+对比基线：2026-11-09T16:20:01.984Z
 
-本周无环变动。
+- tool-and-protocol：待观察 → 已确立（动量 +0.33，源 3）
+- safety-and-governance：已确立 → 沉寂（动量 -0.20，源 3）
 
 ## 扇区全貌
 
 ### 已确立（adopt）
 
-#### safety-and-governance —— 安全与治理
+#### tool-and-protocol —— 工具与协议
 
-3 个独立源 · 6 个事件（近 3 / 远 3）· 动量 +0.00
+3 个独立源 · 3 个事件（近 2 / 远 1）· 动量 +0.33
 
-覆盖广（3 个独立源）、动量持平 —— 生态已收敛，处于稳定期。
+覆盖广（3 个独立源）、动量温和为正（+0.33）—— 生态已收敛且仍在缓升。
 
-- **GPT‑6 Cyber: Advancing the frontier of aligned cybersecurity agents** — rss:openai-news · https://openai.com/index/introducing-gpt-6-cyber
-- **Setting a new standard for responsible AI infrastructure** — rss:openai-news · https://openai.com/index/setting-new-standard-responsible-ai-infrastructure
-- **October sponsors-only newsletter** — rss:simon-willison · https://simonwillison.net/2026/Nov/3/october-newsletter/
-- **OpenAI appoints Dan Driscoll as Senior Counselor for National Security Modernization** — rss:openai-news · https://openai.com/index/dan-driscoll-joins-openai
-- **Was I wrong about open models & cyber risks?** — rss:interconnects · https://www.interconnects.ai/p/was-i-wrong-about-open-models-and
-- 还有 1 条
+- **v2.1.321** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.321
+- **v2.14.0** — github:google-adk-python · https://github.com/google/adk-python/releases/tag/v2.14.0
+- **Quoting Ben Hylak** — rss:simon-willison · https://simonwillison.net/2026/Oct/29/ben-hylak/
 
 ### 试用中（trial）
 
@@ -43,27 +41,18 @@
 
 #### dev-tooling —— 开发者工具与实践
 
-8 个独立源 · 30 个事件（近 23 / 远 7）· 动量 +0.53
+8 个独立源 · 31 个事件（近 24 / 远 7）· 动量 +0.55
 
-覆盖达标（8 个独立源）且动量急升（+0.53）—— 共识形成前的活跃试验期。
+覆盖达标（8 个独立源）且动量急升（+0.55）—— 共识形成前的活跃试验期。
 
+- **Locating the source of a mysterious beep with Claude** — rss:simon-willison · https://simonwillison.net/2026/Nov/9/mysterious-beeps/
+- **Claude Fable 5.2 in GitHub Copilot** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-09-claude-fable-5-2-in-github-copilot
 - **SDK TypeScript Release v0.1.31** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.31
+- **CodeRabbit scales agentic software development and ships 20x more** — rss:openai-news · https://openai.com/index/coderabbit-codex-daybreak
 - **Hide your slop PR descriptions behind <details><summary>** — rss:simon-willison · https://simonwillison.net/2026/Nov/9/details-summary/
-- **SDK TypeScript Release v0.1.29** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.29
-- **[One Million AI Engineer Special] How Stanford Teaches AI-Native Engineering — Mihail Eric, Monaco** — rss:latent-space · https://latent.space/p/one_million_ai_engineer_special_how_stanford_teaches_ai-native_engineering_mihail_eric_monaco/
-- **SDK TypeScript Release v0.1.30** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.30
-- 还有 25 条
+- 还有 26 条
 
 ### 待观察（assess）
-
-#### tool-and-protocol —— 工具与协议
-
-2 个独立源 · 2 个事件（近 1 / 远 1）· 动量 +0.00
-
-动量持平但独立源偏少（仅 2 个）—— 只够放进观察位。
-
-- **v2.14.0** — github:google-adk-python · https://github.com/google/adk-python/releases/tag/v2.14.0
-- **Quoting Ben Hylak** — rss:simon-willison · https://simonwillison.net/2026/Oct/29/ben-hylak/
 
 #### inference-and-cost —— 推理与成本
 
@@ -89,15 +78,15 @@
 
 #### model-capability —— 模型能力与发布
 
-9 个独立源 · 23 个事件（近 10 / 远 13）· 动量 -0.13
+9 个独立源 · 23 个事件（近 11 / 远 12）· 动量 -0.04
 
-动量转负（-0.13，9 个源）—— 注意力在退。
+动量转负（-0.04，9 个源）—— 注意力在退。
 
 - **Release v0.67.0** — github:gemini-cli · https://github.com/google-gemini/gemini-cli/releases/tag/v0.67.0
 - **Gemini Omni 1.2 Flash: Fast and cost-effective with longer clips** — rss:google-deepmind · https://deepmind.google/blog/gemini-omni-12-flash-fast-and-cost-effective-with-longer-clips/
-- **Qwen Code Desktop v0.27.1** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/desktop-v0.27.1
-- **Korea’s AI Ecosystem Advances and Secures Agentic AI With NVIDIA** — rss:nvidia-blog · https://blogs.nvidia.com/blog/korea-secure-agentic-ai/
-- **Merge builds product and business tools with OpenAI technology** — rss:openai-news · https://openai.com/index/merge-builds-with-openai
+- **We’re bringing Adobe’s creative and productivity tools closer to your everyday Google apps.** — rss:google-ai · https://blog.google/company-news/inside-google/company-announcements/adobe-google-partnership-integration/
+- **Google Cloud launches Gemini for healthcare.** — rss:google-ai · https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/gemini-for-healthcare/
+- **[AINews] Fable 5.2 retakes World #1 LLM spot as $ANT IPO roadshow begins** — rss:latent-space · https://latent.space/p/ainews-fable-5-2-retakes-world-1-llm-spot-as-ant-ipo-roadshow-begins/
 - 还有 18 条
 
 #### agent-framework —— Agent 框架与编排
@@ -109,23 +98,35 @@
 
 #### product-and-business —— 产品与商业
 
-3 个独立源 · 9 个事件（近 4 / 远 5）· 动量 -0.11
+2 个独立源 · 9 个事件（近 4 / 远 5）· 动量 -0.11
 
-动量转负（-0.11，3 个源）—— 注意力在退。
+动量转负（-0.11，2 个源）—— 注意力在退。
 
+- **What Frontier Labs Buy: A Data Deep Dive with Handshake AI — Garrett Lord & Team** — rss:latent-space · https://latent.space/p/handshake/
 - **NVIDIA Announces New Planned Investments in Korean Startups at the MSIT-NVIDIA AI Startup Partnership Forum** — rss:nvidia-blog · https://blogs.nvidia.com/blog/korean-startup-investments-msit/
 - **[AINews] Anthropic IPO: Whither Now?** — rss:latent-space · https://latent.space/p/ainews-anthropic-ipo-whither-now/
 - **‘Hogwarts Legacy’ Gets a Magical NVIDIA DLSS 5 Upgrade on GeForce NOW** — rss:nvidia-blog · https://blogs.nvidia.com/blog/geforce-now-thursday-hogwarts-legacy-dlss-5/
 - **Building AI for Lawyers - Jacob Lauritzen, CTO of Legora** — rss:latent-space · https://latent.space/p/building-ai-for-lawyers-jacob-lauritzen-cto-of-legora/
-- **[AINews] Google admits AI Mode hurts Search revenue; -15% $500B drop worst since 2004 IPO. AI Bear Market coming?** — rss:latent-space · https://latent.space/p/ainews-google-admits-ai-mode-hurts-search-revenue-15-500b-drop-worst-since-2004-ipo-ai-bear-market-c/
 - 还有 4 条
+
+#### safety-and-governance —— 安全与治理
+
+3 个独立源 · 5 个事件（近 2 / 远 3）· 动量 -0.20
+
+动量转负（-0.20，3 个源）—— 注意力在退。
+
+- **GPT‑6 Cyber: Advancing the frontier of aligned cybersecurity agents** — rss:openai-news · https://openai.com/index/introducing-gpt-6-cyber
+- **Setting a new standard for responsible AI infrastructure** — rss:openai-news · https://openai.com/index/setting-new-standard-responsible-ai-infrastructure
+- **October sponsors-only newsletter** — rss:simon-willison · https://simonwillison.net/2026/Nov/3/october-newsletter/
+- **OpenAI appoints Dan Driscoll as Senior Counselor for National Security Modernization** — rss:openai-news · https://openai.com/index/dan-driscoll-joins-openai
+- **Was I wrong about open models & cyber risks?** — rss:interconnects · https://www.interconnects.ai/p/was-i-wrong-about-open-models-and
 
 ## 健康指标
 
-未归类 83 / 166（50.0%）
+未归类 88 / 172（51.2%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-09T16:20:01.000Z · src 2026-11-09T16:20:01.984Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-10T14:53:43.000Z · src 2026-11-10T14:53:42.979Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
