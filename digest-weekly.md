@@ -1,21 +1,35 @@
-# Agent Technology Radar — 周报 — 2026-11-11
+# Agent Technology Radar — 周报 — 2026-11-12
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 182 signal · 未归类 95 / 182（52.2%）
+窗口 336h · 输入 183 signal · 未归类 94 / 183（51.4%）
 
 ## 环的移动
 
-对比基线：2026-11-10T14:53:42.979Z
+对比基线：2026-11-11T14:23:40.901Z
 
-- tool-and-protocol：已确立 → 试用中（动量 +1.00，源 3）
-- inference-and-cost：待观察 → 已确立（动量 +0.20，源 4）
-- product-and-business：沉寂 → 待观察（动量 +0.25，源 2）
-- safety-and-governance：沉寂 → 已确立（动量 +0.00，源 3）
+- model-capability：沉寂 → 已确立（动量 +0.20，源 8）
+- agent-framework：沉寂 → 待观察（动量 +1.00，源 1）
+- dev-tooling：试用中 → 已确立（动量 +0.48，源 7）
+- product-and-business：待观察 → 已确立（动量 +0.33，源 3）
+- safety-and-governance：已确立 → 沉寂（动量 -0.67，源 3）
 
 ## 扇区全貌
 
 ### 已确立（adopt）
+
+#### model-capability —— 模型能力与发布
+
+8 个独立源 · 20 个事件（近 12 / 远 8）· 动量 +0.20
+
+覆盖广（8 个独立源）、动量温和为正（+0.20）—— 生态已收敛且仍在缓升。
+
+- **Release v0.27.1** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.27.1
+- **Gemini Omni 1.2 Flash: Fast and cost-effective with longer clips** — rss:google-deepmind · https://deepmind.google/blog/gemini-omni-12-flash-fast-and-cost-effective-with-longer-clips/
+- **Gemini Decisions API** — rss:simon-willison · https://simonwillison.net/2026/Nov/11/gemini-decisions-api/
+- **Gemini Decisions API: Fast, calibrated multimodal decisions** — rss:google-ai · https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/
+- **llm-gemini 0.36** — rss:simon-willison · https://simonwillison.net/2026/Nov/10/llm-gemini/
+- 还有 15 条
 
 #### inference-and-cost —— 推理与成本
 
@@ -29,18 +43,31 @@
 - **Attention to Mamba: A Recipe for Cross-Architecture Distillation** — rss:apple-ml · https://machinelearning.apple.com/research/attention-mamba-distillation
 - **Import AI 479: Spacewar; low-latency tasks versus LLMs; Genie 4** — rss:import-ai · https://jack-clark.net/2026/11/02/import-ai-479-spacewar-low-latency-tasks-versus-llms-genie-4/
 
-#### safety-and-governance —— 安全与治理
+#### dev-tooling —— 开发者工具与实践
 
-3 个独立源 · 6 个事件（近 3 / 远 3）· 动量 +0.00
+7 个独立源 · 31 个事件（近 23 / 远 8）· 动量 +0.48
 
-覆盖广（3 个独立源）、动量持平 —— 生态已收敛，处于稳定期。
+覆盖广（7 个独立源）、动量温和为正（+0.48）—— 生态已收敛且仍在缓升。
 
-- **Cogent and OpenAI build cyber defense factories for enterprises** — rss:openai-news · https://openai.com/index/cogent-security
-- **GPT‑6 Cyber: Advancing the frontier of aligned cybersecurity agents** — rss:openai-news · https://openai.com/index/introducing-gpt-6-cyber
-- **Setting a new standard for responsible AI infrastructure** — rss:openai-news · https://openai.com/index/setting-new-standard-responsible-ai-infrastructure
-- **October sponsors-only newsletter** — rss:simon-willison · https://simonwillison.net/2026/Nov/3/october-newsletter/
-- **OpenAI appoints Dan Driscoll as Senior Counselor for National Security Modernization** — rss:openai-news · https://openai.com/index/dan-driscoll-joins-openai
-- 还有 1 条
+- **Holiday Extras is rethinking what it can build with Codex** — rss:openai-news · https://openai.com/business/customer-stories/holidays-extras-codex
+- **0.167.2** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.167.2
+- **AI Engineer Code Summit: OpenAI on New Ways of Working With Codex** — rss:latent-space · https://latent.space/p/codex-work/
+- **GitHub App support for Enterprise Copilot seat management** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-10-github-app-support-for-enterprise-copilot-seat-management
+- **0.167.1** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.167.1
+- 还有 26 条
+
+#### product-and-business —— 产品与商业
+
+3 个独立源 · 9 个事件（近 6 / 远 3）· 动量 +0.33
+
+覆盖广（3 个独立源）、动量温和为正（+0.33）—— 生态已收敛且仍在缓升。
+
+- **[AINews] D-Day (Decision Models Day)** — rss:latent-space · https://latent.space/p/ainews-d-day-decision-models-day/
+- **Anthropic's IPO roadshow video** — rss:simon-willison · https://simonwillison.net/2026/Nov/11/anthropic-ipo-roadshow/
+- **[AINews] Mercor $750m Series D at $20B valuation, $3B run rate** — rss:latent-space · https://latent.space/p/ainews-mercor-750m-series-d-at-20b-valuation-3b-run-rate/
+- **What Frontier Labs Buy: A Data Deep Dive with Handshake AI — Garrett Lord & Team** — rss:latent-space · https://latent.space/p/handshake/
+- **NVIDIA Announces New Planned Investments in Korean Startups at the MSIT-NVIDIA AI Startup Partnership Forum** — rss:nvidia-blog · https://blogs.nvidia.com/blog/korean-startup-investments-msit/
+- 还有 4 条
 
 ### 试用中（trial）
 
@@ -56,82 +83,59 @@
 
 #### context-and-memory —— 上下文与记忆
 
-5 个独立源 · 5 个事件（近 5 / 远 0）· 动量 +1.00
+5 个独立源 · 7 个事件（近 6 / 远 1）· 动量 +0.71
 
-覆盖达标（5 个独立源）且动量急升（+1.00）—— 共识形成前的活跃试验期。
+覆盖达标（5 个独立源）且动量急升（+0.71）—— 共识形成前的活跃试验期。
 
+- **Token Pooling-Aware Training for Multi-Vector Embedding Models** — rss:huggingface-blog · https://huggingface.co/blog/token-pooling
 - **From Full to Hybrid Attention in LLMs** — rss:sebastian-raschka · https://sebastianraschka.com/blog/2026/full-to-hybrid-attention.html
+- **Weighted State Souping for Efficient Long-Context Retrieval** — rss:apple-ml · https://machinelearning.apple.com/research/weighted-state-souping
+- **On the Importance of Gating: Memorization vs. In-Context Learning in State Space Models** — rss:apple-ml · https://machinelearning.apple.com/research/gating-memorization-in-context
 - **[AINews] Inkling 2 Small: 17A-594B trained in 68 hours on 12T tokens, beating Muse Spark** — rss:latent-space · https://latent.space/p/ainews-inkling-2-small-17a-594b-trained-in-68-hours-on-12t-tokens-beating-muse-spark/
-- **More Performance From Every Byte: How Full-Stack Codesign Solves AI’s Memory Challenge** — rss:nvidia-blog · https://blogs.nvidia.com/blog/memory-full-stack-codesign/
-- **Faster Retrieval for Better, More Efficient RAG** — rss:apple-ml · https://machinelearning.apple.com/research/faster-retrieval
-- **v2.3.0** — github:mcp-servers · https://github.com/modelcontextprotocol/servers/releases/tag/v2.3.0
-
-#### dev-tooling —— 开发者工具与实践
-
-7 个独立源 · 30 个事件（近 24 / 远 6）· 动量 +0.60
-
-覆盖达标（7 个独立源）且动量急升（+0.60）—— 共识形成前的活跃试验期。
-
-- **AI Engineer Code Summit: OpenAI on New Ways of Working With Codex** — rss:latent-space · https://latent.space/p/codex-work/
-- **GitHub App support for Enterprise Copilot seat management** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-10-github-app-support-for-enterprise-copilot-seat-management
-- **0.167.1** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.167.1
-- **SDK TypeScript Release v0.1.32** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.32
-- **Gemini 4 Carbon in GitHub Copilot** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-10-gemini-4-carbon-in-github-copilot
-- 还有 25 条
+- 还有 2 条
 
 ### 待观察（assess）
 
-#### product-and-business —— 产品与商业
+#### agent-framework —— Agent 框架与编排
 
-2 个独立源 · 8 个事件（近 5 / 远 3）· 动量 +0.25
+1 个独立源 · 1 个事件（近 1 / 远 0）· 动量 +1.00
 
-有升势（+0.25）但独立源偏少（仅 2 个）—— 只够放进观察位。
+有升势（+1.00）但独立源偏少（仅 1 个）—— 只够放进观察位。
 
-- **[AINews] Mercor $750m Series D at $20B valuation, $3B run rate** — rss:latent-space · https://latent.space/p/ainews-mercor-750m-series-d-at-20b-valuation-3b-run-rate/
-- **What Frontier Labs Buy: A Data Deep Dive with Handshake AI — Garrett Lord & Team** — rss:latent-space · https://latent.space/p/handshake/
-- **NVIDIA Announces New Planned Investments in Korean Startups at the MSIT-NVIDIA AI Startup Partnership Forum** — rss:nvidia-blog · https://blogs.nvidia.com/blog/korean-startup-investments-msit/
-- **[AINews] Anthropic IPO: Whither Now?** — rss:latent-space · https://latent.space/p/ainews-anthropic-ipo-whither-now/
-- **‘Hogwarts Legacy’ Gets a Magical NVIDIA DLSS 5 Upgrade on GeForce NOW** — rss:nvidia-blog · https://blogs.nvidia.com/blog/geforce-now-thursday-hogwarts-legacy-dlss-5/
-- 还有 3 条
+- **aws-emulator** — rss:simon-willison · https://simonwillison.net/2026/Nov/11/aws-emulator/
 
 #### eval-and-benchmark —— 评测与基准
 
-2 个独立源 · 3 个事件（近 2 / 远 1）· 动量 +0.33
+2 个独立源 · 4 个事件（近 3 / 远 1）· 动量 +0.50
 
-有升势（+0.33）但独立源偏少（仅 2 个）—— 只够放进观察位。
+有升势（+0.50）但独立源偏少（仅 2 个）—— 只够放进观察位。
 
+- **JioStar’s chief architect on AI discovery at 500M-user scale** — rss:openai-news · https://openai.com/index/jiostar-vijay-seshadri
 - **Egyptian and Nigerian English join the Open ASR Leaderboard** — rss:huggingface-blog · https://huggingface.co/blog/open-asr-leaderboard-liva
 - **Measuring how AI agents handle everyday wet-lab science** — rss:openai-news · https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science
 - **LifeVal** — rss:openai-news · https://openai.com/index/lifeval
 
 ### 沉寂（hold）
 
-#### model-capability —— 模型能力与发布
+#### safety-and-governance —— 安全与治理
 
-9 个独立源 · 23 个事件（近 11 / 远 12）· 动量 -0.04
+3 个独立源 · 6 个事件（近 1 / 远 5）· 动量 -0.67
 
-动量转负（-0.04，9 个源）—— 注意力在退。
+动量转负（-0.67，3 个源）—— 注意力在退。
 
-- **Release v0.67.0** — github:gemini-cli · https://github.com/google-gemini/gemini-cli/releases/tag/v0.67.0
-- **Gemini Omni 1.2 Flash: Fast and cost-effective with longer clips** — rss:google-deepmind · https://deepmind.google/blog/gemini-omni-12-flash-fast-and-cost-effective-with-longer-clips/
-- **llm-gemini 0.36** — rss:simon-willison · https://simonwillison.net/2026/Nov/10/llm-gemini/
-- **Gemini Intelligence: New features, on more devices** — rss:google-ai · https://blog.google/products-and-platforms/platforms/android/gemini-intelligence-november-features-devices/
-- **Gemini 4 Carbon is now available** — rss:google-deepmind · https://deepmind.google/blog/gemini-4-carbon-is-now-available/
-- 还有 18 条
-
-#### agent-framework —— Agent 框架与编排
-
-0 个独立源 · 0 个事件（近 0 / 远 0）· 动量 n/a
-
-窗口内无任何活动。
-
+- **Cogent and OpenAI build cyber defense factories for enterprises** — rss:openai-news · https://openai.com/index/cogent-security
+- **GPT‑6 Cyber: Advancing the frontier of aligned cybersecurity agents** — rss:openai-news · https://openai.com/index/introducing-gpt-6-cyber
+- **Setting a new standard for responsible AI infrastructure** — rss:openai-news · https://openai.com/index/setting-new-standard-responsible-ai-infrastructure
+- **October sponsors-only newsletter** — rss:simon-willison · https://simonwillison.net/2026/Nov/3/october-newsletter/
+- **OpenAI appoints Dan Driscoll as Senior Counselor for National Security Modernization** — rss:openai-news · https://openai.com/index/dan-driscoll-joins-openai
+- 还有 1 条
 
 ## 健康指标
 
-未归类 95 / 182（52.2%）
+未归类 94 / 183（51.4%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-11T14:23:40.000Z · src 2026-11-11T14:23:40.901Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-12T15:15:19.000Z · src 2026-11-12T15:15:19.771Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
