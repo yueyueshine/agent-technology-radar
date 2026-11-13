@@ -1,77 +1,73 @@
-# Agent Technology Radar — 日报 — 2026-11-12
+# Agent Technology Radar — 日报 — 2026-11-13
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 183 signal · 未归类 94 / 183（51.4%）
+窗口 336h · 输入 189 signal · 未归类 93 / 189（49.2%）
 
-## 今日新增 11 条信号
+## 今日新增 13 条信号
 
 ### 已确立（adopt）
 
 #### model-capability —— 模型能力与发布
 
-- **Gemini Decisions API** — rss:simon-willison · https://simonwillison.net/2026/Nov/11/gemini-decisions-api/
-- **Gemini Decisions API: Fast, calibrated multimodal decisions** — rss:google-ai · https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/
+- **llama.cpp v1.0.0 : A stronger foundation for the local AI ecosystem** — rss:huggingface-blog · https://huggingface.co/blog/ggml-org/llama-cpp-v1
+- **Qwen Code Desktop v0.27.3** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/desktop-v0.27.3
+- **Release v0.27.3** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.27.3
+- **llm-gemini 0.37** — rss:simon-willison · https://simonwillison.net/2026/Nov/12/llm-gemini/
+- **Introducing Gemini 4 Hydrogen** — rss:google-deepmind · https://deepmind.google/blog/introducing-gemini-4-hydrogen/
+- 还有 1 条
 
 #### dev-tooling —— 开发者工具与实践
 
-- **Holiday Extras is rethinking what it can build with Codex** — rss:openai-news · https://openai.com/business/customer-stories/holidays-extras-codex
-- **0.167.2** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.167.2
-
-#### product-and-business —— 产品与商业
-
-- **[AINews] D-Day (Decision Models Day)** — rss:latent-space · https://latent.space/p/ainews-d-day-decision-models-day/
-- **Anthropic's IPO roadshow video** — rss:simon-willison · https://simonwillison.net/2026/Nov/11/anthropic-ipo-roadshow/
+- **0.169.0** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.169.0
+- **0.168.0** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.168.0
+- **SDK TypeScript Release v0.1.33** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.33
+- **v2.1.323** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.323
+- **Gondola doubles revenue as its team builds more with Codex** — rss:openai-news · https://openai.com/business/customer-stories/gondola
 
 ### 试用中（trial）
 
-#### context-and-memory —— 上下文与记忆
+#### product-and-business —— 产品与商业
 
-- **Token Pooling-Aware Training for Multi-Vector Embedding Models** — rss:huggingface-blog · https://huggingface.co/blog/token-pooling
-- **On the Importance of Gating: Memorization vs. In-Context Learning in State Space Models** — rss:apple-ml · https://machinelearning.apple.com/research/gating-memorization-in-context
-- **Weighted State Souping for Efficient Long-Context Retrieval** — rss:apple-ml · https://machinelearning.apple.com/research/weighted-state-souping
+- **[AINews] Jensen Huang resigns after 33 years leading NVIDIA** — rss:latent-space · https://latent.space/p/ainews-jensen-huang-resigns-after-33-years-leading-nvidia/
 
-### 待观察（assess）
+### 沉寂（hold）
 
-#### agent-framework —— Agent 框架与编排
+#### safety-and-governance —— 安全与治理
 
-- **aws-emulator** — rss:simon-willison · https://simonwillison.net/2026/Nov/11/aws-emulator/
+- **Theoretical Limits of Language Model Alignment** — rss:apple-ml · https://machinelearning.apple.com/research/theoretical-limits-alignment
 
-#### eval-and-benchmark —— 评测与基准
+## 未归类（6）—— 未归入扇区，非主题
 
-- **JioStar’s chief architect on AI discovery at 500M-user scale** — rss:openai-news · https://openai.com/index/jiostar-vijay-seshadri
-
-## 未归类（12）—— 未归入扇区，非主题
-
-- **A New Dawn in the Cloud: ‘Warhammer 40,000: Dawn of War IV’ Is Coming to GeForce NOW** — rss:nvidia-blog · https://blogs.nvidia.com/blog/geforce-now-thursday-warhammer-dawn-of-war-iv-coming/
-- **The Jev Revolution: What Engineers Are Already Building with System One Models** — rss:latent-space · https://latent.space/p/jev-revolution/
-- **Supporting research on AI and children’s safety** — rss:openai-news · https://openai.com/index/children-first-declaration
-- **The Definitive Fine-Tuning Guide for 3D Generation Models** — rss:huggingface-blog · https://huggingface.co/blog/3d-lora-finetuning
-- **Browse tools.simonwillison.net by tag** — rss:simon-willison · https://simonwillison.net/2026/Nov/11/tools-tags/
-- 还有 7 条
+- **How AI Is Helping Care Teams Get Patients the Right Care, Sooner** — rss:nvidia-blog · https://blogs.nvidia.com/blog/how-ai-is-helping-care-teams/
+- **AI Ambition: ArtCraft Cloned Photoshop and Now Wants to "Rebuild Everything"** — rss:latent-space · https://latent.space/p/artcraft/
+- **v2.14.1** — github:google-adk-python · https://github.com/google/adk-python/releases/tag/v2.14.1
+- **How Amplitude ships product improvements in 1–2 days with OpenAI** — rss:openai-news · https://openai.com/business/customer-stories/amplitude
+- **LLMON: An LLM-Native Markup Language, now in Granite 4.1 3B and 8B** — rss:huggingface-blog · https://huggingface.co/blog/ibm-granite/llmon-an-llm-native-markup-language-now-in-granite
+- 还有 1 条
 
 ## 当前雷达
 
 | 扇区 | 环 | 源 | 事件（近/远） | 动量 |
 | --- | --- | --- | --- | --- |
-| model-capability | 已确立 | 8 | 12 / 8 | +0.20 |
+| model-capability | 已确立 | 9 | 16 / 8 | +0.33 |
 | agent-framework | 待观察 | 1 | 1 / 0 | +1.00 |
 | tool-and-protocol | 试用中 | 3 | 3 / 0 | +1.00 |
-| context-and-memory | 试用中 | 5 | 6 / 1 | +0.71 |
-| inference-and-cost | 已确立 | 4 | 3 / 2 | +0.20 |
-| dev-tooling | 已确立 | 7 | 23 / 8 | +0.48 |
-| product-and-business | 已确立 | 3 | 6 / 3 | +0.33 |
-| safety-and-governance | 沉寂 | 3 | 1 / 5 | -0.67 |
-| eval-and-benchmark | 待观察 | 2 | 3 / 1 | +0.50 |
+| context-and-memory | 已确立 | 5 | 4 / 3 | +0.14 |
+| inference-and-cost | 沉寂 | 4 | 2 / 3 | -0.20 |
+| dev-tooling | 已确立 | 8 | 21 / 12 | +0.27 |
+| product-and-business | 试用中 | 3 | 7 / 2 | +0.56 |
+| safety-and-governance | 沉寂 | 4 | 2 / 5 | -0.43 |
+| eval-and-benchmark | 沉寂 | 2 | 1 / 3 | -0.50 |
 
 > 动量 = 窗口后半段 vs 前半段的事件数对比，未含时间衰减。
 
 ## 健康指标
 
-未归类 94 / 183（51.4%）
+未归类 93 / 189（49.2%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-12T15:15:19.000Z · src 2026-11-12T15:15:19.771Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-13T14:35:41.000Z · src 2026-11-13T14:35:41.086Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
