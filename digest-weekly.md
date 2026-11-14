@@ -1,17 +1,16 @@
-# Agent Technology Radar — 周报 — 2026-11-13
+# Agent Technology Radar — 周报 — 2026-11-14
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 189 signal · 未归类 93 / 189（49.2%）
+窗口 336h · 输入 191 signal · 未归类 91 / 191（47.6%）
 
 ## 环的移动
 
-对比基线：2026-11-12T15:15:19.771Z
+对比基线：2026-11-13T14:35:41.086Z
 
-- context-and-memory：试用中 → 已确立（动量 +0.14，源 5）
-- inference-and-cost：已确立 → 沉寂（动量 -0.20，源 4）
-- product-and-business：已确立 → 试用中（动量 +0.56，源 3）
-- eval-and-benchmark：待观察 → 沉寂（动量 -0.50，源 2）
+- tool-and-protocol：试用中 → 待观察（动量 +1.00，源 2）
+- product-and-business：试用中 → 已确立（动量 +0.40，源 4）
+- safety-and-governance：沉寂 → 已确立（动量 +0.00，源 4）
 
 ## 扇区全貌
 
@@ -19,16 +18,16 @@
 
 #### model-capability —— 模型能力与发布
 
-9 个独立源 · 24 个事件（近 16 / 远 8）· 动量 +0.33
+11 个独立源 · 27 个事件（近 20 / 远 7）· 动量 +0.48
 
-覆盖广（9 个独立源）、动量温和为正（+0.33）—— 生态已收敛且仍在缓升。
+覆盖广（11 个独立源）、动量温和为正（+0.48）—— 生态已收敛且仍在缓升。
 
 - **Release v0.27.3** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.27.3
-- **llama.cpp v1.0.0 : A stronger foundation for the local AI ecosystem** — rss:huggingface-blog · https://huggingface.co/blog/ggml-org/llama-cpp-v1
-- **Qwen Code Desktop v0.27.3** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/desktop-v0.27.3
-- **llm-gemini 0.37** — rss:simon-willison · https://simonwillison.net/2026/Nov/12/llm-gemini/
-- **Introducing Gemini 4 Hydrogen** — rss:google-deepmind · https://deepmind.google/blog/introducing-gemini-4-hydrogen/
-- 还有 19 条
+- **[AINews] The No AI Slop Manifesto** — rss:latent-space · https://latent.space/p/ainews-the-no-ai-slop-manifesto/
+- **v0.14.26** — github:llama-index · https://github.com/run-llama/llama_index/releases/tag/v0.14.26
+- **Upcoming deprecation of selected GitHub Copilot models in December** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december
+- **Gemini 4 Hydrogen in GitHub Copilot** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-13-gemini-4-hydrogen-in-github-copilot
+- 还有 22 条
 
 #### context-and-memory —— 上下文与记忆
 
@@ -45,41 +44,42 @@
 
 #### dev-tooling —— 开发者工具与实践
 
-8 个独立源 · 33 个事件（近 21 / 远 12）· 动量 +0.27
+8 个独立源 · 33 个事件（近 20 / 远 13）· 动量 +0.21
 
-覆盖广（8 个独立源）、动量温和为正（+0.27）—— 生态已收敛且仍在缓升。
+覆盖广（8 个独立源）、动量温和为正（+0.21）—— 生态已收敛且仍在缓升。
 
+- **GitHub Enterprise Server support in the GitHub Copilot app** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-13-github-enterprise-server-support-in-the-github-copilot-app
+- **Introducing ChatGPT Wallet** — rss:openai-news · https://openai.com/index/introducing-chatgpt-wallet
 - **0.169.0** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.169.0
 - **0.168.0** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.168.0
 - **SDK TypeScript Release v0.1.33** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.33
-- **v2.1.323** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.323
-- **Gondola doubles revenue as its team builds more with Codex** — rss:openai-news · https://openai.com/business/customer-stories/gondola
 - 还有 28 条
-
-### 试用中（trial）
-
-#### tool-and-protocol —— 工具与协议
-
-3 个独立源 · 3 个事件（近 3 / 远 0）· 动量 +1.00
-
-覆盖达标（3 个独立源）且动量急升（+1.00）—— 共识形成前的活跃试验期。
-
-- **v2.4.0** — github:mcp-servers · https://github.com/modelcontextprotocol/servers/releases/tag/v2.4.0
-- **v2.1.321** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.321
-- **v2.14.0** — github:google-adk-python · https://github.com/google/adk-python/releases/tag/v2.14.0
 
 #### product-and-business —— 产品与商业
 
-3 个独立源 · 9 个事件（近 7 / 远 2）· 动量 +0.56
+4 个独立源 · 10 个事件（近 7 / 远 3）· 动量 +0.40
 
-覆盖达标（3 个独立源）且动量急升（+0.56）—— 共识形成前的活跃试验期。
+覆盖广（4 个独立源）、动量温和为正（+0.40）—— 生态已收敛且仍在缓升。
 
+- **Open-source AI without Jensen** — rss:interconnects · https://www.interconnects.ai/p/open-source-ai-without-jensen
 - **[AINews] Jensen Huang resigns after 33 years leading NVIDIA** — rss:latent-space · https://latent.space/p/ainews-jensen-huang-resigns-after-33-years-leading-nvidia/
 - **[AINews] D-Day (Decision Models Day)** — rss:latent-space · https://latent.space/p/ainews-d-day-decision-models-day/
 - **Anthropic's IPO roadshow video** — rss:simon-willison · https://simonwillison.net/2026/Nov/11/anthropic-ipo-roadshow/
 - **[AINews] Mercor $750m Series D at $20B valuation, $3B run rate** — rss:latent-space · https://latent.space/p/ainews-mercor-750m-series-d-at-20b-valuation-3b-run-rate/
-- **What Frontier Labs Buy: A Data Deep Dive with Handshake AI — Garrett Lord & Team** — rss:latent-space · https://latent.space/p/handshake/
-- 还有 4 条
+- 还有 5 条
+
+#### safety-and-governance —— 安全与治理
+
+4 个独立源 · 8 个事件（近 4 / 远 4）· 动量 +0.00
+
+覆盖广（4 个独立源）、动量持平 —— 生态已收敛，处于稳定期。
+
+- **datasette-leaflet 0.3** — rss:simon-willison · https://simonwillison.net/2026/Nov/13/datasette-leaflet/
+- **v2.1.325** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.325
+- **Theoretical Limits of Language Model Alignment** — rss:apple-ml · https://machinelearning.apple.com/research/theoretical-limits-alignment
+- **Cogent and OpenAI build cyber defense factories for enterprises** — rss:openai-news · https://openai.com/index/cogent-security
+- **GPT‑6 Cyber: Advancing the frontier of aligned cybersecurity agents** — rss:openai-news · https://openai.com/index/introducing-gpt-6-cyber
+- 还有 3 条
 
 ### 待观察（assess）
 
@@ -90,6 +90,15 @@
 有升势（+1.00）但独立源偏少（仅 1 个）—— 只够放进观察位。
 
 - **aws-emulator** — rss:simon-willison · https://simonwillison.net/2026/Nov/11/aws-emulator/
+
+#### tool-and-protocol —— 工具与协议
+
+2 个独立源 · 2 个事件（近 2 / 远 0）· 动量 +1.00
+
+有升势（+1.00）但独立源偏少（仅 2 个）—— 只够放进观察位。
+
+- **v2.4.0** — github:mcp-servers · https://github.com/modelcontextprotocol/servers/releases/tag/v2.4.0
+- **v2.1.321** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.321
 
 ### 沉寂（hold）
 
@@ -105,19 +114,6 @@
 - **Attention to Mamba: A Recipe for Cross-Architecture Distillation** — rss:apple-ml · https://machinelearning.apple.com/research/attention-mamba-distillation
 - **Import AI 479: Spacewar; low-latency tasks versus LLMs; Genie 4** — rss:import-ai · https://jack-clark.net/2026/11/02/import-ai-479-spacewar-low-latency-tasks-versus-llms-genie-4/
 
-#### safety-and-governance —— 安全与治理
-
-4 个独立源 · 7 个事件（近 2 / 远 5）· 动量 -0.43
-
-动量转负（-0.43，4 个源）—— 注意力在退。
-
-- **Theoretical Limits of Language Model Alignment** — rss:apple-ml · https://machinelearning.apple.com/research/theoretical-limits-alignment
-- **Cogent and OpenAI build cyber defense factories for enterprises** — rss:openai-news · https://openai.com/index/cogent-security
-- **GPT‑6 Cyber: Advancing the frontier of aligned cybersecurity agents** — rss:openai-news · https://openai.com/index/introducing-gpt-6-cyber
-- **Setting a new standard for responsible AI infrastructure** — rss:openai-news · https://openai.com/index/setting-new-standard-responsible-ai-infrastructure
-- **October sponsors-only newsletter** — rss:simon-willison · https://simonwillison.net/2026/Nov/3/october-newsletter/
-- 还有 2 条
-
 #### eval-and-benchmark —— 评测与基准
 
 2 个独立源 · 4 个事件（近 1 / 远 3）· 动量 -0.50
@@ -131,10 +127,10 @@
 
 ## 健康指标
 
-未归类 93 / 189（49.2%）
+未归类 91 / 191（47.6%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-13T14:35:41.000Z · src 2026-11-13T14:35:41.086Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-14T13:31:28.000Z · src 2026-11-14T13:31:28.016Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*

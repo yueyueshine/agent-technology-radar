@@ -1,73 +1,64 @@
-# Agent Technology Radar — 日报 — 2026-11-13
+# Agent Technology Radar — 日报 — 2026-11-14
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 189 signal · 未归类 93 / 189（49.2%）
+窗口 336h · 输入 191 signal · 未归类 91 / 191（47.6%）
 
-## 今日新增 13 条信号
+## 今日新增 9 条信号
 
 ### 已确立（adopt）
 
 #### model-capability —— 模型能力与发布
 
-- **llama.cpp v1.0.0 : A stronger foundation for the local AI ecosystem** — rss:huggingface-blog · https://huggingface.co/blog/ggml-org/llama-cpp-v1
-- **Qwen Code Desktop v0.27.3** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/desktop-v0.27.3
-- **Release v0.27.3** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.27.3
-- **llm-gemini 0.37** — rss:simon-willison · https://simonwillison.net/2026/Nov/12/llm-gemini/
-- **Introducing Gemini 4 Hydrogen** — rss:google-deepmind · https://deepmind.google/blog/introducing-gemini-4-hydrogen/
-- 还有 1 条
+- **[AINews] The No AI Slop Manifesto** — rss:latent-space · https://latent.space/p/ainews-the-no-ai-slop-manifesto/
+- **v0.14.26** — github:llama-index · https://github.com/run-llama/llama_index/releases/tag/v0.14.26
+- **Upcoming deprecation of selected GitHub Copilot models in December** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december
+- **Gemini 4 Hydrogen in GitHub Copilot** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-13-gemini-4-hydrogen-in-github-copilot
 
 #### dev-tooling —— 开发者工具与实践
 
-- **0.169.0** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.169.0
-- **0.168.0** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.168.0
-- **SDK TypeScript Release v0.1.33** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.33
-- **v2.1.323** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.323
-- **Gondola doubles revenue as its team builds more with Codex** — rss:openai-news · https://openai.com/business/customer-stories/gondola
-
-### 试用中（trial）
+- **GitHub Enterprise Server support in the GitHub Copilot app** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-13-github-enterprise-server-support-in-the-github-copilot-app
+- **Introducing ChatGPT Wallet** — rss:openai-news · https://openai.com/index/introducing-chatgpt-wallet
 
 #### product-and-business —— 产品与商业
 
-- **[AINews] Jensen Huang resigns after 33 years leading NVIDIA** — rss:latent-space · https://latent.space/p/ainews-jensen-huang-resigns-after-33-years-leading-nvidia/
-
-### 沉寂（hold）
+- **Open-source AI without Jensen** — rss:interconnects · https://www.interconnects.ai/p/open-source-ai-without-jensen
 
 #### safety-and-governance —— 安全与治理
 
-- **Theoretical Limits of Language Model Alignment** — rss:apple-ml · https://machinelearning.apple.com/research/theoretical-limits-alignment
+- **datasette-leaflet 0.3** — rss:simon-willison · https://simonwillison.net/2026/Nov/13/datasette-leaflet/
+- **v2.1.325** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.325
 
-## 未归类（6）—— 未归入扇区，非主题
+## 未归类（5）—— 未归入扇区，非主题
 
-- **How AI Is Helping Care Teams Get Patients the Right Care, Sooner** — rss:nvidia-blog · https://blogs.nvidia.com/blog/how-ai-is-helping-care-teams/
-- **AI Ambition: ArtCraft Cloned Photoshop and Now Wants to "Rebuild Everything"** — rss:latent-space · https://latent.space/p/artcraft/
-- **v2.14.1** — github:google-adk-python · https://github.com/google/adk-python/releases/tag/v2.14.1
-- **How Amplitude ships product improvements in 1–2 days with OpenAI** — rss:openai-news · https://openai.com/business/customer-stories/amplitude
-- **LLMON: An LLM-Native Markup Language, now in Granite 4.1 3B and 8B** — rss:huggingface-blog · https://huggingface.co/blog/ibm-granite/llmon-an-llm-native-markup-language-now-in-granite
-- 还有 1 条
+- **datasette-cluster-map 0.19** — rss:simon-willison · https://simonwillison.net/2026/Nov/13/datasette-cluster-map/
+- **Build a Robot Pick-and-Place Simulation with SimReady Assets** — rss:huggingface-blog · https://huggingface.co/blog/nvidia/simready-assets-robot-pick-and-place
+- **XYBench: Helping with the problem behind the question** — rss:huggingface-blog · https://huggingface.co/blog/allenai/xybench
+- **langchain-openai==1.8.0** — github:langchain · https://github.com/langchain-ai/langchain/releases/tag/langchain-openai%3D%3D1.8.0
+- **Shield helps technicians hand off legacy portal work with OpenAI** — rss:openai-news · https://openai.com/business/customer-stories/shield
 
 ## 当前雷达
 
 | 扇区 | 环 | 源 | 事件（近/远） | 动量 |
 | --- | --- | --- | --- | --- |
-| model-capability | 已确立 | 9 | 16 / 8 | +0.33 |
+| model-capability | 已确立 | 11 | 20 / 7 | +0.48 |
 | agent-framework | 待观察 | 1 | 1 / 0 | +1.00 |
-| tool-and-protocol | 试用中 | 3 | 3 / 0 | +1.00 |
+| tool-and-protocol | 待观察 | 2 | 2 / 0 | +1.00 |
 | context-and-memory | 已确立 | 5 | 4 / 3 | +0.14 |
 | inference-and-cost | 沉寂 | 4 | 2 / 3 | -0.20 |
-| dev-tooling | 已确立 | 8 | 21 / 12 | +0.27 |
-| product-and-business | 试用中 | 3 | 7 / 2 | +0.56 |
-| safety-and-governance | 沉寂 | 4 | 2 / 5 | -0.43 |
+| dev-tooling | 已确立 | 8 | 20 / 13 | +0.21 |
+| product-and-business | 已确立 | 4 | 7 / 3 | +0.40 |
+| safety-and-governance | 已确立 | 4 | 4 / 4 | +0.00 |
 | eval-and-benchmark | 沉寂 | 2 | 1 / 3 | -0.50 |
 
 > 动量 = 窗口后半段 vs 前半段的事件数对比，未含时间衰减。
 
 ## 健康指标
 
-未归类 93 / 189（49.2%）
+未归类 91 / 191（47.6%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-13T14:35:41.000Z · src 2026-11-13T14:35:41.086Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-14T13:31:28.000Z · src 2026-11-14T13:31:28.016Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
