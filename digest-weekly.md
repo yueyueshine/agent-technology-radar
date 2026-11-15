@@ -1,33 +1,18 @@
-# Agent Technology Radar — 周报 — 2026-11-14
+# Agent Technology Radar — 周报 — 2026-11-15
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 191 signal · 未归类 91 / 191（47.6%）
+窗口 336h · 输入 192 signal · 未归类 94 / 192（49.0%）
 
 ## 环的移动
 
-对比基线：2026-11-13T14:35:41.086Z
+对比基线：2026-11-14T13:31:28.016Z
 
-- tool-and-protocol：试用中 → 待观察（动量 +1.00，源 2）
-- product-and-business：试用中 → 已确立（动量 +0.40，源 4）
-- safety-and-governance：沉寂 → 已确立（动量 +0.00，源 4）
+- model-capability：已确立 → 试用中（动量 +0.54，源 11）
 
 ## 扇区全貌
 
 ### 已确立（adopt）
-
-#### model-capability —— 模型能力与发布
-
-11 个独立源 · 27 个事件（近 20 / 远 7）· 动量 +0.48
-
-覆盖广（11 个独立源）、动量温和为正（+0.48）—— 生态已收敛且仍在缓升。
-
-- **Release v0.27.3** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.27.3
-- **[AINews] The No AI Slop Manifesto** — rss:latent-space · https://latent.space/p/ainews-the-no-ai-slop-manifesto/
-- **v0.14.26** — github:llama-index · https://github.com/run-llama/llama_index/releases/tag/v0.14.26
-- **Upcoming deprecation of selected GitHub Copilot models in December** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december
-- **Gemini 4 Hydrogen in GitHub Copilot** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-13-gemini-4-hydrogen-in-github-copilot
-- 还有 22 条
 
 #### context-and-memory —— 上下文与记忆
 
@@ -48,11 +33,11 @@
 
 覆盖广（8 个独立源）、动量温和为正（+0.21）—— 生态已收敛且仍在缓升。
 
+- **SDK TypeScript Release v0.1.34** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.34
 - **GitHub Enterprise Server support in the GitHub Copilot app** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-13-github-enterprise-server-support-in-the-github-copilot-app
 - **Introducing ChatGPT Wallet** — rss:openai-news · https://openai.com/index/introducing-chatgpt-wallet
 - **0.169.0** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.169.0
 - **0.168.0** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.168.0
-- **SDK TypeScript Release v0.1.33** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.33
 - 还有 28 条
 
 #### product-and-business —— 产品与商业
@@ -70,16 +55,31 @@
 
 #### safety-and-governance —— 安全与治理
 
-4 个独立源 · 8 个事件（近 4 / 远 4）· 动量 +0.00
+4 个独立源 · 7 个事件（近 4 / 远 3）· 动量 +0.14
 
-覆盖广（4 个独立源）、动量持平 —— 生态已收敛，处于稳定期。
+覆盖广（4 个独立源）、动量温和为正（+0.14）—— 生态已收敛且仍在缓升。
 
 - **datasette-leaflet 0.3** — rss:simon-willison · https://simonwillison.net/2026/Nov/13/datasette-leaflet/
 - **v2.1.325** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.325
 - **Theoretical Limits of Language Model Alignment** — rss:apple-ml · https://machinelearning.apple.com/research/theoretical-limits-alignment
 - **Cogent and OpenAI build cyber defense factories for enterprises** — rss:openai-news · https://openai.com/index/cogent-security
 - **GPT‑6 Cyber: Advancing the frontier of aligned cybersecurity agents** — rss:openai-news · https://openai.com/index/introducing-gpt-6-cyber
-- 还有 3 条
+- 还有 2 条
+
+### 试用中（trial）
+
+#### model-capability —— 模型能力与发布
+
+11 个独立源 · 26 个事件（近 20 / 远 6）· 动量 +0.54
+
+覆盖达标（11 个独立源）且动量急升（+0.54）—— 共识形成前的活跃试验期。
+
+- **Release v0.27.4** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.27.4
+- **Qwen Code Desktop v0.27.4** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/desktop-v0.27.4
+- **[AINews] The No AI Slop Manifesto** — rss:latent-space · https://latent.space/p/ainews-the-no-ai-slop-manifesto/
+- **v0.14.26** — github:llama-index · https://github.com/run-llama/llama_index/releases/tag/v0.14.26
+- **Upcoming deprecation of selected GitHub Copilot models in December** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december
+- 还有 21 条
 
 ### 待观察（assess）
 
@@ -127,10 +127,10 @@
 
 ## 健康指标
 
-未归类 91 / 191（47.6%）
+未归类 94 / 192（49.0%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-14T13:31:28.000Z · src 2026-11-14T13:31:28.016Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-15T13:56:42.000Z · src 2026-11-15T13:56:42.315Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
