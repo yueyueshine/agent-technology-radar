@@ -1,14 +1,14 @@
-# Agent Technology Radar — 周报 — 2026-11-15
+# Agent Technology Radar — 周报 — 2026-11-16
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 192 signal · 未归类 94 / 192（49.0%）
+窗口 336h · 输入 194 signal · 未归类 97 / 194（50.0%）
 
 ## 环的移动
 
-对比基线：2026-11-14T13:31:28.016Z
+对比基线：2026-11-15T13:56:42.315Z
 
-- model-capability：已确立 → 试用中（动量 +0.54，源 11）
+- eval-and-benchmark：沉寂 → 已确立（动量 +0.00，源 3）
 
 ## 扇区全貌
 
@@ -29,57 +29,68 @@
 
 #### dev-tooling —— 开发者工具与实践
 
-8 个独立源 · 33 个事件（近 20 / 远 13）· 动量 +0.21
+8 个独立源 · 31 个事件（近 17 / 远 14）· 动量 +0.10
 
-覆盖广（8 个独立源）、动量温和为正（+0.21）—— 生态已收敛且仍在缓升。
+覆盖广（8 个独立源）、动量温和为正（+0.10）—— 生态已收敛且仍在缓升。
 
 - **SDK TypeScript Release v0.1.34** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.34
 - **GitHub Enterprise Server support in the GitHub Copilot app** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-13-github-enterprise-server-support-in-the-github-copilot-app
 - **Introducing ChatGPT Wallet** — rss:openai-news · https://openai.com/index/introducing-chatgpt-wallet
 - **0.169.0** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.169.0
 - **0.168.0** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.168.0
-- 还有 28 条
+- 还有 26 条
 
 #### product-and-business —— 产品与商业
 
-4 个独立源 · 10 个事件（近 7 / 远 3）· 动量 +0.40
+5 个独立源 · 12 个事件（近 8 / 远 4）· 动量 +0.33
 
-覆盖广（4 个独立源）、动量温和为正（+0.40）—— 生态已收敛且仍在缓升。
+覆盖广（5 个独立源）、动量温和为正（+0.33）—— 生态已收敛且仍在缓升。
 
+- **LVMH’s Media Division announces strategic partnership with OpenAI** — rss:openai-news · https://openai.com/index/lvmh-media-division-partnership
+- **The King’s Trust and OpenAI launch £1m partnership** — rss:openai-news · https://openai.com/index/the-kings-trust-and-openai
 - **Open-source AI without Jensen** — rss:interconnects · https://www.interconnects.ai/p/open-source-ai-without-jensen
 - **[AINews] Jensen Huang resigns after 33 years leading NVIDIA** — rss:latent-space · https://latent.space/p/ainews-jensen-huang-resigns-after-33-years-leading-nvidia/
 - **[AINews] D-Day (Decision Models Day)** — rss:latent-space · https://latent.space/p/ainews-d-day-decision-models-day/
-- **Anthropic's IPO roadshow video** — rss:simon-willison · https://simonwillison.net/2026/Nov/11/anthropic-ipo-roadshow/
-- **[AINews] Mercor $750m Series D at $20B valuation, $3B run rate** — rss:latent-space · https://latent.space/p/ainews-mercor-750m-series-d-at-20b-valuation-3b-run-rate/
-- 还有 5 条
+- 还有 7 条
 
 #### safety-and-governance —— 安全与治理
 
-4 个独立源 · 7 个事件（近 4 / 远 3）· 动量 +0.14
+4 个独立源 · 6 个事件（近 4 / 远 2）· 动量 +0.33
 
-覆盖广（4 个独立源）、动量温和为正（+0.14）—— 生态已收敛且仍在缓升。
+覆盖广（4 个独立源）、动量温和为正（+0.33）—— 生态已收敛且仍在缓升。
 
 - **datasette-leaflet 0.3** — rss:simon-willison · https://simonwillison.net/2026/Nov/13/datasette-leaflet/
 - **v2.1.325** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.325
 - **Theoretical Limits of Language Model Alignment** — rss:apple-ml · https://machinelearning.apple.com/research/theoretical-limits-alignment
 - **Cogent and OpenAI build cyber defense factories for enterprises** — rss:openai-news · https://openai.com/index/cogent-security
 - **GPT‑6 Cyber: Advancing the frontier of aligned cybersecurity agents** — rss:openai-news · https://openai.com/index/introducing-gpt-6-cyber
-- 还有 2 条
+- 还有 1 条
+
+#### eval-and-benchmark —— 评测与基准
+
+3 个独立源 · 4 个事件（近 2 / 远 2）· 动量 +0.00
+
+覆盖广（3 个独立源）、动量持平 —— 生态已收敛，处于稳定期。
+
+- **Import AI 481: AI sub-contractors; a wet lab for AI; and subterfuge during development** — rss:import-ai · https://jack-clark.net/2026/11/16/import-ai-481-ai-sub-contractors-a-wet-lab-for-ai-and-subterfuge-during-development/
+- **JioStar’s chief architect on AI discovery at 500M-user scale** — rss:openai-news · https://openai.com/index/jiostar-vijay-seshadri
+- **Egyptian and Nigerian English join the Open ASR Leaderboard** — rss:huggingface-blog · https://huggingface.co/blog/open-asr-leaderboard-liva
+- **Measuring how AI agents handle everyday wet-lab science** — rss:openai-news · https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science
 
 ### 试用中（trial）
 
 #### model-capability —— 模型能力与发布
 
-11 个独立源 · 26 个事件（近 20 / 远 6）· 动量 +0.54
+12 个独立源 · 27 个事件（近 21 / 远 6）· 动量 +0.56
 
-覆盖达标（11 个独立源）且动量急升（+0.54）—— 共识形成前的活跃试验期。
+覆盖达标（12 个独立源）且动量急升（+0.56）—— 共识形成前的活跃试验期。
 
 - **Release v0.27.4** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.27.4
+- **A step toward defining the Standard Model on a lattice** — rss:openai-news · https://openai.com/index/step-toward-defining-the-standard-model
+- **langchain-deepseek==1.2.0** — github:langchain · https://github.com/langchain-ai/langchain/releases/tag/langchain-deepseek%3D%3D1.2.0
 - **Qwen Code Desktop v0.27.4** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/desktop-v0.27.4
 - **[AINews] The No AI Slop Manifesto** — rss:latent-space · https://latent.space/p/ainews-the-no-ai-slop-manifesto/
-- **v0.14.26** — github:llama-index · https://github.com/run-llama/llama_index/releases/tag/v0.14.26
-- **Upcoming deprecation of selected GitHub Copilot models in December** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-13-upcoming-deprecation-of-selected-github-copilot-models-in-december
-- 还有 21 条
+- 还有 22 条
 
 ### 待观察（assess）
 
@@ -104,33 +115,21 @@
 
 #### inference-and-cost —— 推理与成本
 
-4 个独立源 · 5 个事件（近 2 / 远 3）· 动量 -0.20
+3 个独立源 · 4 个事件（近 1 / 远 3）· 动量 -0.50
 
-动量转负（-0.20，4 个源）—— 注意力在退。
+动量转负（-0.50，3 个源）—— 注意力在退。
 
 - **NaiveAI Promises 2,100 Tokens per Second. How Well Does It Code?** — rss:latent-space · https://latent.space/p/naiveai/
 - **NVIDIA Dynamo Recipes Bring Korea’s Leading Open Models to Production** — rss:nvidia-blog · https://blogs.nvidia.com/blog/nvidia-dynamo-korea-open-models/
 - **Vera Delivers the Best of Both Worlds: Highest Throughput and Fastest Agents** — rss:nvidia-blog · https://blogs.nvidia.com/blog/vera-cpu-highest-throughput-fastest-agents/
 - **Attention to Mamba: A Recipe for Cross-Architecture Distillation** — rss:apple-ml · https://machinelearning.apple.com/research/attention-mamba-distillation
-- **Import AI 479: Spacewar; low-latency tasks versus LLMs; Genie 4** — rss:import-ai · https://jack-clark.net/2026/11/02/import-ai-479-spacewar-low-latency-tasks-versus-llms-genie-4/
-
-#### eval-and-benchmark —— 评测与基准
-
-2 个独立源 · 4 个事件（近 1 / 远 3）· 动量 -0.50
-
-动量转负（-0.50，2 个源）—— 注意力在退。
-
-- **JioStar’s chief architect on AI discovery at 500M-user scale** — rss:openai-news · https://openai.com/index/jiostar-vijay-seshadri
-- **Egyptian and Nigerian English join the Open ASR Leaderboard** — rss:huggingface-blog · https://huggingface.co/blog/open-asr-leaderboard-liva
-- **Measuring how AI agents handle everyday wet-lab science** — rss:openai-news · https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science
-- **LifeVal** — rss:openai-news · https://openai.com/index/lifeval
 
 ## 健康指标
 
-未归类 94 / 192（49.0%）
+未归类 97 / 194（50.0%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-15T13:56:42.000Z · src 2026-11-15T13:56:42.315Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-16T15:47:19.000Z · src 2026-11-16T15:47:19.215Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
