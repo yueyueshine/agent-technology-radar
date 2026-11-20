@@ -1,70 +1,75 @@
-# Agent Technology Radar — 日报 — 2026-11-19
+# Agent Technology Radar — 日报 — 2026-11-20
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 201 signal · 未归类 95 / 201（47.3%）
+窗口 336h · 输入 202 signal · 未归类 99 / 202（49.0%）
 
-## 今日新增 14 条信号
+## 今日新增 10 条信号
 
 ### 已确立（adopt）
 
 #### model-capability —— 模型能力与发布
 
-- **[AINews] Gemini 4 Neon: GDM's Opus/Sol Contender** — rss:latent-space · https://latent.space/p/ainews-gemini-4-neon-gdm-s-opus-sol-contender/
-- **Release v0.69.0** — github:gemini-cli · https://github.com/google-gemini/gemini-cli/releases/tag/v0.69.0
-- **v2.1.328** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.328
-- **langchain-openai==1.8.3** — github:langchain · https://github.com/langchain-ai/langchain/releases/tag/langchain-openai%3D%3D1.8.3
-- **llm-gemini 0.38** — rss:simon-willison · https://simonwillison.net/2026/Nov/18/llm-gemini/
-- 还有 3 条
+- **0.171.0** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.171.0
+- **Release v0.70.0** — github:gemini-cli · https://github.com/google-gemini/gemini-cli/releases/tag/v0.70.0
+- **Introducing Tool Retrieval in the Gemini API** — rss:google-ai · https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval/
 
-#### dev-tooling —— 开发者工具与实践
+#### product-and-business —— 产品与商业
 
-- **Connect Supabase, Box, Calendly, and more to Copilot** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-18-connect-supabase-box-calendly-and-more-to-copilot
-- **Customize GitHub Copilot for your team** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-18-customize-github-copilot-for-your-team
-- **Inside the Codex sandbox** — rss:openai-news · https://openai.com/index/inside-the-codex-sandbox
+- **[AINews] Anthropic successfully completes largest IPO in history, valued at $1.5T** — rss:latent-space · https://latent.space/p/ainews-anthropic-successfully-completes-largest-ipo-in-history-valued-at-1-5t/
+- **Scaling Linear’s GTM to $100M ARR — Cristina Cordova, COO** — rss:latent-space · https://latent.space/p/linear-scaling/
 
 ### 试用中（trial）
 
-#### inference-and-cost —— 推理与成本
+#### dev-tooling —— 开发者工具与实践
 
-- **langchain==1.5.1** — github:langchain · https://github.com/langchain-ai/langchain/releases/tag/langchain%3D%3D1.5.1
-- **180B Parameters, 32GB of RAM: Pushing MoE Inference to the Limit with Transformers** — rss:huggingface-blog · https://huggingface.co/blog/moe-expert-streaming
+- **How OpenAI’s Performance Factory keeps ChatGPT fast** — rss:openai-news · https://openai.com/index/how-openai-performance-factory-keeps-chatgpt-fast
+- **See PR scans in action** — rss:openai-news · https://openai.com/business/learn/pr-scans-demo
+- **Explore the Codex Security Plugin** — rss:openai-news · https://openai.com/business/learn/codex-security-plugin-demo
 
-#### safety-and-governance —— 安全与治理
+### 待观察（assess）
 
-- **Managing frontier AI risk: From training to deployment** — rss:openai-news · https://openai.com/index/managing-frontier-ai-risk
+#### agent-framework —— Agent 框架与编排
 
-## 未归类（13）—— 未归入扇区，非主题
+- **langchain-openai==1.8.4** — github:langchain · https://github.com/langchain-ai/langchain/releases/tag/langchain-openai%3D%3D1.8.4
 
-- **langchain-openrouter==0.3.0** — github:langchain · https://github.com/langchain-ai/langchain/releases/tag/langchain-openrouter%3D%3D0.3.0
-- **Season’s Streamings and Savings: Black Friday Deals Come to GeForce NOW** — rss:nvidia-blog · https://blogs.nvidia.com/blog/geforce-now-thursday-black-friday-2026/
-- **langchain==1.5.2** — github:langchain · https://github.com/langchain-ai/langchain/releases/tag/langchain%3D%3D1.5.2
-- **DaisyRose-27B: Pushing the Frontier of Post-Training Efficiency** — rss:huggingface-blog · https://huggingface.co/blog/RadixArk/daisyrose-27b-pushing-the-frontier-of-post-trainin
-- **Why your fine-tuning job takes longer than the FLOPs say** — rss:huggingface-blog · https://huggingface.co/blog/Dharma-AI/predicting-fine-tuning-time
-- 还有 8 条
+### 沉寂（hold）
+
+#### context-and-memory —— 上下文与记忆
+
+- **v2.15.0** — github:google-adk-python · https://github.com/google/adk-python/releases/tag/v2.15.0
+
+## 未归类（11）—— 未归入扇区，非主题
+
+- **Token fraud is here and it’s BAD (YouTube)** — rss:simon-willison · https://simonwillison.net/2026/Nov/20/token-fraud-is-here-and-its-bad/
+- **Introducing harness adapters: adapt your favorite model to your harness to improve performance and cost** — rss:huggingface-blog · https://huggingface.co/blog/harness-adapters-at-scale
+- **langchain-openai==1.8.5** — github:langchain · https://github.com/langchain-ai/langchain/releases/tag/langchain-openai%3D%3D1.8.5
+- **langchain-core==1.8.4** — github:langchain · https://github.com/langchain-ai/langchain/releases/tag/langchain-core%3D%3D1.8.4
+- **v2.1.329** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.329
+- 还有 6 条
 
 ## 当前雷达
 
 | 扇区 | 环 | 源 | 事件（近/远） | 动量 |
 | --- | --- | --- | --- | --- |
-| model-capability | 已确立 | 12 | 20 / 10 | +0.33 |
-| agent-framework | 沉寂 | 1 | 0 / 1 | -1.00 |
+| model-capability | 已确立 | 13 | 18 / 13 | +0.16 |
+| agent-framework | 待观察 | 2 | 1 / 1 | +0.00 |
 | tool-and-protocol | 试用中 | 3 | 3 / 0 | +1.00 |
-| context-and-memory | 沉寂 | 4 | 1 / 4 | -0.60 |
-| inference-and-cost | 试用中 | 4 | 7 / 1 | +0.75 |
-| dev-tooling | 已确立 | 8 | 19 / 8 | +0.41 |
-| product-and-business | 沉寂 | 5 | 6 / 7 | -0.08 |
+| context-and-memory | 沉寂 | 5 | 2 / 4 | -0.33 |
+| inference-and-cost | 试用中 | 3 | 6 / 1 | +0.71 |
+| dev-tooling | 试用中 | 6 | 18 / 6 | +0.50 |
+| product-and-business | 已确立 | 4 | 7 / 6 | +0.08 |
 | safety-and-governance | 试用中 | 4 | 7 / 2 | +0.56 |
-| eval-and-benchmark | 沉寂 | 4 | 1 / 4 | -0.60 |
+| eval-and-benchmark | 沉寂 | 3 | 1 / 2 | -0.33 |
 
 > 动量 = 窗口后半段 vs 前半段的事件数对比，未含时间衰减。
 
 ## 健康指标
 
-未归类 95 / 201（47.3%）
+未归类 99 / 202（49.0%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-19T15:45:23.000Z · src 2026-11-19T15:45:23.815Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-20T15:27:42.000Z · src 2026-11-20T15:27:42.838Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
