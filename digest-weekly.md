@@ -1,16 +1,16 @@
-# Agent Technology Radar — 周报 — 2026-11-20
+# Agent Technology Radar — 周报 — 2026-11-21
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 202 signal · 未归类 99 / 202（49.0%）
+窗口 336h · 输入 207 signal · 未归类 103 / 207（49.8%）
 
 ## 环的移动
 
-对比基线：2026-11-19T15:45:23.815Z
+对比基线：2026-11-20T15:27:42.838Z
 
-- agent-framework：沉寂 → 待观察（动量 +0.00，源 2）
-- dev-tooling：已确立 → 试用中（动量 +0.50，源 6）
-- product-and-business：沉寂 → 已确立（动量 +0.08，源 4）
+- product-and-business：已确立 → 沉寂（动量 -0.08，源 4）
+- safety-and-governance：试用中 → 已确立（动量 +0.25，源 3）
+- eval-and-benchmark：沉寂 → 已确立（动量 +0.00，源 4）
 
 ## 扇区全貌
 
@@ -18,29 +18,40 @@
 
 #### model-capability —— 模型能力与发布
 
-13 个独立源 · 31 个事件（近 18 / 远 13）· 动量 +0.16
+12 个独立源 · 31 个事件（近 17 / 远 14）· 动量 +0.10
 
-覆盖广（13 个独立源）、动量温和为正（+0.16）—— 生态已收敛且仍在缓升。
+覆盖广（12 个独立源）、动量温和为正（+0.10）—— 生态已收敛且仍在缓升。
 
 - **Introducing GPT-6.2 Astra and Sol** — rss:openai-news · https://openai.com/index/introducing-gpt-6-2-astra-sol
 - **Release v0.27.4** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.27.4
 - **0.171.0** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.171.0
+- **Hebbia sees improvements in financial research with GPT-6 Astra** — rss:openai-news · https://openai.com/business/customer-stories/hebbia
 - **Introducing Tool Retrieval in the Gemini API** — rss:google-ai · https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval/
-- **[AINews] Gemini 4 Neon: GDM's Opus/Sol Contender** — rss:latent-space · https://latent.space/p/ainews-gemini-4-neon-gdm-s-opus-sol-contender/
 - 还有 26 条
 
-#### product-and-business —— 产品与商业
+#### safety-and-governance —— 安全与治理
 
-4 个独立源 · 13 个事件（近 7 / 远 6）· 动量 +0.08
+3 个独立源 · 8 个事件（近 5 / 远 3）· 动量 +0.25
 
-覆盖广（4 个独立源）、动量温和为正（+0.08）—— 生态已收敛且仍在缓升。
+覆盖广（3 个独立源）、动量温和为正（+0.25）—— 生态已收敛且仍在缓升。
 
-- **[AINews] Anthropic successfully completes largest IPO in history, valued at $1.5T** — rss:latent-space · https://latent.space/p/ainews-anthropic-successfully-completes-largest-ipo-in-history-valued-at-1-5t/
-- **Scaling Linear’s GTM to $100M ARR — Cristina Cordova, COO** — rss:latent-space · https://latent.space/p/linear-scaling/
-- **Astra for Law leads in legal intelligence** — rss:openai-news · https://openai.com/index/astra-law-6-2
-- **LVMH’s Media Division announces strategic partnership with OpenAI** — rss:openai-news · https://openai.com/index/lvmh-media-division-partnership
-- **The King’s Trust and OpenAI launch £1m partnership** — rss:openai-news · https://openai.com/index/the-kings-trust-and-openai
-- 还有 8 条
+- **Managing frontier AI risk: From training to deployment** — rss:openai-news · https://openai.com/index/managing-frontier-ai-risk
+- **External sandboxes for coding agents** — rss:simon-willison · https://simonwillison.net/2026/Nov/17/external-sandboxes-for-coding-agents/
+- **Strengthening NATO and allied cyber defenses with AI** — rss:openai-news · https://openai.com/index/strengthening-nato-allied-cyber-defences-ai
+- **Introducing OpenAI for Chile** — rss:openai-news · https://openai.com/index/introducing-openai-for-chile
+- **Our first phase of embedded assessments** — rss:openai-news · https://openai.com/index/our-first-phase-of-embedded-assessments
+- 还有 3 条
+
+#### eval-and-benchmark —— 评测与基准
+
+4 个独立源 · 4 个事件（近 2 / 远 2）· 动量 +0.00
+
+覆盖广（4 个独立源）、动量持平 —— 生态已收敛，处于稳定期。
+
+- **How Public Evals Work and Fail, and What Should Change** — rss:eugene-yan · https://eugeneyan.com/writing/public-evals
+- **Import AI 481: AI sub-contractors; a wet lab for AI; and subterfuge during development** — rss:import-ai · https://jack-clark.net/2026/11/16/import-ai-481-ai-sub-contractors-a-wet-lab-for-ai-and-subterfuge-during-development/
+- **JioStar’s chief architect on AI discovery at 500M-user scale** — rss:openai-news · https://openai.com/index/jiostar-vijay-seshadri
+- **Toward a Theory of Evaluability** — rss:apple-ml · https://machinelearning.apple.com/research/theory-evaluability
 
 ### 试用中（trial）
 
@@ -56,42 +67,29 @@
 
 #### inference-and-cost —— 推理与成本
 
-3 个独立源 · 7 个事件（近 6 / 远 1）· 动量 +0.71
+4 个独立源 · 8 个事件（近 7 / 远 1）· 动量 +0.75
 
-覆盖达标（3 个独立源）且动量急升（+0.71）—— 共识形成前的活跃试验期。
+覆盖达标（4 个独立源）且动量急升（+0.75）—— 共识形成前的活跃试验期。
 
+- **Combatting adversarial distillation** — rss:openai-news · https://openai.com/index/combatting-adversarial-distillation
 - **180B Parameters, 32GB of RAM: Pushing MoE Inference to the Limit with Transformers** — rss:huggingface-blog · https://huggingface.co/blog/moe-expert-streaming
 - **Ian Buck Kicks Off NVIDIA’s Week at SC26 as Science Enters the Age of Agents** — rss:nvidia-blog · https://blogs.nvidia.com/blog/ian-buck-sc26/
 - **NVIDIA Sweeps MLPerf Training and Endpoints as Vera Rubin Debuts With Leading Performance** — rss:nvidia-blog · https://blogs.nvidia.com/blog/mlperf-training-endpoints-vera-rubin/
 - **NVIDIA CUDA-X Libraries Give Agents the Tools to Accelerate Scientific Discovery** — rss:nvidia-blog · https://blogs.nvidia.com/blog/cuda-x-libraries-agents-accelerate-scientific-discovery/
-- **CUDA at 20: How the Platform Transformed Scientific Computing** — rss:nvidia-blog · https://blogs.nvidia.com/blog/20-years-cuda/
-- 还有 2 条
+- 还有 3 条
 
 #### dev-tooling —— 开发者工具与实践
 
-6 个独立源 · 24 个事件（近 18 / 远 6）· 动量 +0.50
+6 个独立源 · 23 个事件（近 18 / 远 5）· 动量 +0.57
 
-覆盖达标（6 个独立源）且动量急升（+0.50）—— 共识形成前的活跃试验期。
+覆盖达标（6 个独立源）且动量急升（+0.57）—— 共识形成前的活跃试验期。
 
+- **v2.1.330** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.330
 - **How OpenAI’s Performance Factory keeps ChatGPT fast** — rss:openai-news · https://openai.com/index/how-openai-performance-factory-keeps-chatgpt-fast
 - **Explore the Codex Security Plugin** — rss:openai-news · https://openai.com/business/learn/codex-security-plugin-demo
 - **See PR scans in action** — rss:openai-news · https://openai.com/business/learn/pr-scans-demo
 - **Connect Supabase, Box, Calendly, and more to Copilot** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-18-connect-supabase-box-calendly-and-more-to-copilot
-- **Customize GitHub Copilot for your team** — rss:github-copilot-changelog · https://github.blog/changelog/2026-11-18-customize-github-copilot-for-your-team
-- 还有 19 条
-
-#### safety-and-governance —— 安全与治理
-
-4 个独立源 · 9 个事件（近 7 / 远 2）· 动量 +0.56
-
-覆盖达标（4 个独立源）且动量急升（+0.56）—— 共识形成前的活跃试验期。
-
-- **Managing frontier AI risk: From training to deployment** — rss:openai-news · https://openai.com/index/managing-frontier-ai-risk
-- **External sandboxes for coding agents** — rss:simon-willison · https://simonwillison.net/2026/Nov/17/external-sandboxes-for-coding-agents/
-- **Strengthening NATO and allied cyber defenses with AI** — rss:openai-news · https://openai.com/index/strengthening-nato-allied-cyber-defences-ai
-- **Introducing OpenAI for Chile** — rss:openai-news · https://openai.com/index/introducing-openai-for-chile
-- **Our first phase of embedded assessments** — rss:openai-news · https://openai.com/index/our-first-phase-of-embedded-assessments
-- 还有 4 条
+- 还有 18 条
 
 ### 待观察（assess）
 
@@ -119,22 +117,25 @@
 - **Weighted State Souping for Efficient Long-Context Retrieval** — rss:apple-ml · https://machinelearning.apple.com/research/weighted-state-souping
 - 还有 1 条
 
-#### eval-and-benchmark —— 评测与基准
+#### product-and-business —— 产品与商业
 
-3 个独立源 · 3 个事件（近 1 / 远 2）· 动量 -0.33
+4 个独立源 · 13 个事件（近 6 / 远 7）· 动量 -0.08
 
-动量转负（-0.33，3 个源）—— 注意力在退。
+动量转负（-0.08，4 个源）—— 注意力在退。
 
-- **Import AI 481: AI sub-contractors; a wet lab for AI; and subterfuge during development** — rss:import-ai · https://jack-clark.net/2026/11/16/import-ai-481-ai-sub-contractors-a-wet-lab-for-ai-and-subterfuge-during-development/
-- **JioStar’s chief architect on AI discovery at 500M-user scale** — rss:openai-news · https://openai.com/index/jiostar-vijay-seshadri
-- **Toward a Theory of Evaluability** — rss:apple-ml · https://machinelearning.apple.com/research/theory-evaluability
+- **[AINews] Anthropic successfully completes largest IPO in history, valued at $1.5T** — rss:latent-space · https://latent.space/p/ainews-anthropic-successfully-completes-largest-ipo-in-history-valued-at-1-5t/
+- **Scaling Linear’s GTM to $100M ARR — Cristina Cordova, COO** — rss:latent-space · https://latent.space/p/linear-scaling/
+- **Astra for Law leads in legal intelligence** — rss:openai-news · https://openai.com/index/astra-law-6-2
+- **LVMH’s Media Division announces strategic partnership with OpenAI** — rss:openai-news · https://openai.com/index/lvmh-media-division-partnership
+- **The King’s Trust and OpenAI launch £1m partnership** — rss:openai-news · https://openai.com/index/the-kings-trust-and-openai
+- 还有 8 条
 
 ## 健康指标
 
-未归类 99 / 202（49.0%）
+未归类 103 / 207（49.8%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-20T15:27:42.000Z · src 2026-11-20T15:27:42.838Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-21T14:39:44.000Z · src 2026-11-21T14:39:44.289Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
