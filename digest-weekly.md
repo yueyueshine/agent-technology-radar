@@ -1,16 +1,14 @@
-# Agent Technology Radar — 周报 — 2026-11-21
+# Agent Technology Radar — 周报 — 2026-11-22
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 207 signal · 未归类 103 / 207（49.8%）
+窗口 336h · 输入 208 signal · 未归类 104 / 208（50.0%）
 
 ## 环的移动
 
-对比基线：2026-11-20T15:27:42.838Z
+对比基线：2026-11-21T14:39:44.289Z
 
-- product-and-business：已确立 → 沉寂（动量 -0.08，源 4）
-- safety-and-governance：试用中 → 已确立（动量 +0.25，源 3）
-- eval-and-benchmark：沉寂 → 已确立（动量 +0.00，源 4）
+本周无环变动。
 
 ## 扇区全貌
 
@@ -18,15 +16,15 @@
 
 #### model-capability —— 模型能力与发布
 
-12 个独立源 · 31 个事件（近 17 / 远 14）· 动量 +0.10
+12 个独立源 · 31 个事件（近 18 / 远 13）· 动量 +0.16
 
-覆盖广（12 个独立源）、动量温和为正（+0.10）—— 生态已收敛且仍在缓升。
+覆盖广（12 个独立源）、动量温和为正（+0.16）—— 生态已收敛且仍在缓升。
 
+- **Release v0.28.3** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.28.3
 - **Introducing GPT-6.2 Astra and Sol** — rss:openai-news · https://openai.com/index/introducing-gpt-6-2-astra-sol
-- **Release v0.27.4** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.27.4
+- **Qwen Code Desktop v0.28.4** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/desktop-v0.28.4
+- **llm-gemini 0.38.1** — rss:simon-willison · https://simonwillison.net/2026/Nov/20/llm-gemini/
 - **0.171.0** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.171.0
-- **Hebbia sees improvements in financial research with GPT-6 Astra** — rss:openai-news · https://openai.com/business/customer-stories/hebbia
-- **Introducing Tool Retrieval in the Gemini API** — rss:google-ai · https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval/
 - 还有 26 条
 
 #### safety-and-governance —— 安全与治理
@@ -132,10 +130,10 @@
 
 ## 健康指标
 
-未归类 103 / 207（49.8%）
+未归类 104 / 208（50.0%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-21T14:39:44.000Z · src 2026-11-21T14:39:44.289Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-22T14:35:29.000Z · src 2026-11-22T14:35:29.576Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
