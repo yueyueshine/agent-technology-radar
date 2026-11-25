@@ -1,65 +1,66 @@
-# Agent Technology Radar — 日报 — 2026-11-24
+# Agent Technology Radar — 日报 — 2026-11-25
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 190 signal · 未归类 98 / 190（51.6%）
+窗口 336h · 输入 183 signal · 未归类 94 / 183（51.4%）
 
-## 今日新增 8 条信号
+## 今日新增 7 条信号
 
 ### 已确立（adopt）
 
 #### model-capability —— 模型能力与发布
 
-- **GPT 6.2 Astra Solves a Historical Mystery** — rss:simon-willison · https://simonwillison.net/2026/Nov/24/astra-historical-mystery/
-- **How Gemini is changing the game for Golden State's organization and fans.** — rss:google-ai · https://blog.google/products-and-platforms/products/gemini/gemini-golden-state/
-- **Release v0.71.1** — github:gemini-cli · https://github.com/google-gemini/gemini-cli/releases/tag/v0.71.1
-- **Release v0.71.0** — github:gemini-cli · https://github.com/google-gemini/gemini-cli/releases/tag/v0.71.0
-- **Richpanel helps companies automate 50% of support in 30 days** — rss:openai-news · https://openai.com/business/customer-stories/richpanel-ai-customer-support
-- 还有 1 条
+- **[AINews] Gemini 4 Neon marks GDM's full return as a Frontier Lab** — rss:latent-space · https://latent.space/p/ainews-gemini-4-neon-marks-gdm-s-full-return-as-a-frontier-lab/
+- **GPT-6 models demonstrate intrinsic protein-design capabilities** — rss:openai-news · https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities
+- **Clay helps sales teams win with Codex and ChatGPT** — rss:openai-news · https://openai.com/business/customer-stories/clay-plugins-openai
 
-### 待观察（assess）
+### 试用中（trial）
 
 #### tool-and-protocol —— 工具与协议
 
-- **0.172.0** — github:openai-codex · https://github.com/openai/codex/releases/tag/rust-v0.172.0
+- **v2.1.332** — github:anthropic-claude-code · https://github.com/anthropics/claude-code/releases/tag/v2.1.332
+- **v2.15.1** — github:google-adk-python · https://github.com/google/adk-python/releases/tag/v2.15.1
 
 ### 沉寂（hold）
 
-#### product-and-business —— 产品与商业
+#### inference-and-cost —— 推理与成本
 
-- **[AINews] Jensen Is Back! and OpenAI Shows Its Pretraining Curve, joined by Microsoft** — rss:latent-space · https://latent.space/p/ainews-jensen-is-back-and-openai-shows-its-pretraining-curve-joined-by-microsoft/
+- **Hill-climbing Inkling 2 Mini inference on one RTX PRO 6000** — rss:huggingface-blog · https://huggingface.co/blog/inkling-2-mini-inference-hillclimb
 
-## 未归类（8）—— 未归入扇区，非主题
+#### dev-tooling —— 开发者工具与实践
 
-- **Microduck Obstacle Avoidance: A Sim2Real Workflow with Isaac Lab and Newton** — rss:huggingface-blog · https://huggingface.co/blog/nvidia/microduck-obstacle-avoidance
-- **datasette-charts 0.2a0** — rss:simon-willison · https://simonwillison.net/2026/Nov/24/datasette-charts/
-- **datasette-agent 0.7a1** — rss:simon-willison · https://simonwillison.net/2026/Nov/24/datasette-agent/
-- **GLM-5.4: Toward Generalized Coding with Our First Loop Transformer** — rss:simon-willison · https://simonwillison.net/2026/Nov/23/glm-54/
-- **Ladybird's first alpha release** — rss:simon-willison · https://simonwillison.net/2026/Nov/23/ladybird/
-- 还有 3 条
+- **Searching for distant planets with Astra** — rss:openai-news · https://openai.com/index/searching-for-distant-planets-with-astra
+
+## 未归类（5）—— 未归入扇区，非主题
+
+- **An Indic Voice Agent with CUGA** — rss:huggingface-blog · https://huggingface.co/blog/ibm-research/an-indic-voice-agent-with-cuga
+- **Three LLM inflection points in twelve months** — rss:simon-willison · https://simonwillison.net/2026/Nov/24/llm-inflection-points/
+- **From spectrum to structure: Identifying molecules with Mass Spec Skills for Google Antigravity** — rss:google-deepmind · https://deepmind.google/blog/interpreting-mass-spectra-with-google-antigravity/
+- **How Intentful uses dots to make more time for growth** — rss:openai-news · https://openai.com/business/customer-stories/intentful-dots
+- **How iFood scales coding agents across 15,000 repositories** — rss:openai-news · https://openai.com/business/customer-stories/ifood
 
 ## 当前雷达
 
 | 扇区 | 环 | 源 | 事件（近/远） | 动量 |
 | --- | --- | --- | --- | --- |
-| model-capability | 已确立 | 11 | 20 / 9 | +0.38 |
+| model-capability | 已确立 | 11 | 20 / 11 | +0.29 |
 | agent-framework | 沉寂 | 0 | 0 / 0 | n/a |
-| tool-and-protocol | 待观察 | 2 | 3 / 0 | +1.00 |
-| context-and-memory | 已确立 | 3 | 2 / 1 | +0.33 |
-| inference-and-cost | 沉寂 | 4 | 2 / 6 | -0.50 |
-| dev-tooling | 已确立 | 5 | 15 / 6 | +0.43 |
-| product-and-business | 沉寂 | 3 | 3 / 8 | -0.45 |
-| safety-and-governance | 沉寂 | 3 | 2 / 4 | -0.33 |
-| eval-and-benchmark | 已确立 | 3 | 2 / 2 | +0.00 |
+| tool-and-protocol | 试用中 | 3 | 3 / 0 | +1.00 |
+| context-and-memory | 待观察 | 2 | 1 / 1 | +0.00 |
+| inference-and-cost | 沉寂 | 3 | 2 / 6 | -0.50 |
+| dev-tooling | 沉寂 | 4 | 6 / 13 | -0.37 |
+| product-and-business | 沉寂 | 3 | 3 / 7 | -0.40 |
+| safety-and-governance | 沉寂 | 3 | 0 / 6 | -1.00 |
+| eval-and-benchmark | 待观察 | 2 | 2 / 1 | +0.33 |
 
 > 动量 = 窗口后半段 vs 前半段的事件数对比，未含时间衰减。
 
 ## 健康指标
 
-未归类 98 / 190（51.6%）
+未归类 94 / 183（51.4%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-24T17:45:31.000Z · src 2026-11-24T17:45:31.056Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-25T17:14:01.000Z · src 2026-11-25T17:14:01.753Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
