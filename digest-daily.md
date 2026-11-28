@@ -1,43 +1,39 @@
-# Agent Technology Radar — 日报 — 2026-11-27
+# Agent Technology Radar — 日报 — 2026-11-28
 
 > 生态注意力视角。环 = 生态注意力的成熟度，不是「该不该用」。
 
-窗口 336h · 输入 167 signal · 未归类 85 / 167（50.9%）
+窗口 336h · 输入 149 signal · 未归类 79 / 149（53.0%）
 
-## 今日新增 4 条信号
+## 今日新增 2 条信号
 
-### 试用中（trial）
+### 待观察（assess）
 
 #### tool-and-protocol —— 工具与协议
 
-- **v2.6.0** — github:mcp-servers · https://github.com/modelcontextprotocol/servers/releases/tag/v2.6.0
+- **datasette-mcp 0.4** — rss:simon-willison · https://simonwillison.net/2026/Nov/27/datasette-mcp/
 
 ### 沉寂（hold）
 
 #### model-capability —— 模型能力与发布
 
-- **Release v0.28.7** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/v0.28.7
+- **datasette-charts 0.4a0** — rss:simon-willison · https://simonwillison.net/2026/Nov/27/datasette-charts/
 
-#### dev-tooling —— 开发者工具与实践
+## 未归类（2）—— 未归入扇区，非主题
 
-- **SDK TypeScript Release sdk-typescript-v0.1.39** — github:qwen-code · https://github.com/QwenLM/qwen-code/releases/tag/sdk-typescript-v0.1.39
-- **How Clay Builds GTM Agents — Jeff Barg, Head of AI** — rss:latent-space · https://latent.space/p/how-clay-builds-gtm-agents-jeff-barg-head-of-ai/
-
-## 未归类（1）—— 未归入扇区，非主题
-
-- **Taking Trainium3 to the Track: Generating Videos with LTX-2.5** — rss:huggingface-blog · https://huggingface.co/blog/video-trainium3
+- **[AINews] Inside the exploding Coding Data Market** — rss:latent-space · https://latent.space/p/ainews-inside-the-exploding-coding-data-market/
+- **Inside the AI Training Data Market — Gabe Greenberg, G2i** — rss:latent-space · https://latent.space/p/inside_the_ai_training_data_market_gabe_greenberg_g2i/
 
 ## 当前雷达
 
 | 扇区 | 环 | 源 | 事件（近/远） | 动量 |
 | --- | --- | --- | --- | --- |
-| model-capability | 沉寂 | 9 | 11 / 14 | -0.12 |
+| model-capability | 沉寂 | 7 | 11 / 13 | -0.08 |
 | agent-framework | 待观察 | 1 | 1 / 0 | +1.00 |
-| tool-and-protocol | 试用中 | 4 | 4 / 0 | +1.00 |
+| tool-and-protocol | 待观察 | 1 | 1 / 0 | +1.00 |
 | context-and-memory | 沉寂 | 1 | 0 / 1 | -1.00 |
 | inference-and-cost | 沉寂 | 3 | 2 / 7 | -0.56 |
-| dev-tooling | 沉寂 | 5 | 6 / 13 | -0.37 |
-| product-and-business | 沉寂 | 3 | 1 / 8 | -0.78 |
+| dev-tooling | 沉寂 | 3 | 3 / 13 | -0.63 |
+| product-and-business | 沉寂 | 2 | 1 / 7 | -0.75 |
 | safety-and-governance | 沉寂 | 2 | 0 / 5 | -1.00 |
 | eval-and-benchmark | 待观察 | 2 | 2 / 1 | +0.33 |
 
@@ -45,10 +41,10 @@
 
 ## 健康指标
 
-未归类 85 / 167（50.9%）
+未归类 79 / 149（53.0%）
 
 ---
 
-<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-27T16:40:16.000Z · src 2026-11-27T16:40:16.944Z -->
+<!-- digest v1 · radar v1 · taxonomy v1 · generated 2026-11-28T15:31:30.000Z · src 2026-11-28T15:31:30.444Z -->
 
 *Generated through the Follow Builders skill: https://github.com/yueyueshine/agent-technology-radar*
